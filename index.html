@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="294137411553-la3pudpu3292o78t8gukgqb6d9o8uvm2.apps.googleusercontent.com">
     <title>TODO-CLIENT</title>
     
 </head>
@@ -25,6 +26,9 @@
         <button type="button" id="btn-register" >Register here</button>
         <br>
         <br>
+
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
 
         <p class="remarks">
             
@@ -59,10 +63,13 @@
     <div id="dashboard-page">
         <h2>WELCOME BACK TO TODO-LIST!</h2>
         <BR>
+        
+            <button type="button" id="btn-logout">LOGOUT</button>
+            <BR>
 
         <h3>MY TODOS</h3>
-            <table>
-                <thead>
+            <table id="tbl-todos">
+                <thead >
                     <tr>
                         <th>ID</th>
                         <th>Title</th>
@@ -79,18 +86,18 @@
             </table>
         <br>
 
-        <h3>CREATE TO-DO</h3>
-        <form id="create-todo">
+        <!-- <h3>CREATE TO-DO</h3>
+        <form id="create-todo" onsubmit="createTodo(event)">
             Title:<br>
-            <input type="text" name="create-todo-title" class="todo-title"><br>
+            <input type="text" name="create-todo-title" id="create-todo-title"><br>
             Description:<br>
-            <input type="text" name="create-todo-description" class="todo-description"><br>
+            <input type="text" name="create-todo-description" id="create-todo-description"><br>
             Status:<br>
-            <input type="radio" name="create-todo-status" class="todo-status" value="pending"> Pending
-            <input type="radio" name="create-todo-status" class="todo-status" value="done"> Done
+            <input type="radio" name="create-todo-status" class="create-todo-status" value="pending"> Pending
+            <input type="radio" name="create-todo-status" class="create-todo-status" value="done"> Done
             <br>
             Due Date:<br>
-            <input type="date" class="todo-due_date" name="create-todo-due_date"><br><br>
+            <input type="date" id="create-todo-due_date" name="create-todo-due_date"><br><br>
             <input type="submit" value="CREATE">
         </form>
 
@@ -123,9 +130,10 @@
             <input type="text" name="delete-todo-id" class="todo-id"><br><br>
             <input type="submit" value="DELETE">
         </form>
-    </div>
+    </div> -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="index.js"></script>
 </body>
 </html>
