@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fancy Todo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            background-image: ;
+        }
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            border: 1px solid rgb(109, 107, 107);
+        }
+        table, td, th {
+            border: 1px solid black;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: rgb(146, 228, 243);
+            color: black;
+        }
+
+        #div-homepage {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href=""><img src="/img/logo todolist.png" alt="" style="width: 100px;"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+    <section id="home">
+        <h1 style="margin-left: 30px;">HOME</h1>
+        <div id="div-homepage">
+            <div style="width: 40%; background-color: aqua; height: 100vh;">
+                <form style="margin: 0 30px;">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Email address</label>
+                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Password</label>
+                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <button id="btn-login">login</button>
+                <button id="btn-register">register</button>
+            </div>
+            <div style="width: 60%; background-color: burlywood;">
+                <img src="/img//634483-SEO_Audit-512.png" alt="">
+            </div>
+        </div>
+    </section>
+    <section id="dashboard">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href=""><img src="/img/logo todolist.png" alt="" style="width: 100px;"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="">List Todo</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="">Create Todo</a>
+                </li>
+                <li class="nav-item" style="margin-left: 700px;">
+                  <a class="nav-link" href="">login</a>
+                </li>
+              </ul>
+            </div>
+        </nav>
+        <button id="btn-logout">logout</button>
+        <h3>Todos</h3>
+        <table id="table-todos">
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Descriptions</th>
+                <th>Status</th>
+                <th>Due Date</th>
+            </tr>
+        </table>
+    </section>
+    <section id="login">
+        <h1>LOGIN</h1>
+        <button class="btn-home">home</button>
+        <br>
+        <br>
+        <form id="login-form">
+            <input id="email-login" type="text" placeholder="email">
+            <input id="password-login" type="password" placeholder="password">
+            <input type="submit" value="Login">
+        </form>
+    </section>
+    <section id="register">
+        <h1>REGISTER</h1>
+        <button class="btn-home">home</button>
+        <br>
+        <br>
+        <form id="register-form">
+            <input id="email-register" type="text" placeholder="email">
+            <input id="password-register" type="password" placeholder="password">
+            <input type="submit" value="Register">
+        </form>
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
