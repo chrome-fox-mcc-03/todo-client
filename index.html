@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container">
+		<section id="signUp-page">
+			<h2>Sign Up</h2>
+			<form id="form-signUp">
+				<input type="name" name="signup-name" id="signup-name" placeholder="Your Name">
+				<input type="email" name="signup-email" id="signup-email" placeholder="Your Email">
+				<input type="password" name="signup-password" id="signup-password" placeholder="Your Password">
+				<input type="submit" value="Sign Up">
+			</form>
+		</section>
+
+		<section id="signIn-page">
+			<h2>Sign In</h2>
+			<form id="form-signIn">
+				<input type="email" name="signin-email" id="signin-email" placeholder="Your Email">
+				<input type="password" name="signin-password" id="signin-password" placeholder="Your Password">
+				<input type="submit" value="Sign In">
+			</form>
+		</section>
+		
+		<section id="todo-list-page">
+			<form id="form-signOut">
+				<input type="submit" value="Sign Out">
+			</form>
+			<button type="button" class="btn btn-primary" onClick="showForm()">Add New To Do</button>
+			<h1>Your To Do</h1>
+			<table class="table">
+				<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Title</th>
+					<th scope="col">Status</th>
+					<th scope="col">Due Date</th>
+					<th scope="col" colspan="2" style="text-align: center;">Action</th>
+				</tr>
+				</thead>
+				<tbody id="todo-body">
+					
+				</tbody>
+			</table>
+		</section>
+
+		<section id="todo-form-page">
+			<h1 id="todo-form-title">Add New To Do Form</h1>
+			<form id="todo-form">
+				<div class="form-group">
+					<label for="todo-title">Title</label>
+					<input type="text" class="form-control" placeholder="To Do Title" id="todo-title" name="title">
+				</div>
+				<div class="form-group">
+					<label for="todo-description">Description</label>
+					<textarea class="form-control" id="todo-description" name="todo-description" rows="5" placeholder="Input To Do Description Here"></textarea>
+				</div>
+				<div class="form-group">
+					<label for="todo-due_date">Due Date</label>
+					<input type="date" class="form-control" name="todo-due_date" id="todo-due_date">
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger" onClick="cancelToDoForm()">Cancel</button>
+			</form>
+		</section>
+	</div>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+	<script src="index.js"></script>
+</body>
+</html>
