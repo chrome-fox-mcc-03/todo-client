@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section id="landing-page">
+      <form id="landing-register">
+        <h1>Register</h1>
+        <label for="register-email">Email:</label><br />
+        <input type="text" id="register-email" /><br />
+        <label for="register-password">Password:</label><br />
+        <input type="text" id="register-password" /><br />
+        <input type="submit" value="register" id="register-submit" />
+        <button type="button" id="login-link">change to login</button>
+      </form>
+      <form id="landing-login">
+        <h1>Log In</h1>
+        <label for="login-email">Email:</label><br />
+        <input type="text" id="login-email" /><br />
+        <label for="login-password">Password:</label><br />
+        <input type="text" id="login-password" /><br />
+        <input type="submit" value="login" id="login-submit" />
+        <button type="button" id="register-link">change to register</button>
+      </form>
+    </section>
+    <section id="dashboard-page">
+      <h1>Dashboard Page</h1>
+      <h3>hello</h3>
+      <button type="button" id="create-link">Create a new Todo</button>
+      <div id="dashboard-todos-all">
+        <table  id="dashboard-todos-all-table" style="width:100%" border="1">
+          <h1>This is all the Todos</h1>
+          <tr>
+            <th>id</th>
+            <th>title</th>
+            <th>description</th>
+            <th>status</th>
+            <th>due date</th>
+            <th>option</th>
+          </tr>
+        </table>
+      </div>
+      <div id="dashboard-create">
+        <form>
+          <h1>Create a new Todo</h1>
+          <label for="create-title">Title:</label><br />
+          <input type="text" id="create-title" /><br />
+          <label for="create-description">Description:</label><br />
+          <input type="text" id="create-description" /><br />
+          <label for="create-status">Status:</label><br />
+          <select id="create-status">
+            <option value="true">true</option>
+            <option value="false" selected>false</option> </select
+          ><br />
+          <label for="create-due-date">Due Date:</label><br />
+          <input type="date" id="create-due-date" /><br />
+          <input type="submit" value="Create" id="create-submit" />
+        </form>
+      </div>
+    </section>
+    <!-- JQUERY CDN -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"
+    ></script>
+    <!-- index.js -->
+    <script src="/index.js"></script>
+  </body>
+</html>
