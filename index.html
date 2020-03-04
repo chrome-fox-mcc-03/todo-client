@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>AppQ</title>
+        <meta name="google-signin-client_id" content="698221343706-t1ij4b7mmq8qo9j4u5qi630b7a9djehu.apps.googleusercontent.com">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    </head>
+    <body>
+        <h1>Coba bang</h1>
+        <section id="register-container" style="display: none;">
+            <h3>Register</h3>
+            <form id="register-form">
+                <input id="email-new" type="text" autofocus placeholder="email"><br>
+                <input id="pass-new" type="password" placeholder="password"><br>
+                <input id="name-new" type="text" placeholder="display name (optional)"><br>
+                <input type="submit" value="Register">
+            </form>
+        </section>
+        <section id="login-container" style="display: none;">
+            <h3>Login</h3>
+            <form id="login-form">
+                <input id="email-input" type="text" autofocus placeholder="email">
+                <input id="pass-input" type="password" placeholder="password">
+                <input type="submit" value="Login">
+            </form>
+        </section>
+        <section id="oauth-container" style="display: none;">
+            <h3>OAuth Access</h3>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        </section>
+        <section id="testLogin" style="display: none;">
+            <br>
+            <button id="logout-button">Logout bang</button>
+        </section>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <script src="src/app.js"></script>
+        <script src="src/gAuth.js"></script>
+    </body>
+</html>
