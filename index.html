@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-signin-client_id" content="490458742511-2m7pr85cq26u013cnskurj96cqq3v0bq.apps.googleusercontent.com">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="register-page">
+    <h1>Register Page</h1>
+    <form id="form-register">
+      <label for="email">Email:</label><br>
+      <input id="email-register" type="text" name="email"><br>
+      <label for="password">Password:</label><br>
+      <input id="password-register" type="password" name="password"><br>
+      <input type="submit" value="Submit">
+    </form>
+    <p> Already have account? <a id="login-btn" href="#">LogIn</a></p>
+  </div>
+  <div id="login-page">
+    <h1>Log-In Page</h1>
+    <form id="form-login">
+      <label for="email">Email:</label><br>
+      <input id="email-login" type="text" name="email"><br>
+      <label for="password">Password:</label><br>
+      <input id="password-login" type="password" name="password"><br>
+      <input type="submit" value="Submit">
+    </form>
+    <p> Need account? <a id="register-btn" href="#">Register</a></p>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+  </div>
+  <div id="dashboard-page">
+    <h1>Dashboard</h1>
+    <div id="todos"></div>
+    <input id="logout-btn" type="submit" value="Log-Out">
+    <input id="create-btn" type="button" value="Create Todo">
+  </div>
+  <div id="create-page">
+    <form id="create-form">
+      <label for="title">Title:</label><br>
+      <input id="todo-title" type="text" name="title" placeholder="title"><br>
+      <label for="description">Description:</label><br>
+      <input id="todo-description" type="text" name="description" placeholder="description"><br>
+      <label for="due_date">Due Date:</label><br>
+      <input id="todo-due_date" type="date" name="due_date" ><br>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+  <div id="update-page">
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="index.js"></script>
+</body>
+
+</html>
