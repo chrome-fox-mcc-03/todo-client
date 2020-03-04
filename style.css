@@ -1,0 +1,83 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+#jumbotron{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#containerHelper{
+    width: 100vw;
+    height:90vh;
+    display: flex;
+}
+
+#jumbowords{
+    width: 33vw;
+    height: 90vh;
+    text-align: center;
+    /* background-color: brown; */
+}
+#jumbowords img{
+    width: 20vw;
+    height: 20vh;
+    margin: 10px;
+    text-align: center;
+    /* background-color: brown; */
+}
+#jumbowords p{
+    margin: 30px;
+    text-align: center;
+    /* background-color: brown; */
+}
+#separator{
+    height: 10vh;
+}
+.jumboimg{
+    width: 33vw;
+    height: 90vh;
+}
+.jumboimg img{
+
+}
+.topnav{
+    height: 5vh;
+    width: 100vw;
+    display: flex;
+    /* margin: 20px; */
+    justify-content: space-between;
+    align-items: center;
+    background-color: #dcd6f7;
+}
+.navbutton{
+    margin: 10px;
+    padding: 10px;
+    text-decoration: none;
+    color: #424874;
+}
+.navbutton:hover{
+    color: #ea728c;
+}
+#button-started{
+    display: inline-block;
+    margin: 50px 10px;
+    height: 5%;
+    width: 20%;
+    border-radius: 15px;
+}
+
+footer{
+    display: flex;
+    text-align: center;
+    background-color: #a6b1e1;
+    height: 5vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+}
+footer p{
+    vertical-align: middle;
+    margin: 0 auto;
+}

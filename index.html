@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="474911212118-9mi0e9einsnn4m8ntogoau9ergp7563g.apps.googleusercontent.com">
+    <title>To Do Apps</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="form.css">
+    <link rel="stylesheet" href="table.css">
+</head>
+<body>
+    <div class="topnav">
+        <div id="navleft">
+            <a class="navbutton" id="btn-home" href="#">Home</a>
+            <a class="navbutton" id="btn-todos" href="#">All Todos</a>
+            <a class="navbutton" id="btn-add" href="#">Add Todo</a>
+            <a class="navbutton" id="btn-delete" href="#">Delete Todo</a>
+            <a class="navbutton" id="btn-getById" href="#">Get Todo</a>
+        </div>
+        <div id="navright">
+            <a class="navbutton" id="btn-reg" href="#">Register</a>
+            <a class="navbutton" id="btn-login" href="#">Login</a>
+            <a class="navbutton" id="btn-logout" href="#">Logout</a>
+        </div>
+    </div>
+    <div id="divTable">
+        <table id="tabletodos">
+            <thead>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Due Date</th>
+                <th>Actions</th>
+            </thead>
+            <tbody id="tablebody">
+
+            </tbody>
+        </table>
+    </div>
+
+    <div id="jumbotron">
+        <div id="containerHelper">
+            <div class="jumboimg">
+                <img src="./img/jumbo1.svg" alt="businessman">
+            </div>
+            <div id="jumbowords">
+                <img src="./img/jumbotron.svg">
+                <h1>Welcome to Todo Apps</h1>
+                <p>Todo Apps gives you an opportunity to be more
+                    organized
+                </p>
+                <button id="button-started">Get Started</button>
+            </div>
+            <div class="jumboimg">
+                <img src="./img/jumbo2.svg" alt="businesswoman">
+            </div>
+        </div>
+    </div>
+    <div id="container2">
+        <div class="containerSection" id="containerReg">
+            <h1 class="title">Register</h1>
+            <form class="form" id="form-register">
+                <input id="emailReg" type="text" placeholder="Email"><br>
+                <input id="passwordReg" type="password" placeholder="Password"><br>
+                <input class="submit" type="submit" value="Register">
+            </form>
+        </div>
+        <div class="containerSection" id="containerLogin">
+            <h1 class="title" id="Login">Login</h1>
+            <form class="form" id="form-login">
+                <input id="emailLogin" type="text" placeholder="Email"><br>
+                <input id="passwordLogin" type="password" placeholder="Password"><br>
+                <input type="submit" value="Login">
+            </form>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <a href="#" onclick="signOut();">Sign out</a>
+        </div>
+        <div class="containerSection" id="containerAdd">
+            <h1 class="title">Add New Todo</h1>
+            <form class="form" id="formAdd">
+                <input id="titleAdd" type="text" placeholder="Title"><br>
+                <input id="descriptionAdd" type="text" placeholder="Description"><br>
+                <select id="status">
+                    <option value="">---STATUS---</option>
+                    <option value="false">False</option>
+                    <option value="true">True</option>
+                </select><br>
+                <input id="due_dateAdd" type="date"><br>
+                <input type="submit" value="Add">
+            </form>
+        </div>
+        <!-- <button id="getAll">Get All</button> -->
+        <div class="containerSection" id="containerUpdate">
+            <h1 class="title">Update Todo</h1>
+            <form class="form" id="formUpdate">
+                <input id="idUpdate" type="number" placeholder="Id"><br>
+                <input id="titleUpdate" type="text" placeholder="Title"><br>
+                <input id="descriptionUpdate" type="text" placeholder="Description"><br>
+                <select id="statusUpdate">
+                    <option value="">---SELECT---</option>
+                    <option value="false">False</option>
+                    <option value="true">True</option>
+                </select><br>
+                <input id="due_dateUpdate" type="date"><br>
+                <input type="submit" value="Update">
+            </form>
+        </div>
+        <div class="containerSection" id="containerGetById">
+            <h1 class="title">Get By Id</h1>
+            <form class="form" id="formGetById">
+                <input id="getById" type="number" placeholder="Id"><br>
+                <input type="submit" value="Get By Id">
+            </form>
+        </div>
+        <div class="containerSection" id="containerDeleteById">
+            <h1 class="title">Delete By Id</h1>
+            <form class="form" id="formDeleteById">
+                <input id="deleteById" type="number" placeholder="Id"><br>
+                <input type="submit" value="Delete By Id">
+            </form>
+        </div>
+    </div>
+    <footer>
+        <div>
+            <p>Made by Naufal @2020</p>
+        </div>
+    </footer>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+    <script src="helper.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

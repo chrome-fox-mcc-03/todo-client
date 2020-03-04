@@ -1,0 +1,32 @@
+#container2{
+    margin:0px;
+    width: 100vw;
+    height:90vh;
+}
+.title{
+    text-align: center;
+    padding-bottom: 80px;
+    /* margin: 5% 0px; */
+}
+.form{
+    text-align: center;
+}
+input{
+    height: 5vh;
+    width: 50vw;
+    margin: 20px;
+    border-radius: 15px;
+    padding:5px
+}
+.submit{
+    display: inline-block;
+    height: 30px;
+    width: 30vw;
+}
+.containerSection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:100%;
+    flex-direction: column;
+}
