@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO-CLIENT</title>
+    
+</head>
+<body>
+    <h1>HELLO WORLD</h1>
+    <hr>
+    <div id="signin-page">
+        <h3>Returning User? Let's Login!</h3>
+        <form id="signin-form" onsubmit="login(event)">
+            Email:
+            <input type="email" name="email" id="signin-email">
+
+            Password:
+            <input type="password" name="password" id="signin-password">
+
+            <input type="submit" value="SIGN IN">
+        </form>
+        <br>
+        <h3>New User?</h3>
+        <button type="button" id="btn-register" >Register here</button>
+        <br>
+        <br>
+
+        <p class="remarks">
+            
+        </p>
+        <br>
+
+    </div>
+
+    <br>
+    <hr>
+
+    <div id="signup-page">
+        <h3>New User? Please Signup!</h3>
+        <form onsubmit="register(event)" id="signup-form">
+            Email:
+            <input type="email" name="email" id="signup-email">
+
+            Password:
+            <input type="password" name="password" id="signup-password">
+        
+            <input  type="submit" value="SIGN UP">
+        </form>
+
+        <br>
+        <h3>Returning User? </h3>
+        <button type="button" id="btn-login" >Login</button>
+
+    </div>
+
+        <hr>
+
+    <div id="dashboard-page">
+        <h2>WELCOME BACK TO TODO-LIST!</h2>
+        <BR>
+
+        <h3>MY TODOS</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Due Date</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tbl-todo-data">
+
+                </tbody>
+            </table>
+        <br>
+
+        <h3>CREATE TO-DO</h3>
+        <form id="create-todo">
+            Title:<br>
+            <input type="text" name="create-todo-title" class="todo-title"><br>
+            Description:<br>
+            <input type="text" name="create-todo-description" class="todo-description"><br>
+            Status:<br>
+            <input type="radio" name="create-todo-status" class="todo-status" value="pending"> Pending
+            <input type="radio" name="create-todo-status" class="todo-status" value="done"> Done
+            <br>
+            Due Date:<br>
+            <input type="date" class="todo-due_date" name="create-todo-due_date"><br><br>
+            <input type="submit" value="CREATE">
+        </form>
+
+        <br>
+        <br>
+
+        <h3>UPDATE TO-DO</h3>
+
+        <form id="update-todo">
+            Todo ID:<br>
+            <input type="text" name="update-todo-id" class="todo-id"><br>
+            Title:<br>
+            <input type="text" name="update-todo-title" class="todo-title"><br>
+            Description:<br>
+            <input type="text" name="update-todo-description" class="todo-description"><br>
+            Status:<br>
+            <input type="radio" name="update-todo-status" class="todo-status" value="pending"> Pending
+            <input type="radio" name="update-todo-status" class="todo-status" value="done"> Done
+            <br>
+            Due Date:<br>
+            <input type="date" class="todo-due_date" name="update-todo-due_date"><br><br>
+            <input type="submit" value="UPDATE">
+        </form>
+
+
+        <h3>DELETE TO-DO</h3>
+
+        <form id="delete-todo">
+            Todo ID:<br>
+            <input type="text" name="delete-todo-id" class="todo-id"><br><br>
+            <input type="submit" value="DELETE">
+        </form>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
