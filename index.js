@@ -9,7 +9,7 @@ function fetchTodos() {
         .done(todos => {
             $('#todos-space').empty();
             for (let i = 0; i < todos.length; i++) {
-                $('#todos-space').append(`<p>${todos[i].title}</p><button onclick="editTodo(${todos[i].id})">Edit</button>`)
+                $('#todos-space').append(`<p>${todos[i].title}</p><button onclick="editTodo(${todos[i].id})">Edit</button><button onclick="deleteTodo(${todos[i].id})">Delete</button>`)
             }
             console.log(todos);
         })
@@ -17,8 +17,13 @@ function fetchTodos() {
             console.log(err);
         })
 }
+
 function editTodo(id){
-    // alert(id)
+    $('#dashboard-page').hide();
+    $('#signup-page').hide();
+    $('#signin-page').hide();
+    $('#create-todo-page').hide();
+    $('#update-todo-page').show();
     $.ajax({
         method: 'GET',
         url: `http://localhost:3000/todos/${id}`,
@@ -27,23 +32,7 @@ function editTodo(id){
         }
     })
         .done(todoFound => {
-            // console.log(todoFound);
-            let year = ''
-            year += todoFound.due_date[0];
-            year += todoFound.due_date[1];
-            year += todoFound.due_date[2];
-            year += todoFound.due_date[3];
-
-            let month = ''
-            month += todoFound.due_date[5];
-            month += todoFound.due_date[6];
-
-            let date = ''
-            date += todoFound.due_date[8];
-            date += todoFound.due_date[9];
-
-            let dateFormat = `${year}-${month}-${date}`
-            // console.log(dateFormat);
+            let dateFormat = new Date(todoFound.due_date).toISOString().substring(0, 10);
             $('#update-title').val(todoFound.title);
             $('#update-description').val(todoFound.description);
             $('#update-status').val(todoFound.status);
@@ -53,6 +42,24 @@ function editTodo(id){
             console.log('error!', err);
         })
 }
+
+function deleteTodo(id) {
+    $.ajax({
+        method: 'DELETE',
+        url: `http://localhost:3000/todos/${id}`,
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+        .done(todoFound => {
+            console.log('Successfully deleted a todo', todoFound);
+            fetchTodos();
+        })
+        .fail(err => {
+            console.log('error!', err);
+        })
+}
+
 $(document).ready(function() {
     if (localStorage.getItem('token')) {
         fetchTodos();
@@ -60,11 +67,13 @@ $(document).ready(function() {
         $('#signup-page').hide();
         $('#signin-page').hide();
         $('#create-todo-page').hide();
+        $('#update-todo-page').hide();
     } else {
         $('#dashboard-page').hide();
         $('#signup-page').hide();
         $('#signin-page').show();
         $('#create-todo-page').hide();
+        $('#update-todo-page').hide();
     }
 
     $('#signup-form').on('submit', function(e) {
@@ -85,6 +94,7 @@ $(document).ready(function() {
                 $('#signup-page').hide();
                 $('#signin-page').hide();
                 $('#create-todo-page').hide();
+                $('#update-todo-page').hide();
                 console.log('sign up success', token);
             })
             .fail(err => {
@@ -112,6 +122,7 @@ $(document).ready(function() {
                 $('#signup-page').hide();
                 $('#signin-page').hide();
                 $('#create-todo-page').hide();
+                $('#update-todo-page').hide();
             })
             .fail(err => {
                 console.log('sign in failed', err);
@@ -124,6 +135,7 @@ $(document).ready(function() {
         $('#signup-page').hide();
         $('#signin-page').show();
         $('#create-todo-page').hide();
+        $('#update-todo-page').hide();
     })
 
     $('#btn-redir-signup').on('click', function() {
@@ -131,6 +143,7 @@ $(document).ready(function() {
         $('#signup-page').show();
         $('#signin-page').hide();
         $('#create-todo-page').hide();
+        $('#update-todo-page').hide();
     })
 
     $('#btn-redir-signin').on('click', function() {
@@ -138,6 +151,7 @@ $(document).ready(function() {
         $('#signup-page').hide();
         $('#signin-page').show();
         $('#create-todo-page').hide();
+        $('#update-todo-page').hide();
     })
 
     $('#btn-redir-create-todo').on('click', function() {
@@ -145,6 +159,7 @@ $(document).ready(function() {
         $('#signup-page').hide();
         $('#signin-page').hide();
         $('#create-todo-page').show();
+        $('#update-todo-page').hide();
     })
 
     $('#create-todo-form').on('submit', function(e) {
@@ -173,13 +188,31 @@ $(document).ready(function() {
                 $('#signup-page').hide();
                 $('#signin-page').hide();
                 $('#create-todo-page').hide();
+                $('#update-todo-page').hide();
+                fetchTodos();
             })
             .fail(err => {
                 console.log('Error!', err);
             })
     })
 
-    $('#btn-edit-todo22').on('click', function() {
-        console.log('editin dong');
+    $('#update-todo-form').on('submit', function(e) {
+        e.preventDefault();
+        console.log('update me senpai');
+        // const title = $('#update-title').val();
+        // const description = $('#update-description').val();
+        // const status = $('#update-status').val();
+        // const due_date = $('#update-due_date').val();
+
+        // $.ajax({
+        //     method: 'PUT',
+        //     url: `http://localhost:3000/todos/${}`,//idnya darimana?
+        //     data: {
+
+        //     },
+        //     headers: {
+        //         token: localStorage.getItem('token')
+        //     }
+        // })
     })
 })
