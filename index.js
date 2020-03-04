@@ -213,3 +213,36 @@ function createTodo(event) {
     })
 
 }
+
+function onSignIn(googleUser) {
+    let profile = googleUser.getBasicProfile();
+    // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    // console.log('Name: ' + profile.getName());
+    // console.log('Image URL: ' + profile.getImageUrl());
+    // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+    let id_token = googleUser.getAuthResponse().id_token;
+
+    $.ajax({
+        method: "POST",
+        url: "http://localhost/4000/googleSignin",
+        headers: {
+            token: id_token
+        }
+    })
+    .done(response => {
+        console.log(`successfully use oauth google sign in`);
+        console.log(`response is: ${response}`);
+
+        localStorage.setItem('token', response)
+        showTodos(event)
+    })
+    .fail(err => {
+        console.log(err);
+        err.responseText = JSON.parse(err.responseText)
+        $(".remarks").append(`<h3>${err.responseText.message}</h3>`)
+    })
+
+
+}
+  
