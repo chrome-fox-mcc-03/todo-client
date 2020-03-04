@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id"
+        content="166146263768-7futv2bcrcn5q6dat3nic9cpea4i8t4c.apps.googleusercontent.com">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+    <section id="landingPage">
+        <h1>Sign In</h1>
+        <form onsubmit='signIn(event)'>
+            <label for="emailLogin">Email</label><br>
+            <input type="text" id="emailLogin" placeholder="email" minlength="3"><br>
+            <label for="passwordLogin">Password</label><br>
+            <input type="password" id="passwordLogin" placeholder="Password" minlength="4"><br>
+            <input type="submit" value="SignIn" class="btn btn-info">
+        </form>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <button onclick="signOut()">Sign Out</button>
+        <p>Dont have account? <a style="cursor: pointer;" onclick="registerPage()" style="color: blue;">SignUp</a></p>
+    </section>
+    <section id="registerPage">
+        <h1>Sign Up</h1>
+        <form onsubmit="signUp(event)">
+            <label for="email">Email</label><br>
+            <input type="text" id="email" placeholder="Email" minlength="3"><br>
+            <label for="password">Password</label><br>
+            <input type="password" id="password" placeholder="Password" minlength="4"><br>
+            <input type="submit" value="SignUp" class="btn btn-info">
+        </form>
+        <p>Have Account? <a style="cursor: pointer;" onclick="landingPage()" style="color: blue;">SignIn</a></p>
+    </section>
+    <section id="dashboard">
+        <h1>Welcome</h1>
+        <div>
+            <h2>Your TODO Here</h2>
+            <button class="btn btn-primary" onclick="createPage()">ADD TODO</button>
+        </div>
+        <table>
+            <thead>
+                <th>No</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Due Date</th>
+                <th>Options</th>
+            </thead>
+            <tbody id="listTodo">
+
+            </tbody>
+        </table><br>
+        <button onclick="signOut()">Sign Out</button>
+    </section>
+    <section id="createTodo">
+        <h3>ADD TODO</h3>
+        <form onsubmit='createTodo(event)'>
+            <label for="titleAdd">Title</label><br>
+            <input type="text" id="titleAdd" placeholder="title" minlength="3"><br>
+            <label for="descriptionAdd">Description</label><br>
+            <input type="text" id="descriptionAdd" placeholder="description" minlength="3"><br>
+            <label for="due_dateAdd">Due Date</label><br>
+            <input type="date" id="due_dateAdd" placeholder="due_date" minlength="3"><br><br>
+            <input type="submit" value="Create" class="btn btn-info">
+        </form>
+    </section>
+    <section id="updateTodo">
+        <h3>Update TODO</h3>
+        <form id="form-update">
+            <label for="titleUpdate">Title</label><br>
+            <input type="text" id="titleUpdate" placeholder="title" minlength="3"><br>
+            <label for="descriptionUpdate">Description</label><br>
+            <input type="text" id="descriptionUpdate" placeholder="description" minlength="3"><br>
+            <label for="due_dateUpdate">Due Date</label><br>
+            <input type="date" id="due_dateUpdate" placeholder="due_date" minlength="3"><br><br>
+            <input type="submit" value="Update" class="btn btn-info"> <button onclick="cancel()"
+                class="btn btn-danger">Cancel</button>
+        </form>
+    </section>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    <script src="index.js"></script>
+</body>
+
+</html>
