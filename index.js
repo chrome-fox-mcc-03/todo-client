@@ -24,16 +24,34 @@ function editTodo(id){
         url: `http://localhost:3000/todos/${id}`,
         headers: {
             token: localStorage.getItem('token')
-        } 
+        }
     })
         .done(todoFound => {
-            console.log(todoFound);
-            $('#update-title').val(todoFound.title)
+            // console.log(todoFound);
+            let year = ''
+            year += todoFound.due_date[0];
+            year += todoFound.due_date[1];
+            year += todoFound.due_date[2];
+            year += todoFound.due_date[3];
+
+            let month = ''
+            month += todoFound.due_date[5];
+            month += todoFound.due_date[6];
+
+            let date = ''
+            date += todoFound.due_date[8];
+            date += todoFound.due_date[9];
+
+            let dateFormat = `${year}-${month}-${date}`
+            // console.log(dateFormat);
+            $('#update-title').val(todoFound.title);
+            $('#update-description').val(todoFound.description);
+            $('#update-status').val(todoFound.status);
+            $('#update-due_date').val(dateFormat);
         })
         .fail(err => {
             console.log('error!', err);
         })
-
 }
 $(document).ready(function() {
     if (localStorage.getItem('token')) {
