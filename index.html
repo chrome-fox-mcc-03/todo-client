@@ -38,7 +38,6 @@
         <button id="btn-createtodo">Create To Do</button><br><br>
 
 
-
         <button id="btn-logout">Logout</button><br><br>
     </section>
     <section id="page-createtodo">
@@ -55,11 +54,34 @@
         </form>
     </section>
     <section id="page-updatetodo">
-        <p>update todo page</p>
+        <p>Update To Do page</p>
+        <form>
+            <label for="title-update">Title:</label><br>
+            <input type="text" id="title-update" name="title-update" placeholder="Title"><br><br>
+            <label for="description-update">Description:</label><br>
+            <textarea id="description-update" name="description-update"rows="4" cols="50">
+            </textarea><br><br>
+            <label for="due_date-update">Due Date:</label><br>
+            <input type="date" id="due_date-update" name="due_date-update" placeholder="Password"><br><br>
+            <input type="submit" value="Update">
+        </form>
     </section>
     <br>
-    <section>
-        <ul id="section-list"></ul>
+    <section id="section-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Due Date</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody id="section-data">
+
+                </tbody>
+            </table>
     </section>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="index.js"></script>

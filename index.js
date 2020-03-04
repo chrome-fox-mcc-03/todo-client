@@ -7,7 +7,6 @@ function showMessage(arr){
 }
 
 function showTodos(){
-    // $('#section-list').empty() ;
 
     const token = localStorage.getItem('token');
 
@@ -18,22 +17,98 @@ function showTodos(){
             token
         }
     })
-        .done (function(response){
-            response.data.forEach(element => {
-                $('#section-list').append(`<li>${element.title}</li>`)
-            });
 
+        .done (function(response){
+            $('#section-data').empty() ;
+            response.data.forEach(element => {
+                $('#section-data').append(`
+                <tr>
+                    <td>${element.title}</td>
+                    <td>${element.description}</td>
+                    <td>${element.status}</td>
+                    <td>${element.due_date}</td>
+                    <td><button onClick="updateTodo(${element.id})" id="btn-update-${element.id}">Edit</button><button onClick="deleteTodo(${element.id})" id="btn-delete-${element.id}">Delete</button></td>
+                </tr>
+                `)
+            });
         })
         .fail (function(err){
             showMessage(err.responseJSON.message)
         })
 }
 
+function updateTodo (id) {
+    const token = localStorage.getItem('token');
+
+    localStorage.setItem ('idToUpdate', id) ;
+
+    $.ajax ({
+        method : "GET",
+        url : `http://localhost:3000/todos/${id}`,
+        headers : {
+            token
+        }
+    })
+        .done ( (response) => {
+            let due_date = new Date (response.data.due_date)
+            let year = due_date.getFullYear() ;
+            let month = due_date.getMonth() + 1 ;
+            let day = due_date.getDate() + 1 ;
+
+            if (month < 10){
+                month = `0${month}`
+            }
+            if (day < 10){
+                day = `0${day}`
+            }
+            let formatted_date = year + "-" + month + "-" + day
+            $('#title-update').val(response.data.title);
+            $('#description-update').val(response.data.description) ;
+            $('#due_date-update').val(formatted_date) ;
+
+            $('#section-message').empty() ;
+            $('#section-list').hide() ;
+            $("#page-home").hide();
+            $("#page-signup").hide();
+            $("#page-login").hide();
+            $("#page-dashboard").hide();
+            $("#page-createtodo").hide();
+            $("#page-updatetodo").show();
+        })
+
+        .fail ( (err) => {
+            console.log(err);
+        })
+}
+
+function deleteTodo(id) {
+    const token = localStorage.getItem('token');
+
+    $.ajax ({
+        method : "DELETE",
+        url : `http://localhost:3000/todos/${id}`,
+        headers : {
+            token
+        }
+    })
+        .done ((response)=>{
+            console.log('deleted');
+            // $('#section-data').empty() ;
+            showTodos()
+        })
+        .fail ( (err) =>{
+            console.log(err);
+        })
+}
+
+
+
 $(document).ready (function(){
 
     const token = localStorage.getItem('token') ;
     if (token) {
         $('#section-message').empty() ;
+        showTodos()
         $("#page-home").hide();
         $("#page-signup").hide();
         $("#page-login").hide();
@@ -42,7 +117,7 @@ $(document).ready (function(){
         $("#page-updatetodo").hide();
     } else {
         $('#section-message').empty() ;
-        $('#section-list').empty() ;
+        $('#section-list').hide() ;
         $("#page-home").show();
         $("#page-signup").hide();
         $("#page-login").hide();
@@ -54,7 +129,7 @@ $(document).ready (function(){
     // BUTTON //
 
     $('#btn-signup').on('click', function(){
-        $('#section-list').empty() ;
+        $('#section-list').hide() ;
         $('#section-message').empty() ;
         $("#page-home").hide();
         $("#page-signup").show();
@@ -65,7 +140,7 @@ $(document).ready (function(){
     })
 
     $('#btn-login').on('click', function(){
-        $('#section-list').empty() ;
+        $('#section-list').hide() ;
         $('#section-message').empty() ;
         $("#page-home").hide();
         $("#page-signup").hide();
@@ -75,9 +150,8 @@ $(document).ready (function(){
         $("#page-updatetodo").hide();
     })
 
-
     $('#btn-logout').on('click', function(){
-        $('#section-list').empty() ;
+        $('#section-list').hide() ;
         $('#section-message').empty() ;
         localStorage.clear()
         $("#page-home").show();
@@ -88,11 +162,11 @@ $(document).ready (function(){
         $("#page-updatetodo").hide();
     })
 
-
     $('#btn-home').on('click', function(){
         $('#newtodo').empty()
         $('#section-message').empty() ;
         if (token) {
+            $('#section-list').show() ;
             showTodos()
             $("#page-home").hide();
             $("#page-signup").hide();
@@ -101,7 +175,7 @@ $(document).ready (function(){
             $("#page-createtodo").hide();
             $("#page-updatetodo").hide();
         } else {
-            $('#section-list').empty() ;
+            $('#section-list').hide() ;
             $("#page-home").show();
             $("#page-signup").hide();
             $("#page-login").hide();
@@ -113,7 +187,7 @@ $(document).ready (function(){
 
     $('#btn-createtodo').on('click', function(e){
         e.preventDefault() ;        
-        $('#section-list').empty() ;
+        $('#section-list').hide() ;
         $('#section-message').empty() ;
         $("#page-home").hide();
         $("#page-signup").hide();
@@ -122,8 +196,6 @@ $(document).ready (function(){
         $("#page-createtodo").show();
         $("#page-updatetodo").hide();
     })
-
-
 
     // PAGE //
 
@@ -170,6 +242,7 @@ $(document).ready (function(){
             .done(function (response) {
                 const token = response.token ;
                 localStorage.setItem ('token', token) ;
+                $('#section-list').show() ;
                 showTodos() ;
                 $("#page-home").hide();
                 $("#page-signup").hide();
@@ -189,6 +262,10 @@ $(document).ready (function(){
         const title = $('#title-create').val();
         const description = $('#description-create').val() || "" ;
         const due_date = $('#due_date-create').val();
+
+        $('#title-create').val('');
+        $('#description-create').val('') ;
+        $('#due_date-create').val('')
         $.ajax({
             method : "POST",
             url : 'http://localhost:3000/todos/',
@@ -207,8 +284,8 @@ $(document).ready (function(){
                 $('#newtodo').append(
                     `<img src="${response.imageURL}" alt="Flowers in Chania">`
                 )
+                $('#section-list').show() ;
                 showTodos()
-
                 $("#page-home").hide();
                 $("#page-signup").hide();
                 $("#page-login").hide();
@@ -220,13 +297,55 @@ $(document).ready (function(){
             .fail ((err) => {
                 showMessage(err.responseJSON.message)
             })
-
-        // console.log(title, description, due_date);
     })
 
+    $('#page-updatetodo').on('submit', function(e){
+        $('#section-message').empty() ;
+        e.preventDefault();
+        const title = $('#title-update').val();
+        const description = $('#description-update').val() || "" ;
+        const due_date = $('#due_date-update').val();
 
+        const idToUpdate = localStorage.getItem('idToUpdate');
+        localStorage.removeItem('idToUpdate');
+        
+        $('#title-update').val('');
+        $('#description-update').val('') ;
+        $('#due_date-update').val('')
 
+        $.ajax({
+            method : "PUT",
+            url : `http://localhost:3000/todos/${idToUpdate}`,
+            headers : {
+                token
+            },
+            data : {
+                title,
+                description,
+                due_date
+            }  
+        })
+            .done ((response) => {
 
+                $('#newtodo').empty()
+                showMessage(['To do successfully updated'])
+                // $('#newtodo').append(
+                //     `<img src="${response.imageURL}" alt="Flowers in Chania">`
+                // )
+                $('#section-list').show() ;
+                showTodos()
+                $("#page-home").hide();
+                $("#page-signup").hide();
+                $("#page-login").hide();
+                $("#page-dashboard").show();
+                $("#page-createtodo").hide();
+                $("#page-updatetodo").hide();
+            })
 
+            .fail ((err) => {
+                showMessage(err.responseJSON.message);
+            })
+    })
 
+    
 })
