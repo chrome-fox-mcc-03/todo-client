@@ -66,6 +66,21 @@ function onSignIn(googleUser) {
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
     console.log('Id Token: ' + id_token);
+    $.ajax({
+        method: "POST",
+        url: "http://localhost:3000/loginGoogle",
+        headers: {
+            id_token
+        }
+    })
+        .done(response => {
+            console.log(response)
+            localStorage.setItem('token', response)
+            showJumbotron()
+        })  
+        .fail(err => {
+            console.log(err.responseJSON)
+        }) 
 }
 
 function signOut() {
@@ -73,7 +88,8 @@ function signOut() {
     auth2.signOut().then(function () {
       console.log('User signed out.');
     });
-  }
+}
+
 $("document").ready(function () {
     $("#containerReg").hide()
     $("#containerLogin").hide()
@@ -308,6 +324,8 @@ function getTodos() {
 }
 $("#btn-todos").on('click',function () {
     const token = localStorage.getItem('token')
+    console.log('token:',token);
+    
     $.ajax({
         method: "GET",
         headers: {
