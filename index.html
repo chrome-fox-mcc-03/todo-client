@@ -1,42 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Fancy Todo</title>
 </head>
+
 <body>
+
     <div id="sign_up_page">
-       <form id="sign_up_form">
-           <h1>Sign Up</h1>
-           <label for="email">Email</label><br>
-           <input type="email" name="email" placeholder="email"><br><br>
-           <label for="password">Password</label><br>
-           <input type="password" name="password" placeholder="password"><br><br>
-           <button type="submit" id="sign_up_button">Sign Up</button>
-           <!-- <button id="sign_up_button">Sign Up</button> -->
-           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-           <script src="index.js"></script>
-       </form>
+        <form id="sign_up_form">
+            <h1>Sign Up</h1>
+            <label for="email">Email</label><br>
+            <input type="email" name="email" placeholder="email"><br><br>
+            <label for="password">Password</label><br>
+            <input type="password" name="password" placeholder="password"><br><br>
+            <button type="submit" id="sign_up_button">Sign Up</button>
+            <button id="cancel_button" onclick="cancelShow()">Cancel</button>
+
+        </form>
     </div>
+
     <div id="sign_in_page">
-        <form id="sign_in_form">
+        <form id="sign_in_form" onsubmit="login(event)">
             <h1>Sign In</h1>
             <label for="email">Email</label><br>
             <input id="email" type="email" name="email" placeholder="email"><br><br>
             <label for="password">Password</label><br>
             <input id="password" type="password" name="password" placeholder="password"><br><br>
-            <input type="submit" id="sign_in_button" value="sign in"></input>
-            <button id="sign_up_button">Sign Up</button>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-            <script src="index.js"></script>
+            <input type="submit" id="sign_in_button" value="Sign in"></input>
+            <button onclick="signupShow()" id="sign_up_button">Sign Up</button>
         </form>
-     </div>
+    </div>
 
-     <div id="home_page">
+    <div id="home_page">
         <h1>To-Do List</h1>
-        <button id="logout_button" value="Log Out">Log Out</button>        
-     </div>
+        
+        <div id="show_todo"></div>
+        <button onclick="logout()" id="logout_button" value="Log Out">Log Out</button> | <button onclick="createShow()" id="create_button" value="Create Todo">Create Todo</button>
+
+    </div>
+
+    <div id="edit_page">
+        <form id="edit_form" onsubmit="edit(event)">
+            <h1>Todo to be Edit</h1>
+            <label for="edit_title">Title</label><br>
+            <input id="edit_title" type="text" name="edit_title"><br><br>
+            <label for="edit_description">Description</label><br>
+            <input id="edit_description" type="text" name="edit_description"><br><br>
+            <label for="edit_due_date">Due Date</label><br>
+            <input id="edit_due_date" type="date" name="edit_due_date"><br><br>
+            <input type="submit" id="edit_button" value="edit"></input>
+        </form>
+    </div>
+
+    <div id="create_page">
+        <form id="create_form" onsubmit="create(event)">
+            <h1>Create Todo</h1>
+            <label for="create_title">Title</label><br>
+            <input id="create_title" type="text" name="create_title"><br><br>
+            <label for="create_description">Description</label><br>
+            <input id="create_description" type="text" name="create_description"><br><br>
+            <label for="create_due_date">Due Date</label><br>
+            <input id="create_due_date" type="date" name="create_due_date"><br><br>
+            <input type="submit" id="create_button" value="create"></input>
+        </form>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="index.js"></script>
 </body>
+
 </html>
