@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
     <title>Fancy ToDo</title>
 </head>
 <body>
-    <button id="btn-home">Home</button><br><br>
+    <button style="text-align: left;" class="btn btn-warning" id="btn-home">Home</button><br><br>
     <section id="section-message">
     </section><br>
     <section id="page-home">
         <h1>Welcome to Fancy Todo</h1>
-        <button id="btn-signup">Sign Up</button>
-        <button id="btn-login">Login</button>
+        <button class="btn btn-primary" id="btn-signup">Sign Up</button>
+        <button class="btn btn-primary" id="btn-login">Login</button>
     </section>
     <section id="page-signup">
         <form>
@@ -20,7 +22,7 @@
             <input type="text" id="email-signup" name="email-signup" placeholder="Email"><br>
             <label for="password-signup">Password:</label><br>
             <input type="password" id="password-signup" name="password-signup" placeholder="Password"><br><br>
-            <input type="submit" value="Sign Up">
+            <input class="btn btn-success" type="submit" value="Sign Up">
         </form>
     </section>
     <section id="page-login">
@@ -29,19 +31,21 @@
             <input type="text" id="email-login" name="email-login" placeholder="Email"><br>
             <label for="password-login">Password:</label><br>
             <input type="password" id="password-login" name="password-login" placeholder="Password"><br><br>
-            <input type="submit" value="Login">
+            <input class="btn btn-success" type="submit" value="Login">
         </form>
     </section>
     <section id="page-dashboard">
-        <p>dashboard page</p>
+        <h1>Dashboard</h1>
         <div id=newtodo></div>
-        <button id="btn-createtodo">Create To Do</button><br><br>
+        <button class="btn btn-success" id="btn-createtodo">Create To Do</button>
+        <button class="btn btn-success" id="btn-show_history">Show History</button>
+        <button class="btn btn-success" id="btn-current">Show Pending</button><br><br><br><br>
 
 
-        <button id="btn-logout">Logout</button><br><br>
+        <button class="btn btn-dark" id="btn-logout">Logout</button><br><br>
     </section>
     <section id="page-createtodo">
-        <p>Create New Todo</p>
+        <h1>Create New Todo</h1>
         <form>
             <label for="title-create">Title:</label><br>
             <input type="text" id="title-create" name="title-create" placeholder="Title"><br><br>
@@ -50,11 +54,11 @@
             </textarea><br><br>
             <label for="due_date-create">Due Date:</label><br>
             <input type="date" id="due_date-create" name="due_date-create" placeholder="Password"><br><br>
-            <input type="submit" value="Create">
+            <input class="btn btn-success" type="submit" value="Create">
         </form>
     </section>
     <section id="page-updatetodo">
-        <p>Update To Do page</p>
+        <h1>Update To Do page</h1>
         <form>
             <label for="title-update">Title:</label><br>
             <input type="text" id="title-update" name="title-update" placeholder="Title"><br><br>
@@ -63,18 +67,18 @@
             </textarea><br><br>
             <label for="due_date-update">Due Date:</label><br>
             <input type="date" id="due_date-update" name="due_date-update" placeholder="Password"><br><br>
-            <input type="submit" value="Update">
+            <input class="btn btn-success" type="submit" value="Update">
         </form>
     </section>
     <br>
     <section id="section-list">
-            <table>
+            <table style="width: 80%;" class="table table-success">
                 <thead>
                     <tr>
                         <th>Title</th>
                         <th>Description</th>
-                        <th>Status</th>
                         <th>Due Date</th>
+                        <th>Status</th>
                         <th>Options</th>
                     </tr>
                 </thead>
@@ -84,6 +88,8 @@
             </table>
     </section>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="index.js"></script>
 </body>
 </html>

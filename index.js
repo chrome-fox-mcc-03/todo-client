@@ -6,7 +6,7 @@ function showMessage(arr){
     });
 }
 
-function showTodos(){
+function showTodos(isComplete){
 
     const token = localStorage.getItem('token');
 
@@ -14,22 +14,54 @@ function showTodos(){
         method : 'GET',
         url : 'http://localhost:3000/todos',
         headers : {
-            token
+            token,
+            isComplete
         }
     })
 
         .done (function(response){
             $('#section-data').empty() ;
             response.data.forEach(element => {
-                $('#section-data').append(`
-                <tr>
-                    <td>${element.title}</td>
-                    <td>${element.description}</td>
-                    <td>${element.status}</td>
-                    <td>${element.due_date}</td>
-                    <td><button onClick="updateTodo(${element.id})" id="btn-update-${element.id}">Edit</button><button onClick="deleteTodo(${element.id})" id="btn-delete-${element.id}">Delete</button></td>
-                </tr>
-                `)
+                let due_date = new Date (element.due_date)
+                let year = due_date.getFullYear() ;
+                let month = due_date.getMonth() + 1 ;
+                let day = due_date.getDate() + 1 ;
+
+                if (month < 10){
+                    month = `0${month}`
+                }
+                if (day < 10){
+                    day = `0${day}`
+                }
+                let formatted_date = day  + "-" + month + "-" + year ;
+                let status;
+                if ( element.status === false) {
+                    status = 'pending'
+                } else {
+                    status = 'completed'
+                }
+                if (isComplete === false){
+                    $('#section-data').append(`
+                    <tr>
+                        <td>${element.title}</td>
+                        <td>${element.description}</td>
+                        <td>${formatted_date}</td>
+                        <td>${status}</td>
+                        <td><button class="btn btn-success" onClick="makeItDone(${element.id})" id="btn-update-${element.id}">Done</button> <button class="btn btn-info" onClick="updateTodo(${element.id})" id="btn-update-${element.id}">Edit</button> <button class="btn btn-danger" onClick="deleteTodo(${element.id})" id="btn-delete-${element.id}">Delete</button></td>
+                    </tr>
+                    `)
+                } else {
+                    $('#section-data').append(`
+                    <tr>
+                        <td>${element.title}</td>
+                        <td>${element.description}</td>
+                        <td>${formatted_date}</td>
+                        <td>${status}</td>
+                        <td><button class="btn btn-info" onClick="updateTodo(${element.id})" id="btn-update-${element.id}">Edit</button> <button class="btn btn-danger" onClick="deleteTodo(${element.id})" id="btn-delete-${element.id}">Delete</button></td>
+                    </tr>
+                    `)
+
+                }
             });
         })
         .fail (function(err){
@@ -94,13 +126,33 @@ function deleteTodo(id) {
         .done ((response)=>{
             console.log('deleted');
             // $('#section-data').empty() ;
-            showTodos()
+            showTodos(false)
         })
         .fail ( (err) =>{
             console.log(err);
         })
 }
 
+function makeItDone(id){
+    const token = localStorage.getItem('token');
+
+    $.ajax ({
+        method : "PUT",
+        url : `http://localhost:3000/todos/${id}`,
+        headers : {
+            token
+        }
+    })
+        .done ((response)=>{
+            console.log('done');
+            // $('#section-data').empty() ;
+            showTodos(false)
+        })
+        .fail ( (err) =>{
+            console.log(err);
+        })
+
+}
 
 
 $(document).ready (function(){
@@ -108,7 +160,7 @@ $(document).ready (function(){
     const token = localStorage.getItem('token') ;
     if (token) {
         $('#section-message').empty() ;
-        showTodos()
+        showTodos(false)
         $("#page-home").hide();
         $("#page-signup").hide();
         $("#page-login").hide();
@@ -167,7 +219,7 @@ $(document).ready (function(){
         $('#section-message').empty() ;
         if (token) {
             $('#section-list').show() ;
-            showTodos()
+            showTodos(false)
             $("#page-home").hide();
             $("#page-signup").hide();
             $("#page-login").hide();
@@ -197,12 +249,43 @@ $(document).ready (function(){
         $("#page-updatetodo").hide();
     })
 
+    $('#btn-show_history').on('click', function(){
+        $('#newtodo').empty()
+        $('#section-message').empty() ;
+        $('#section-list').show() ;
+        showTodos(true)
+        $("#page-home").hide();
+        $("#page-signup").hide();
+        $("#page-login").hide();
+        $("#page-dashboard").show();
+        $("#page-createtodo").hide();
+        $("#page-updatetodo").hide();
+    })
+
+    $('#btn-current').on('click', function(){
+        $('#newtodo').empty()
+        $('#section-message').empty() ;
+        $('#section-list').show() ;
+        showTodos(false)
+        $("#page-home").hide();
+        $("#page-signup").hide();
+        $("#page-login").hide();
+        $("#page-dashboard").show();
+        $("#page-createtodo").hide();
+        $("#page-updatetodo").hide();
+    })
+
+    
+
     // PAGE //
 
     $('#page-signup').on('submit', function(e){
         e.preventDefault() ;
         const email = $('#email-signup').val();
-        const password = $('#password-signup').val()
+        const password = $('#password-signup').val() ;
+
+        $('#email-login').val('');
+        $('#password-login').val('')
 
         $.ajax({
             method : 'POST',
@@ -229,7 +312,10 @@ $(document).ready (function(){
     $('#page-login').on('submit',function(e){
         e.preventDefault() ;
         const email = $('#email-login').val();
-        const password = $('#password-login').val()
+        const password = $('#password-login').val() ;
+
+        $('#email-login').val('');
+        $('#password-login').val('')
 
         $.ajax({
             method : 'POST',
@@ -243,7 +329,7 @@ $(document).ready (function(){
                 const token = response.token ;
                 localStorage.setItem ('token', token) ;
                 $('#section-list').show() ;
-                showTodos() ;
+                showTodos(false) ;
                 $("#page-home").hide();
                 $("#page-signup").hide();
                 $("#page-login").hide();
@@ -285,7 +371,7 @@ $(document).ready (function(){
                     `<img src="${response.imageURL}" alt="Flowers in Chania">`
                 )
                 $('#section-list').show() ;
-                showTodos()
+                showTodos(false)
                 $("#page-home").hide();
                 $("#page-signup").hide();
                 $("#page-login").hide();
@@ -333,7 +419,7 @@ $(document).ready (function(){
                 //     `<img src="${response.imageURL}" alt="Flowers in Chania">`
                 // )
                 $('#section-list').show() ;
-                showTodos()
+                showTodos(false)
                 $("#page-home").hide();
                 $("#page-signup").hide();
                 $("#page-login").hide();
