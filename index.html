@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fancy ToDo</title>
+</head>
+<body>
+    <button id="btn-home">Home</button><br><br>
+    <section id="section-message">
+    </section><br>
+    <section id="page-home">
+        <h1>Welcome to Fancy Todo</h1>
+        <button id="btn-signup">Sign Up</button>
+        <button id="btn-login">Login</button>
+    </section>
+    <section id="page-signup">
+        <form>
+            <label for="email-signup">Email:</label><br>
+            <input type="text" id="email-signup" name="email-signup" placeholder="Email"><br>
+            <label for="password-signup">Password:</label><br>
+            <input type="password" id="password-signup" name="password-signup" placeholder="Password"><br><br>
+            <input type="submit" value="Sign Up">
+        </form>
+    </section>
+    <section id="page-login">
+        <form>
+            <label for="email-login">Email:</label><br>
+            <input type="text" id="email-login" name="email-login" placeholder="Email"><br>
+            <label for="password-login">Password:</label><br>
+            <input type="password" id="password-login" name="password-login" placeholder="Password"><br><br>
+            <input type="submit" value="Login">
+        </form>
+    </section>
+    <section id="page-dashboard">
+        <p>dashboard page</p>
+
+
+
+        <button id="btn-logout">Logout</button><br><br>
+    </section>
+    <section id="page-createtodo">
+        <p>create todo page</p>
+    </section>
+    <section id="page-updatetodo">
+        <p>update todo page</p>
+    </section>
+    <br>
+    <section>
+        <ul id="section-list"></ul>
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
