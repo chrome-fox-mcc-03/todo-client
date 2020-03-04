@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="73604649300-55r5dfmt4klrnq7hq3ocgtigvtks90qj.apps.googleusercontent.com">
     <link href='https://fonts.googleapis.com/css?family=Nunito:400,600,700&display=swap' rel='stylesheet'>
     <link rel="stylesheet" href="style.css">
     <title>Fancy Todo</title>
@@ -25,6 +26,7 @@
                 <input id="signin-email" type="email"><br>
                 <input id="signin-password" type="password"><br>
                 <input type="submit" value="Sign In">
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
             </form>
             <p>Don't have an account? <a id="btn-redir-signup" href="#">Join us now</a></p>
         </div>
@@ -53,6 +55,7 @@
             </form>
         </div>
     </div>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="index.js"></script>
 </body>

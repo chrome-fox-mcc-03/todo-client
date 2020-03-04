@@ -37,6 +37,7 @@ function editTodo(id){
             $('#update-description').val(todoFound.description);
             $('#update-status').val(todoFound.status);
             $('#update-due_date').val(dateFormat);
+            localStorage.setItem('todoId', id);
         })
         .fail(err => {
             console.log('error!', err);
@@ -199,20 +200,35 @@ $(document).ready(function() {
     $('#update-todo-form').on('submit', function(e) {
         e.preventDefault();
         console.log('update me senpai');
-        // const title = $('#update-title').val();
-        // const description = $('#update-description').val();
-        // const status = $('#update-status').val();
-        // const due_date = $('#update-due_date').val();
+        const title = $('#update-title').val();
+        const description = $('#update-description').val();
+        const status = $('#update-status').val();
+        const due_date = $('#update-due_date').val();
 
-        // $.ajax({
-        //     method: 'PUT',
-        //     url: `http://localhost:3000/todos/${}`,//idnya darimana?
-        //     data: {
-
-        //     },
-        //     headers: {
-        //         token: localStorage.getItem('token')
-        //     }
-        // })
+        $.ajax({
+            method: 'PUT',
+            url: `http://localhost:3000/todos/${localStorage.getItem('todoId')}`,
+            data: {
+                title,
+                description,
+                status,
+                due_date
+            },
+            headers: {
+                token: localStorage.getItem('token')
+            }
+        })
+            .done(response => {
+                $('#dashboard-page').show();
+                $('#signup-page').hide();
+                $('#signin-page').hide();
+                $('#create-todo-page').hide();
+                $('#update-todo-page').hide();
+                fetchTodos();
+                console.log('save changed', response);
+            })
+            .fail(err => {
+                console.log('Error!', err);
+            })
     })
 })
