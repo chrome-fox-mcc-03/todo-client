@@ -10,26 +10,29 @@
 <body>
     <div>
         <h1>Fancy Todo</h1><br>
-        <div id="landing-page">
+        <div id="signup-page">
             <form id="signup-form">
                 <h3>Sign Up</h3>
                 <input id="signup-email" type="email"><br>
                 <input id="signup-password" type="password"><br>
                 <input type="submit" value="Sign Up">
-            </form><br><br>
+            </form>
+            <p>Already registered? Try <a id="btn-redir-signin" href="#">signing in </a>instead</p>
+        </div>
+        <div id="signin-page">
             <form id="signin-form">
                 <h3>Sign In</h3>
                 <input id="signin-email" type="email"><br>
                 <input id="signin-password" type="password"><br>
                 <input type="submit" value="Sign In">
             </form>
-            <button id="btn-signout">Sign Out</button>
+            <p>Don't have an account? <a id="btn-redir-signup" href="#">Join us now</a></p>
         </div>
-        
         <div id="dashboard-page">
             <h2>this is dashboard-page</h2>
+
+            <button id="btn-signout">Sign Out</button>
         </div>
-        <button id="btn">Click</button>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="index.js"></script>
