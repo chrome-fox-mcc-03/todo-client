@@ -1,0 +1,70 @@
+/* Header & Navigation */
+body {
+  width: 100%;
+}
+
+header {
+  display: flex !important;
+  background-color: #e3f2fd;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+header h2 {
+  padding: 1rem;
+}
+
+ul {
+  display: flex;
+  align-items: center;
+}
+
+header nav li {
+  list-style: none;
+  margin: 0 0.5rem;
+}
+
+header nav a {
+  font-weight: 600;
+}
+
+/* Cards */
+
+#todoCards {
+  padding: 2rem;
+  text-align: center;
+}
+
+.todolist {
+  width: 18rem !important;
+  display: inline-block !important;
+  margin: 0 1rem;
+  text-align: left;
+}
+
+.deleteTodo {
+  color: gold !important;
+}
+
+.btn-group {
+  width: 100%;
+}
+
+/* Footer */
+
+footer {
+  width: 80%;
+  background-color: #e3f2fd;
+  color: gold;
+  text-align: center;
+  bottom: 0;
+  position: absolute;
+}
+footer p {
+  padding: 1rem 0;
+  margin: 0;
+}
