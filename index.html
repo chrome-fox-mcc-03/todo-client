@@ -34,13 +34,25 @@
     </section>
     <section id="page-dashboard">
         <p>dashboard page</p>
+        <div id=newtodo></div>
+        <button id="btn-createtodo">Create To Do</button><br><br>
 
 
 
         <button id="btn-logout">Logout</button><br><br>
     </section>
     <section id="page-createtodo">
-        <p>create todo page</p>
+        <p>Create New Todo</p>
+        <form>
+            <label for="title-create">Title:</label><br>
+            <input type="text" id="title-create" name="title-create" placeholder="Title"><br><br>
+            <label for="description-create">Description:</label><br>
+            <textarea id="description-create" name="description-create"rows="4" cols="50">
+            </textarea><br><br>
+            <label for="due_date-create">Due Date:</label><br>
+            <input type="date" id="due_date-create" name="due_date-create" placeholder="Password"><br><br>
+            <input type="submit" value="Create">
+        </form>
     </section>
     <section id="page-updatetodo">
         <p>update todo page</p>

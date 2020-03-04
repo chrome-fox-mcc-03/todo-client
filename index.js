@@ -7,7 +7,7 @@ function showMessage(arr){
 }
 
 function showTodos(){
-    $('#section-list').empty() ;
+    // $('#section-list').empty() ;
 
     const token = localStorage.getItem('token');
 
@@ -19,14 +19,13 @@ function showTodos(){
         }
     })
         .done (function(response){
-            console.log(response.data);
             response.data.forEach(element => {
                 $('#section-list').append(`<li>${element.title}</li>`)
             });
 
         })
         .fail (function(err){
-            console.log(err);
+            showMessage(err.responseJSON.message)
         })
 }
 
@@ -43,6 +42,7 @@ $(document).ready (function(){
         $("#page-updatetodo").hide();
     } else {
         $('#section-message').empty() ;
+        $('#section-list').empty() ;
         $("#page-home").show();
         $("#page-signup").hide();
         $("#page-login").hide();
@@ -51,7 +51,10 @@ $(document).ready (function(){
         $("#page-updatetodo").hide();
     }
 
+    // BUTTON //
+
     $('#btn-signup').on('click', function(){
+        $('#section-list').empty() ;
         $('#section-message').empty() ;
         $("#page-home").hide();
         $("#page-signup").show();
@@ -62,6 +65,7 @@ $(document).ready (function(){
     })
 
     $('#btn-login').on('click', function(){
+        $('#section-list').empty() ;
         $('#section-message').empty() ;
         $("#page-home").hide();
         $("#page-signup").hide();
@@ -73,6 +77,7 @@ $(document).ready (function(){
 
 
     $('#btn-logout').on('click', function(){
+        $('#section-list').empty() ;
         $('#section-message').empty() ;
         localStorage.clear()
         $("#page-home").show();
@@ -85,8 +90,10 @@ $(document).ready (function(){
 
 
     $('#btn-home').on('click', function(){
+        $('#newtodo').empty()
         $('#section-message').empty() ;
         if (token) {
+            showTodos()
             $("#page-home").hide();
             $("#page-signup").hide();
             $("#page-login").hide();
@@ -94,6 +101,7 @@ $(document).ready (function(){
             $("#page-createtodo").hide();
             $("#page-updatetodo").hide();
         } else {
+            $('#section-list').empty() ;
             $("#page-home").show();
             $("#page-signup").hide();
             $("#page-login").hide();
@@ -102,6 +110,22 @@ $(document).ready (function(){
             $("#page-updatetodo").hide();
         }
     })
+
+    $('#btn-createtodo').on('click', function(e){
+        e.preventDefault() ;        
+        $('#section-list').empty() ;
+        $('#section-message').empty() ;
+        $("#page-home").hide();
+        $("#page-signup").hide();
+        $("#page-login").hide();
+        $("#page-dashboard").hide();
+        $("#page-createtodo").show();
+        $("#page-updatetodo").hide();
+    })
+
+
+
+    // PAGE //
 
     $('#page-signup').on('submit', function(e){
         e.preventDefault() ;
@@ -146,7 +170,7 @@ $(document).ready (function(){
             .done(function (response) {
                 const token = response.token ;
                 localStorage.setItem ('token', token) ;
-                showTodos()
+                showTodos() ;
                 $("#page-home").hide();
                 $("#page-signup").hide();
                 $("#page-login").hide();
@@ -158,6 +182,49 @@ $(document).ready (function(){
                 showMessage([err.responseJSON.message])
             })        
     })
+
+    $('#page-createtodo').on('submit', function(e){
+        $('#section-message').empty() ;
+        e.preventDefault();
+        const title = $('#title-create').val();
+        const description = $('#description-create').val() || "" ;
+        const due_date = $('#due_date-create').val();
+        $.ajax({
+            method : "POST",
+            url : 'http://localhost:3000/todos/',
+            headers : {
+                token
+            },
+            data : {
+                title,
+                description,
+                due_date
+            }  
+        })
+            .done ((response) => {
+                $('#newtodo').empty()
+                showMessage(['To do successfully created'])
+                $('#newtodo').append(
+                    `<img src="${response.imageURL}" alt="Flowers in Chania">`
+                )
+                showTodos()
+
+                $("#page-home").hide();
+                $("#page-signup").hide();
+                $("#page-login").hide();
+                $("#page-dashboard").show();
+                $("#page-createtodo").hide();
+                $("#page-updatetodo").hide();
+            })
+
+            .fail ((err) => {
+                showMessage(err.responseJSON.message)
+            })
+
+        // console.log(title, description, due_date);
+    })
+
+
 
 
 
