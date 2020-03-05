@@ -1,3 +1,10 @@
 body {
     background-color: whitesmoke;
 }
+
+#loading {
+    background-image: url("./public/img/loading.svg");
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
