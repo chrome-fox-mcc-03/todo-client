@@ -74,11 +74,24 @@
                     <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-th-list" style="color: #9a9a9b;"></i></div>
                     <div class="sidebar-brand-text mx-3"><span style="color: #9a9a9b;">Add New Todo</span></div>
                 </a>
-                <form>
-                    <div style="margin: 0px;padding: 5px;"><label style="color: #9a9a9b;">Title</label><input class="form-control" type="text" name="title" placeholder="Todo's title" style="opacity: 1;"></div>
-                    <div style="margin: 0px;padding: 5px;"><label style="color: #9a9a9b;">Description</label><input class="form-control" type="text" name="title" placeholder="Todo's description" style="opacity: 1;"></div>
-                    <div style="margin: 0px;padding: 5px;"><label style="color: #9a9a9b;">Due Date</label><input class="form-control" type="date"></div>
-                    <div style="margin: 0px;padding: 5px;"><button class="btn text-white shadow" type="submit" style="background-color: rgb(33,74,128);">Add</button></div>
+                <form id="add-todo">
+                    <div style="margin: 0px;padding: 5px;">
+                        <label style="color: #9a9a9b;">Title</label>
+                        <input id="add-todo-title" class="form-control" type="text" name="title" placeholder="Todo's title" style="opacity: 1;">
+                    </div>
+                    <div style="margin: 0px;padding: 5px;">
+                        <label style="color: #9a9a9b;">Description</label>
+                        <input id="add-todo-description" class="form-control" type="text" name="title" placeholder="Todo's description" style="opacity: 1;">
+                    </div>
+                    <div style="margin: 0px;padding: 5px;">
+                        <label style="color: #9a9a9b;">Due Date</label>
+                        <input id="add-todo-date" class="form-control" type="date">
+                    </div>
+                    <div style="margin: 0px;padding: 5px;">
+                        <button class="btn text-white shadow" type="submit" style="background-color: rgb(33,74,128);">
+                            Add
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

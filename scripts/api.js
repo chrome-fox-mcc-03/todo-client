@@ -38,3 +38,18 @@ function signOut() {
     localStorage.removeItem('access_token');
   });
 }
+
+const addTodo = (payload) => {
+  return $.ajax({
+    url: `${BASE_URL}/todo`,
+    type:'POST',
+    headers: {
+      access_token: localStorage.getItem('access_token'),
+    },
+    data: {
+      title: payload.title,
+      description: payload.description,
+      due_date: payload.due_date,
+    },
+  });
+}

@@ -151,7 +151,27 @@ $(document).ready(function() {
   });
 
   // fetch data
-  fetchTodo();
+  // fetchTodo();
     // always ==> loading done;
+  
+  // Add new todo
+  $('#add-todo').submit(e => {
+    e.preventDefault();
+    const title = $('#add-todo-title').val();
+    const description = $('#add-todo-description').val();
+    const due_date = $('#add-todo-date').val();
+
+    addTodo({
+      title,
+      description,
+      due_date,
+    })
+      .done(_=> {
+        fetchTodo();
+      })
+      .fail(err => {
+        console.log(err.responseJSON);
+      })
+  })
   
 })
