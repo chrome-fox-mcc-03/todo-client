@@ -251,7 +251,7 @@ function updateTodo (id) {
         })
 
         .fail ( (err) => {
-            console.log(err);
+            showMessage(err.responseJSON.message)
         })
 }
 
@@ -303,27 +303,9 @@ function submitUpdateTodo (event) {
 }
 
 function deleteTodo(id) {
-    const token = localStorage.getItem('token');
-
+    
     $.ajax ({
         method : "DELETE",
-        url : `http://localhost:3000/todos/${id}`,
-        headers : {
-            token
-        }
-    })
-        .done ((response)=>{
-            showTodos(false)
-        })
-        .fail ( (err) =>{
-            console.log(err);
-        })
-}
-
-function makeItDone(id){
-
-    $.ajax ({
-        method : "PUT",
         url : `http://localhost:3000/todos/${id}`,
         headers : {
             token : localStorage.getItem('token')
@@ -333,7 +315,29 @@ function makeItDone(id){
             showTodos(false)
         })
         .fail ( (err) =>{
-            console.log(err);
+            showMessage(err.responseJSON.message)
+        })
+}
+
+function makeItDone(id){
+
+    $.ajax ({
+        method : "PATCH",
+        url : `http://localhost:3000/todos/${id}`,
+        headers : {
+            token : localStorage.getItem('token')
+        },
+        data : {
+            status : true
+        }
+    })
+        .done ((response)=>{
+            // setTimeout(showTodos(false), 5000);
+            showTodos(false) ;
+
+        })
+        .fail ( (err) =>{
+            showMessage(err.responseJSON.message)
         })
 }
 
