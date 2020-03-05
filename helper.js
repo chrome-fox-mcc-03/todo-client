@@ -7,7 +7,8 @@ function showReg() {
     $("#containerUpdate").hide()
     $("#containerGetById").hide()
     $("#containerDeleteById").hide()
-    $("#divTable").hide()
+    $("#errorPage").hide()
+    $("#divCard").hide()
 }
 function showLogin() {
     $("#container2").show()
@@ -18,7 +19,8 @@ function showLogin() {
     $("#containerUpdate").hide()
     $("#containerGetById").hide()
     $("#containerDeleteById").hide()
-    $("#divTable").hide()
+    $("#errorPage").hide()
+    $("#divCard").hide()
 
 }
 function showAdd() {
@@ -30,7 +32,8 @@ function showAdd() {
     $("#containerUpdate").hide()
     $("#containerGetById").hide()
     $("#containerDeleteById").hide()
-    $("#divTable").hide()
+    $("#errorPage").hide()
+    $("#divCard").hide()
 
 }
 function showUpdate() {
@@ -42,7 +45,8 @@ function showUpdate() {
     $("#containerAdd").hide()
     $("#containerGetById").hide()
     $("#containerDeleteById").hide()
-    $("#divTable").hide()
+    $("#errorPage").hide()
+    $("#divCard").hide()
 
 }
 function showDelById() {
@@ -54,7 +58,8 @@ function showDelById() {
     $("#containerAdd").hide()
     $("#containerUpdate").hide()
     $("#containerGetById").hide()
-    $("#divTable").hide()
+    $("#errorPage").hide()
+    $("#divCard").hide()
 
     
 }
@@ -67,7 +72,8 @@ function showGetById() {
     $("#containerAdd").hide()
     $("#containerUpdate").hide()
     $("#containerDeleteById").hide()
-    $("#divTable").hide()
+    $("#errorPage").hide()
+    $("#divCard").hide()
 
 }
 function showJumbotron() {
@@ -79,12 +85,12 @@ function showJumbotron() {
     $("#containerGetById").hide()
     $("#containerDeleteById").hide()
     $("#container2").hide()
-    $("#divTable").hide()
+    $("#errorPage").hide()
+    $("#divCard").hide()
 
 }
 
 function showTodos() {
-    $("#divTable").show()
     $("#jumbotron").hide()
     $("#containerReg").hide()
     $("#containerLogin").hide()
@@ -93,4 +99,21 @@ function showTodos() {
     $("#containerGetById").hide()
     $("#containerDeleteById").hide()
     $("#container2").hide()
+    $("#errorPage").hide()
+    $("#divCard").show()
+
+}
+
+function showErrors() {
+    $("#containerReg").hide()
+    $("#containerLogin").hide()
+    $("#containerAdd").hide()
+    $("#containerUpdate").hide()
+    $("#containerGetById").hide()
+    $("#containerDeleteById").hide()
+    $("#container2").hide()
+    $("#jumbotron").hide()
+    $("#errorPage").show()
+    $("#divCard").hide()
+
 }

@@ -15,7 +15,7 @@ function updateTodo (idUpdate) {
                 $("#idUpdate").val(response.id)
                 $("#titleUpdate").val(response.title)
                 $("#descriptionUpdate").val(response.description)
-                $("#statusUpdate").val(response.status)
+                $("#statusUpdate").val(`${response.status}`)
                 let dd = new Date(response.due_date).getDate();
                 let mm = new Date(response.due_date).getMonth() + 1; 
                 let yyyy = new Date(response.due_date).getFullYear();
@@ -33,6 +33,7 @@ function updateTodo (idUpdate) {
             })
             .fail(err => {
                 console.log(err.responseJSON)
+                getError(err)
             })    
 }
 
@@ -55,6 +56,8 @@ function deleteTodo(idToDelete) {
         .fail(err => {
             console.log(err)
             console.log(err.responseJSON)
+            getError(err)
+
         })
 }
 
@@ -75,11 +78,12 @@ function onSignIn(googleUser) {
     })
         .done(response => {
             console.log(response)
-            localStorage.setItem('token', response)
+            localStorage.setItem('token', response.token)
             showJumbotron()
         })  
         .fail(err => {
             console.log(err.responseJSON)
+            getError(err)
         }) 
 }
 
@@ -91,20 +95,32 @@ function signOut() {
 }
 
 $("document").ready(function () {
-    $("#containerReg").hide()
-    $("#containerLogin").hide()
-    $("#containerAdd").hide()
-    $("#containerUpdate").hide()
-    $("#containerGetById").hide()
-    $("#containerDeleteById").hide()
-    $("#container2").hide()
-    $("#divTable").hide()
 
+    // $("#containerReg").hide()
+    // $("#containerLogin").hide()
+    // $("#containerAdd").hide()
+    // $("#containerUpdate").hide()
+    // $("#containerGetById").hide()
+    // $("#containerDeleteById").hide()
+    // $("#container2").hide()
+    // $("#divTable").hide()
+    localStorage.clear()
+    showJumbotron()
+    $("#btn-login").show()
+    $("#btn-reg").show()
+    $("#btn-logout").hide()
+    
     $("#btn-todos").on('click',function () {
         showTodos()
     })
     $("#button-started").on('click',function () {
-        showReg()
+        const token = localStorage.getItem('token')
+        if (token) {
+            $("#tablebody").empty();
+            getTodos()
+        } else {
+            showReg()
+        }
     })
     $("#btn-reg").on('click',function () {
         showReg()
@@ -113,6 +129,10 @@ $("document").ready(function () {
         showLogin()
     })
     $("#btn-add").on('click',function () {
+        $("#titleAdd").val("")
+        $("#descriptionAdd").val("")
+        $("#status").val("")
+        $("#due_dateAdd").val("")
         showAdd()
     })
     $("#btn-home").on('click',function () {
@@ -125,8 +145,15 @@ $("document").ready(function () {
         showGetById()
     })
     $("#btn-logout").on('click',function () {
+        signOut()
         localStorage.clear()
+        $("#emailLogin").val("")
+        $("#passwordLogin").val("")
         $("#btn-login").show()
+        $("#btn-reg").show()
+        $("#btn-logout").hide()
+        $("#tablebody").empty();
+        showJumbotron()
     })
 
     $("#form-register").on('submit',function (e) {
@@ -146,6 +173,7 @@ $("document").ready(function () {
             })  
             .fail(err => {
                 console.log(err.responseJSON)
+                getError(err)
             }) 
     })
 
@@ -162,18 +190,22 @@ $("document").ready(function () {
             }
         })
             .done(response => {
-                localStorage.setItem('token', response)
-                $("#btn-login").hide()
+                localStorage.setItem('token', response.token)
                 showJumbotron()
+                $("#btn-login").hide()
+                $("#btn-reg").hide()
+                $("#btn-logout").show()
                 console.log(response)
             })  
             .fail(err => {
                 console.log(err.responseJSON)
+                getError(err)
             }) 
     })
 
     $("#formAdd").on('submit',function (e) {
         e.preventDefault()
+
         const title = $("#titleAdd").val()
         const description = $("#descriptionAdd").val()
         let status = $("#status").val()
@@ -198,10 +230,14 @@ $("document").ready(function () {
             }
         })
             .done(response => {
+                
                 console.log(response)
+                $("#tablebody").empty();
+                getTodos()
             })
             .fail(err => {
                 console.log(err.responseJSON)
+                getError(err)
             })
     })
     
@@ -252,6 +288,7 @@ $("document").ready(function () {
             })
             .fail(err => {
                 console.log(err.responseJSON)
+                getError(err)
             })
     })
 
@@ -280,8 +317,28 @@ $("document").ready(function () {
     // $("body").css('overflow-y', 'hidden');
 })
 
+function getError(errors) {
+    $("#errorPage").empty()
+    $("#errorPage").append(`<h1>Error ${errors.status}: ${errors.responseJSON[0]}<h1>`)
+    if(errors.status === 500) {
+        $("#errorPage").append('<img id="errorimg" src="./img/serverdown.svg">')
+    } else if(errors.status === 404) {
+        $("#errorPage").append('<img id="errorimg" src="./img/404.svg">')
+    } else if(errors.status === 401){
+        $("#errorPage").append('<img id="errorimg" src="./img/unauthorized.svg">')
+    } else {
+        $("#errorPage").append('<img id="errorimg" src="./img/failed.svg">')
+    }
+    showErrors()
+}
+
+
+
+
 function getTodos() {
     const token = localStorage.getItem('token')
+    console.log('token:',token);
+    
     $.ajax({
         method: "GET",
         headers: {
@@ -290,6 +347,7 @@ function getTodos() {
         url: "http://localhost:3000/todos"
     })
         .done(response => {
+            $("#divCard").empty();
             response.forEach(el => {
                 let dd = new Date(el.due_date).getDate();
                 let mm = new Date(el.due_date).getMonth() + 1; 
@@ -300,28 +358,30 @@ function getTodos() {
                 if (mm < 10) {
                 mm = '0' + mm;
                 } 
-                let newDate = yyyy + '-' + mm + '-' + dd;
+                let newDate = dd + '-' + mm + '-' + yyyy;
                 el.due_date = newDate
-                // console.log(el.id)
-                $("#tablebody").append(`
-                <tr>
-                    <td>${el.title}</td>
-                    <td>${el.description}</td>
-                    <td>${el.status}</td>
-                    <td>${el.due_date}</td>
-                    <td>
-                        <button type="button" onclick="updateTodo(${el.id})">Update</button>
-                        <button type="button" onclick="deleteTodo(${el.id})">Delete</button>
-                    </td>
-                <tr>
+                $("#divCard").append(`
+                    <div id="card">
+                        <h4>To do       : ${el.title}</h4>
+                        <h4>Description : ${el.description}</h4>
+                        <h4>Status      : ${el.status}</h4>
+                        <h4>Due Date    : ${el.due_date}</h4>
+                        <h4>
+                            <button type="button" onclick="updateTodo(${el.id})">Update</button>
+                            <button type="button" onclick="deleteTodo(${el.id})">Delete</button>
+                        </h4>
+                    </div>
                 `)
                 showTodos()
+                
             });
         })
         .fail(err => {
-            console.log(err.responseJSON)
+            console.log(err)
+            getError(err)
         })
 }
+
 $("#btn-todos").on('click',function () {
     const token = localStorage.getItem('token')
     console.log('token:',token);
@@ -334,7 +394,7 @@ $("#btn-todos").on('click',function () {
         url: "http://localhost:3000/todos"
     })
         .done(response => {
-            $("#tablebody").empty();
+            $("#divCard").empty();
             response.forEach(el => {
                 let dd = new Date(el.due_date).getDate();
                 let mm = new Date(el.due_date).getMonth() + 1; 
@@ -345,24 +405,25 @@ $("#btn-todos").on('click',function () {
                 if (mm < 10) {
                 mm = '0' + mm;
                 } 
-                let newDate = yyyy + '-' + mm + '-' + dd;
+                let newDate = dd + '-' + mm + '-' + yyyy;
                 el.due_date = newDate
-                $("#tablebody").append(`
-                <tr>
-                    <td>${el.title}</td>
-                    <td>${el.description}</td>
-                    <td>${el.status}</td>
-                    <td>${el.due_date}</td>
-                    <td>
-                        <button type="button" onclick="updateTodo(${el.id})">Update</button>
-                        <button type="button" onclick="deleteTodo(${el.id})">Delete</button>
-                    </td>
-                <tr>
+                $("#divCard").append(`
+                    <div id="card">
+                        <h4>To do       : ${el.title}</h4>
+                        <h4>Description : ${el.description}</h4>
+                        <h4>Status      : ${el.status}</h4>
+                        <h4>Due Date    : ${el.due_date}</h4>
+                        <h4>
+                            <button type="button" onclick="updateTodo(${el.id})">Update</button>
+                            <button type="button" onclick="deleteTodo(${el.id})">Delete</button>
+                        </h4>
+                    </div>
                 `)
                 
             });
         })
         .fail(err => {
-            console.log(err.responseJSON)
+            console.log(err)
+            getError(err)
         })
 })
