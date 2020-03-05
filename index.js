@@ -1,14 +1,28 @@
 function showPage (pageName) {
-	let pages = ['todo-list-page', 'signIn-page', 'signUp-page', 'todo-form-page']
+	$('#alert-error').remove();
+	let pages = ['todo-list-page', 'signIn-page', 'signUp-page', 'todo-form-page'];
+
+	(pageName === 'signIn-page' || pageName === 'signUp-page') ? $('body').css('background', 'linear-gradient(to right, #0062E6, #33AEFF)') : $('body').css('background', 'white');
 
 	pages.forEach(el => {
 		el === pageName ? $(`#${el}`).show() : $(`#${el}`).hide();
+		if (el === 'todo-list-page') getAllTodo();
 	})
 }
 
 function cancelToDoForm() {
-	getAllTodo();
 	showPage('todo-list-page');
+}
+function showSignUp(event) {
+	event.preventDefault();
+	$('#signup-name').val('');
+	$('#signup-email').val('');
+	$('#signup-password').val('');
+	showPage('signUp-page');
+}
+function showSignIn(event) {
+	event.preventDefault();
+	showPage('signIn-page');
 }
 
 function getAllTodo () {
@@ -20,6 +34,9 @@ function getAllTodo () {
 		}
 	})
 		.done((response) => {
+			$('#user-name').remove();
+			let name = localStorage.getItem('name');
+			$('#todo-list-page').prepend(`<h1 id="user-name">Hi, ${ name }</h1>`)
 			$('#todo-body').empty();
 			response.data.forEach((el, i) => {
 				let flag = '';
@@ -32,7 +49,8 @@ function getAllTodo () {
 					<td>${ el.title }</td>
 					<td>${ el.status ? 'Done' : 'On Progress'}</td>
 					<td>${ moment(el.due_date).format('DD MMM YYYY') }</td>
-					<td style="text-align:right"><button type="button" class="btn btn-primary" onClick="showUpdate(${el.id})">Update</button></td>
+					${ (!el.status) ? `<td><button type="button" class="btn btn-success" onClick="toggleStatus(${ el.id }, ${ el.status })">Mark as Done</button></td>` : `<td><button type="button" class="btn btn-primary" onClick="toggleStatus(${ el.id }, ${ el.status })">Mark as In Progress</button></td>`}
+					<td><button type="button" class="btn btn-primary" onClick="showUpdate(${el.id})">Update</button></td>
 					<td><button type="button" class="btn btn-danger" onClick="deleteTodo(${el.id})">Delete</button></td>
 				</tr>
 				`);
@@ -44,6 +62,9 @@ function getAllTodo () {
 }
 
 function showForm () {
+	$('#todo-title').val('');
+	$('#todo-description').val('');
+	$('#todo-due_date').val('');
 	$('#todo-form').attr('onsubmit', 'save(event)');
 	showPage('todo-form-page');
 }
@@ -57,7 +78,25 @@ function save (event, id) {
 	let due_date = $('#todo-due_date').val();
 
 	if (id !== '') {
-
+		$.ajax({
+			method: 'PUT',
+			url: `http://localhost:3000/todos/${id}`,
+			headers: {
+				token: localStorage.getItem('token')
+			},
+			data: {
+				title,
+				description,
+				due_date
+			}
+		})
+			.done((response) => {
+				showPage('todo-list-page');
+			})
+			.fail((err) => {
+				// let msg = JSON.parse(err.responseText)
+				console.log(err);
+			});
 	} else {
 		$.ajax({
 			method: 'POST',
@@ -72,16 +111,12 @@ function save (event, id) {
 			}
 		})
 			.done((response) => {
-				getAllTodo();
-				$('#todo-list-page').show();
-				$('#signIn-page').hide();
-				$('#signUp-page').hide();
-				$('#todo-form-page').hide();
+				showPage('todo-list-page');
 			})
 			.fail((err) => {
 				// let msg = JSON.parse(err.responseText)
 				console.log(err);
-			})
+			});
 	}
 }
 
@@ -107,6 +142,26 @@ function showUpdate (id) {
 		});
 }
 
+function toggleStatus (id, status) {
+	$.ajax({
+		method: 'PUT',
+		url: `http://localhost:3000/todos/${id}`,
+		headers: {
+			token: localStorage.getItem('token')
+		},
+		data: {
+			status: !status
+		}
+	})
+		.done((response) => {
+			showPage('todo-list-page');
+		})
+		.fail((err) => {
+			// let msg = JSON.parse(err.responseText)
+			console.log(err);
+		});
+}
+
 function deleteTodo (id) {
 	if (confirm('Are you sure?')) {
 		$.ajax({
@@ -119,14 +174,39 @@ function deleteTodo (id) {
 			.done((response => {
 				getAllTodo();
 			}))
+			.fail((err) => {
+				let msg = JSON.parse(err.responseText)
+				console.log(msg);
+			})
 	}
+}
+
+function onSignIn(googleUser) {
+	var profile = googleUser.getBasicProfile();
+	
+	var id_token = googleUser.getAuthResponse().id_token;
+
+	$.ajax({
+		method: 'POST',
+		url: 'http://localhost:3000/user/googlesignin',
+		headers: {
+			token: id_token
+		}
+	})
+		.done((response) => {
+			localStorage.setItem('token', response.token);
+			localStorage.setItem('name', response.name);
+			showPage('todo-list-page');
+		})
+		.fail((err) => {
+			console.log(err);
+		})
 }
 
 $(document).ready(function () {
 	const token = localStorage.getItem('token');
 
 	if (token) {
-		getAllTodo();
 		showPage('todo-list-page');
 	} else {
 		showPage('signIn-page');
@@ -148,15 +228,24 @@ $(document).ready(function () {
 		})
 			.done((response) => {
 				// simpen d local storage
-				console.log(`berhasil`);
 				localStorage.setItem('token', response.token);
+				localStorage.setItem('name', response.name);
 
-				getAllTodo();
 				showPage('todo-list-page');
 			})
 			.fail((err) => {
-				let msg = JSON.parse(err.responseText)
-				console.log(msg);
+				let errors = JSON.parse(err.responseText);
+				errors = errors.msg.map(el => el = `<p>${el}</p>`);
+				let alertBlock = `
+				<div class="alert alert-danger" role="alert" id="alert-error">
+				<h4 class="alert-heading">Validation Error!</h4>
+				`;
+
+				alertBlock += errors.join('<hr>');
+
+				alertBlock += `
+				</div>`;
+				$('#signIn-page').prepend(alertBlock);
 			});
 	});
 
@@ -178,6 +267,7 @@ $(document).ready(function () {
 		})
 			.done((response) => {
 				localStorage.setItem('token', response.token);
+				showPage('todo-list-page');
 			})
 			.fail((err) => {
 				let msg = JSON.parse(err.responseText);
@@ -188,6 +278,11 @@ $(document).ready(function () {
 		e.preventDefault();
 
 		localStorage.removeItem('token');
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function () {
+			console.log('User signed out.');
+		});
+
 
 		showPage('signIn-page');
 	})

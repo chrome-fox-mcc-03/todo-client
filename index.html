@@ -3,28 +3,86 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="google-signin-client_id" content="533435193684-87pnju9cmmsqd9su29rph8i48tu35o9e.apps.googleusercontent.com">
 	<title>Document</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
 	<div class="container">
 		<section id="signUp-page">
-			<h2>Sign Up</h2>
+			<!-- <h2>Sign Up</h2>
 			<form id="form-signUp">
 				<input type="name" name="signup-name" id="signup-name" placeholder="Your Name">
 				<input type="email" name="signup-email" id="signup-email" placeholder="Your Email">
 				<input type="password" name="signup-password" id="signup-password" placeholder="Your Password">
 				<input type="submit" value="Sign Up">
-			</form>
+			</form> -->
+			<div class="row">
+				<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+				  	<div class="card card-signin my-5">
+						<div class="card-body">
+							<h5 class="card-title text-center">Sign Up</h5>
+							<form class="form-signin" id="form-signUp">
+								<div class="form-label-group">
+									<input type="text" id="signup-name" class="form-control" placeholder="Your Name" required autofocus>
+									<label for="signup-name">Name</label>
+								</div>
+								<div class="form-label-group">
+									<input type="email" id="signup-email" class="form-control" placeholder="Email address" required>
+									<label for="signup-email">Email address</label>
+								</div>
+								<div class="form-label-group">
+									<input type="password" id="signup-password" class="form-control" placeholder="Password" required>
+									<label for="signup-password">Password</label>
+								</div>
+								<button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign Up</button>
+								<div class="login-separator">Or</div>
+								<button class="btn btn-lg btn-primary btn-block text-uppercase" onclick="showSignIn(event)">Sign In</button>
+								<button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
+								<!-- <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button> -->
+							</form>
+						</div>
+				  	</div>
+				</div>
 		</section>
 
 		<section id="signIn-page">
-			<h2>Sign In</h2>
+			<div class="row">
+				<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+				  	<div class="card card-signin my-5">
+						<div class="card-body">
+							<h5 class="card-title text-center">Sign In</h5>
+							<form class="form-signin needs-validation" id="form-signIn" novalidate>
+								<div class="form-label-group">
+									<input type="email" id="signin-email" class="form-control" placeholder="Email address" required autofocus>
+									<label for="signin-email">Email address</label>
+								</div>
+								<div class="form-label-group">
+									<input type="password" id="signin-password" class="form-control" placeholder="Password" required>
+									<label for="signin-password">Password</label>
+								</div>
+								<div class="custom-control custom-checkbox mb-3">
+									<input type="checkbox" class="custom-control-input" id="customCheck1">
+									<label class="custom-control-label" for="customCheck1">Remember password</label>
+								</div>
+								<button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
+								<div class="login-separator">Or</div>
+								<button class="btn btn-lg btn-primary btn-block text-uppercase" onclick="showSignUp(event)">Sign Up</button>
+								<!-- <button class="btn btn-lg btn-google btn-block text-uppercase" onclick="onSignIn" data-onsuccess="onSignIn()"><i class="fab fa-google mr-2"></i> Sign in with Google</button> -->
+								<div class="g-signin2" data-onsuccess="onSignIn"></div>
+								<!-- <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button> -->
+							</form>
+						</div>
+				  	</div>
+				</div>
+			</div>
+			<!-- <h2>Sign In</h2>
 			<form id="form-signIn">
 				<input type="email" name="signin-email" id="signin-email" placeholder="Your Email">
 				<input type="password" name="signin-password" id="signin-password" placeholder="Your Password">
 				<input type="submit" value="Sign In">
-			</form>
+			</form> -->
 		</section>
 		
 		<section id="todo-list-page">
@@ -40,7 +98,7 @@
 					<th scope="col">Title</th>
 					<th scope="col">Status</th>
 					<th scope="col">Due Date</th>
-					<th scope="col" colspan="2" style="text-align: center;">Action</th>
+					<th scope="col" colspan="3" style="text-align: center;">Action</th>
 				</tr>
 				</thead>
 				<tbody id="todo-body">
@@ -49,30 +107,33 @@
 			</table>
 		</section>
 
-		<section id="todo-form-page">
-			<h1 id="todo-form-title">Add New To Do Form</h1>
-			<form id="todo-form">
-				<div class="form-group">
-					<label for="todo-title">Title</label>
-					<input type="text" class="form-control" placeholder="To Do Title" id="todo-title" name="title">
-				</div>
-				<div class="form-group">
-					<label for="todo-description">Description</label>
-					<textarea class="form-control" id="todo-description" name="todo-description" rows="5" placeholder="Input To Do Description Here"></textarea>
-				</div>
-				<div class="form-group">
-					<label for="todo-due_date">Due Date</label>
-					<input type="date" class="form-control" name="todo-due_date" id="todo-due_date">
-				</div>
-				<button type="submit" class="btn btn-primary">Submit</button>
-				<button type="button" class="btn btn-danger" onClick="cancelToDoForm()">Cancel</button>
-			</form>
-		</section>
+		<div class="row-fluid">
+			<section id="todo-form-page">
+				<h1 id="todo-form-title">Add New To Do Form</h1>
+				<form id="todo-form">
+					<div class="form-group">
+						<label for="todo-title">Title</label>
+						<input type="text" class="form-control" placeholder="To Do Title" id="todo-title" name="title">
+					</div>
+					<div class="form-group">
+						<label for="todo-description">Description</label>
+						<textarea class="form-control" id="todo-description" name="todo-description" rows="5" placeholder="Input To Do Description Here"></textarea>
+					</div>
+					<div class="form-group">
+						<label for="todo-due_date">Due Date</label>
+						<input type="date" class="form-control" name="todo-due_date" id="todo-due_date">
+					</div>
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="button" class="btn btn-danger" onClick="cancelToDoForm()">Cancel</button>
+				</form>
+			</section>
+		</div>
 	</div>
 
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<script src="index.js"></script>
 </body>
 </html>
