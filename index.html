@@ -6,35 +6,108 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     </head>
-    <body>
-        <h1>Coba bang</h1>
+    <body align="center">
+        <!-- Main container -->
+        <nav role="navigation" aria-label="main navigation"
+            class="navbar is-dark">
+            <div class="navbar-brand">
+                <a class="navbar-item">
+                    Muh Fancy Todo
+                </a>
+            </div>
+            <div class="navbar-brand landing">
+                <div class="dropdown navbar-item">
+                    <div class="dropdown-trigger">
+                        <button class="button is-primary" aria-haspopup="true" aria-controls="dropdown-menu">
+                            <span>Login</span>
+                            <span class="icon is-small">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                        <div class="dropdown-content">
+                            <div class="dropdown-item">
+                                <form id="login-form">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input id="email-input" class="input" type="text" placeholder="email">
+                                            <input id="pass-input" class="input" type="password" placeholder="password">
+                                            <button class="button is-primary">Login</button>
+                                        </div>
+                                        <div id="login-warning"></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar-brand todouser-dashboard" style="display: none;">
+                <div class="navbar-item">
+                    <button id="logout-button" class="button is-warning">Logout</button>
+                </div>
+                <div class="navbar-item">
+                    <button id="add-todo-button" class="button is-info">Add Todo</button>
+                </div>
+            </div>
+            <div id="navbarBulma" class="navbar-menu">
+                <div class="navbar-start">
+                    <!-- empty atm -->
+                    <!-- hello user? -->
+                </div>
+            </div>
+        </nav>
+        <div class="content" id="front-message">
+            <!-- <p>sini</p> -->
+        </div>
         <section id="register-container" style="display: none;">
-            <h3>Register</h3>
             <form id="register-form">
-                <input id="email-new" type="text" autofocus placeholder="email"><br>
-                <input id="pass-new" type="password" placeholder="password"><br>
-                <input id="name-new" type="text" placeholder="display name (optional)"><br>
-                <input type="submit" value="Register">
-            </form>
-        </section>
-        <section id="login-container" style="display: none;">
-            <h3>Login</h3>
-            <form id="login-form">
-                <input id="email-input" type="text" autofocus placeholder="email">
-                <input id="pass-input" type="password" placeholder="password">
-                <input type="submit" value="Login">
+                <div class="field">
+                    <label class="label">Register</label>
+                    <div class="control has-text-centered">
+                        <input id="email-new" class="input" type="text" placeholder="email">
+                        <input id="pass-new" class="input" type="password" placeholder="password">
+                        <input id="name-new" class="input" type="text" placeholder="display name (optional)">
+                        <button class="button is-link">Register</button>
+                        <div id="register-warning"></div>
+                    </div>
+                </div>
             </form>
         </section>
         <section id="oauth-container" style="display: none;">
-            <h3>OAuth Access</h3>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <div align="center" class="field">
+                <label class="label">Access with Google Account</label>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            </div>
         </section>
-        <section id="testLogin" style="display: none;">
-            <br>
-            <button id="logout-button">Logout bang</button>
+        <section class="todouser-dashboard container is-fluid" style="display: none;">
+            <div class="columns">
+                <div class="column is-9">
+                    <p class="title">Todo List</p>
+                    <!-- todo items below -->
+                    <div id="todo-items" class="box">
+                        <div class="box">
+                            Todo 1
+                        </div>
+                    </div>
+                    <div id="test-items" class="box">
+                        <div class="box">
+                            Todo 1
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <p class="title">Summary</p>
+                    or Todo Details<br>
+                    or Todo Actions
+                </div>
+            </div>
         </section>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <script src="src/elements.js"></script>
+        <script src="src/Item.js"></script>
         <script src="src/app.js"></script>
         <script src="src/gAuth.js"></script>
     </body>

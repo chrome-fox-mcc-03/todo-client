@@ -7,8 +7,9 @@ function saveState() {
     load()
 }
 function load() {
+    $('#front-message').empty()
     if(appStorage.message) {
-        console.log(appStorage.message);
+        // console.log(appStorage.message);
         delete appStorage.message;
     }
     if (appStorage.token) {
@@ -16,12 +17,19 @@ function load() {
         $('#register-container').hide();
         $('#login-container').hide();
         $('#oauth-container').hide();
+
+        $('.todouser-dashboard').show();
+        $('.landing').hide();
     } else {
         $('#testLogin').hide();
         $('#register-container').show();
         $('#login-container').show();
         $('#oauth-container').show();
+
+        $('.todouser-dashboard').hide();
+        $('.landing').show();
     }
+    loadTodos()
 }
 function logout() {
     delete appStorage.token;
@@ -29,10 +37,12 @@ function logout() {
     auth2.signOut().then(function () {
         console.log('User signed out.');
     });
+    loadElements();
     saveState();
+    $('#front-message').append(`<p class="help is-success">User signed out</p>`);
 }
 function login(email, password) {
-    console.log('loading');
+    // console.log('loading');
     // console.log(email, password)
     $.ajax({
         url: "http://localhost:3000/login",
@@ -48,18 +58,26 @@ function login(email, password) {
     })
     .fail((response) => {
         // console.log(response.status, "yeh");
+        // console.log(response)
         appStorage.httpCode = response.status;
+        appStorage.msg = response.responseJSON.error;
     })
     .always(() => {
-        // console.log(response)
         // console.log('always bang');
         if (appStorage.httpCode === 200) {
-            console.log("oke bang")
-            saveState();
+            // console.log("oke bang")
             // console.log(appStorage);
-        } else {
-            console.log("gagal bang")
             saveState();
+        } else {
+            // console.log("gagal bang")
+            if (appStorage.msg) {
+                // $('#login-warning').val(appStorage.msg)
+                $('#login-warning').empty();
+                $('#login-warning').append(`<p class="help is-danger">${appStorage.msg}</p>`);
+                // $("#login-warning").val("Yeh");
+                delete appStorage.msg
+                // $("#login-warning").toggleClass("is-in");
+            }
         }
     });
 }
@@ -80,19 +98,61 @@ function register(email, password, username = "User") {
     })
     .fail((response) => {
         // console.log("fail")
+        // console.log(response);
         appStorage.httpCode = response.status;
-        appStorage.message = response.responseJSON.error[0]
+        appStorage.messages = response.responseJSON.error
     })
     .always(() => {
         // console.log("always")
         if (appStorage.httpCode === 201) {
-            console.log("oke bang")
+            // console.log("oke bang")
             saveState();
         } else {
-            console.log("gagal bang")
+            if (appStorage.messages) {
+                // console.log(appStorage.messages)
+                let messages = appStorage.messages;
+                if (!Array.isArray(messages)) {
+                    messages = [messages]
+                } else {
+                    
+                }
+                $('#register-warning').empty();
+                messages.forEach(msg => {
+                    $('#register-warning').append(`<p class="help is-danger">${msg}</p>`);
+                })
+                delete appStorage.messages
+            }
             saveState();
         }
     });
+}
+function loadTodos() {
+    // #todo-items
+    if (appStorage.token) {
+        $.ajax({
+            url: "http://localhost:3000/todos",
+            method: "GET",
+            headers: {
+                token: appStorage.token
+            },
+        })
+        .done((response) => {
+            $('#todo-items').empty()
+            $('#todo-items').append(`<div class="box">Loading Items Bang</div>`);
+        })
+        .fail()
+        .always((response) => {
+            if (response.todos.length > 0) {
+                $('#todo-items').empty()
+                response.todos.forEach(item => {
+                    let todo = TodoItem.create(item);
+                    $('#todo-items').append(todo.itemContent);
+                })
+            }
+        });
+    }
+}
+function clearTodos() {
 }
 
 $(document).ready(() => {
@@ -137,6 +197,6 @@ $(document).ready(() => {
     $("#logout-button").on('click', () => {
         event.preventDefault();
         logout();
-        console.log(appStorage);
+        // console.log(appStorage);
     })
 });
