@@ -1,0 +1,26 @@
+.signup, .signin {
+  margin: 50px 530px;
+}
+
+.create, .update {
+  margin: 50px 500px;
+}
+
+h1 {
+  font-size: xxx-large;
+  font-weight: 1000;
+  margin-left: 50px;
+  margin-bottom: 20px;
+}
+
+.todo {
+  display: flex;
+  margin-top: 70px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.field.is-grouped {
+  display: flex;
+  justify-content: space-between;
+}
