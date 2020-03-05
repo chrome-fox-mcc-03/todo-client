@@ -7,9 +7,25 @@ function fetchTodos() {
         } 
     })
         .done(todos => {
-            $('#todos-space').empty();
+            $('.todos').empty();
             for (let i = 0; i < todos.length; i++) {
-                $('#todos-space').append(`<p>${todos[i].title}</p><button onclick="editTodo(${todos[i].id})">Edit</button><button onclick="deleteTodo(${todos[i].id})">Delete</button>`)
+                // $('#theTodo').append(`<div><h4>${todos[i].title}</h4><p>${todos[i].description}</p></div><button onclick="editTodo(${todos[i].id})">Edit</button><button onclick="deleteTodo(${todos[i].id})">Delete</button>`)
+                $('.todos').append(`
+                <div onclick="editTodo(${todos[i].id})" class="todo">
+                    <div class="checkbox">
+                        <i class="fas fa-check-circle fa-2x"></i>
+                    </div>
+                    <div class="theTodo">
+                        <div id="titleAndDesc">
+                            <h4>${todos[i].title}</h4>
+                            <p>${todos[i].description}</p>
+                        </div>
+                        <h4>${todos[i].due_date}</h4>
+                    </div>
+                    <div class="delete">
+                        <i onclick="deleteTodo(${todos[i].id})" class="fas fa-trash-alt fa-2x"></i>
+                    </div>
+                </div>`)
             }
             console.log(todos);
         })
@@ -54,6 +70,11 @@ function deleteTodo(id) {
     })
         .done(todoFound => {
             console.log('Successfully deleted a todo', todoFound);
+            $('#dashboard-page').show();
+            $('#signup-page').hide();
+            $('#signin-page').hide();
+            $('#create-todo-page').hide();
+            $('#update-todo-page').hide();
             fetchTodos();
         })
         .fail(err => {

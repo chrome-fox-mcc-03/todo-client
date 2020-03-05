@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-signin-client_id" content="73604649300-55r5dfmt4klrnq7hq3ocgtigvtks90qj.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="73604649300-vn4r50lbruglu21oks1oqgom69e9njah.apps.googleusercontent.com">
     <link href='https://fonts.googleapis.com/css?family=Nunito:400,600,700&display=swap' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/d979fc4f1d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <title>Fancy Todo</title>
 </head>
 <body>
     <div>
-        <h1>Fancy Todo</h1><br>
         <div id="signup-page">
             <form id="signup-form">
                 <h3>Sign Up</h3>
@@ -31,9 +31,18 @@
             <p>Don't have an account? <a id="btn-redir-signup" href="#">Join us now</a></p>
         </div>
         <div id="dashboard-page">
-            <div id="todos-space"></div><br><br>
-            <button id="btn-redir-create-todo">Create New Todo</button> --------
-            <button id="btn-signout">Sign Out</button>
+            <div id="header">
+                <h1>Your Todos</h1>
+            </div>
+            <div id="main">
+                <div class="todos">
+                    <!-- the todos will appear here -->
+                </div>
+            </div>
+            <div id="footer">
+                <button id="btn-redir-create-todo">Create New Todo</button> --------
+                <button id="btn-signout">Sign Out</button>
+            </div>
         </div>
         <div id="create-todo-page">
             <form id="create-todo-form">
@@ -55,8 +64,18 @@
             </form>
         </div>
     </div>
+    
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="index.js"></script>
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        }
+    </script>
 </body>
 </html>
