@@ -42,10 +42,10 @@
             <li class="nav-item">
               <a class="nav-link active" href="#">Home</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item"  id="createTodo" >
               <a class="nav-link" href="#">Create Todo</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="logout">
               <a class="nav-link" href="#">Logout</a>
             </li>
         </ul>
@@ -108,129 +108,99 @@
     </div> -->
 
     <!-- LOGIN  ============================================================================================-->
-    <form>
+    <form class="container" id="login">
         <h3>LOGIN</h3>
         <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <label>Email address</label>
+          <input type="email" class="form-control" id="emailLogin" aria-describedby="emailHelp">
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
+          <label>Password</label>
+          <input type="password" class="form-control" id="passwordLogin">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="d-flex justify-content-end"> 
+            <button class="btn btn-link" id="registerButton">Register</button>
+            <button type="submit=" class="btn btn-primary" id="">Submit</button>
+        </div>
       </form>
+
+
     <!-- REGISTER  =========================================================================================-->
-    <form>
-        <h3>LOGIN</h3>
+    <form class="container" id="register">
+        <h3>REGISTER</h3>
         <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <label>Email address</label>
+          <input type="email" class="form-control" id="emailRegister" aria-describedby="emailHelp">
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
+          <label>Password</label>
+          <input type="password" class="form-control" id="passwordRegister">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
+
+
     <!-- LIST TODO ========================================================================================= -->
-    <div id="dashboard">
+    <div id="table">
         <table class="table">
             <thead class="thead-dark">
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Date</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-              </tr>
+            <tbody id="listTodo">
             </tbody>
           </table>
-          
-          <table class="table">
-            <thead class="thead-light">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-              </tr>
-            </tbody>
-          </table>
-    </div>
 
+    </div>
+<a href=""></a>
     <!-- CREATE TODO ======================================================================================= -->
-    <form>
-        <h3>LOGIN</h3>
+    <form class="container" id="create">
+        <h3>Create Todo</h3>
         <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <label>Title</label>
+            <input type="text" class="form-control" id="titleCreate" aria-describedby>
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    <!-- EDIT TODO ========================================================================================= -->
-    <form>
-        <h3>LOGIN</h3>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <label>Description</label>
+            <input type="text" class="form-control" id="descriptionCreate" aria-describedby>
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1">
+            <label>Date</label>
+            <input type="date" class="form-control" id="dateCreate" aria-describedby>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!-- EDIT TODO ========================================================================================= -->
+    <form class="container" id="update">
+        <h3>Update Todo</h3>
+        <div class="form-group">
+            <label>ID</label>
+            <input type="number" class="form-control" id="IdUpdate" aria-describedby readonly>
+        </div>
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" id="titleUpdate" aria-describedby>
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <input type="text" class="form-control" id="descriptionUpdate" aria-describedby>
+        </div>
+        <div class="form-group">
+            <label>Date</label>
+            <input type="date" class="form-control" id="dateUpdate" aria-describedby>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    
+    <div class="d-flex justify-content-center">
+        <img id="loading" src="https://www-tastemade-com.akamaized.net/dist/images/cats/preloader-002-dbcca15c4c.gif" alt="loading" height="200" width="200">
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
