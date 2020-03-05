@@ -9,7 +9,7 @@
         * {
             margin: 0;
             padding: 0;
-            background-image: ;
+            background-image: url('/img/2.png');
         }
         table {
             border-collapse: collapse;
@@ -29,43 +29,46 @@
             color: black;
         }
 
-        #div-homepage {
+        #div-homepage, #div-login {
             display: flex;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        #body-dashboard {
+            margin-left: 30px;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href=""><img src="/img/logo todolist.png" alt="" style="width: 100px;"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-    </nav>
     <section id="home">
-        <h1 style="margin-left: 30px;">HOME</h1>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href=""><img src="/img/logo todolist.png" alt="" style="width: 100px;"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
         <div id="div-homepage">
-            <div style="width: 40%; background-color: aqua; height: 100vh;">
+            <div id="register-form" style="width: 40%; height: 100vh;">
                 <form style="margin: 0 30px;">
+                    <h1>Register</h1>
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Email address</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                      <label for="email-register">Email address</label>
+                      <input type="email" class="form-control" id="email-register" aria-describedby="emailHelp" placeholder="Enter email">
                       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                      <label for="password-register">Password</label>
+                      <input type="password" class="form-control" id="password-register" placeholder="Password">
                     </div>
-                    <div class="form-check">
-                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <p>Have an account? <a href="#" id="a-login">Login here</a> </p>
                 </form>
-                <button id="btn-login">login</button>
-                <button id="btn-register">register</button>
             </div>
-            <div style="width: 60%; background-color: burlywood;">
-                <img src="/img//634483-SEO_Audit-512.png" alt="">
+            <div style="width: 60%;">
+                <img src="/img//634483-SEO_Audit-512.png" alt="" style="margin: 0 80px;">
             </div>
         </div>
     </section>
@@ -84,49 +87,68 @@
                   <a class="nav-link" href="">Create Todo</a>
                 </li>
                 <li class="nav-item" style="margin-left: 700px;">
-                  <a class="nav-link" href="">login</a>
+                  <a class="nav-link" href="#" id="btn-logout">logout</a>
                 </li>
               </ul>
             </div>
         </nav>
-        <button id="btn-logout">logout</button>
-        <h3>Todos</h3>
-        <table id="table-todos">
-            <tr>
-                <th>#</th>
-                <th>Title</th>
-                <th>Descriptions</th>
-                <th>Status</th>
-                <th>Due Date</th>
-            </tr>
-        </table>
+        <div id="body-dashboard">
+            <h3>Todos</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Descriptions</th>
+                        <th>Status</th>
+                        <th>Due Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="table-todos">
+    
+                </tbody>
+            </table>
+        </div>
     </section>
     <section id="login">
-        <h1>LOGIN</h1>
-        <button class="btn-home">home</button>
-        <br>
-        <br>
-        <form id="login-form">
-            <input id="email-login" type="text" placeholder="email">
-            <input id="password-login" type="password" placeholder="password">
-            <input type="submit" value="Login">
-        </form>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href=""><img src="/img/logo todolist.png" alt="" style="width: 100px;"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+        <div id="div-login">
+            <div style="width: 40%; height: 100vh;">
+                <form id="login-form" style="margin: 0 30px;">
+                    <h1>Login</h1>
+                    <div class="form-group">
+                    <label for="email-login">Email address</label>
+                    <input type="email" class="form-control" id="email-login" aria-describedby="emailHelp" placeholder="Enter email">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                    <label for="password-login">Password</label>
+                    <input type="password" class="form-control" id="password-login" placeholder="Password">
+                    </div>
+                    <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+            <div style="width: 60%;">
+                <img src="/img//634483-SEO_Audit-512.png" alt="" style="margin: 0 80px;">
+            </div>
+        </div>
+    </div>
     </section>
-    <section id="register">
-        <h1>REGISTER</h1>
-        <button class="btn-home">home</button>
-        <br>
-        <br>
-        <form id="register-form">
-            <input id="email-register" type="text" placeholder="email">
-            <input id="password-register" type="password" placeholder="password">
-            <input type="submit" value="Register">
-        </form>
-    </section>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="index.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
