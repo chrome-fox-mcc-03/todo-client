@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content= "575714057742-qkfmn19ho1rv3lodh0crhap2lruj1fl3.apps.googleusercontent.com">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/login-form.css">
+    <link rel="stylesheet" href="./css/register-form.css">
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="css/mdb.min.css">
+    <!-- Your custom styles (optional) -->
+    <link rel="stylesheet" href="css/style.css">
+    <title>Fancy Todo</title>
+</head>
+<body class="indigo-skin">
+    
+    <!-- Home Section -->
+    <section id="home">
+        <nav class="navbar navbar-expand-lg navbar-dark dark">
+            
+            <a class="navbar-brand" style="padding-left: 10px;"> Fancy Todo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                
+              </ul>
+                <button id="redirect-login" value="Login" style="margin-right: 10px;" type="button" class="btn btn-outline-dark">Login</button>
+                <button id="redirect-register" value="Register" style="margin-left: 10px;" type="button" class="btn btn-outline-dark">Register</button>
+            </div>
+          </nav>
+
+
+          <!-- Jumbotron -->
+            <div class="jumbotron text-center primary-color lighten-2 white-text mx-2 mb-5">
+
+                <!-- Title -->
+                <h2 class="card-title h2">Welcome To The Official Fancy Todo App</h2>
+            
+                <!-- Subtitle -->
+                <p class="my-4 h6">Powerful, free and fun todo maker!</p>
+            
+                <!-- Grid row -->
+                <div class="row d-flex justify-content-center">
+            
+                <!-- Grid column -->
+                <div class="col-xl-7 pb-2">
+            
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga aliquid dolorem ea distinctio exercitationem delectus qui, quas eum architecto, amet quasi accusantium, fugit consequatur ducimus obcaecati numquam molestias hic itaque accusantium doloremque laudantium, totam rem aperiam.</p>
+            
+                </div>
+                <!-- Grid column -->
+            
+                </div>
+                <!-- Grid row -->
+            
+                <hr class="my-4 rgba-white-light">
+            
+                <div class="pt-2">
+                <button type="button" class="btn btn-outline-white">Register <i style="padding-left: 5px;" class="fas fa-user-plus"></i></button>
+                <button type="button" id="docs-jumbotron" class="btn btn-outline-white">View Documentation <i class="fas fa-download ml-1"></i></button>
+                </div>
+            
+            </div>
+        <!-- Jumbotron -->
+
+        <div class="row">
+            <div class="col-lg-4 col-md-12 mb-4">
+          
+              <h4 class="py-4 text-center">Powerful <i class="fas fa-diagnoses"></i></h4>
+          
+              <!--Card-->
+              <div class="card card-cascade wider mb-4 example hoverable">
+          
+                <!--Card image-->
+                <div class="view view-cascade">
+                  <img src="https://mdbootstrap.com/img/Photos/Horizontal/People/6-col/img%20%283%29.jpg" class="card-img-top">
+                  <a href="#!">
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+                </div>
+                <!--/Card image-->
+          
+                <!--Card content-->
+                <div class="card-body card-body-cascade text-center">
+                  <!--Title-->
+                  <h4 class="card-title"><strong>Alice Mayer</strong></h4>
+                  <h5 class="indigo-text"><strong>Photographer</strong></h5>
+          
+                  <p class="card-text">Sed ut perspiciatis unde omnis iste natus sit voluptatem accusantium doloremque
+                    laudantium, totam
+                    rem aperiam.
+                  </p>
+          
+          
+                  <!--Linkedin-->
+                  <a class="icons-sm li-ic"><i class="fab fa-linkedin-in"> </i></a>
+                  <!--Twitter-->
+                  <a class="icons-sm tw-ic"><i class="fab fa-twitter"> </i></a>
+                  <!--Dribbble-->
+                  <a class="icons-sm fb-ic"><i class="fab fa-facebook-f"> </i></a>
+          
+                </div>
+                <!--/.Card content-->
+          
+              </div>
+              <!--/.Card-->
+          
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+          
+              <h4 class="py-lg-4 pb-4 text-center">Fun <i class="fas fa-music"></i></h4>
+          
+              <!--Card-->
+
+              <div class="card card-cascade narrower mb-4 example hoverable" style="margin-top: 28px">
+          
+                <!--Card image-->
+                <div class="view view-cascade">
+                  <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(147).jpg" class="card-img-top"
+                    alt="">
+                  <a>
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+                </div>
+                <!--/.Card image-->
+          
+                <!--Card content-->
+                <div class="card-body card-body-cascade">
+                  <h5 class="pink-text"><i class="fas fa-utensils"></i> Culinary</h5>
+                  <!--Title-->
+                  <h4 class="card-title">Cheat day inspirations</h4>
+                  <!--Text-->
+                  <p class="card-text">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit
+                    laboriosam, nisi ut
+                    aliquid ex ea commodi.</p>
+                  <a class="btn btn-unique">Button</a>
+                </div>
+                <!--/.Card content-->
+          
+              </div>
+              <!--/.Card-->
+          
+            </div>
+            <div class="col-lg-4 col-md-6">
+          
+              <h4 class="py-lg-4 pb-4 text-center">Creative 
+                <i class="far fa-smile-beam fa-spin"></i></h4>
+          
+              <!--Card-->
+              <div class="card card-cascade example hoverable">
+          
+                <!--Card image-->
+                <div class="view view-cascade">
+                  <img src="https://mdbootstrap.com/img/Photos/Others/men.jpg" class="card-img-top" alt="">
+                  <a>
+                    <div class="mask rgba-white-slight"></div>
+                  </a>
+                </div>
+                <!--/.Card image-->
+          
+                <!--Card content-->
+                <div class="card-body card-body-cascade text-center">
+                  <!--Title-->
+                  <h4 class="card-title"><strong>Billy Cullen</strong></h4>
+                  <h5>Web developer</h5>
+          
+                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus, ex,
+                    recusandae. Facere modi
+                    sunt, quod quibusdam.
+                  </p>
+          
+                  <!--Facebook-->
+                  <a type="button" class="btn-floating btn-small btn-fb"><i class="fab fa-facebook-f"></i></a>
+                  <!--Twitter-->
+                  <a type="button" class="btn-floating btn-small btn-tw"><i class="fab fa-twitter"></i></a>
+                  <!--Google +-->
+                  <a type="button" class="btn-floating btn-small btn-dribbble"><i class="fab fa-dribbble"></i></a>
+          
+                </div>
+                <!--/.Card content-->
+          
+              </div>
+              <!--/.Card-->
+          
+            </div>
+          </div>
+
+        <!-- Footer -->
+
+        <div class="example hoverable">
+            <footer class="page-footer font-small black">
+
+                <!-- Footer Elements -->
+                <div class="container">
+            
+                <!-- Grid row-->
+                <div class="row">
+            
+                    <!-- Grid column -->
+                    <div class="col-md-12 py-5">
+                    <div class="mb-5 flex-center">
+            
+                        <!-- Facebook -->
+                        <a class="fb-ic">
+                        <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                        </a>
+                        <!-- Twitter -->
+                        <a class="tw-ic">
+                        <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                        </a>
+                        <!-- Google +-->
+                        <a class="gplus-ic">
+                        <i class="fab fa-google-plus-g fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                        </a>
+                        <!--Linkedin -->
+                        <a class="li-ic">
+                        <i class="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                        </a>
+                        <!--Instagram-->
+                        <a class="ins-ic">
+                        <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                        </a>
+                        <!--Pinterest-->
+                        <a class="pin-ic">
+                        <i class="fab fa-pinterest fa-lg white-text fa-2x"> </i>
+                        </a>
+                    </div>
+                    </div>
+                    <!-- Grid column -->
+            
+                </div>
+                <!-- Grid row-->
+            
+                </div>
+                <!-- Footer Elements -->
+            
+                <!-- Copyright -->
+                <div class="footer-copyright text-center py-3">© 2020 Copyright:
+                <a href="https://mdbootstrap.com/"> Powered By MDBootstrap.com</a>
+                </div>
+                <!-- Copyright -->
+            
+            </footer>
+            <!-- Footer -->
+        </div>
+
+          
+    </section>
+
+
+    <!-- Register Section -->
+    <section id="register-section">
+
+        <div class="example hoverable">
+
+            <!-- Default form register -->
+                <form class="text-center border border-light p-5" action="#!">
+    
+                    <p class="h4 mb-4">Register</p>
+    
+                    <!-- E-mail -->
+                    <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="E-mail">
+    
+                    <!-- Password -->
+                    <input type="password" id="defaultRegisterFormPassword" class="form-control" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
+                    <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                        At least 8 characters and 1 digit
+                    </small>
+    
+                    <!-- Sign up button -->
+                    <button id="btn-reg" class="btn btn-info my-4 btn-block" type="submit">Register</button>
+    
+                    <!-- Social register -->
+                    <p>or sign up with:</p>
+    
+                    <a href="#" class="mx-2" role="button"><i class="fab fa-facebook-f light-blue-text"></i></a>
+                    <a href="#" class="mx-2" role="button"><i class="fab fa-twitter light-blue-text"></i></a>
+                    <a href="#" class="mx-2" role="button"><i class="fab fa-linkedin-in light-blue-text"></i></a>
+                    <a href="#" class="mx-2" role="button"><i class="fab fa-github light-blue-text"></i></a>
+    
+                    <hr>
+    
+                    <!-- Terms of service -->
+                    <p>By clicking
+                        <em>Sign up</em> you agree to our
+                        <a href="" target="_blank">terms of service</a>
+    
+                </form>
+                <!-- Default form register -->
+        </div>
+
+    </section>
+
+
+    <!-- Login Section -->
+    <section id="login-section">
+        <div class="example hoverable">
+            
+            <form class="border border-light p-5">
+    
+                <p class="h4 mb-4 text-center">Sign in</p>
+            
+                <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
+            
+                <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
+            
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
+                            <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="">Forgot password?</a>
+                    </div>
+                </div>
+            
+                <button id="btn-login" class="btn btn-info btn-block my-4" type="submit">Sign in</button>
+            
+                <div class="text-center">
+                    <p>Not a member?
+                        <a href="">Register</a>
+                    </p>
+            
+                    <p>or sign in with:</p>
+                    <a type="button" class="light-blue-text mx-2">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a type="button" class="light-blue-text mx-2">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a type="button" class="light-blue-text mx-2">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a type="button" class="light-blue-text mx-2">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </section>
+    
+
+    <!-- Dashboard Section -->
+    <section id="todo-dashboard">
+        
+        <!--Navbar -->
+        <nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1">
+            <a class="navbar-brand" href="#">Fancy Todo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+            aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <input id="btn-logout" type="submit" value="Logout" class="btn btn-dark">
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item">
+                    <a id="update-btn" class="nav-link p-0" href="#" style="margin-right: 10px;"> Update </a>
+                </li>
+                <li class="nav-item">
+                    <a id="create-btn" class="nav-link p-0" href="#" style="margin-right: 10px;"> Create </a>
+                </li>
+                <li class="nav-item avatar">
+                    <a class="nav-link p-0" href="#">
+                        <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg" class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                    </a>
+                </li>
+            </ul>
+            </div>
+        </nav>
+        <!--/.Navbar -->
+
+
+        <!-- <a href="#" onclick="signOut();">Sign out</a> -->
+    </section>
+
+
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="index.js"></script>
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            const g_idToken = googleUser.getAuthResponse().id_token;
+
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+            console.log('Access Token: ' + g_idToken);
+            
+        }
+
+    </script>
+    <script>
+      function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+          console.log('User signed out.');
+        });
+      }
+    </script>
+    <!-- jQuery required for bootstrap -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <!-- Your custom scripts (optional) -->
+    <script type="text/javascript"></script>
+</body>
+</html>
