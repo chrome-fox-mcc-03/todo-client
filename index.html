@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" />
+    <meta name="google-signin-client_id"
+        content="1069780729980-k40krdgarhd1hd3k0m2q7lun96jgrpms.apps.googleusercontent.com">
     <title>Fancy Todo</title>
 </head>
 
 <body>
-
     <div class="container">
         <nav class="navbar" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
@@ -41,11 +42,15 @@
                             <a id="button-login" class="button is-light">
                                 Log in
                             </a>
+                            <a id="button-logout" class="button is-light">
+                                Log out
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </nav>
+
 
 
         <section class="hero" id="landing-page">
@@ -130,6 +135,7 @@
                                     </button>
                                 </div>
                             </form>
+                            <div class="g-signin2" data-onsuccess="onSignIn"></div>
                         </div>
                     </div>
                 </div>
@@ -137,6 +143,7 @@
         </section>
 
         <section id="dashboard-page">
+            
             <table class="table is-striped is-fullwidth" id="table-todo">
             </table>
         </section>
@@ -145,6 +152,7 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="index.js"></script>
 
 </body>
