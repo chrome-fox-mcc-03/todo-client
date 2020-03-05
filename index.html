@@ -4,20 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <meta name="google-signin-client_id" content="680958371821-lhfj5scfpr2kvhavoij978omf0840av1.apps.googleusercontent.com">
     <link rel="stylesheet" href="style.css">
     <title>Fancy ToDo</title>
 </head>
 <body>
-    <button style="text-align: left;" class="btn btn-warning" id="btn-home">Home</button><br><br>
+    <button onclick="homeBtn()" style="text-align: left;" class="btn btn-warning" id="btn-home">Home</button><br><br>
     <section id="section-message">
     </section><br>
     <section id="page-home">
         <h1>Welcome to Fancy Todo</h1>
-        <button class="btn btn-primary" id="btn-signup">Sign Up</button>
-        <button class="btn btn-primary" id="btn-login">Login</button>
+        <button onclick="signUpBtn()" class="btn btn-primary" id="btn-signup">Sign Up</button>
+        <button onclick="loginBtn()" class="btn btn-primary" id="btn-login">Login</button>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
     </section>
     <section id="page-signup">
-        <form>
+        <form onsubmit="signUp(event)">
             <label for="email-signup">Email:</label><br>
             <input type="text" id="email-signup" name="email-signup" placeholder="Email"><br>
             <label for="password-signup">Password:</label><br>
@@ -26,7 +28,7 @@
         </form>
     </section>
     <section id="page-login">
-        <form>
+        <form onsubmit="signIn(event)">
             <label for="email-login">Email:</label><br>
             <input type="text" id="email-login" name="email-login" placeholder="Email"><br>
             <label for="password-login">Password:</label><br>
@@ -37,16 +39,16 @@
     <section id="page-dashboard">
         <h1>Dashboard</h1>
         <div id=newtodo></div>
-        <button class="btn btn-success" id="btn-createtodo">Create To Do</button>
-        <button class="btn btn-success" id="btn-show_history">Show History</button>
-        <button class="btn btn-success" id="btn-current">Show Pending</button><br><br><br><br>
+        <button onclick="createTodoBtn(event)" class="btn btn-success" id="btn-createtodo">Create To Do</button>
+        <button onclick="showHistoryBtn()" class="btn btn-success" id="btn-show_history">Show History</button>
+        <button onclick="showPendingBtn()" class="btn btn-success" id="btn-current">Show Pending</button><br><br><br><br>
 
 
-        <button class="btn btn-dark" id="btn-logout">Logout</button><br><br>
+        <button onclick="logout()" class="btn btn-dark" id="btn-logout">Logout</button><br><br>
     </section>
     <section id="page-createtodo">
         <h1>Create New Todo</h1>
-        <form>
+        <form onsubmit="createTodo(event)">
             <label for="title-create">Title:</label><br>
             <input type="text" id="title-create" name="title-create" placeholder="Title"><br><br>
             <label for="description-create">Description:</label><br>
@@ -59,7 +61,7 @@
     </section>
     <section id="page-updatetodo">
         <h1>Update To Do page</h1>
-        <form>
+        <form onsubmit="submitUpdateTodo(event)">
             <label for="title-update">Title:</label><br>
             <input type="text" id="title-update" name="title-update" placeholder="Title"><br><br>
             <label for="description-update">Description:</label><br>
@@ -87,6 +89,7 @@
                 </tbody>
             </table>
     </section>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
