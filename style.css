@@ -3,15 +3,29 @@ body {
     text-align: center;
 }
 
-table {
-    text-align: center;
-    color: aliceblue;
-    margin: auto;
-    width: 80%;
-}
-
-
 h1 {
     color: whitesmoke;
 }
 
+#section-message {
+    color : lightsteelblue
+}
+
+.card-container {
+    margin: auto;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.card-todo {
+    background-image: url("./img/bgCard.png");
+    border-radius: 12px;
+    margin: 10px;
+    padding: 10px;
+    height: 250px;
+    color: blanchedalmond;
+    font-size: 17px;
+}

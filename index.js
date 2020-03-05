@@ -6,11 +6,11 @@ function showMessage(arr){
     if (typeof arr == 'string'){
         arr = [arr] ;
         arr.forEach(element => {
-            $('#section-message').append(`<li>${element}</li>`)
+            $('#section-message').append(`-${element}-`)
         });
     } else {
         arr.forEach(element => {
-            $('#section-message').append(`<li>${element}</li>`)
+            $('#section-message').append(`-${element}-`)
         });
     }
 }
@@ -28,7 +28,7 @@ function showTodos(isComplete){
 
         .done (function(response){
             
-            $('#section-data').empty() ;
+            $('.card-container').empty() ;
             response.data.forEach(element => {
                 let due_date = new Date (element.due_date)
                 let year = due_date.getFullYear() ;
@@ -47,26 +47,27 @@ function showTodos(isComplete){
                     status = 'pending'
                 } else {
                     status = 'completed'
+                    
                 }
                 if (isComplete === false){
-                    $('#section-data').append(`
-                    <tr>
-                        <td>${element.title}</td>
-                        <td>${element.description}</td>
-                        <td>${formatted_date}</td>
-                        <td>${status}</td>
-                        <td><button class="btn btn-success" onClick="makeItDone(${element.id})" id="btn-update-${element.id}">Done</button> <button class="btn btn-info" onClick="updateTodo(${element.id})" id="btn-update-${element.id}">Edit</button> <button class="btn btn-danger" onClick="deleteTodo(${element.id})" id="btn-delete-${element.id}">Delete</button></td>
-                    </tr>
+                    $('.card-container').append(`
+                    <div class="card-todo" id=card-${element.id}>
+                        ${element.title}<br>
+                        ${element.description}<br>
+                        ${formatted_date}<br>
+                        ${status}<br><br><br>
+                        <button class="btn btn-success" onClick="makeItDone(${element.id})" id="btn-update-${element.id}">Done</button> <button class="btn btn-info" onClick="updateTodo(${element.id})" id="btn-update-${element.id}">Edit</button> <button class="btn btn-danger" onClick="deleteTodo(${element.id})" id="btn-delete-${element.id}">Delete</button>
+                    </div>
                     `)
                 } else {
-                    $('#section-data').append(`
-                    <tr>
-                        <td>${element.title}</td>
-                        <td>${element.description}</td>
-                        <td>${formatted_date}</td>
-                        <td>${status}</td>
-                        <td><button class="btn btn-info" onClick="updateTodo(${element.id})" id="btn-update-${element.id}">Edit</button> <button class="btn btn-danger" onClick="deleteTodo(${element.id})" id="btn-delete-${element.id}">Delete</button></td>
-                    </tr>
+                    $('.card-container').append(`
+                    <div class="card-todo" id=card-${element.id}>
+                        ${element.title}<br>
+                        ${element.description}<br>
+                        ${formatted_date}<br>
+                        ${status}<br><br><br>
+                        <button class="btn btn-info" onClick="updateTodo(${element.id})" id="btn-update-${element.id}">Edit</button> <button class="btn btn-danger" onClick="deleteTodo(${element.id})" id="btn-delete-${element.id}">Delete</button>
+                    </div>
                     `)
 
                 }
