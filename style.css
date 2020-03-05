@@ -1,0 +1,358 @@
+:root {
+    font-size: 16px;
+    box-sizing: border-box;
+    --transition: 500ms;
+}
+
+body {
+    color: black;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(82, 190, 223);
+}
+
+/* LANDING PAGE */
+
+.landing-page {
+    background-image: url('./img/landing-bg.jpg');
+    width: auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.sign-up-log-in-page {
+    position: fixed;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    top: 0;
+}
+
+#sign-up-form {
+    background-color: rgb(4, 70, 70);
+    padding: 60px;
+    border-radius: 10px;
+    font-family: 'Spartan', sans-serif;
+    margin: 10px auto;
+    text-align: center;
+}
+
+#log-in-form {
+    background-color: rgb(4, 70, 70);
+    padding: 60px;
+    border-radius: 10px;
+    font-family: 'Spartan', sans-serif;
+    margin: 10px auto;
+    text-align: center;
+}
+
+label {
+    display: inline-block;
+    margin: 6px;
+}
+
+.sign-up-text-top {
+    color: whitesmoke;
+    font-family: 'Spartan', sans-serif;
+    font-size: 13px;
+}
+
+.sign-up-text {
+    margin-bottom: 20px;
+    width: 10rem;
+    padding: 5px;
+}
+
+.landing-page-div {
+    margin-left: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-todos-div {
+    margin-left: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#landing-title {
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    color: rgb(10, 51, 14);
+    font-size: 50px;
+    letter-spacing: -2px;
+    padding: 15px;
+}
+
+.sign-up-btn {
+    font-family: 'Lato', sans-serif;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    border-radius: 10px;
+    border-width: 0;
+    background-color: rgb(8, 41, 8);
+    font-weight: 700;
+    color: whitesmoke;
+    font-size: 18px;
+    filter: grayscale(100%) opacity(0.7);
+    transition: var(--transition);
+}
+
+.sign-up-btn:hover {
+    filter: grayscale(0%) opacity(1);
+}
+
+a {
+    color: rgb(8, 53, 53);
+}
+
+#login {
+    margin-top: 1rem;
+    filter: grayscale(100%) opacity(0.5);
+}
+
+#login:hover {
+    filter: grayscale(0%) opacity(1);
+}
+
+.dashboard-class {
+    background: url('./img/dashboard-bg.jpg');
+    width: auto;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dark-bg {
+    background-color: rgb(0, 0, 0, 0.4);
+    width: 97vw;
+    height: 93vh;
+    border-radius: 20px;
+    position: fixed;
+}
+
+.dashboard-content {
+    z-index: 1;
+    font-family: 'Lato', sans-serif;
+    color: white;
+    width: 97vw;
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.welcome-text {
+    padding: 2rem;
+}
+
+.welcome-text-child {
+    font-size: 40px;
+    display: inline;
+    font-weight: lighter;
+}
+
+.welcome-text-child-name {
+    font-size: 40px;
+    display: inline;
+    font-weight: lighter;
+}
+
+.add-btn {
+    cursor: pointer;
+    margin-top:auto ; 
+    margin-bottom: 2rem;
+    margin-left: 2rem;
+    width: 100px;
+    height: 100px;
+    filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(11deg) brightness(105%) contrast(106%);
+    transition: var(--transition);
+}
+
+.add-btn:hover {
+    transform: rotate(40deg);
+    transition: var(--transition);
+}
+
+.content-body {
+    flex: 1 1 auto;
+    margin: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.ds-divs {
+    width: 30%;
+    margin: 1rem;
+    background-color: rgb(255, 255, 255, 0.7);
+    padding-left: 1rem;
+    border-radius: 20px;
+    padding-right: 2rem;
+}
+
+.todos {
+    color: rgb(62, 6, 68);
+    background-color: rgb(48, 3, 48, 0.3);
+    cursor: pointer;
+    font-family: 'Spartan', sans-serif;
+    font-size: 20px;
+    margin-left: 0.5rem;
+    padding: 0.3rem;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    border-radius: 10px;
+
+}
+.todos:hover {
+    color: white;
+    background-color: rgb(48, 3, 48);
+    transition: var(--transition);
+}
+
+.add-todos {
+    position: fixed;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    top: 10rem;
+    display: none;
+}
+
+.edit-todos {
+    position: fixed;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    top: 10rem;
+    display: none;
+}
+
+#todos-form {
+    background-color: rgb(58, 5, 63);
+    padding: 60px;
+    border-radius: 10px;
+    font-family: 'Spartan', sans-serif;
+    margin: 10px;
+    text-align: center;
+    color: white;
+}
+
+.edit-todos-form {
+    background-color: rgb(58, 5, 63);
+    padding: 60px;
+    border-radius: 10px;
+    font-family: 'Spartan', sans-serif;
+    margin: 10px;
+    text-align: center;
+    color: white;
+}
+
+.back-todos-add {
+    font-family: 'Lato', sans-serif;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    border-radius: 10px;
+    border-width: 0;
+    background-color: rgb(8, 41, 8);
+    font-weight: 700;
+    color: whitesmoke;
+    font-size: 18px;
+    filter: grayscale(100%) opacity(0.7);
+    transition: var(--transition);
+}
+
+.back-todos-add:hover {
+    filter: grayscale(0%) opacity(1);
+}
+
+.back-todos-edit {
+    font-family: 'Lato', sans-serif;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    border-radius: 10px;
+    border-width: 0;
+    background-color: rgb(8, 41, 8);
+    font-weight: 700;
+    color: whitesmoke;
+    font-size: 18px;
+    filter: grayscale(100%) opacity(0.7);
+    transition: var(--transition);
+}
+
+.back-todos-edit:hover {
+    filter: grayscale(0%) opacity(1);
+}
+
+.add-todos-btn {
+    font-family: 'Lato', sans-serif;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    border-radius: 10px;
+    border-width: 0;
+    background-color: rgb(8, 41, 8);
+    font-weight: 700;
+    color: whitesmoke;
+    font-size: 18px;
+    filter: grayscale(100%) opacity(0.7);
+    transition: var(--transition);
+}
+
+.add-todos-btn:hover {
+    filter: grayscale(0%) opacity(1);
+}
+
+#log-out {
+    cursor: pointer;
+    padding:1rem;
+    color: white;
+}
+
+#log-out:hover {
+    color: wheat;
+    transition: var(--transition);
+}
+
+input {
+    border-radius: 5px;
+}
+
+.todos-detail {
+    font-size: 20px;
+}
+
+#ds-2{
+    padding-left: 2.5rem;
+}
+
+.todos-title{
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.todos-desc {
+    font-size: 1.5rem;
+    background-color: rgb(48, 3, 48, 0.3);
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.todos-status {
+    font-weight: bold;
+}
