@@ -16,7 +16,8 @@
         <h1>Welcome to Fancy Todo</h1>
         <button onclick="signUpBtn()" class="btn btn-primary" id="btn-signup">Sign Up</button>
         <button onclick="loginBtn()" class="btn btn-primary" id="btn-login">Login</button>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <br><br><h5>or</h5><br>
+        <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-width="300" data-height="50" data-longtitle="true">button</div>
     </section>
     <section id="page-signup">
         <form onsubmit="signUp(event)">
@@ -38,7 +39,7 @@
     </section>
     <section id="page-dashboard">
         <h1>Dashboard</h1>
-        <div id=newtodo></div>
+        <div id=newtodo></div><br>
         <button onclick="createTodoBtn(event)" class="btn btn-success" id="btn-createtodo">Create To Do</button>
         <button onclick="showHistoryBtn()" class="btn btn-success" id="btn-show_history">Show History</button>
         <button onclick="showPendingBtn()" class="btn btn-success" id="btn-current">Show Pending</button><br><br><br><br>

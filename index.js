@@ -50,22 +50,25 @@ function showTodos(isComplete){
                     
                 }
                 if (isComplete === false){
+                    console.log(element.urlImage);
                     $('.card-container').append(`
                     <div class="card-todo" id=card-${element.id}>
-                        ${element.title}<br>
-                        ${element.description}<br>
-                        ${formatted_date}<br>
-                        ${status}<br><br><br>
+                        Title : ${element.title}<br>
+                        Description : ${element.description}<br>
+                        Due date : ${formatted_date}<br>
+                        Status : ${status}<br><br>
+                        <img src="${element.urlImage}" alt="${element.title}"> <br><br><br>
                         <button class="btn btn-success" onClick="makeItDone(${element.id})" id="btn-update-${element.id}">Done</button> <button class="btn btn-info" onClick="updateTodo(${element.id})" id="btn-update-${element.id}">Edit</button> <button class="btn btn-danger" onClick="deleteTodo(${element.id})" id="btn-delete-${element.id}">Delete</button>
                     </div>
                     `)
                 } else {
                     $('.card-container').append(`
                     <div class="card-todo" id=card-${element.id}>
-                        ${element.title}<br>
-                        ${element.description}<br>
-                        ${formatted_date}<br>
-                        ${status}<br><br><br>
+                        Title : ${element.title}<br>
+                        Description : ${element.description}<br>
+                        Due date : ${formatted_date}<br>
+                        Status : ${status}<br><br>
+                        <img src="${element.urlImage}" alt="${element.title}"> <br><br><br>
                         <button class="btn btn-info" onClick="updateTodo(${element.id})" id="btn-update-${element.id}">Edit</button> <button class="btn btn-danger" onClick="deleteTodo(${element.id})" id="btn-delete-${element.id}">Delete</button>
                     </div>
                     `)
