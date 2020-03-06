@@ -2,12 +2,12 @@ $(document).ready(function () {
     if (!localStorage.token) {
         $("#sign_up_page").hide();
         $("#home_page").hide();
-        $("#sign_in_page").show();
+        $("#welcome_container").show();
         $("#edit_page").hide();
         $("#create_page").hide();
     } else {
         showTodo();
-        $("#sign_in_page").hide();
+        $("#welcome_container").hide();
         $("#sign_up_page").hide();
         $("#home_page").show();
         $("#edit_page").hide();
@@ -32,7 +32,7 @@ function login(event) {
     })
         .done(function (data) {
             // console.log(token);
-            $("#sign_in_page").hide();
+            $("#welcome_container").hide();
             $("#sign_up_page").hide();
             $("#home_page").show();
             // console.log(`sign in success <<<<<<<<<<<<<<<<<<, ${token}`);
@@ -50,9 +50,17 @@ function logout() {
     // $("#logout_button").on("click", () => {
     // console.log(`masoooooooooooook`);
     localStorage.clear();
+
+
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log('User signed out.');
+    });
+
+
     $("#home_page").hide();
     // alert('masuk logout')
-    $("#sign_in_page").show();
+    $("#welcome_container").show();
     $("#edit_page").hide();
     // })
 }
@@ -60,7 +68,7 @@ function logout() {
 function signupShow() {
     // alert(`masuk signup`)
     $("#home_page").hide();
-    $("#sign_in_page").hide();
+    $("#welcome_container").hide();
     $("#sign_up_page").show();
     $("#edit_page").hide();
     $("#create_page").hide();
@@ -68,7 +76,7 @@ function signupShow() {
 
 function cancelShow() {
     $("#home_page").hide();
-    $("#sign_in_page").show();
+    $("#welcome_container").show();
     $("#sign_up_page").hide();
     $("#edit_page").hide();
     $("#create_page").hide();
@@ -76,7 +84,7 @@ function cancelShow() {
 
 function editShow() {
     $("#home_page").hide();
-    $("#sign_in_page").hide();
+    $("#welcome_container").hide();
     $("#sign_up_page").hide();
     $("#edit_page").show();
     $("#create_page").hide();
@@ -84,7 +92,7 @@ function editShow() {
 
 function createShow() {
     $("#home_page").hide();
-    $("#sign_in_page").hide();
+    $("#welcome_container").hide();
     $("#sign_up_page").hide();
     $("#edit_page").hide();
     $("#create_page").show();
@@ -92,7 +100,7 @@ function createShow() {
 
 function showHome() {
     $("#home_page").show();
-    $("#sign_in_page").hide();
+    $("#welcome_container").hide();
     $("#sign_up_page").hide();
     $("#edit_page").hide();
     $("#create_page").hide();
@@ -143,7 +151,7 @@ function editTodo(todoId) {
 
 function edit(event) {
     // console.log($("#edit_description").val());
-    
+
     event.preventDefault();
 
     $.ajax({
@@ -175,26 +183,26 @@ function deleteTodo(todoId) {
         method: "DELETE",
         url: `http://localhost:3000/todos/${todoId}`,
         headers: {
-            token : localStorage.getItem('token')
+            token: localStorage.getItem('token')
         }
     })
-    .done(function (result) {
-        showTodo()
-        // console.log(`terhapus cuk`, result);
-    })
-    .fail(function (error) {
-        console.log(`error edit cuk`,error);
-    })
+        .done(function (result) {
+            showTodo()
+            // console.log(`terhapus cuk`, result);
+        })
+        .fail(function (error) {
+            console.log(`error edit cuk`, error);
+        })
 }
 
 function create(event) {
     event.preventDefault();
-    console.log(`masuk cuk`);
-    
+    // console.log(`masuk cuk`);
+
     $.ajax({
         method: "POST",
         url: `http://localhost:3000/todos`,
-        headers:{
+        headers: {
             token: localStorage.getItem('token')
         },
         data: {
@@ -204,12 +212,37 @@ function create(event) {
             due_date: $("#due_date").val()
         }
     })
-    .done(function (result) {
-        showHome()
-        showTodo()
-        // console.log(`created cuk`, result);
+        .done(function (result) {
+            showHome()
+            showTodo()
+            // console.log(`created cuk`, result);
+        })
+        .catch(function (error) {
+            console.log(`error create cuk`, error);
+        })
+}
+
+
+function onSignIn(googleUser) {
+    var id_token = googleUser.getAuthResponse().id_token;
+    // console.log(id_token)
+    $.ajax({
+        method: "POST",
+        url: `http://localhost:3000/users/googleSignIn`,
+        headers: {
+            id_token
+        }
+    })
+    .done(function (response) {
+        // console.log(response);
+        $("#welcome_container").hide();
+        $("#sign_up_page").hide();
+        $("#home_page").show();
+        localStorage.setItem('token', response.token);
+        showTodo();
     })
     .catch(function (error) {
-        console.log(`error create cuk`, error);
+        // console.log('check')
+        console.log(error);
     })
 }

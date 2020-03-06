@@ -5,12 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google-signin-client_id"
+        content="1000672924433-82kc4a8i9fqerjrn2rrcr71bk9ki0c5l.apps.googleusercontent.com">
     <title>Fancy Todo</title>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 
 <body>
-
     <div id="sign_up_page">
+
         <form id="sign_up_form">
             <h1>Sign Up</h1>
             <label for="email">Email</label><br>
@@ -19,27 +23,36 @@
             <input type="password" name="password" placeholder="password"><br><br>
             <button type="submit" id="sign_up_button">Sign Up</button>
             <button id="cancel_button" onclick="cancelShow()">Cancel</button>
-
         </form>
     </div>
 
-    <div id="sign_in_page">
-        <form id="sign_in_form" onsubmit="login(event)">
-            <h1>Sign In</h1>
-            <label for="email">Email</label><br>
-            <input id="email" type="email" name="email" placeholder="email"><br><br>
-            <label for="password">Password</label><br>
-            <input id="password" type="password" name="password" placeholder="password"><br><br>
-            <input type="submit" id="sign_in_button" value="Sign in"></input>
-            <button onclick="signupShow()" id="sign_up_button">Sign Up</button>
-        </form>
-    </div>
+    <div id="welcome_container">
+        <div id="sign_in_page_left">
+            <form id="sign_in_form" onsubmit="login(event)">
+                <h1 id="sign_in_header">Login</h1>
+                <input id="email" type="email" name="email" placeholder="email"><br><br>
+                <input id="password" type="password" name="password" placeholder="password"><br><br>
+                <input type="submit" id="sign_in_button" value="Sign in"></input>
+                <h5>or login using<h5>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                <!-- <button onclick="logout();">Sign out</button> -->
+            </form>
 
+        </div>
+
+        <div id="sign_in_page_right">
+            <h1 id="sign_in_page_welcome">Welcome Back!</h1>
+            <h4 id="sign_in_page_text">please enter your personal details,</h4>
+            <h4>or<a onclick="signupShow()" id="sign_up_button"> Sign Up </a> to join us!</h4>
+        </div>
+
+    </div>
     <div id="home_page">
         <h1>To-Do List</h1>
-        
+
         <div id="show_todo"></div>
-        <button onclick="logout()" id="logout_button" value="Log Out">Log Out</button> | <button onclick="createShow()" id="create_button" value="Create Todo">Create Todo</button>
+        <button onclick="logout()" id="logout_button" value="Log Out">Log Out</button> | <button onclick="createShow()"
+            id="create_button" value="Create Todo">Create Todo</button>
 
     </div>
 
