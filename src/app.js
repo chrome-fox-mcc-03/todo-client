@@ -6,8 +6,67 @@ function saveState() {
     appStorage = JSON.parse(localStorage.getItem(appName));
     load()
 }
+function loadTodos() {
+    // #todo-items
+    // promptMessage('Test prompt')
+    $('#todo-items').empty()
+    $('#todo-items').append(`<progress class="progress is-small is-primary" max="100">15%</progress>`);
+
+    if (appStorage.token) {
+        $('#todo-items').empty()
+        $('#todo-items').append(`<div class="box">Loading Items</div>`);
+        $.ajax({
+            url: "http://localhost:3000/todos",
+            method: "GET",
+            headers: {
+                token: appStorage.token
+            },
+        })
+        .done((response) => {
+            $('#todo-items').empty()
+            console.log(response);
+            let list = response.todos;
+            if (list.length > 0) {
+            } else {
+                $('#todo-items').append(`<div class="box">There is no To-do</div>`);
+            }
+        })
+        .fail()
+        .always((response) => {
+            if (response.todos.length > 0) {
+                $('#todo-items').empty()
+                response.todos.forEach(item => {
+                    let todo = TodoItem.create(item);
+                    // console.log(todo);
+                    $('#todo-items').append(todo.itemContent);
+                })
+                $("[class*='todo-delete-btn']").on("click", (event) => {
+                    event.preventDefault()
+                    // console.log(event);
+                    console.log('delete', event.target.id)
+                })
+                $("[class*='todo-edit-btn']").on("click", (event) => {
+                    event.preventDefault()
+                    // console.log(event);
+                    // console.log('edit', event.target.id)
+                    // console.log($(event.target).parent()[0].children[2].innerHTML.split('Due date: ')[1]);
+                    let date = $(event.target).parent()[0].children[2].innerHTML.split('Due date: ')[1];
+                    let title = $(event.target).parent()[0].children[0].innerHTML;
+                    let desc = $(event.target).parent()[0].children[1].innerHTML;
+                    editTodo(event.target.id, {title, desc, date})
+                })
+                $("[class*='todo-details-btn']").on('click', (event) => {
+                    event.preventDefault();
+                    console.log('details', event.target.id);
+                })
+            }
+        });
+    } else {
+        $('#todo-items').empty()
+        $('#todo-items').append(`<div class="box">No Available user</div>`);
+    }
+}
 function load() {
-    $('#front-message').empty()
     if(appStorage.message) {
         // console.log(appStorage.message);
         delete appStorage.message;
@@ -126,33 +185,53 @@ function register(email, password, username = "User") {
         }
     });
 }
-function loadTodos() {
-    // #todo-items
-    if (appStorage.token) {
-        $.ajax({
-            url: "http://localhost:3000/todos",
-            method: "GET",
-            headers: {
-                token: appStorage.token
-            },
-        })
-        .done((response) => {
-            $('#todo-items').empty()
-            $('#todo-items').append(`<div class="box">Loading Items Bang</div>`);
-        })
-        .fail()
-        .always((response) => {
-            if (response.todos.length > 0) {
-                $('#todo-items').empty()
-                response.todos.forEach(item => {
-                    let todo = TodoItem.create(item);
-                    $('#todo-items').append(todo.itemContent);
-                })
-            }
-        });
-    }
+function promptMessage(msg) {
+    $('#message-container').empty()
+    $('#message-container').append(msg)
+    setTimeout(() => {
+        $('#message-container').empty()
+    }, 2500)
 }
 function clearTodos() {
+}
+function editTodo(id, obj) {
+    // $(event.target).parent();
+    // console.log(Number(id));
+    // console.log(obj);
+    appStorage.editItemId = id;
+    $("#edit-todo-modal-submit").toggleClass("is-loading");
+    $("#edit-todo-modal").toggleClass("is-active");
+    $('#edit-todo-error-msg').empty();
+    // $('#edit-todo-modal > div.modal-card > section > div:nth-child(1) > div').toggleClass('is-loading');
+    $('#edit-todo-modal > div.modal-card > section > div:nth-child(1) > div > input').val(obj.title)
+    $('#edit-todo-modal > div.modal-card > section > div:nth-child(2) > div:nth-child(2) > textarea').val(obj.desc);
+    $('input#due-date').val(obj.date);
+    $.ajax({
+        url: `http://localhost:3000/todos/${id}`,
+        method: "GET",
+        headers: {
+            token: appStorage.token
+        }
+    })
+    .done((response) => {
+        console.log(response);
+        $("#edit-todo-modal-submit").toggleClass("is-loading");
+        $("#edit-todo-select-status").empty()
+        $("#edit-todo-select-status").append(`<option ${response.todo.status === 'todo' ? "selected" : ""} value="todo">Todo</option>`)
+        $("#edit-todo-select-status").append(`<option ${response.todo.status === 'completed' ? "selected" : ""} value="completed">Completed</option>`)
+        // $("#edit-todo-select-status").on('change', () => {
+        //     console.log($("#edit-todo-select-status").val())
+        // })
+    })
+    .fail(() => {
+        // gagal loding prompt message tutup modal
+        $("#edit-todo-modal").toggleClass("is-active");
+        promptMessage("Gagal mendapatkan detail todo")
+    })
+    .always(() => {
+        // berhasil: form edit kasih value promptmessage
+        // gagal: promptMessage close modal
+    })
 }
 
 $(document).ready(() => {

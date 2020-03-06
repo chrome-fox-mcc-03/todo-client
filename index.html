@@ -9,7 +9,7 @@
     <body align="center">
         <!-- Main container -->
         <nav role="navigation" aria-label="main navigation"
-            class="navbar is-dark">
+            class="navbar is-dark is-fixed-top">
             <div class="navbar-brand">
                 <a class="navbar-item">
                     Muh Fancy Todo
@@ -58,10 +58,7 @@
                 </div>
             </div>
         </nav>
-        <div class="content" id="front-message">
-            <!-- <p>sini</p> -->
-        </div>
-        <section id="register-container" style="display: none;">
+        <section id="register-container" style="display: none; margin: 140px;">
             <form id="register-form">
                 <div class="field">
                     <label class="label">Register</label>
@@ -81,26 +78,100 @@
                 <div class="g-signin2" data-onsuccess="onSignIn"></div>
             </div>
         </section>
-        <section class="todouser-dashboard container is-fluid" style="display: none;">
+        <section class="todouser-dashboard container is-fluid" style="display: none; top:140px;">
             <div class="columns">
                 <div class="column is-9">
+                    <!-- <div style="display: none;"> -->
                     <p class="title">Todo List</p>
                     <!-- todo items below -->
                     <div id="todo-items" class="box">
-                        <div class="box">
-                            Todo 1
-                        </div>
-                    </div>
-                    <div id="test-items" class="box">
-                        <div class="box">
-                            Todo 1
-                        </div>
+                        <progress class="progress is-small is-primary" max="100"></progress>
                     </div>
                 </div>
-                <div class="box">
+                <div class="column is-3" style="position:fixed; right:0;">
                     <p class="title">Summary</p>
+                    <div class="box" id="message-container" style="background-color: coral;">
+                    </div>
                     or Todo Details<br>
                     or Todo Actions
+                    <div class="box" style="background-color: sandybrown;">
+                        <!-- create new todo here -->
+                        <div class="modal" id="add-todo-modal">
+                            <div class="modal-background"></div>
+                            <div class="modal-card">
+                                <header class="modal-card-head">
+                                    <p class="modal-card-title">Add new Todo</p>
+                                    <button class="delete" aria-label="close" id="add-todo-modal-close"></button>
+                                </header>
+                                <section class="modal-card-body">
+                                    <!-- Content ... -->
+                                    <div class="field">
+                                        <label class="label">Title</label>
+                                        <div class="control">
+                                            <input class="input" type="text" placeholder="e.g Visit Granpa">
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label">Description</label>
+                                        <div class="control">
+                                            <textarea class="textarea" type="textfield" placeholder="e.g Don't forget to bring kids"></textarea>
+                                        </div>
+                                        <label class="label">Due Date</label>
+                                        <div class="control has-text-centered">
+                                            <input class="" type="date" id="due-date">
+                                        </div>
+                                    </div>
+                                </section>
+                                <footer class="modal-card-foot">
+                                    <button class="button is-success" id="add-todo-modal-submit">Create New Todo</button>
+                                    <button class="button" id="add-todo-modal-cancel">Cancel</button>
+                                    <!-- Error Message -->
+                                    <div id="add-todo-error-msg" class="field">
+                                    </div>
+                                </footer>
+                            </div>
+                        </div>
+                        <div class="modal" id="edit-todo-modal">
+                            <div class="modal-background"></div>
+                            <div class="modal-card">
+                                <header class="modal-card-head">
+                                    <p class="modal-card-title">Edit Todo</p>
+                                    <button class="delete" aria-label="close" id="edit-todo-modal-close"></button>
+                                </header>
+                                <section class="modal-card-body">
+                                    <!-- Content ... -->
+                                    <div class="field">
+                                        <label class="label">Title</label>
+                                        <div class="control">
+                                            <input class="input" type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="field" id="edit-todo-details">
+                                        <label class="label">Description</label>
+                                        <div class="control">
+                                            <textarea class="textarea" type="textfield" placeholder=""></textarea>
+                                        </div>
+                                        <label class="label">Due Date</label>
+                                        <div class="control has-text-centered">
+                                            <input class="" type="date" id="due-date">
+                                        </div>
+                                        <label class="label">Status</label>
+                                        <div class="select">
+                                            <select id="edit-todo-select-status">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </section>
+                                <footer class="modal-card-foot">
+                                    <button class="button is-success" id="edit-todo-modal-submit">Submit Edit</button>
+                                    <button class="button" id="edit-todo-modal-cancel">Cancel</button>
+                                    <!-- Error Message -->
+                                    <div id="edit-todo-error-msg" class="field">
+                                    </div>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
