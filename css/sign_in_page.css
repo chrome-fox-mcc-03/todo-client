@@ -64,11 +64,13 @@
 #sign_in_button:hover {
     background-color:rgba(47,105,90,1);
     color: white;
+    cursor: pointer;
 }
 
 #sign_up_button:hover {
     background-color: white;
     color: rgba(47,105,90,1);
+    cursor: pointer;
 }
 
 #sign_in_page_text {
