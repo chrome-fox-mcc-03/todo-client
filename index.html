@@ -29,7 +29,7 @@
             color: black;
         }
 
-        #div-homepage, #div-login {
+        #div-homepage, #div-login, #div-create {
             display: flex;
         }
 
@@ -45,7 +45,7 @@
 <body>
     <section id="home">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href=""><img src="/img/logo todolist.png" alt="" style="width: 100px;"></a>
+            <a class="navbar-brand" href="#"><img src="/img/logo todolist.png" alt="" style="width: 100px;"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -63,7 +63,7 @@
                       <label for="password-register">Password</label>
                       <input type="password" class="form-control" id="password-register" placeholder="Password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="submit" style="color: black;" class="btn btn-primary">Register</button>
                     <p>Have an account? <a href="#" id="a-login">Login here</a> </p>
                 </form>
             </div>
@@ -74,41 +74,80 @@
     </section>
     <section id="dashboard">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href=""><img src="/img/logo todolist.png" alt="" style="width: 100px;"></a>
+            <a class="navbar-brand" href="#"><img src="/img/logo todolist.png" alt="" style="width: 100px;"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                  <a class="nav-link" href="">List Todo</a>
+                  <a class="nav-link" href="#">List Todo</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="">Create Todo</a>
+                  <a class="nav-link" id="create-todo" href="#">Create Todo</a>
                 </li>
-                <li class="nav-item" style="margin-left: 700px;">
+                <li class="nav-item">
                   <a class="nav-link" href="#" id="btn-logout">logout</a>
                 </li>
               </ul>
             </div>
         </nav>
-        <div id="body-dashboard">
-            <h3>Todos</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Title</th>
-                        <th>Descriptions</th>
-                        <th>Status</th>
-                        <th>Due Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="table-todos">
-    
-                </tbody>
-            </table>
+        <br>
+        <br>
+        <h1 style="text-align: center;">Todos</h1>
+        <br>
+        <br>
+        <div id="todos-list">
+
+        </div>
+    </section>
+    <section id=create>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#"><img src="/img/logo todolist.png" alt="" style="width: 100px;"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">List Todo</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="create-todo" href="#">Create Todo</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#" id="btn-logout">logout</a>
+                </li>
+              </ul>
+            </div>
+        </nav>
+        <div id="div-create">
+            <div style="width: 40%; height: 100vh;">
+                <form id="create-form" style="margin: 0 30px;">
+                    <h1>Create Todo</h1>
+                    <div class="form-group">
+                        <label for="title-create">Title</label>
+                        <input type="text" class="form-control" id="title-create" placeholder="Enter title">
+                    </div>
+                    <div class="form-group">
+                        <label for="description-create">Description</label>
+                        <input type="text" class="form-control" id="description-create" placeholder="description">
+                    </div>
+                    <div class="form-group">
+                        <label for="due_date-create">Date</label>
+                        <input type="date" class="form-control" id="due_date-create">
+                    </div>
+                    <div class="form-group">
+                        <label for="imageId">image :</label>
+                        <input type="file" class="form-control-file" id="imageId">
+                    </div>
+                    <br>
+                    <button type="submit" style="color: black;" class="btn btn-primary">Create</button>
+                </form>
+            </div>
+            <div style="width: 60%;">
+                <img src="/img//634483-SEO_Audit-512.png" alt="" style="margin: 0 80px;">
+            </div>
         </div>
     </section>
     <section id="login">
@@ -136,7 +175,7 @@
                     <label class="form-check-label" for="exampleCheck1">Remember Me</label>
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" style="color: black;" class="btn btn-primary">Login</button>
                 </form>
             </div>
             <div style="width: 60%;">

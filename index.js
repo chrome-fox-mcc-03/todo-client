@@ -7,18 +7,111 @@ function todos() {
         }
     })
         .done(todos => {
-            $('#table-todos').empty()
-            todos.forEach((element, i) => {
-                $('#table-todos').append(`
-                <tr>
-                    <td>${i + 1}</td>
-                    <td>${element.title}</td>
-                    <td>${element.description}</td>
-                    <td>${element.status}</td>
-                    <td>${element.due_date}</td>
-                    <td><button type="button" onclick="edit(${element.id})" class="btn btn-info">Edit</button> | <button type="button" class="delete" class="btn btn-danger">Delete</button></td>
-                </tr>`)
-            });
+            $('#todos-list').empty()
+            for (let i = 0; i < todos.length / 3; i++) {
+                $('#todos-list').append(`<div id="todos-list${i}" class="card-deck" style="margin: 0 50px;"></div><br>`)
+                for (let j = i * 3; j < (i+1)*3; j++) {
+                    if(j >= todos.length) {
+                        $(`#todos-list${i}`).append(`
+                            <div class="card">
+                            </div>`)
+                    } else {
+                        if(!todos[j].imageId) todos[j].imageId = "jN4rQYt"
+                        let today = new Date()
+                        let day = `${today.getDate()}`
+                        if (day.length == 1) day = '0' + day
+                        let month = `${today.getMonth() + 1}`
+                        if  (month.length == 1) month = '0' + month
+                        let year = `${today.getFullYear()}`
+                        if(todos[j].due_date.split('T')[0].split('-').join('') < `${year}${month}${day}`) {
+                            todos[j].status = 'List Expired'
+                            $(`#todos-list${i}`).append(`
+                                    <div class="card">
+                                        <img class="card-img-top" src="https://i.imgur.com/${todos[j].imageId}.jpg" alt="Card image cap">
+                                        <div class="card-body">
+                                            <h4 class="card-title">${todos[j].title}</h4>
+                                            <p class="card-text" style="font-weight: bold;">${todos[j].status}</p>
+                                            <p class="card-text">Date Action: ${todos[j].due_date.split('T')[0]}</p>
+                                            <p class="card-text">${todos[j].description}</p>
+                                            <button type="button" style="color: black;" onclick="deleteTodo(${todos[j].id})" class="btn btn-danger">Delete</button>
+                                            <p class="card-text"><small class="text-muted">Created at ${todos[j].createdAt.split('T')[0]}</small></p>
+                                        </div>
+                                    </div>`)
+                        } else {
+                            if(todos[j].status) {
+                                todos[j].status = 'List Done'
+                                $(`#todos-list${i}`).append(`
+                                    <div class="card">
+                                        <img class="card-img-top" src="https://i.imgur.com/${todos[j].imageId}.jpg" alt="Card image cap">
+                                        <div class="card-body">
+                                            <h4 class="card-title">${todos[j].title}</h4>
+                                            <p class="card-text" style="font-weight: bold;">${todos[j].status}</p>
+                                            <p class="card-text">Date Action: ${todos[j].due_date.split('T')[0]}</p>
+                                            <p class="card-text">${todos[j].description}</p>
+                                            <button type="button" style="color: black;" onclick="deleteTodo(${todos[j].id})" class="btn btn-danger">Delete</button>
+                                            <p class="card-text"><small class="text-muted">Created at ${todos[j].createdAt.split('T')[0]}</small></p>
+                                        </div>
+                                    </div>`)
+                            } else {
+                                todos[j].status = 'List on Progress'
+                                $(`#todos-list${i}`).append(`
+                                    <div class="card">
+                                        <img class="card-img-top" src="https://i.imgur.com/${todos[j].imageId}.jpg" alt="Card image cap">
+                                        <div class="card-body">
+                                            <h4 class="card-title">${todos[j].title}</h4>
+                                            <p class="card-text" style="font-weight: bold;">${todos[j].status}</p>
+                                            <p class="card-text">Date Action: ${todos[j].due_date.split('T')[0]}</p>
+                                            <p class="card-text">${todos[j].description}</p>
+                                            <button type="button" style="color: black;" onclick="edit(${todos[j].id})" class="btn btn-info">Done</button>
+                                            <button type="button" style="color: black;" onclick="deleteTodo(${todos[j].id})" class="btn btn-danger">Delete</button>
+                                            <p class="card-text"><small class="text-muted">Created at ${todos[j].createdAt.split('T')[0]}</small></p>
+                                        </div>
+                                    </div>`)
+                            }
+                        }
+                    }
+                }
+            }
+        })
+        .fail(err => {
+            console.log(err)
+        })
+}
+
+function update(todo) {
+    todo.status = true
+    $.ajax({
+        method: 'PUT',
+        url: `http://localhost:3000/todos/${todo.id}`,
+        headers: {
+           token: localStorage.token 
+        },
+        data: todo
+    })
+        .done(a => {
+            $('#home').hide()
+            todos()
+            $('#dashboard').show()
+            $('#login').hide()
+        })
+        .fail(err => {
+            console.log(err)
+        })
+} 
+
+function deleteTodo(id) {
+    $.ajax({
+        method: 'DELETE',
+        url: `http://localhost:3000/todos/${id}`,
+        headers: {
+            token: localStorage.token
+        }
+    })
+        .done(deletedTodo => {
+            $('#home').hide()
+            todos()
+            $('#dashboard').show()
+            $('#login').hide()
         })
         .fail(err => {
             console.log(err)
@@ -34,18 +127,7 @@ function edit(id) {
         }
     })
         .done(todos => {
-            $('#table-todos').empty()
-            localStorage.idUpdate = todos.id
-                $('#table-todos').append(`
-                <tr>
-                    <form>
-                    <td>${todos.id}</td>
-                    <td><input id="title-update" value="${todos.title}"></td>
-                    <td><input id="description-update" value="${todos.description}"></td>
-                    <td><input id="status-update" value="${todos.status}"></td>
-                    <td><input id="due_date-update" value="${todos.due_date}"></td>
-                    <td><button type="button" class="update" class="btn btn-info">Update</button></td>
-                </tr>`)
+            update(todos)
         })
         .fail(err => {
             console.log(err)
@@ -54,14 +136,17 @@ function edit(id) {
 
 
 $(document).ready(() => {
+    let img;
     const token = localStorage.token
     if(token) {
         todos()
+        $('#create').hide()
         $('#home').hide()
         $('#dashboard').show()
         $('#login').hide()
     } else {
         $('#home').show()
+        $('#create').hide()
         $('#dashboard').hide()
         $('#login').hide()
     }
@@ -70,26 +155,61 @@ $(document).ready(() => {
         $('#home').hide()
         $('#dashboard').hide()
         $('#login').show()
+        $('#create').hide()
     })
 
     $('#a-login').on('click', () => {
         $('#home').hide()
         $('#dashboard').hide()
         $('#login').show()
+        $('#create').hide()
     })
 
     $('.btn-home').on('click', () => {
         $('#home').show()
         $('#dashboard').hide()
         $('#login').hide()
+        $('#create').hide()
     })
 
     $('#btn-logout').on('click', () => {
         localStorage.removeItem('token')
         $('#home').show()
         $('#dashboard').hide()
+        $('#create').hide()
         $('#login').hide()
     })
+
+    $('input[type=file]').on("change", function() {
+        let $files = $(this).get(0).files;
+        if ($files.length) {
+            let apiUrl = 'https://api.imgur.com/3/image';
+            let apiKey = '7122fd47f342787';
+            settings = {
+                async: false,
+                crossDomain: true,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                url: apiUrl,
+                headers: {
+                Authorization: 'Client-ID ' + apiKey,
+                Accept: 'application/json'
+                },
+                mimeType: 'multipart/form-data'
+            };
+    
+        let formData = new FormData();
+        formData.append("image", $files[0]);
+        settings.data = formData;
+            $.ajax(settings).done(function(response) {
+                response = JSON.parse(response)
+                img = response.data.id
+                console.log(response)
+            });
+    
+        }
+    });
 
     $('#register-form').on('submit', (e) => {
         e.preventDefault()
@@ -106,11 +226,13 @@ $(document).ready(() => {
             .done(register => {
                 localStorage.setItem('token', register.access_token)
                 $('#home').hide()
+                $('#create').hide()
                 $('#dashboard').show()
                 $('#login').hide()
             })
             .fail(err => {
                 $('#home').show()
+                $('#create').hide()
                 $('#dashboard').hide()
                 $('#login').hide()
             })
@@ -134,43 +256,55 @@ $(document).ready(() => {
                 $('#home').hide()
                 $('#dashboard').show()
                 $('#login').hide()
+                $('#create').hide()
             })
             .fail(err => {
                 $('#home').show()
+                $('#create').hide()
                 $('#dashboard').hide()
                 $('#login').hide()
             })
     })
 
-    $('.update').on('click', (e) => {
+    $('#create-form').on('submit', (e) => {
         e.preventDefault()
-        const title = $('title-update').val()
-        const description = $('description-update').val()
-        const status = $('status-update').val()
-        const due_date = $('due_date-update').val()
+        title = $('#title-create').val()
+        description = $('#description-create').val()
+        due_date = $('#due_date-create').val()
+        status = false
+
         $.ajax({
-            method: 'PUT',
-            url: `http://localhost:3000/todos/${localStorage.idUpdate}`,
+            method: 'post',
+            url:'http://localhost:3000/todos',
             headers: {
-               token: localStorage.token 
+                token: localStorage.token
             },
             data: {
                 title,
                 description,
+                due_date,
                 status,
-                due_date
+                imageId: img
             }
         })
             .done(_ => {
-                localStorage.removeItem('idUpdate')
+                todos()
                 $('#home').hide()
                 $('#dashboard').show()
                 $('#login').hide()
+                $('#create').hide()
             })
             .fail(err => {
                 console.log(err)
             })
     })
 
+    $('#create-todo').on('click', (e) => {
+        e.preventDefault()
+        $('#create').show()
+        $('#home').hide()
+        $('#dashboard').hide()
+        $('#login').hide()
+    })
 
 })
