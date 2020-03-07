@@ -77,6 +77,27 @@ body {
     bottom: 0;
     display: flex;
     justify-content: space-around;
+    align-items: center;
+}
+
+#btn-redir-create-todo, #btn-signout {
+    height: 3rem;
+    border: none;
+    background-color: rgb(155, 28, 28);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0 1.5rem;
+}
+
+#btn-redir-create-todo:hover {
+    background-color: rgb(255, 255, 255);
+    color: black;
+}
+
+#btn-signout:hover {
+    background-color: rgb(255, 255, 255);
+    color: black;
 }
 
 .fa-trash-alt {
@@ -96,11 +117,11 @@ body {
 }
 
 .fa-circle:hover {
-    color: rgb(243, 243, 243);
+    color: rgb(58, 206, 181);
 }
 
 .fa-check-circle:hover {
-    color: rgb(243, 243, 243);
+    color: rgb(58, 206, 181);
 }
 
 /* Sign In Page */

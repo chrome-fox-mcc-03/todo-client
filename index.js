@@ -159,7 +159,6 @@ function editTodo(id) {
             let dateFormat = new Date(todoFound.due_date).toISOString().substring(0, 10);
             $('#update-title').val(todoFound.title);
             $('#update-description').val(todoFound.description);
-            $('#update-status').val(todoFound.status);
             $('#update-due_date').val(dateFormat);
             localStorage.setItem('todoId', id);
         })
@@ -188,7 +187,8 @@ function markTodo(id) {
                 .done(markedTodo => {
                     console.log(markedTodo.status);
                     console.log(markedTodo.id);
-                    $(`#checkbox${markedTodo.id}`).append('<i class="fas fa-check-circle fa-2x"></i>')
+                    $(`#checkbox${markedTodo.id}`).empty();
+                    $(`#checkbox${markedTodo.id}`).append(`<i onclick="markTodo(${markedTodo.id})" class="fas fa-check-circle fa-2x"></i>`)
                 })
                 .fail(err => {
                     console.log('error!', err);
@@ -204,8 +204,8 @@ function markTodo(id) {
                 .done(markedTodo => {
                     console.log(markedTodo.status);
                     console.log(markedTodo.id);
-                    $(`#checkbox${markedTodo.id}`).append('<i class="fas fa-circle fa-2x"></i>');
-                    
+                    $(`#checkbox${markedTodo.id}`).empty();
+                    $(`#checkbox${markedTodo.id}`).append(`<i onclick="markTodo(${markedTodo.id})" class="fas fa-circle fa-2x"></i>`);
                 })
                 .fail(err => {
                     console.log('error!', err);
