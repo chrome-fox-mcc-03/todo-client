@@ -289,6 +289,18 @@ $(document).ready(function(){
         $('#home').hide()
     })
 
+    $('#register-back').on('click', function(e){
+        e.preventDefault()
+        $('#register-section').show()
+        $('#login-section').hide()
+    })
+
+    $('.back-home').on('click', function(e){
+        e.preventDefault()
+        $('#register-section').hide()
+        $('#home').show()
+    })
+
     $('#docs-jumbotron').on('click', function(e){
         e.preventDefault()
         window.open('https://bhaktitodoapps.docs.apiary.io/#', '_blank');
