@@ -303,7 +303,7 @@ $(document).ready(function () {
                 password
             }
         }).done(function (response) {
-            localStorage.setItem("token", response)
+            localStorage.setItem("token", response.token)
             showDashboard()
             fetchTodos()
             buttonWhenLogin()
@@ -388,7 +388,7 @@ $(document).ready(function () {
                 password
             }
         }).done(function (response) {
-            localStorage.setItem("token", response)
+            localStorage.setItem("token", response.token)
             showDashboard()
             fetchTodos()
             buttonWhenLogin()
