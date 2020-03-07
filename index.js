@@ -15,7 +15,7 @@ function refreshContent(){
             let due_date = new Date(response.data[i].due_date).toLocaleDateString()
             let title = response.data[i].title
             let description = response.data[i].description
-            let status = response.data[i].status = false ? 'Finished' : 'Unfinished'
+            let status = response.data[i].status ? 'Finished' : 'Unfinished'
             $('#list-content').append(`
             <div class="list-group w-25 p-3 example hoverable" id="content_${i}">
             <h5 id='content_${todo_id}_id'>${todo_id}</h5> 
@@ -28,9 +28,7 @@ function refreshContent(){
                 </a>
                 <small id='content_${todo_id}_status'>status : ${status} </small>
                 
-                <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modalUpdateForm"> 
-                    Update 
-                </a>
+                
                 
             </div>`)
             
@@ -39,6 +37,12 @@ function refreshContent(){
     .fail(err => {
         console.log(err);
     })
+}
+
+function updateContent(){
+    console.log('hello');
+    
+    $('#update-form-content#title-to-update').val('jguyfhhjv')
 }
 
 $(document).ready(function(){
@@ -149,9 +153,42 @@ $(document).ready(function(){
         })
     })
 
-    $('#update-btn').on('click', function(e){
+    $('#btn-update').on('click', function(e){
         e.preventDefault()
-        console.log($('#content_todo_id').val());
+        
+        const todo_id = $('#id-to-update').val()
+        const title = $('#title-to-update').val()
+        const description = $('#description-to-update').val()
+        const status = $('#status-to-update').val()
+        const due_date = $('#due-date-to-update').val()
+        const access_token = localStorage.getItem('access_token')
+        console.log(access_token);
+        
+        // console.log(todo_id, title, description, status, due_date);
+
+        $.ajax({
+            type: 'PUT',
+            url: `http://localhost:3000/todos/${todo_id}`,
+            headers: {
+                'access_token': access_token,
+
+            },
+            data: {
+                id: todo_id,
+                title : title,
+                description: description,
+                status: status,
+                due_date: due_date
+            }
+        })
+        .done(function(responese){
+            refreshContent()
+        })
+        .fail(function(err){
+            console.log(err);
+            
+        })
+        
         
     })
     

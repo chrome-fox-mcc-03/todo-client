@@ -364,6 +364,11 @@
             </ul>
             <ul class="navbar-nav ml-auto nav-flex-icons">
                 <li class="nav-item">
+                  <a id="update-btn" href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modalUpdateForm"> 
+                    Update 
+                  </a>
+                </li>
+                <li class="nav-item">
                     <a id="create-btn" href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modalCreateForm"> Create </a>
                 </li>
                 <li class="nav-item avatar">
@@ -407,23 +412,26 @@
 
 
     <!-- Update Section -->
+    <a id="a-test"></a>
     <section class="modal fade" id="modalUpdateForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true">
       <div class="modal-dialog" role="document" >
         <form class="modal-content">
           <div id="update-form-content">
             <p class="h4 mb-4 text-center">Update Your Todo</p>
+              <label for="id">Todo-ID :</label>
+              <input type="id" id="id-to-update" class="form-control mb-4" placeholder="Todo ID">
               <label for="title">Title :</label>
-              <input type="title" class="form-control mb-4" placeholder="Title...">
+              <input id="title-to-update" type="title" class="form-control mb-4" placeholder="Title...">
               <label for="description">Description :</label>
-              <input type="description" class="form-control mb-4" placeholder="Description...">
+              <input id="description-to-update" type="description" class="form-control mb-4" placeholder="Description...">
               <label for="status">Status :</label>
-              <select id="status" name="status" class="form-control mb-4">
+              <select id="status-to-update" name="status" class="form-control mb-4">
                 <option value="true">Finished</option>
                 <option value="false">Unfinished</option>
               </select>
               <label for="date">Date :</label>
-              <input type="date" class="form-control mb-4" >
+              <input id="due-date-to-update" type="date" class="form-control mb-4" >
               <button id="btn-update" class="btn btn-info btn-block my-4" type="submit">Update Todo</button>
           </div>
         </form>
@@ -438,6 +446,7 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="index.js"></script>
+    <script src="./js/refreshContent.js"></script>
     <script>
         function onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
@@ -457,12 +466,13 @@
               }
             })
             .done(function(response){
-              console.log(response);
+              console.log(response, 'access token');
               
-              localStorage.setItem('access_token', response)
+              localStorage.setItem('access_token', response.access_token)
               $('#todo-dashboard').show()
               $('#home').hide()
               $('#login-section').hide()
+              // refreshContent()
               
             })
             .fail(function(err){
