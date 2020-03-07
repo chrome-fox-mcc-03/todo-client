@@ -1,6 +1,7 @@
 const access_token = localStorage.getItem('access_token')
 
-function refreshContent(){
+function refreshContent(quotes, author){
+    
     $.ajax({
         method: 'GET',
         url: 'http://localhost:3000/todos/users',
@@ -10,6 +11,8 @@ function refreshContent(){
     })
     .done(function(response){
         $('#list-content').empty()
+        $('#quotes-container').empty()
+        
         for(let i = 0; i < response.data.length; i++){
             let todo_id = response.data[i].id
             let due_date = new Date(response.data[i].due_date).toLocaleDateString()
@@ -38,6 +41,8 @@ function refreshContent(){
                 
             </div>`)
             
+            
+
             $(`#delete-btn-${todo_id}`).click(function(){
                 deleteData(todo_id)
                 $(this).parent().remove();
@@ -54,6 +59,16 @@ function refreshContent(){
             })
             
         }
+        if(quotes === undefined && author === undefined){
+            quotes = 'Make up your daily life with some quotes!'
+            author = '- yourself'
+        }else{
+        }
+        
+        $('#quotes-container').append(`
+               <h4 class="font-weight-bold">${quotes}</h4>
+               <h5 class="font-italic">${author}</h5>
+       `)
     })
     .fail(err => {
         console.log(err);
@@ -196,7 +211,11 @@ $(document).ready(function(){
             }
         })
         .done(function(response){
-            refreshContent()
+
+            let quotes = response.data.quotes.quote
+            let author = response.data.quotes.author
+            refreshContent(quotes, author)
+            
             // $('#modalCreateForm').modal('hide')
             
         })
