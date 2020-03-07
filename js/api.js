@@ -50,10 +50,34 @@ const createTodos = (payload) => {
     })
 }
 
-const updateTodos = () => {
+const fetchOne = (id) => {
+    return $.ajax({
+        type: 'GET',
+        url: `${URL}/todos/${id}`,
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}
+
+const updateTodos = (id, payload) => {
+    return $.ajax({
+        type: 'PUT',
+        url: `${URL}/todos/${id}`,
+        headers: {
+            token: localStorage.getItem('token')
+        },
+        data: payload
+    })
 
 }
 
-const deleteTodos = () => {
-
+const deleteTodos = (id) => {
+    return $.ajax({
+        type: 'DELETE',
+        url: `${URL}/todos/${id}`,
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
 }
