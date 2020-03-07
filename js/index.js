@@ -10,8 +10,12 @@ const defaultView = () => {
     // Logout Button
     $('#logout').hide();
     // Default Register Form Show
+    $('#createForm').hide();
+    $('#updateForm').hide();
     $('#emailAlert').hide();
     $('#passwordAlert').hide();
+    $('#create').hide();
+
 };
 
 const loginView = () => {
@@ -25,6 +29,9 @@ const loginView = () => {
     // Default Register Form Show
     $('#emailLoginAlert').hide();
     $('#passwordLoginAlert').hide();
+    $('#create').hide();
+    $('#createForm').hide();
+    $('#updateForm').hide();
 }
 
 const isLogin = () => {
@@ -36,8 +43,11 @@ const isLogin = () => {
     // Logout Button
     $('#logout').show();
     // Default Register Form Show
+    $('#createForm').hide();
+    $('#updateForm').hide();
     $('#emailLoginAlert').hide();
     $('#passwordLoginAlert').hide();
+    $('#create').show();
 }
 
 /*  FUNCTIONS */
@@ -75,8 +85,8 @@ const cardTodo = (todos) => {
     let string;
     $('#todoCards').empty();
     todos.forEach((todo, index) => {
-        if (todo.status === null) todo.status = false;
-        string = `<div class="card-box"><div class="card text-white bg-info todolist">
+        string = `<div class="card-box">
+        <div class="card text-white bg-info todolist">
   <div class="card-header">#${index + 1}.</div>
   <div class="card-body">
     <h5 class="card-title">${todo.title}</h5>
@@ -112,7 +122,6 @@ $(document).ready(() => {
         defaultView();
         registerClick();
         loginClick();
-
         $('#home').on('click', () => {
             defaultView();
         })
@@ -149,11 +158,7 @@ $(document).ready(() => {
             email: $('#loginEmail').val(),
             password: $('#loginPassword').val()
         }
-
-        console.log(payload);
-
         login(payload).done(response => {
-            console.log(response)
             const token = response.token;
             localStorage.setItem('token', token);
             isLogin();
@@ -164,9 +169,37 @@ $(document).ready(() => {
             }).fail(err => {
                 console.log(err);
             })
-
         }).fail(err => {
             loginView();
+        })
+    })
+
+    // Creating Process
+    $('#buttonCreate').on('click', () => {
+        // create form;
+        $('#todoCards').hide();
+        $('#createForm').show();
+    });
+
+    $('#createForm').submit((event) => {
+        event.preventDefault();
+        const payload = {
+            title: $('#createTitle').val(),
+            description: $('#createDescription').val(),
+            due_date: $('#createDueDate').val()
+        }
+        createTodos(payload).done(
+            response => {
+                fetchTodos().done(todos => {
+                    $('#todoCards').show();
+                    cardTodo(todos);
+                    $('#createForm').hide();
+                }).fail(err => {
+                    console.log(err);
+                })
+            }
+        ).fail(err => {
+            console.log(err)
         })
     })
 
@@ -176,5 +209,14 @@ $(document).ready(() => {
         loginView();
         clearInput();
     });
+
+    $('#todoCards.updateTodo').on('click', () => {
+        // create form;
+        $('#todoCards').hide();
+        $('#UpdateForm').show();
+    });
+
+
+
 })
 

@@ -43,6 +43,8 @@ header nav a {
 /* Cards */
 
 #todoCards {
+  width: 100%;
+  margin: auto !important;
   padding: 2rem;
   text-align: center;
   display: inline-block;
@@ -73,11 +75,29 @@ main {
   position: relative;
 }
 
+.todos {
+  padding: 1rem;
+  text-align: center;
+}
+
+#create {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  text-align: center;
+}
+
 /* Form Register */
 
 #registerForm,
 #loginForm {
   width: 40%;
+  margin: auto;
+  padding: 2rem;
+}
+
+#createForm,
+#updateForm {
+  width: 60%;
   margin: auto;
   padding: 2rem;
 }
