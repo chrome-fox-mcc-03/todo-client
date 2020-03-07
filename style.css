@@ -166,19 +166,30 @@ a {
     font-weight: lighter;
 }
 
-.add-btn {
-    cursor: pointer;
+.footer-dashboard {
     margin-top:auto ; 
     margin-bottom: 2rem;
     margin-left: 2rem;
+    height: 100px;
+    width: 90vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-btn {
+    cursor: pointer;
+    filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(11deg) brightness(105%) contrast(106%);
+    
+}
+
+.btn-div {
     width: 100px;
     height: 100px;
-    filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(11deg) brightness(105%) contrast(106%);
     transition: var(--transition);
 }
 
-.add-btn:hover {
-    transform: rotate(40deg);
+.btn-div:hover {
+    transform: rotate(80deg);
     transition: var(--transition);
 }
 
@@ -187,6 +198,7 @@ a {
     margin: 1rem 2rem;
     display: flex;
     justify-content: center;
+    height: 10vh;
 }
 
 .ds-divs {
@@ -194,8 +206,9 @@ a {
     margin: 1rem;
     background-color: rgb(255, 255, 255, 0.7);
     padding-left: 1rem;
-    border-radius: 20px;
+    border-radius: 10px;
     padding-right: 2rem;
+    overflow-y: scroll;
 }
 
 .todos {
@@ -349,7 +362,7 @@ input {
 }
 
 .todos-desc {
-    font-size: 1.5rem;
+    font-size: 1rem;
     background-color: rgb(48, 3, 48, 0.3);
     padding: 1rem;
     border-radius: 10px;
@@ -407,4 +420,53 @@ input {
     font-size: 12px;
     color: rgb(202, 5, 5);
     font-weight: bold;
+}
+
+.div-title {
+    font-family: 'Libre Franklin', sans-serif;
+    color: black;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 18px
+
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(48, 3, 48);
+    
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ebe8e8; 
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+.quote-text {
+    font-family: 'Spartan', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.quote-author {
+    font-family: 'Spartan', sans-serif;
+    font-size: 12px;
+    margin-top: 2.5rem;
+    width: 20rem
+}
+
+.div-additional {
+    background-color: rgb(48, 3, 48, 0.8);
+}
+
+#quotes {
+    width: 60vw;
 }
