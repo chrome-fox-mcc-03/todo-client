@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="563938884606-u14dkauotmvpdornvd541kf3hkqrdcdu.apps.googleusercontent.com">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Fancy Todos</title>
+</head>
+
+<body>
+    
+        <nav id="nav-not-logedIn" class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Fancy Todo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a id="to-login" class="nav-link" href="#">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        
+        <nav id="nav-logedIn" class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Fancy Todo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a id="to-home" class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="logout" class="nav-link" href="#">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        
+        <div id="error-alert" class="alert alert-danger" role="alert">
+        
+        </div>
+    
+         <br>
+
+    <div class="container-flex">
+        <div class="row" id="login-register">
+            <div class="col-sm-1"></div>
+            <section id="login" class="col-sm-5">
+                <h1>Login</h1>
+                <form id="login-form">
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-3 col-form-label">Email address</label>
+                        <div class="col-sm-9">
+                            <input type="email" class="form-control" id="email-login">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-3 col-form-label">Password</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" id="password-login">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form><br>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            </section>
+    
+            <section id="register" class="col-sm-5">
+                <h1>Register</h1>
+                <form id="register-form">
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-3 col-form-label">Email address</label>
+                        <div class="col-sm-9">
+                            <input type="email" class="form-control" id="email-register">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-3 col-form-label">Password</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" id="password-register">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+            </section>
+            <div class="col-sm-1"></div>
+        </div>
+
+        <section id="update-todo" class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <h1>Update Todo</h1>
+                <form id="update-todo-form">
+                    <div class="form-group row">
+                        <label for="edit-todo-title" class="col-md-3 col-form-label">Title</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="edit-todo-title">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="edit-todo-description" class="col-md-3 col-form-label">Description</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="edit-todo-description">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="edit-todo-duedate" class="col-md-3 col-form-label">Due date</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="datetime-local" id="edit-todo-duedate">
+                        </div>
+                    </div>
+                    <!-- <div class="form-group row">
+                        <label for="edit-todo-status" class="col-3 col-form-label">status</label>
+                        <div class="col-9">
+                            <input class="form-control" type="text" id="edit-todo-status">
+                        </div>
+                    </div> -->
+                    <div class="form-group row">
+                        <label for="edit-todo-status" class="col-md-3 col-form-label">status</label>
+                        <div class="col-md-9">
+                            <select class="form-control" id="edit-todo-status">
+                                <option value="pending">Pending</option>
+                                <option value="done">Done</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+        </section>
+
+        <div id="home" class="row">
+            <div class="col-md-1"></div>
+            <section id="todo-create" class="col-md-3">
+                <h1>Create New Todo</h1>
+                <form id="create-todo-form">
+                    <div class="form-group row">
+                        <label for="todo-title" class="col-sm-3 col-form-label">Title</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="todo-title">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="todo-description" class="col-sm-3 col-form-label">Description</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="todo-description">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="todo-duedate" class="col-sm-3 col-form-label">Due date</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="datetime-local" value="2020-03-03T13:45:00"
+                                id="todo-duedate">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary float-right">Create</button>
+                </form>
+                <br><br><br><br>
+                <div id="quotes" style="text-align: center;">
+
+                </div>
+            </section>
+
+            <section id="todo-list" class="col-md-7">
+                <h1>Todo List </h1>
+                <table class="table table-striped" id="todo-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Title</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Due date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="todo-table-body">
+
+                    </tbody>
+                </table>
+            </section>
+            <div class="col-md-1"></div>
+        </div>
+
+    </div>
+
+    <div id="loading">
+        
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
