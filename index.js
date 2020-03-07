@@ -1,3 +1,213 @@
+$(document).ready(() => {
+    let img;
+    const token = localStorage.token
+    if(token) {
+        todos()
+        $('#create').hide()
+        $('#home').hide()
+        $('#dashboard').show()
+        $('#login').hide()
+    } else {
+        $('#error-register').empty()
+        $('#home').show()
+        $('#create').hide()
+        $('#dashboard').hide()
+        $('#login').hide()
+    }
+
+    $('.navbar-brand-home').on('click', () => {
+        resetHome()
+        $('#home').show()
+        $('#dashboard').hide()
+        $('#login').hide()
+        $('#create').hide()
+    })
+
+    $('.navbar-brand').on('click', () => {
+        $('#home').hide()
+        $('#dashboard').show()
+        $('#login').hide()
+        $('#create').hide()
+    })
+
+    $('#listtodos-create').on('click', () => {
+        $('#home').hide()
+        $('#dashboard').show()
+        $('#login').hide()
+        $('#create').hide()
+    })
+
+    $('#btn-login').on('click', () => {
+        $('#home').hide()
+        $('#dashboard').hide()
+        $('#error-login').empty()
+        $('#login').show()
+        $('#create').hide()
+    })
+
+    $('#a-login').on('click', () => {
+        $('#home').hide()
+        $('#dashboard').hide()
+        $('#error-login').empty()
+        $('#login').show()
+        $('#create').hide()
+    })
+
+    $('.btn-home').on('click', () => {
+        $('#error-register').empty()
+        resetHome()
+        $('#home').show()
+        $('#dashboard').hide()
+        $('#login').hide()
+        $('#create').hide()
+    })
+
+    $('#btn-logout').on('click', () => {
+        localStorage.removeItem('token')
+        resetHome()
+        logout()
+        $('#home').show()
+        $('#dashboard').hide()
+        $('#create').hide()
+        $('#login').hide()
+    })
+
+    $('input[type=file]').on("change", function() {
+        let $files = $(this).get(0).files;
+        if ($files.length) {
+            let apiUrl = 'https://api.imgur.com/3/image';
+            let apiKey = '7122fd47f342787';
+            settings = {
+                async: false,
+                crossDomain: true,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                url: apiUrl,
+                headers: {
+                Authorization: 'Client-ID ' + apiKey,
+                Accept: 'application/json'
+                },
+                mimeType: 'multipart/form-data'
+            };
+    
+        let formData = new FormData();
+        formData.append("image", $files[0]);
+        settings.data = formData;
+            $.ajax(settings).done(function(response) {
+                response = JSON.parse(response)
+                img = response.data.id
+                console.log(response)
+            });
+    
+        }
+    });
+
+    $('#register-form').on('submit', (e) => {
+        e.preventDefault()
+        const email = $('#email-register').val()
+        const password = $('#password-register').val()
+        $.ajax({
+            method: 'post',
+            url:'http://localhost:3000/register',
+            data: {
+                email,
+                password
+            }
+        })
+            .done(register => {
+                localStorage.setItem('token', register.access_token)
+                $('#home').hide()
+                $('#create').hide()
+                $('#dashboard').show()
+                $('#login').hide()
+            })
+            .fail(err => {
+                $('#error-register').empty()
+                if(err.responseJSON[0]) $('#error-register').append(err.responseJSON[0])
+                else $('#error-register').append(`${err.responseJSON.error}`)
+                resetHome()
+                $('#home').show()
+                $('#create').hide()
+                $('#dashboard').hide()
+                $('#login').hide()
+            })
+    })
+
+    $('#login-form').on('submit', (e) => {
+        e.preventDefault()
+        const email = $('#email-login').val()
+        const password = $('#password-login').val()
+        $.ajax({
+            method: 'post',
+            url:'http://localhost:3000/login',
+            data: {
+                email,
+                password
+            }
+        })
+            .done(login => {
+                localStorage.setItem('token', login.access_token)
+                todos()
+                $('#home').hide()
+                $('#dashboard').show()
+                $('#login').hide()
+                $('#create').hide()
+            })
+            .fail(err => {
+                $('#error-login').empty()
+                resetHome()
+                $('#error-login').append(`${err.responseJSON.error}`)
+                $('#home').hide()
+                $('#create').hide()
+                $('#dashboard').hide()
+                $('#login').show()
+            })
+    })
+
+    $('#create-form').on('submit', (e) => {
+        e.preventDefault()
+        title = $('#title-create').val()
+        description = $('#description-create').val()
+        due_date = $('#due_date-create').val()
+        status = false
+
+        $.ajax({
+            method: 'post',
+            url:'http://localhost:3000/todos',
+            headers: {
+                token: localStorage.token
+            },
+            data: {
+                title,
+                description,
+                due_date,
+                status,
+                imageId: img
+            }
+        })
+            .done(_ => {
+                todos()
+                $('#home').hide()
+                $('#dashboard').show()
+                $('#login').hide()
+                $('#create').hide()
+            })
+            .fail(err => {
+                console.log(err)
+            })
+    })
+
+    $('#create-todo').on('click', (e) => {
+        e.preventDefault()
+        $('#create').show()
+        $('#home').hide()
+        $('#dashboard').hide()
+        $('#login').hide()
+    })
+
+})
+
 function todos() {
     $.ajax({
         method: 'GET',
@@ -33,7 +243,7 @@ function todos() {
                                             <p class="card-text" style="font-weight: bold;">${todos[j].status}</p>
                                             <p class="card-text">Date Action: ${todos[j].due_date.split('T')[0]}</p>
                                             <p class="card-text">${todos[j].description}</p>
-                                            <button type="button" style="color: black;" onclick="deleteTodo(${todos[j].id})" class="btn btn-danger">Delete</button>
+                                            <button type="button" onclick="deleteTodo(${todos[j].id})" class="btn btn-danger">Delete</button>
                                             <p class="card-text"><small class="text-muted">Created at ${todos[j].createdAt.split('T')[0]}</small></p>
                                         </div>
                                     </div>`)
@@ -48,7 +258,7 @@ function todos() {
                                             <p class="card-text" style="font-weight: bold;">${todos[j].status}</p>
                                             <p class="card-text">Date Action: ${todos[j].due_date.split('T')[0]}</p>
                                             <p class="card-text">${todos[j].description}</p>
-                                            <button type="button" style="color: black;" onclick="deleteTodo(${todos[j].id})" class="btn btn-danger">Delete</button>
+                                            <button type="button" onclick="deleteTodo(${todos[j].id})" class="btn btn-danger">Delete</button>
                                             <p class="card-text"><small class="text-muted">Created at ${todos[j].createdAt.split('T')[0]}</small></p>
                                         </div>
                                     </div>`)
@@ -62,8 +272,8 @@ function todos() {
                                             <p class="card-text" style="font-weight: bold;">${todos[j].status}</p>
                                             <p class="card-text">Date Action: ${todos[j].due_date.split('T')[0]}</p>
                                             <p class="card-text">${todos[j].description}</p>
-                                            <button type="button" style="color: black;" onclick="edit(${todos[j].id})" class="btn btn-info">Done</button>
-                                            <button type="button" style="color: black;" onclick="deleteTodo(${todos[j].id})" class="btn btn-danger">Delete</button>
+                                            <button type="button" onclick="edit(${todos[j].id})" class="btn btn-info">Done</button>
+                                            <button type="button" onclick="deleteTodo(${todos[j].id})" class="btn btn-danger">Delete</button>
                                             <p class="card-text"><small class="text-muted">Created at ${todos[j].createdAt.split('T')[0]}</small></p>
                                         </div>
                                     </div>`)
@@ -134,177 +344,37 @@ function edit(id) {
         })
 }
 
-
-$(document).ready(() => {
-    let img;
-    const token = localStorage.token
-    if(token) {
-        todos()
-        $('#create').hide()
-        $('#home').hide()
-        $('#dashboard').show()
-        $('#login').hide()
-    } else {
-        $('#home').show()
-        $('#create').hide()
-        $('#dashboard').hide()
-        $('#login').hide()
-    }
-
-    $('#btn-login').on('click', () => {
-        $('#home').hide()
-        $('#dashboard').hide()
-        $('#login').show()
-        $('#create').hide()
-    })
-
-    $('#a-login').on('click', () => {
-        $('#home').hide()
-        $('#dashboard').hide()
-        $('#login').show()
-        $('#create').hide()
-    })
-
-    $('.btn-home').on('click', () => {
-        $('#home').show()
-        $('#dashboard').hide()
-        $('#login').hide()
-        $('#create').hide()
-    })
-
-    $('#btn-logout').on('click', () => {
-        localStorage.removeItem('token')
-        $('#home').show()
-        $('#dashboard').hide()
-        $('#create').hide()
-        $('#login').hide()
-    })
-
-    $('input[type=file]').on("change", function() {
-        let $files = $(this).get(0).files;
-        if ($files.length) {
-            let apiUrl = 'https://api.imgur.com/3/image';
-            let apiKey = '7122fd47f342787';
-            settings = {
-                async: false,
-                crossDomain: true,
-                processData: false,
-                contentType: false,
-                type: 'POST',
-                url: apiUrl,
-                headers: {
-                Authorization: 'Client-ID ' + apiKey,
-                Accept: 'application/json'
-                },
-                mimeType: 'multipart/form-data'
-            };
-    
-        let formData = new FormData();
-        formData.append("image", $files[0]);
-        settings.data = formData;
-            $.ajax(settings).done(function(response) {
-                response = JSON.parse(response)
-                img = response.data.id
-                console.log(response)
-            });
-    
+function onSignIn(googleUser) {
+    let id_token = googleUser.getAuthResponse().id_token;
+    $.ajax({
+        url: 'http://localhost:3000/loginGoogle',
+        method: 'POST', 
+        data: {
+            id_token
         }
+    })
+        .done(user => {
+            console.log(user)
+            localStorage.setItem('token', user.access_token)
+            todos()
+            $('#create').hide()
+            $('#home').hide()
+            $('#dashboard').show()
+            $('#login').hide()
+        })
+        .fail(err => console.log(err))
+  }
+
+function logout() {
+    let auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log('User signed out.');
     });
+}
 
-    $('#register-form').on('submit', (e) => {
-        e.preventDefault()
-        const email = $('#email-register').val()
-        const password = $('#password-register').val()
-        $.ajax({
-            method: 'post',
-            url:'http://localhost:3000/register',
-            data: {
-                email,
-                password
-            }
-        })
-            .done(register => {
-                localStorage.setItem('token', register.access_token)
-                $('#home').hide()
-                $('#create').hide()
-                $('#dashboard').show()
-                $('#login').hide()
-            })
-            .fail(err => {
-                $('#home').show()
-                $('#create').hide()
-                $('#dashboard').hide()
-                $('#login').hide()
-            })
-    })
-
-    $('#login-form').on('submit', (e) => {
-        e.preventDefault()
-        const email = $('#email-login').val()
-        const password = $('#password-login').val()
-        $.ajax({
-            method: 'post',
-            url:'http://localhost:3000/login',
-            data: {
-                email,
-                password
-            }
-        })
-            .done(login => {
-                localStorage.setItem('token', login.access_token)
-                todos()
-                $('#home').hide()
-                $('#dashboard').show()
-                $('#login').hide()
-                $('#create').hide()
-            })
-            .fail(err => {
-                $('#home').show()
-                $('#create').hide()
-                $('#dashboard').hide()
-                $('#login').hide()
-            })
-    })
-
-    $('#create-form').on('submit', (e) => {
-        e.preventDefault()
-        title = $('#title-create').val()
-        description = $('#description-create').val()
-        due_date = $('#due_date-create').val()
-        status = false
-
-        $.ajax({
-            method: 'post',
-            url:'http://localhost:3000/todos',
-            headers: {
-                token: localStorage.token
-            },
-            data: {
-                title,
-                description,
-                due_date,
-                status,
-                imageId: img
-            }
-        })
-            .done(_ => {
-                todos()
-                $('#home').hide()
-                $('#dashboard').show()
-                $('#login').hide()
-                $('#create').hide()
-            })
-            .fail(err => {
-                console.log(err)
-            })
-    })
-
-    $('#create-todo').on('click', (e) => {
-        e.preventDefault()
-        $('#create').show()
-        $('#home').hide()
-        $('#dashboard').hide()
-        $('#login').hide()
-    })
-
-})
+function resetHome (){
+    $('#email-login').val('')
+    $('#password-login').val('')
+    $('#email-register').val('')
+    $('#password-register').val('')
+}

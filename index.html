@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="google-signin-client_id" content="40081975863-vhglajppmqse8i8fa9ld59iot40l94uq.apps.googleusercontent.com">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fancy Todo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <style>
         * {
             margin: 0;
             padding: 0;
-            background-image: url('/img/2.png');
         }
         table {
             border-collapse: collapse;
@@ -42,10 +43,10 @@
         }
     </style>
 </head>
-<body>
+<body style="background-image: url('/img/2.png');">
     <section id="home">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#"><img src="/img/logo todolist.png" alt="" style="width: 100px;"></a>
+            <a class="navbar-brand-home" href="#"><img src="/img/logo todolist.png" alt="" style="width: 100px;"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -54,6 +55,7 @@
             <div id="register-form" style="width: 40%; height: 100vh;">
                 <form style="margin: 0 30px;">
                     <h1>Register</h1>
+                    <h5 id="error-register"></h5>
                     <div class="form-group">
                       <label for="email-register">Email address</label>
                       <input type="email" class="form-control" id="email-register" aria-describedby="emailHelp" placeholder="Enter email">
@@ -63,7 +65,10 @@
                       <label for="password-register">Password</label>
                       <input type="password" class="form-control" id="password-register" placeholder="Password">
                     </div>
-                    <button type="submit" style="color: black;" class="btn btn-primary">Register</button>
+                    <div style="display: flex;">
+                        <button type="submit" style="margin-right: 20px;" class="btn btn-primary">Register</button>
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    </div>
                     <p>Have an account? <a href="#" id="a-login">Login here</a> </p>
                 </form>
             </div>
@@ -81,7 +86,7 @@
             <div class="collapse navbar-collapse" id="navbarText">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                  <a class="nav-link" href="#">List Todo</a>
+                  <a class="nav-link" id="list-todos" href="#">List Todo</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" id="create-todo" href="#">Create Todo</a>
@@ -110,7 +115,7 @@
             <div class="collapse navbar-collapse" id="navbarText">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                  <a class="nav-link" href="#">List Todo</a>
+                  <a class="nav-link" id="listtodos-create" href="#">List Todo</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" id="create-todo" href="#">Create Todo</a>
@@ -142,7 +147,7 @@
                         <input type="file" class="form-control-file" id="imageId">
                     </div>
                     <br>
-                    <button type="submit" style="color: black;" class="btn btn-primary">Create</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
                 </form>
             </div>
             <div style="width: 60%;">
@@ -152,7 +157,7 @@
     </section>
     <section id="login">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href=""><img src="/img/logo todolist.png" alt="" style="width: 100px;"></a>
+            <a class="navbar-brand-home" href="#"><img src="/img/logo todolist.png" alt="" style="width: 100px;"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -161,6 +166,7 @@
             <div style="width: 40%; height: 100vh;">
                 <form id="login-form" style="margin: 0 30px;">
                     <h1>Login</h1>
+                    <h5 id="error-login"></h5>
                     <div class="form-group">
                     <label for="email-login">Email address</label>
                     <input type="email" class="form-control" id="email-login" aria-describedby="emailHelp" placeholder="Enter email">
@@ -175,7 +181,7 @@
                     <label class="form-check-label" for="exampleCheck1">Remember Me</label>
                     </div>
                     <br>
-                    <button type="submit" style="color: black;" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-primary">Login</button>
                 </form>
             </div>
             <div style="width: 60%;">
