@@ -12,10 +12,18 @@ header {
   padding: 0;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  top: 0;
+  position: fixed;
+  width: 80%;
+  z-index: 20;
 }
 
 header h2 {
   padding: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: bold;
+  color: rgb(40, 41, 39);
 }
 
 ul {
@@ -54,6 +62,21 @@ header nav a {
   width: 100%;
 }
 
+main {
+  top: 5rem;
+  padding-bottom: 3rem;
+  position: relative;
+}
+
+/* Form Register */
+
+#registerForm,
+#loginForm {
+  width: 40%;
+  margin: auto;
+  padding: 2rem;
+}
+
 /* Footer */
 
 footer {
@@ -62,7 +85,7 @@ footer {
   color: gold;
   text-align: center;
   bottom: 0;
-  position: absolute;
+  position: fixed;
 }
 footer p {
   padding: 1rem 0;
