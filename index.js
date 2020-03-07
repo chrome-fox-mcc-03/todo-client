@@ -1,9 +1,10 @@
 let idToEdit
 function updateTodo (idUpdate) {
-        showUpdate()
+        // showUpdate()
         const token = localStorage.getItem('token')
         let id = idUpdate
         idToEdit = idUpdate
+        console.log(idUpdate)
         $.ajax({
             method: "GET",
             headers: {
@@ -12,7 +13,7 @@ function updateTodo (idUpdate) {
             url: `http://localhost:3000/todos/${id}`
         })
             .done(response => {
-                $("#idUpdate").val(response.id)
+                console.log(response)
                 $("#titleUpdate").val(response.title)
                 $("#descriptionUpdate").val(response.description)
                 $("#statusUpdate").val(`${response.status}`)
@@ -78,6 +79,9 @@ function onSignIn(googleUser) {
     })
         .done(response => {
             console.log(response)
+            $("#btn-login").hide()
+            $("#btn-reg").hide()
+            $("#btn-logout").show()
             localStorage.setItem('token', response.token)
             showJumbotron()
         })  
@@ -283,10 +287,13 @@ $("document").ready(function () {
             }
         })
             .done(response => {
-                $("#tablebody").empty();
+                console.log(response)
+                $("#divCard").empty();
+                $('#exampleModalScrollable').modal('hide')
                 getTodos()
             })
             .fail(err => {
+                // $("#exampleModalScrollable").modal('toggle')
                 console.log(err.responseJSON)
                 getError(err)
             })
@@ -361,16 +368,18 @@ function getTodos() {
                 let newDate = dd + '-' + mm + '-' + yyyy;
                 el.due_date = newDate
                 $("#divCard").append(`
-                    <div id="card">
-                        <h4>To do       : ${el.title}</h4>
-                        <h4>Description : ${el.description}</h4>
-                        <h4>Status      : ${el.status}</h4>
-                        <h4>Due Date    : ${el.due_date}</h4>
-                        <h4>
-                            <button type="button" onclick="updateTodo(${el.id})">Update</button>
-                            <button type="button" onclick="deleteTodo(${el.id})">Delete</button>
-                        </h4>
-                    </div>
+                <div id="card">
+                    <h4 class="card-title">${el.title}</h4>
+                    <p>Description : ${el.description}</p>
+                    <p>Status      : ${el.status}</p>
+                    <p>Due Date    : ${el.due_date}</p>
+                    <p id="button">
+                        <button type="button" onclick="updateTodo(${el.id})" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable">
+                            Update
+                        </button>
+                        <button type="button" onclick="deleteTodo(${el.id})">Delete</button>
+                    </p>
+                </div>
                 `)
                 showTodos()
                 
@@ -409,14 +418,16 @@ $("#btn-todos").on('click',function () {
                 el.due_date = newDate
                 $("#divCard").append(`
                     <div id="card">
-                        <h4>To do       : ${el.title}</h4>
-                        <h4>Description : ${el.description}</h4>
-                        <h4>Status      : ${el.status}</h4>
-                        <h4>Due Date    : ${el.due_date}</h4>
-                        <h4>
-                            <button type="button" onclick="updateTodo(${el.id})">Update</button>
+                        <h4 class="card-title">${el.title}</h4>
+                        <p>Description : ${el.description}</p>
+                        <p>Status      : ${el.status}</p>
+                        <p>Due Date    : ${el.due_date}</p>
+                        <p id="button">
+                            <button type="button" onclick="updateTodo(${el.id})" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable">
+                                Update
+                            </button>
                             <button type="button" onclick="deleteTodo(${el.id})">Delete</button>
-                        </h4>
+                        </p>
                     </div>
                 `)
                 
