@@ -1,15 +1,61 @@
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    var id_token = googleUser.getAuthResponse().id_token;
+
+    $.ajax({
+        method: 'POST',
+        url: 'http://localhost:3000/googleSignIn',
+        headers: {
+            token: id_token
+        }
+    })
+        .done(token => {
+            localStorage.setItem('token', token);
+            console.log('sign in success', token);
+            fetchTodos();
+            $('#dashboard-page').show();
+            $('#signup-page').hide();
+            $('#signin-page').hide();
+            $('#create-todo-page').hide();
+            $('#update-todo-page').hide();
+        })
+        .fail(err => {
+            console.log('sign in failed', err);
+        })
+
+    console.log(id_token);
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log('User signed out.');
+    });
+}
+
 function fetchTodos() {
     $.ajax({
         method: 'GET',
         url: 'http://localhost:3000/todos',
         headers: {
             token: localStorage.getItem('token')
-        } 
+        }
     })
         .done(todos => {
             $('.todos').empty();
             for (let i = 0; i < todos.length; i++) {
-                // $('#theTodo').append(`<div><h4>${todos[i].title}</h4><p>${todos[i].description}</p></div><button onclick="editTodo(${todos[i].id})">Edit</button><button onclick="deleteTodo(${todos[i].id})">Delete</button>`)
+                let formattedDate = new Date(todos[i].due_date).toISOString().substring(0, 10);
+                let year = formattedDate.substring(0, 4);
+                let month = formattedDate.substring(5, 7);
+                let date = formattedDate.substring(8, 10);
+
+                month = monthConverter(month);
+                let fixedFormattedDate = `${date} ${month} ${year}`
+                
                 $('.todos').append(`
                 <div onclick="editTodo(${todos[i].id})" class="todo">
                     <div class="checkbox">
@@ -20,7 +66,7 @@ function fetchTodos() {
                             <h4>${todos[i].title}</h4>
                             <p>${todos[i].description}</p>
                         </div>
-                        <h4>${todos[i].due_date}</h4>
+                        <h4>${fixedFormattedDate}</h4>
                     </div>
                     <div class="delete">
                         <i onclick="deleteTodo(${todos[i].id})" class="fas fa-trash-alt fa-2x"></i>
@@ -34,7 +80,49 @@ function fetchTodos() {
         })
 }
 
-function editTodo(id){
+function monthConverter(month) {
+    switch (month) {
+        case '01': 
+            month = 'Jan';
+            break;
+        case '02': 
+            month = 'Feb';
+            break;
+        case '03': 
+            month = 'Mar';
+            break;
+        case '04': 
+            month = 'Apr';
+            break;
+        case '05': 
+            month = 'May';
+            break;
+        case '06': 
+            month = 'Jun';
+            break;
+        case '07': 
+            month = 'Jul';
+            break;
+        case '08': 
+            month = 'Aug';
+            break;
+        case '09': 
+            month = 'Sep';
+            break;
+        case '10': 
+            month = 'Oct';
+            break;
+        case '11': 
+            month = 'Nov';
+            break;
+        case '12': 
+            month = 'Dec';
+            break;
+    }
+    return month;
+}
+
+function editTodo(id) {
     $('#dashboard-page').hide();
     $('#signup-page').hide();
     $('#signin-page').hide();
@@ -82,7 +170,7 @@ function deleteTodo(id) {
         })
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     if (localStorage.getItem('token')) {
         fetchTodos();
         $('#dashboard-page').show();
@@ -98,7 +186,7 @@ $(document).ready(function() {
         $('#update-todo-page').hide();
     }
 
-    $('#signup-form').on('submit', function(e) {
+    $('#signup-form').on('submit', function (e) {
         e.preventDefault();
         const email = $('#signup-email').val();
         const password = $('#signup-password').val();
@@ -124,7 +212,7 @@ $(document).ready(function() {
             })
     })
 
-    $('#signin-form').on('submit', function(e) {
+    $('#signin-form').on('submit', function (e) {
         e.preventDefault();
         const email = $('#signin-email').val();
         const password = $('#signin-password').val();
@@ -151,8 +239,9 @@ $(document).ready(function() {
             })
     })
 
-    $('#btn-signout').on('click', function() {
+    $('#btn-signout').on('click', function () {
         localStorage.clear();
+        signOut();
         $('#dashboard-page').hide();
         $('#signup-page').hide();
         $('#signin-page').show();
@@ -160,7 +249,7 @@ $(document).ready(function() {
         $('#update-todo-page').hide();
     })
 
-    $('#btn-redir-signup').on('click', function() {
+    $('#btn-redir-signup').on('click', function () {
         $('#dashboard-page').hide();
         $('#signup-page').show();
         $('#signin-page').hide();
@@ -168,7 +257,7 @@ $(document).ready(function() {
         $('#update-todo-page').hide();
     })
 
-    $('#btn-redir-signin').on('click', function() {
+    $('#btn-redir-signin').on('click', function () {
         $('#dashboard-page').hide();
         $('#signup-page').hide();
         $('#signin-page').show();
@@ -176,7 +265,7 @@ $(document).ready(function() {
         $('#update-todo-page').hide();
     })
 
-    $('#btn-redir-create-todo').on('click', function() {
+    $('#btn-redir-create-todo').on('click', function () {
         $('#dashboard-page').hide();
         $('#signup-page').hide();
         $('#signin-page').hide();
@@ -184,7 +273,7 @@ $(document).ready(function() {
         $('#update-todo-page').hide();
     })
 
-    $('#create-todo-form').on('submit', function(e) {
+    $('#create-todo-form').on('submit', function (e) {
         e.preventDefault();
         const title = $('#title').val();
         const description = $('#description').val();
@@ -203,7 +292,7 @@ $(document).ready(function() {
             headers: {
                 token: localStorage.getItem('token')
             }
-        })        
+        })
             .done(createdTodo => {
                 console.log('New todo successfully created', createdTodo);
                 $('#dashboard-page').show();
@@ -218,7 +307,7 @@ $(document).ready(function() {
             })
     })
 
-    $('#update-todo-form').on('submit', function(e) {
+    $('#update-todo-form').on('submit', function (e) {
         e.preventDefault();
         console.log('update me senpai');
         const title = $('#update-title').val();

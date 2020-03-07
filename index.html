@@ -23,10 +23,17 @@
         <div id="signin-page">
             <form id="signin-form">
                 <h3>Sign In</h3>
-                <input id="signin-email" type="email"><br>
-                <input id="signin-password" type="password"><br>
-                <input type="submit" value="Sign In">
-                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                <label for="email">Email address</label>
+                <input id="signin-email" type="email" name="email" class="field">
+                <label for="email">Password</label>
+                <input id="signin-password" type="password" name="password" class="field">
+                <div id="signin-btn">
+                    <input type="submit" value="Sign In">
+                </div>
+                <div id="google-signin-btn">
+                    <p>Or sign in with</p>
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                </div>
             </form>
             <p>Don't have an account? <a id="btn-redir-signup" href="#">Join us now</a></p>
         </div>
@@ -68,14 +75,5 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="index.js"></script>
-    <script>
-        function onSignIn(googleUser) {
-            var profile = googleUser.getBasicProfile();
-            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-            console.log('Name: ' + profile.getName());
-            console.log('Image URL: ' + profile.getImageUrl());
-            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-        }
-    </script>
 </body>
 </html>

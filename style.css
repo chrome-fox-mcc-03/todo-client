@@ -100,9 +100,54 @@ body {
 }
 
 .fa-trash-alt:hover {
-    color: hotpink;
+    color: rgb(190, 0, 0);
 }
 
 .fa-check-circle:hover {
-    color: hotpink;
+    color: rgb(13, 146, 3);
 }
+
+/* Sign In Page */
+
+#signin-page {
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#signin-form {
+    height: 50%;
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#google-signin-btn {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+#google-signin-btn p {
+    
+}
+
+#signin-btn {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.field {
+    width: 100%;
+    border: none;
+    font-size: xx-large;
+    margin-bottom: 1.25rem;
+}
+
