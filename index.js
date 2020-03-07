@@ -19,41 +19,6 @@ function showDashboard() {
             ${el.due_date}<br><br>
             <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#editToDo" onClick="editToDo(${el.id}, ['${el.title}', '${el.description}', '${el.status}', '${el.due_date}'])">Edit</button> | 
             <button type="button" class="btn btn-dark" onClick="deleteToDo(${el.id}, '${el.title}')">Delete</button></p><br>
-            
-            <!-- The Modal -->
-            <div class="modal" id="editToDo">
-                <div class="modal-dialog">
-                <div class="modal-content">
-                
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                    <h4 class="modal-title">Edit To-Do item</h4>
-                    <button type="button" class="btn btn-dark" data-dismiss="modal">Cancel</button>
-                    </div>
-                    
-                    <!-- Modal body -->
-                    <form id="edit-todo">
-                        <div class="modal-body">
-                            <label for="title-edit">Title:</label><br>
-                            <input type="text" id="title-add"><br>
-                            <label for="description-edit">Description:</label><br>
-                            <textarea form="edit-todo" id="description-edit" cols="35"></textarea><br>
-                            <label for="status-edit">Done?</label><br>
-                            <select id="status-edit">
-                            <option value="true">true</option>
-                            <option value="false">false</option>
-                            </select><br>
-                            <label for="due_date-edit">Due Date:</label><br>
-                            <input type="text" id="due_date-edit" placeholder="Please use YYYY-MM-DD!"><br><br>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="submit" data-dismiss="modal" value="Edit">
-                        </div>
-                    </form><br>
-                    
-                </div>
-                </div>
-            </div>
 
             `))
             // console.log(response)
@@ -63,8 +28,7 @@ function showDashboard() {
     })
 }
 function addButton() {
-    $("#add-todo").submit(function(e) {
-        e.preventDefault()
+    $("#add-todo").submit(function() {
         $.ajax({
             method: "POST",
             url: "http://localhost:3000/todos",
@@ -102,8 +66,22 @@ function editToDo(id, array) {
     console.log(id)
 }
 
-function edit() {
-    
+function edit(id) {
+    console.log
+    $.ajax({
+        method: "PUT",
+        url: `http://localhost:3000/todos/${id}`,
+        headers: {
+            token: localStorage.getItem('token')
+        },
+        data: {
+            title: $("#title-edit").val(),
+            description: $("#description-edit").val(),
+            status: $("#status-edit").val(),
+            due_date: $("#due_date-edit").val()
+        }
+
+    })
 }
 // function addToDo() {
 //     $

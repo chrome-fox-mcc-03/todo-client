@@ -70,6 +70,40 @@
             </div>
   
             <div id="list-item"></div>
+            <!-- The Modal -->
+            <div class="modal" id="editToDo">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                    <h4 class="modal-title">Edit To-Do item</h4>
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Cancel</button>
+                    </div>
+                    
+                    <!-- Modal body -->
+                    <form id="edit-todo">
+                        <div class="modal-body">
+                            <label for="title-edit">Title:</label><br>
+                            <input type="text" id="title-add"><br>
+                            <label for="description-edit">Description:</label><br>
+                            <textarea form="edit-todo" id="description-edit" cols="35"></textarea><br>
+                            <label for="status-edit">Done?</label><br>
+                            <select id="status-edit">
+                            <option value=true>true</option>
+                            <option value=false>false</option>
+                            </select><br>
+                            <label for="due_date-edit">Due Date:</label><br>
+                            <input type="text" id="due_date-edit" placeholder="Please use YYYY-MM-DD!"><br><br>
+                        </div>
+                        <div class="modal-footer">
+                            <input onClick="edit(${el.id})" data-dismiss="modal" value="Edit">
+                        </div>
+                    </form><br>
+                    
+                </div>
+                </div>
+            </div>
             <button id="btn-logout">Logout</button>
         </div>      
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
