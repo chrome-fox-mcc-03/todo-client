@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-signin-client_id"
+    content="810525387475-mk727b0tpnn1lcul1jk1stk7esfbg6rc.apps.googleusercontent.com">
+  <title>Document</title>
+</head>
+<body>
+
+  <section class="login">
+
+    <form class="login-form">
+      <h1>Sign In</h1>
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input" id="email-login" type="email" placeholder="Email">
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+        </div>
+      </div>
+  
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input" id="password-login" type="password" placeholder="Password">
+          <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </div>
+      </div>
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-success" id="submit-login" type="submit">Submit</button>
+        </div>
+        <div class="g-login2" data-onsuccess="onlogin"></div>
+      </div>
+    </form>
+
+    <button id="login-register">Dont have account?</button>
+
+  </section>
+
+  <section class="register">
+
+    <form class="register-form">
+      <h1>Sign Up</h1>
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input" id="email-register" type="email" placeholder="Email">
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+        </div>
+      </div>
+  
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input" id="password-register" type="password" placeholder="Password">
+          <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </div>
+      </div>
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-success" type="submit" id="submit-register">Submit</button>
+        </div>
+      </div>
+    </form>
+    
+    <button id="register-login">Have account?</button>
+
+  </section>
+
+  <section class="list">
+    <h1>DASHBOARD</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <td>TITLE</td>
+          <td>DESC</td>
+          <td>STATUS</td>
+          <td>DUE DATE</td>
+          <td>OPTION</td>
+        </tr>
+      </thead>
+      <tbody id="tbody-list"></tbody>
+    </table>
+
+  </section>
+
+  <section class="create">
+
+  </section>
+
+  <section class="update">
+
+  </section>
+
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="main.js"></script>
+  
+</body>
+</html>
