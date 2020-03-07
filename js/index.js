@@ -16,7 +16,7 @@ $.ajax(settings).done(function (response) {
 function fetchData() {
     $.ajax({
         method: "GET",
-        url: "http://localhost:3000/todos",
+        url: "https://morning-reef-94255.herokuapp.com/todos",
         headers: {
             token: localStorage.getItem("token")
         }
@@ -42,7 +42,7 @@ function findOne(id) {
     const token = localStorage.getItem("token")
     $.ajax({
         method: "get",
-        url: `http://localhost:3000/todos/${id}`,
+        url: `https://morning-reef-94255.herokuapp.com/todos/${id}`,
         headers: {
             token
         }
@@ -87,7 +87,7 @@ function update(id){
     const token = localStorage.getItem("token")
     $.ajax({
         method: "PUT",
-        url: `http://localhost:3000/todos/${id}`,
+        url: `https://morning-reef-94255.herokuapp.com/todos/${id}`,
         headers: {
             token
         },
@@ -107,7 +107,7 @@ function complete(id){
     const token = localStorage.getItem("token")
     $.ajax({
         method: "PATCH",
-        url: `http://localhost:3000/todos/${id}`,
+        url: `https://morning-reef-94255.herokuapp.com/todos/${id}`,
         headers: {
             token
         }
@@ -125,7 +125,7 @@ function destroy(id) {
     const token = localStorage.getItem("token")
     $.ajax({
         method: "delete",
-        url: `http://localhost:3000/todos/${id}`,
+        url: `https://morning-reef-94255.herokuapp.com/todos/${id}`,
         headers: {
             token
         }
@@ -140,7 +140,7 @@ function onSignIn(googleUser) {
     const token = googleUser.getAuthResponse().id_token;
     $.ajax({
         method: 'post',
-        url: 'http://localhost:3000/google',
+        url: 'https://morning-reef-94255.herokuapp.com/google',
         headers: {
             token
         }
@@ -178,7 +178,7 @@ $(document).ready(function () {
         const password = $(".password").val()
         $.ajax({
             method: "POST",
-            url: "http://localhost:3000/register",
+            url: "https://morning-reef-94255.herokuapp.com/register",
             data: {
                 email,
                 password
@@ -204,7 +204,7 @@ $(document).ready(function () {
         const password = $(".passwordLogin").val()
         $.ajax({
             method: "POST",
-            url: "http://localhost:3000/login",
+            url: "https://morning-reef-94255.herokuapp.com/login",
             data: {
                 email,
                 password
@@ -231,7 +231,7 @@ $(document).ready(function () {
         console.log(title, description, status, due_date)
         $.ajax({
             method: "POST",
-            url: "http://localhost:3000/todos",
+            url: "https://morning-reef-94255.herokuapp.com/todos",
             headers: {
                 token
             },
