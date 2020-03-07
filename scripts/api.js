@@ -57,7 +57,6 @@ const addTodo = (payload) => {
 const updateStatus = (payload) => {
   const id = payload.id;
   const status = payload.status;
-  console.log(id, status)
   return $.ajax({
     url: `${BASE_URL}/todo/${id}/status`,
     method: 'PATCH',

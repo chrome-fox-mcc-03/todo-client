@@ -61,7 +61,6 @@ function onSignIn(googleUser) {
       $('.err-message').empty();
       hideShow();
       $('.err-message').val(err);
-      console.log(err.responseJSON.message, '>>>>>');
     })
     .always(_=> {
       $('#email-login').val('');
@@ -74,7 +73,6 @@ function fetchTodo() {
   $("#todo-board").loading();
   fetchAllTodo()
     .done(result => {
-      console.log(result);
       let content = '';
       let obj = {}
       const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -121,7 +119,7 @@ function fetchTodo() {
         </div>
       </div>`
       $('#todo-board').html(content);
-      console.log(err.responseJSON.message, '>>>>>>> dari fetchTodo');
+      $.notify(err.responseJSON.message, 'error');
     })
     .always(_=> {
       $("#todo-board").loading('stop');
@@ -155,7 +153,6 @@ function fetchCompletedTodo() {
             `;
           }
           $('#todo-board').html(content);
-        console.log(result);
         })
 
     })
@@ -170,7 +167,7 @@ function fetchCompletedTodo() {
         </div>
       </div>`
       $('#todo-board').html(content);
-      console.log(err.responseJSON.message, '>>>>> dari fetchCompletedTodo');
+      $.notify(err.responseJSON.message, 'error')
     })
     .always(_=> {
       $("#todo-board").loading('stop');
@@ -181,24 +178,22 @@ function statusChange(id, status) {
   status = !status;
   if (status) {
     updateStatus({ id, status })
-      .done(_=> {
-        console.log('berhasil update status');
-        // kasih notifikasi nanti
+      .done(result=> {
+        $.notify(result.message, 'success')
       })
       .fail(err=> {
-        console.log(err.responseJSON, 'gagal update status');
+        $.notify(err.responseJSON.message, 'error')
       })
       .always(_ => {
         fetchCompletedTodo();
       })
   } else {
     updateStatus({ id, status })
-      .done(_=> {
-        console.log('berhasil update status');
-        // kasih notifikasi nanti
+      .done(result=> {
+        $.notify(result.message, 'success')
       })
       .fail(err=> {
-        console.log(err.responseJSON.message, 'gagal update status');
+        $.notify(err.responseJSON.message, 'error')
       })
       .always(_ => {
         fetchTodo();
@@ -218,18 +213,46 @@ function populateForm(payload) {
 }
 
 function clickDelete(id) {
+  showModal(id)
+}
+
+function showModal(id) {
+  let content = `
+  <div class="container border rounded shadow-lg" 
+  id="delete-modal"    
+  style="margin: 10px;padding-top: 10px;padding-bottom: 10px;background-color: #242426;opacity: 1; width:80%">
+  <div>
+      <h4 style="color: #ffffff;">Delete Confirmation</h4>
+      <p style="color: rgb(255,255,255);">Are you sure to delete this todo?</p>
+      <p style="color: rgb(255,255,255);"></p>
+      <div class="d-lg-flex">
+          <button onclick="fetchCompletedTodo()" class="btn btn-light text-primary" type="button">
+              Cancel
+          </button>
+          <button onclick="confirmed(${id})" class="btn btn-danger" type="button" style="margin-left: 12px;">
+              Delete
+          </button>
+      </div>
+  </div>
+</div>
+  `
+  $('#todo-board').html(content);
+}
+
+function confirmed(id) {
+  $("#todo-board").loading();
   deleteTodo(id)
     .done(result => {
-      console.log(result);
+      $.notify(`Todo ${id} deleted`, 'success');
     })
     .fail(err => {
-      console.log(err.responseJSON.message);
+      $.notify(err.responseJSON.message, 'error');
     })
     .always(_ => {
+      $("#todo-board").loading('stop');
       fetchCompletedTodo();
     })
 }
-
 
 
 $(document).ready(function() {
@@ -254,7 +277,6 @@ $(document).ready(function() {
         $('.err-message').empty();
         hideShow();
         $('.err-message').append(err.responseJSON.message)
-        console.log(err, '>>>>>');
       })
       .always(_=> {
         $('#email-login').val('');
@@ -282,7 +304,6 @@ $(document).ready(function() {
         $('.err-message').empty();
         hideShow();
         $('.err-message').append(err.responseJSON.message)
-        console.log(err.responseJSON, '>>>>>');
       })
       .always(_=> {
         $('.loading-register').empty();
@@ -364,16 +385,17 @@ $(document).ready(function() {
       description,
       due_date,
     };
-
+    $('#todo-board').loading()
     editTodo(payload)
       .done(result => {
+        $.notify(result.message, 'success')
         fetchTodo()
-        console.log(result);
       })
       .fail(err => {
-        console.log(err.responseJSON);
+        $.notify(err.responseJSON.message, 'error')
       })
       .always(_=> {
+        $('#todo-board').loading('stop')
       })
 
   })
@@ -388,4 +410,10 @@ $(document).ready(function() {
   let today = new Date().toISOString().split('T')[0];
   document.getElementById("add-todo-date").setAttribute('min', today);
   document.getElementById("edit-date").setAttribute('min', today);
+
+  // Click delete on edit form 
+  $('#edit-delete').click(_=> {
+    let id = $('#edit-id').val();
+    showModal(id);
+  })
 })
