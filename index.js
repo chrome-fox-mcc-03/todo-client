@@ -225,12 +225,12 @@ const register = () => {
 }
 
 const logout = () => {
-    showLoginRegister();
     let auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
         console.log('User signed out.');
     });
     
+    showLoginRegister();
 
     localStorage.clear();
     isLogin = false;
@@ -272,8 +272,9 @@ function onSignIn(googleUser) {
 
 const showLoginRegister = (err) => {
     showError(err);
-    // $("#login").show();
-    // $("#register").show();
+    $("#login").show();
+    $("#register").show();
+    console.log("masuk");
     $("#login-register").show();
     $("#update-todo").hide();
     $("#todo-list").hide();
@@ -336,8 +337,9 @@ const showError = (err) => {
 }
 
 const showLoading = () => {
-    $("#login").hide();
-    $("#register").hide();
+    // $("#login").hide();
+    // $("#register").hide();
+    $("#login-register").hide();
     $("#update-todo").hide();
     $("#todo-list").hide();
     $("#todo-create").hide();
