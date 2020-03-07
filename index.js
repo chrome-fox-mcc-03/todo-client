@@ -40,7 +40,7 @@ function showUpdate(id) {
          $("#due_dateUpdate").val(dueDate);
       })
       .fail(err => {
-         let msg = err.responseJSON.err
+         let msg = err.responseJSON.message
          let status = err.status
          swal(`Error ${status}`, `${msg}`, "error");
       })
@@ -94,7 +94,7 @@ function signUp(event) {
          dashboard()
       })
       .fail(err => {
-         let msg = err.responseJSON.err
+         let msg = err.responseJSON.message
          let status = err.status
          swal(`Error ${status}`, `${msg}`, "error");
       })
@@ -125,7 +125,7 @@ function signIn(event) {
 
       })
       .fail(err => {
-         let msg = err.responseJSON.err
+         let msg = err.responseJSON.message
          let status = err.status
          swal(`Error ${status}`, `${msg}`, "error");
       })
@@ -138,7 +138,7 @@ function signOut() {
    swal({
       title: "Good Bye!",
       text: "See You Later",
-      icon: "success",
+      imageUrl: "bye.jpg",
   });
    $('body').attr('style', 'background: grey')
    $('#dashboard').hide()
@@ -175,7 +175,7 @@ function getTodos() {
       })
    })
    .fail(err => {
-      let msg = err.responseJSON.err
+      let msg = err.responseJSON.message
       let status = err.status
       swal(`Error ${status}`, `${msg}`, "error");
    })
@@ -209,7 +209,8 @@ function createTodo(event) {
          $('.bd-example-modal-lg').modal('hide');
       })
       .fail((err) => {
-         let msg = err.responseJSON.err
+         console.log(err);
+         let msg = err.responseJSON.message
          let status = err.status
          swal(`Error ${status}`, `${msg}`, "error");
       })
@@ -246,7 +247,7 @@ function updateTodo(event, id) {
       dashboard()
    })
    .fail(err => {
-      let msg = err.responseJSON.err
+      let msg = err.responseJSON.message
       let status = err.status
       swal(`Error ${status}`, `${msg}`, "error");
    })
@@ -272,7 +273,7 @@ function onSignIn(googleUser) {
          dashboard()
       })
       .fail(err => {
-         let msg = err.responseJSON.err
+         let msg = err.responseJSON.message
          let status = err.status
          swal(`Error ${status}`, `${msg}`, "error");
       })
@@ -297,7 +298,7 @@ function deleteTodo(id) {
          dashboard()
       })
       .fail(err => {
-         let msg = err.responseJSON.err
+         let msg = err.responseJSON.message
          let status = err.status
          swal(`Error ${status}`, `${msg}`, "error");
       })
