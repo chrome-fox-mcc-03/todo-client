@@ -15,8 +15,9 @@ function showDashboard() {
             <p>
             <h5><b>${el.title}</b></h5>
             ${el.description}<br>
+            Done: ${el.status}<br>
             ${el.due_date}<br><br>
-            <button type="button" class="btn btn-dark" onClick="editToDo(${el.id}, ['${el.title}', '${el.description}', '${el.status}', '${el.due_date}'])">Edit</button> | 
+            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#editToDo" onClick="editToDo(${el.id}, ['${el.title}', '${el.description}', '${el.status}', '${el.due_date}'])">Edit</button> | 
             <button type="button" class="btn btn-dark" onClick="deleteToDo(${el.id}, '${el.title}')">Delete</button></p><br>
             
             <!-- The Modal -->
@@ -31,17 +32,22 @@ function showDashboard() {
                     </div>
                     
                     <!-- Modal body -->
-                    <form id="add-todo">
+                    <form id="edit-todo">
                         <div class="modal-body">
-                            <label for="title-add">Title:</label><br>
+                            <label for="title-edit">Title:</label><br>
                             <input type="text" id="title-add"><br>
-                            <label for="description-add">Description:</label><br>
-                            <textarea form="add-todo" id="description-add" cols="35"></textarea><br>
-                            <label for="due_date-add">Due Date:</label><br>
-                            <input type="text" id="due_date-add" placeholder="Please use YYYY-MM-DD!"><br><br>
+                            <label for="description-edit">Description:</label><br>
+                            <textarea form="edit-todo" id="description-edit" cols="35"></textarea><br>
+                            <label for="status-edit">Done?</label><br>
+                            <select id="status-edit">
+                            <option value="true">true</option>
+                            <option value="false">false</option>
+                            </select><br>
+                            <label for="due_date-edit">Due Date:</label><br>
+                            <input type="text" id="due_date-edit" placeholder="Please use YYYY-MM-DD!"><br><br>
                         </div>
                         <div class="modal-footer">
-                            <input type="submit" data-dismiss="modal" value="Create">
+                            <input type="submit" data-dismiss="modal" value="Edit">
                         </div>
                     </form><br>
                     
@@ -94,6 +100,10 @@ function showLandingPage() {
 // }
 function editToDo(id, array) {
     console.log(id)
+}
+
+function edit() {
+    
 }
 // function addToDo() {
 //     $
