@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Spartan:500,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:400,600,800&display=swap" rel="stylesheet">
+    <meta name="google-signin-client_id" content="599194754739-9ni3gbquv1bshig5tkarkra973add22c.apps.googleusercontent.com">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Todo client</title>
+</head>
+<body>
+    <!-- LANDING PAGE -->
+    <section class="landing-page">
+        <div class= "landing-page-div">
+            <h1 id="landing-title">Plan Your Day with To-do!</h1>
+        </div>
+        <div class= "landing-page-div">
+            <button class="sign-up-btn" id="start-now">Start now!</button>
+        </div>
+        <div class= "landing-page-div" id="login">
+            <a href="">already has an account?</a>
+        </div>
+        <div style="margin-top: 1rem;"class="g-signin2 landing-page-div" data-onsuccess="onSignIn"></div>
+    </section>
+
+    <!-- SIGN UP PAGE -->
+    <section class="sign-up-log-in-page" id="sign-up-page">
+        <div class= "landing-page-div">
+            <form id="sign-up-form">
+                <h3>SIGN UP</h3> <br>
+                <label for="first_name" class= "sign-up-text-top">First name:</label><br>
+                <input type="text" id="first_name" name="first_name" class= "sign-up-text"><br>
+                <label for="last_name" class= "sign-up-text-top">Last name:</label><br>
+                <input type="text" id="last_name" name="last_name" class= "sign-up-text" placeholder="Optional"><br>
+                <label for="username" class= "sign-up-text-top">Username:</label><br>
+                <input type="text" id="username" name="username" class= "sign-up-text"><br>
+                <label for="email" class= "sign-up-text-top">Email:</label><br>
+                <input type="text" id="email" name="email" class= "sign-up-text"><br>
+                <label for="password" class= "sign-up-text-top">Password:</label><br>
+                <input type="password" id="password" name="password" class= "sign-up-text"><br><br>
+                <input type="submit" value="Register!" class="sign-up-btn" id="sign-up-now">
+                <button type="button" class="sign-up-btn sign-up-back-btn">Back</button>
+                <p id="error-signup" class="error-msg"><br></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- LOG IN PAGE -->
+    <section class="sign-up-log-in-page" id="log-in-page">
+        <div class= "landing-page-div">
+            <form id="log-in-form">
+                <h3>LOG-IN</h3> <br>
+                <label for="emailOrUsername" class= "sign-up-text-top">Username/Email: </label><br>
+                <input type="text" id="emailOrUsername" name="emailOrUsername" class= "sign-up-text"><br>
+                <label for="password" class= "sign-up-text-top">Password:</label><br>
+                <input type="password" id="passwordLogIn" name="passwordLogIn" class= "sign-up-text"><br><br>
+                <input type="submit" value="Log in" class="sign-up-btn" id="log-in-now">
+                <button type="button" class="sign-up-btn sign-up-back-btn">Back</button>
+                <p id="error-login" class="error-msg"><br></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section class="dashboard-class">
+        <div class="dark-bg"></div>
+        <div class="dashboard-content" id = "dashboard-content-id">
+            <a id="log-out">log out</a>
+            <div class="welcome-text">
+                <h1 class="welcome-text-child">Welcome back, </h1>
+            </div>
+            <div class="content-body">
+                <div class="ds-divs" id="ds-1">
+                </div>
+                <div class="ds-divs" id="ds-2">                   
+                </div>
+                <div class="ds-divs" id="ds-3">
+                </div>
+                <div class="ds-divs div-additional" id="ds-4">
+                </div>
+                <div class="ds-divs div-additional" id="ds-5">
+                </div>
+            </div>
+            <div class="footer-dashboard">
+                <div class='btn-div'>
+                    <a class="add-btn"><img src="./img/add.svg" alt="add" ></a>
+                </div>
+                <div id="quotes" style="display: flex; flex-direction: row;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="add-todos">
+        <div class= "add-todos-div">
+            <form id="todos-form">
+                <h3>Add a todo</h3> <br>
+                <label for="title" class= "sign-up-text-top">Title </label><br>
+                <input type="text" id="title" name="title" class= "sign-up-text"><br>
+                <label for="description" class= "sign-up-text-top">Description: </label><br>
+                <input type="text" id="description" name="description" class= "sign-up-text"><br>
+                <label for="due_date" class= "sign-up-text-top">Due-date: </label><br>
+                <input type="date" id="due_date" name="due_date" class= "sign-up-text"><br>
+                <label for="time" class= "sign-up-text-top">Time: </label><br>
+                <input type="time" id="due_time" name="due_time" class= "sign-up-text"><br>
+                <input type="submit" value="Add" class="add-todos-btn" id="add-todos">
+                <button type="button" class="back-todos-add">Back</button>
+                <p id="error-add" class="error-msg"><br></p>
+            </form>
+        </div>
+    </section>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+</body>
+</html>
+
