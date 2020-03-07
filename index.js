@@ -163,6 +163,8 @@ $(document).ready(function(){
             localStorage.setItem('access_token', response.access_token)
             $('#todo-dashboard').show()
             $('#login-section').hide()
+            let identifier = Math.ceil((Math.random() * 100)+100)
+            $('#profile-photo').attr('src', `https://api.adorable.io/avatars/${identifier}`)
 
         }).fail( function (err) {
             console.log(err);

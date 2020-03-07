@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./css/register-form.css">
     <link rel="stylesheet" href="./css/createTodo-form.css">
     <link rel="stylesheet" href="./css/updateTodo-form.css">
-    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
+    <!-- <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon"> -->
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <!-- Google Fonts Roboto -->
@@ -350,7 +350,7 @@
     <section id="todo-dashboard">
         
         <!--Navbar -->
-        <nav class="mb-1 navbar navbar-expand-lg navbar-dark primary-color lighten-1">
+        <nav class="mb-1 navbar navbar-expand-lg navbar-dark primary-color lighten-1 fixed-top">
             <a class="navbar-brand" href="#">Fancy Todo</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
             aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
@@ -362,13 +362,12 @@
                     <input id="btn-logout" type="submit" value="Logout" class="btn btn-dark">
                 </li>
             </ul>
+            <h4 id="username"></h4>
             <ul class="navbar-nav ml-auto nav-flex-icons">
-                <li class="nav-item">
-                    <a id="create-btn" href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modalCreateForm"> Create </a>
-                </li>
+              <a id="create-btn" href="" class="btn btn-default btn-rounded mr-3" data-toggle="modal" data-target="#modalCreateForm"> Create </a>
                 <li class="nav-item avatar">
-                    <a class="nav-link p-0" href="#">
-                        <img id='profile-photo' src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg" class="rounded-circle z-depth-0" alt="avatar image" height="50">
+                    <a class="nav-link p-0 hoverable" href="#">
+                        <img id='profile-photo' src="..." class="rounded-circle z-depth-0" alt="avatar image" height="50">
                     </a>
                 </li>
             </ul>
@@ -377,7 +376,7 @@
         <!--/.Navbar -->
 
         <!-- Dynamic Content generated during the ajax process -->
-        <div id="list-content" class="row d-flex border border-primary">
+        <div id="list-content" class="row d-flex" style="margin-top: 90px;">
             
         </div>
 
@@ -467,6 +466,8 @@
               $('#todo-dashboard').show()
               $('#home').hide()
               $('#login-section').hide()
+              $('#username').text(profile.getName())
+              $('#profile-photo').attr('src', profile.getImageUrl())
               // refreshContent()
               
             })
