@@ -12,13 +12,13 @@ function refreshContent(quotes, author){
     .done(function(response){
         $('#list-content').empty()
         $('#quotes-container').empty()
-        
+        // $('#list-content').html(response)
         for(let i = 0; i < response.data.length; i++){
-            let todo_id = response.data[i].id
-            let due_date = new Date(response.data[i].due_date).toLocaleDateString()
-            let title = response.data[i].title
-            let description = response.data[i].description
-            let status = response.data[i].status ? 'Finished' : 'Unfinished'
+            let todo_id = response.data[i].id;
+            let due_date = new Date(response.data[i].due_date).toLocaleDateString();
+            let title = response.data[i].title;
+            let description = response.data[i].description;
+            let status = response.data[i].status ? 'Finished' : 'Unfinished';
             $('#list-content').append(`
             <div class="list-group w-25 p-3 example hoverable border border-primary" id="content_${i}">
 
@@ -71,7 +71,8 @@ function refreshContent(quotes, author){
        `)
     })
     .fail(err => {
-        console.log(err);
+        // console.log(err);
+        throw err
     })
 }
 
@@ -105,7 +106,8 @@ function deleteData(todo_id) {
         refreshContent()
     })
     .fail(function (err) {
-        console.log(err);
+        // console.log(err);
+        throw err
         
     })
 }
@@ -114,16 +116,14 @@ function deleteData(todo_id) {
 $(document).ready(function(){
 
     if(access_token){
+        // setTimeout(function(){ refreshContent() }, 10);
+        refreshContent()
         $('#todo-dashboard').show()
         $('#home').hide()
         $('#register-section').hide()
         $('#login-section').hide()
-        refreshContent()
         //FETCHING DATA TODO BY ID (ACCESS_TOKEN)
         
-
-        
-
     }else{
         $('#todo-dashboard').hide()
         $('#home').show()
@@ -154,7 +154,8 @@ $(document).ready(function(){
             $('#home').show()
             $('#register-section').hide()
         }).fail( function(err){
-            console.log(err);
+            // console.log(err);
+            throw err
         })
     })
 
@@ -176,13 +177,17 @@ $(document).ready(function(){
         }).done( function(response){
 
             localStorage.setItem('access_token', response.access_token)
+
+    
+            refreshContent()
             $('#todo-dashboard').show()
             $('#login-section').hide()
             let identifier = Math.ceil((Math.random() * 100)+100)
             $('#profile-photo').attr('src', `https://api.adorable.io/avatars/${identifier}`)
 
         }).fail( function (err) {
-            console.log(err);
+            // console.log(err);
+            throw err
         })
     })
 
@@ -220,7 +225,8 @@ $(document).ready(function(){
             
         })
         .fail(function(err){
-            console.log(err);
+            // console.log(err);
+            throw err
             
         })
     })
@@ -257,7 +263,7 @@ $(document).ready(function(){
             refreshContent()
         })
         .fail(function(err){
-            console.log(err);
+            throw err
             
         })
         
@@ -268,8 +274,11 @@ $(document).ready(function(){
     $('#btn-logout').on('click', function(e){
         e.preventDefault()
         localStorage.removeItem('access_token')
+        localStorage.clear()
         $('#home').show()
         $('#todo-dashboard').hide()
+        // $("#list-content").empty()
+        $("#list-content").remove()
         var auth2 = gapi.auth2.getAuthInstance();
             auth2.signOut().then(function () {
             console.log('User signed out.');

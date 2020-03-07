@@ -374,7 +374,7 @@
         </div>
 
         <!-- Dynamic Content generated during the ajax process -->
-        <div id="list-content" class="row d-flex" style="margin-top: 20px;">
+        <div id="list-content" class="row d-flex" style="margin-top: 20px; margin-left: 10px; margin-right: 10px;">
             
         </div>
 
@@ -444,12 +444,6 @@
             var profile = googleUser.getBasicProfile();
             const g_idToken = googleUser.getAuthResponse().id_token;
 
-            // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-            // console.log('Name: ' + profile.getName());
-            // console.log('Image URL: ' + profile.getImageUrl());
-            // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-            // console.log('Access Token: ' + g_idToken);
-
             $.ajax({
               method: `GET`,
               url: `http://localhost:3000/user/loginGoogle`,
@@ -466,7 +460,7 @@
               $('#login-section').hide()
               $('#username').text(profile.getName())
               $('#profile-photo').attr('src', profile.getImageUrl())
-              // refreshContent()
+              refreshContent()
               
             })
             .fail(function(err){
