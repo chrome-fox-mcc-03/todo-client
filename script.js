@@ -132,7 +132,8 @@ $("document").ready(() => {
 
     $("#todos-form").on('submit', (e) => {
         e.preventDefault()
-        const inputDate = `${parseDueDateEdit($("#due_date").val())}T${$("#due_time").val()}:00`
+        const inputDate = `${$("#due_date").val()}T${$("#due_time").val()}:00`
+        console.log(inputDate)
         const data = {
             title: $("#title").val(),
             description: $("#description").val(),
@@ -147,6 +148,7 @@ $("document").ready(() => {
             }
         })
         .done((result) => {
+            gCalendar(data);
             backToDashboard(".add-todos")
             $('#error-add').text(``)
             restartDashboard()
@@ -412,4 +414,61 @@ function restartTodosForm(){
     $("#title").val('')
     $("#description").val('')
     $("#due_date").val('')
+}
+
+function handleClientLoad() {
+    gapi.load('client:auth2', initClient);
+}
+
+    
+function initClient() {
+    gapi.client.init({
+        apiKey: "AIzaSyBtHyy2bbvhXSoWIeC9F6bQpIY53yJ0XqA",
+        clientId: "599194754739-9ni3gbquv1bshig5tkarkra973add22c.apps.googleusercontent.com",
+        discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
+        scope: "https://www.googleapis.com/auth/calendar"
+    }).then(function () {
+        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+    }, function(error) {
+        console.log(JSON.stringify(error, null, 2));
+    });
+}
+
+function updateSigninStatus(isSignedIn) {
+
+}
+
+function gCalendar(todo){
+    const event = {
+        'summary': `${todo.title}`,
+        'location': 'Jakarta',
+        'description': `${todo.description}`,
+        'start': {
+        'dateTime': new Date(new Date(`${todo.due_date}`).getTime() - 24*60*60*1000),
+        'timeZone': 'Africa/Abidjan'
+        },
+        'end': {
+        'dateTime': new Date(new Date(`${todo.due_date}`).getTime() - 24*60*60*1000),
+        'timeZone': 'Africa/Abidjan'
+        },
+        'recurrence': [
+        'RRULE:FREQ=DAILY;COUNT=2'
+        ],
+        'reminders': {
+        'useDefault': false,
+        'overrides': [
+            {'method': 'email', 'minutes': 24 * 60},
+            {'method': 'popup', 'minutes': 10}
+        ]
+        }
+    };
+    const request = gapi.client.calendar.events.insert({
+        'calendarId': 'primary',
+        'resource': event
+    });
+    
+    request.execute(function(event) {
+        console.log(event)
+    })
 }
