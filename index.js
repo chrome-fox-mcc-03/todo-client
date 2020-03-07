@@ -1,19 +1,125 @@
 $(document).ready(function () {
     if (!localStorage.token) {
-        $("#sign_up_page").hide();
-        $("#home_page").hide();
         $("#welcome_container").show();
-        $("#edit_page").hide();
-        $("#create_page").hide();
+        $("#sign_up_container").hide();
+        $("#home_page_container").hide();
+        $("#edit_page_container").hide();
+        $("#create_page_container").hide();
+        $('#error_page').hide();
     } else {
         showTodo();
         $("#welcome_container").hide();
-        $("#sign_up_page").hide();
-        $("#home_page").show();
-        $("#edit_page").hide();
-        $("#create_page").hide();
+        $("#sign_up_container").hide();
+        $("#home_page_container").show();
+        $("#edit_page_container").hide();
+        $("#create_page_container").hide();
+        $('#error_page').hide();
     }
 });
+
+// SHOW PAGE ====================================================================
+
+function signupShow() {
+    // alert(`masuk signup`)
+    $("#home_page_container").hide();
+    $("#welcome_container").hide();
+    $("#sign_up_container").show();
+    $("#edit_page_container").hide();
+    $("#create_page_container").hide();
+    $('#error_page').hide();
+}
+
+function signinShow() {
+    // alert(`masuk signup`)
+    $("#home_page_container").hide();
+    $("#welcome_container").show();
+    $("#sign_up_container").hide();
+    $("#edit_page_container").hide();
+    $("#create_page_container").hide();
+    $('#error_page').hide();
+}
+
+function cancelShow() {
+    $("#home_page_container").hide();
+    $("#welcome_container").show();
+    $("#sign_up_container").hide();
+    $("#edit_page_container").hide();
+    $("#create_page_container").hide();
+    $('#error_page').hide();
+}
+
+function editShow() {
+    $("#home_page_container").hide();
+    $("#welcome_container").hide();
+    $("#sign_up_container").hide();
+    $("#edit_page_container").show();
+    $("#create_page_container").hide();
+    $('#error_page').hide();
+}
+
+function createShow() {
+    $("#home_page_container").hide();
+    $("#welcome_container").hide();
+    $("#sign_up_container").hide();
+    $("#edit_page_container").hide();
+    $("#create_page_container").show();
+    $('#error_page').hide();
+}
+
+function homePageShow() {
+    $("#home_page_container").show();
+    $("#welcome_container").hide();
+    $("#sign_up_container").hide();
+    $("#edit_page_container").hide();
+    $("#create_page_container").hide();
+    $('#error_page').hide();
+}
+
+function showHome() {
+    $("#home_page_container").show();
+    $("#welcome_container").hide();
+    $("#sign_up_container").hide();
+    $("#edit_page_container").hide();
+    $("#create_page_container").hide();
+    $('#error_page').hide();
+}
+
+function showError() {
+    $("#home_page_container").hide();
+    $("#welcome_container").hide();
+    $("#sign_up_container").hide();
+    $("#edit_page_container").hide();
+    $("#create_page_container").hide();
+    $('#error_page').show();
+}
+
+// AJAX ====================================================================
+
+function signup(event) {
+    let email = $('#sign_up_email').val();
+    let password = $('#sign_up_password').val();
+
+    event.preventDefault();
+    $.ajax({
+        method: "POST",
+        url: "http://localhost:3000/users/signup",
+        data: {
+            email,
+            password
+        }
+    })
+    .done(function(data) {
+        // console.log(`masuk`);
+        showHome();
+        localStorage.setItem('token', data.token);
+    })
+    .fail(function (error) {
+        $('#errorMsg').empty()
+        $('#errorMsg').append(`<div>${error.responseJSON}</div>`)
+        $('#errorMsg').append(`<a onclick="signupShow()" id="create_todo_button">BACK</a>`)
+        showError()
+    })
+}
 
 function login(event) {
     // $("#sign_in_form").on("submit", (e) => {]
@@ -31,79 +137,28 @@ function login(event) {
         }
     })
         .done(function (data) {
-            // console.log(token);
-            $("#welcome_container").hide();
-            $("#sign_up_page").hide();
-            $("#home_page").show();
-            // console.log(`sign in success <<<<<<<<<<<<<<<<<<, ${token}`);
+            showHome();
             localStorage.setItem('token', data.token);
             showTodo();
         })
-        .fail(function (err) {
-            console.log(err);
-
+        .fail(function (error) {
+            $('#errorMsg').empty()
+            $('#errorMsg').append(`<div id="errorMsg">${error.responseJSON}</div>`) 
+            $('#errorMsg').append(`<a onclick="signinShow()" id="create_todo_button">BACK</a>`)
+            showError()
         })
-    // });
 }
 
 function logout() {
-    // $("#logout_button").on("click", () => {
-    // console.log(`masoooooooooooook`);
     localStorage.clear();
-
 
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
         console.log('User signed out.');
     });
-
-
-    $("#home_page").hide();
-    // alert('masuk logout')
+    $("#home_page_container").hide();
     $("#welcome_container").show();
-    $("#edit_page").hide();
-    // })
-}
-
-function signupShow() {
-    // alert(`masuk signup`)
-    $("#home_page").hide();
-    $("#welcome_container").hide();
-    $("#sign_up_page").show();
-    $("#edit_page").hide();
-    $("#create_page").hide();
-}
-
-function cancelShow() {
-    $("#home_page").hide();
-    $("#welcome_container").show();
-    $("#sign_up_page").hide();
-    $("#edit_page").hide();
-    $("#create_page").hide();
-}
-
-function editShow() {
-    $("#home_page").hide();
-    $("#welcome_container").hide();
-    $("#sign_up_page").hide();
-    $("#edit_page").show();
-    $("#create_page").hide();
-}
-
-function createShow() {
-    $("#home_page").hide();
-    $("#welcome_container").hide();
-    $("#sign_up_page").hide();
-    $("#edit_page").hide();
-    $("#create_page").show();
-}
-
-function showHome() {
-    $("#home_page").show();
-    $("#welcome_container").hide();
-    $("#sign_up_page").hide();
-    $("#edit_page").hide();
-    $("#create_page").hide();
+    $("#edit_page_container").hide();
 }
 
 function showTodo() {
@@ -115,17 +170,60 @@ function showTodo() {
         }
     })
         .done(function (todoData) {
-            // console.log(`masukkkkkk show todo`);
-            // console.log(todoData);
             $("#show_todo").empty();
             for (let i = 0; i < todoData.length; i++) {
-                $("#show_todo").append(`<p>${todoData[i].title} | <button onclick="editTodo(${todoData[i].id}), editShow()">edit</button> | <button onclick="deleteTodo(${todoData[i].id})">delete</button></p>`);
+                $("#show_todo").append(`
+                <div id="todo_text_container">
+                    <div id="todo_text" onclick="showDescription(${todoData[i].id})">${todoData[i].title}</div>
+                    
+                    <div id="todo_text_edit">
+                        <a id="todo_text_button" onclick="editTodo(${todoData[i].id}), editShow()">edit |</a> 
+                        <a id="todo_text_button" onclick="deleteTodo(${todoData[i].id})">delete</a>
+                    </div>
+                </div>
+                `);
             }
         })
         .fail(function (error) {
-            console.log(error);
+            $('#errorMsg').empty()
+            $('#errorMsg').append(`<div id="errorMsg">${error.responseJSON}</div>`) 
+            $('#errorMsg').append(`<a onclick="homePageShow()" id="create_todo_button">BACK</a>`)
+            showError()
         })
 }
+
+function showDescription(id) {
+    let todoId = id;
+    
+    $.ajax({
+        method: "GET",
+        url: `http://localhost:3000/todos/${todoId}`,
+        headers: {
+            token: localStorage.getItem('token')
+        } 
+    })
+    .done(function (result) {
+        // console.log(result);
+        $('#show_description').empty();
+        for (let i = 0; i < result.length; i++) {
+            if(result[i].id == id) {
+                let date = new Date(result[i].due_date).toISOString().substring(0, 10);
+                $('#show_description').append(`
+                <h1>${result[i].description}</h1>
+                <h1 style="color:rgba(3,75,58,1)">Due Date:</h1> 
+                <h1>${date}</h1>
+                `)
+            }
+        }
+    })
+    .fail(function (error) {
+        $('#errorMsg').empty()
+        $('#errorMsg').append(`<div id="errorMsg">${error.responseJSON}</div>`) 
+        $('#errorMsg').append(`<a onclick="homePageShow()" id="create_todo_button">BACK</a>`)
+        showError()
+    })
+}
+
 
 function editTodo(todoId) {
     let id = todoId;
@@ -145,13 +243,14 @@ function editTodo(todoId) {
             $("#edit_due_date").val(date);
         })
         .fail(function (error) {
-            console.log(error);
+            $('#errorMsg').empty()
+            $('#errorMsg').append(`<div id="errorMsg">${error.responseJSON}</div>`) 
+            $('#errorMsg').append(`<a onclick="editShow()" id="create_todo_button">BACK</a>`) 
+            showError()
         })
 }
 
 function edit(event) {
-    // console.log($("#edit_description").val());
-
     event.preventDefault();
 
     $.ajax({
@@ -167,13 +266,15 @@ function edit(event) {
         }
     })
         .done(function (result) {
-            // console.log(`masuk edit cuk`);
             showHome();
             showTodo();
             console.log(result);
         })
         .fail(function (error) {
-            console.log(error);
+            $('#errorMsg').empty()
+            $('#errorMsg').append(`<div id="errorMsg">${error.responseJSON}</div>`)
+            $('#errorMsg').append(`<a onclick="editShow()" id="create_todo_button">BACK</a>`) 
+            showError()
         })
 }
 
@@ -191,14 +292,16 @@ function deleteTodo(todoId) {
             // console.log(`terhapus cuk`, result);
         })
         .fail(function (error) {
-            console.log(`error edit cuk`, error);
+            $('#errorMsg').empty()
+            $('#errorMsg').append(`<div id="errorMsg">${error.responseJSON}</div>`) 
+            $('#errorMsg').append(`<a onclick="homePageShow()" id="create_todo_button">BACK</a>`)
+            showError()
         })
 }
 
 function create(event) {
     event.preventDefault();
-    // console.log(`masuk cuk`);
-
+    
     $.ajax({
         method: "POST",
         url: `http://localhost:3000/todos`,
@@ -215,10 +318,12 @@ function create(event) {
         .done(function (result) {
             showHome()
             showTodo()
-            // console.log(`created cuk`, result);
         })
-        .catch(function (error) {
-            console.log(`error create cuk`, error);
+        .fail(function (error) {
+            $('#errorMsg').empty()
+            $('#errorMsg').append(`<div id="errorMsg">${error.responseJSON}</div>`) 
+            $('#errorMsg').append(`<a onclick="createShow()" id="create_todo_button">BACK</a>`)
+            showError()
         })
 }
 
@@ -236,13 +341,15 @@ function onSignIn(googleUser) {
     .done(function (response) {
         // console.log(response);
         $("#welcome_container").hide();
-        $("#sign_up_page").hide();
-        $("#home_page").show();
+        $("#sign_up_container").hide();
+        $("#home_page_container").show();
         localStorage.setItem('token', response.token);
         showTodo();
     })
-    .catch(function (error) {
-        // console.log('check')
-        console.log(error);
+    .fail(function (error) {
+        $('#errorMsg').empty()
+        $('#errorMsg').append(`<div id="errorMsg">${error.responseJSON}</div>`) 
+        $('#errorMsg').append(`<div id="errorMsg">${error.responseJSON}</div>`) 
+        showError()
     })
 }
