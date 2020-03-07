@@ -26,6 +26,7 @@ function showDashboard() {
     $("#section-login").hide()
     $("#dashboard-page").show()
     $("#landing-page").hide()
+    fetchMovies()
 }
 
 function isLogin() {
@@ -192,7 +193,7 @@ function showFormUpdate(id) {
         .done(response => {
             const { id, title, description, due_date } = response
             const date = new Date(due_date).toISOString().split('T')[0]
-            
+
             $('#id-update').val(id)
             $('#title-update').val(title)
             $('#description-update').val(description)
@@ -208,23 +209,61 @@ function hideFormUpdate() {
 }
 
 function deleteTodo(id) {
-    console.log(id, 'delete')
     $.ajax({
-      method: 'DELETE',
-      url: `https://localhost:3000/todos/${id}`,
-      headers: {
-        token: localStorage.getItem('token')
-      }
+        method: 'DELETE',
+        url: `http://localhost:3000/todos/${id}`,
+        headers: {
+            token: localStorage.getItem('token')
+        }
     })
-      .done(function (response) {
-        console.log(response)
-        fetchTodos()
-      })
-      .fail(function (err) {
-        console.log(err)
-      })
-  
-  }
+        .done(function (response) {
+            console.log(response)
+            fetchTodos()
+        })
+        .fail(function (err) {
+            console.log(err)
+        })
+
+}
+
+function fetchMovies() {
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:3000/movies",
+        headers: {
+            token: localStorage.getItem("token")
+        }
+    })
+        .done(function (response) {
+            console.log(response)
+            response.data.forEach((el, i) => {
+                $('#movie-list').append(`          
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                            <img src="https://image.tmdb.org/t/p/w500${el.poster_path}" alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4">${el.title}</p>
+                                    <p class="subtitle is-6">Release: ${el.release_date}</p>
+                                </div>
+                            </div>
+
+                            <div class="content">
+                            ${el.overview.substring(0, 200)}
+                            </div>
+                        </div>
+                    </div>
+                `)
+            })
+        })
+        .fail(function (err) {
+            console.log(err)
+        })
+}
 
 
 $(document).ready(function () {
@@ -273,7 +312,7 @@ $(document).ready(function () {
         })
     })
 
-    $("#add-todo").on("submit", function(e) {
+    $("#add-todo").on("submit", function (e) {
         e.preventDefault()
         const title = $('#title').val()
         const description = $('#description').val()
@@ -304,10 +343,8 @@ $(document).ready(function () {
     })
 
 
-    $("#update-todo").on("submit", function(e) {
+    $("#update-todo").on("submit", function (e) {
         e.preventDefault()
-        console.log('triggered')
-
         const id = $('#id-update').val()
         const title = $('#title-update').val()
         const description = $('#description-update').val()
@@ -337,7 +374,7 @@ $(document).ready(function () {
     })
 
 
-    
+
 
     $("#form-login").on("submit", function (e) {
         e.preventDefault()
@@ -358,7 +395,7 @@ $(document).ready(function () {
         })
     })
 
-    
+
 
     $("#button-logout").on("click", function () {
         const auth2 = gapi.auth2.getAuthInstance();
