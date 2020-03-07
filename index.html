@@ -21,21 +21,30 @@
             <p>Already registered? Try <a id="btn-redir-signin" href="#">signing in </a>instead</p>
         </div>
         <div id="signin-page">
-            <form id="signin-form">
-                <h3>Sign In</h3>
-                <label for="email">Email address</label>
-                <input id="signin-email" type="email" name="email" class="field">
-                <label for="email">Password</label>
-                <input id="signin-password" type="password" name="password" class="field">
-                <div id="signin-btn">
-                    <input type="submit" value="Sign In">
+            <div id="quote-and-welcome">
+                <div class="welcome">
+                    <p>Manage Your Todos Easily</p>
                 </div>
-                <div id="google-signin-btn">
-                    <p>Or sign in with</p>
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                <div class="quote">
                 </div>
-            </form>
-            <p>Don't have an account? <a id="btn-redir-signup" href="#">Join us now</a></p>
+            </div>
+            <div id="space-for-form">
+                <form id="signin-form">
+                    <p id="signin-title">Sign In</p>
+                    <label for="email">Email address</label>
+                    <input id="signin-email" type="email" name="email" class="field">
+                    <label for="email">Password</label>
+                    <input id="signin-password" type="password" name="password" class="field">
+                    <div id="signin-btn">
+                        <input class="submit-input" type="submit" value="Sign In">
+                    </div>
+                    <div id="google-signin-btn">
+                        <p>Or sign in with</p>
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    </div>
+                    <p id="redir-signup">Don't have an account? <a id="btn-redir-signup" href="#">Join us now</a></p>
+                </form>
+            </div>
         </div>
         <div id="dashboard-page">
             <div id="header">
@@ -53,27 +62,33 @@
         </div>
         <div id="create-todo-page">
             <form id="create-todo-form">
-                <h3>Create New Todo</h3>
-                <input id="title" type="text"><br>
-                <input id="description" type="text"><br>
-                <input id="due_date" type="date"><br>
-                <input type="submit" value="Create">
+                <h3 style="margin-bottom: 2rem;">Create New Todo</h3>
+                <label for="title">What to do</label>
+                <input id="title" class="field" type="text" name="title" placeholder="Call grandma">
+                <label for="description">Describe your todo</label>
+                <input id="description" class="field" type="text" name="description" placeholder="Remind her to sleep early">
+                <label for="due_date">Due date</label>
+                <input id="due_date" class="field" type="date" name="due_date">
+                <input type="submit" class="submit-input" value="Create">
             </form>
+            <button class="back-btn" onclick="showDashboard()">Back</button>
         </div>
         <div id="update-todo-page">
             <form id="update-todo-form">
                 <h3>Update Todo</h3>
-                <input id="update-title" type="text"><br>
-                <input id="update-description" type="text"><br>
-                <input id="update-status" type="text"><br>
-                <input id="update-due_date" type="date"><br>
-                <input type="submit" value="Save Changes">
+                <input id="update-title" class="field" type="text">
+                <input id="update-description" class="field" type="text">
+                <input id="update-status" class="field" type="text">
+                <input id="update-due_date" class="field" type="date">
+                <input type="submit" class="submit-input" value="Save Changes">
             </form>
+            <button class="back-btn" onclick="showDashboard()">Back</button>
         </div>
     </div>
     
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="index.js"></script>
 </body>
 </html>

@@ -55,23 +55,41 @@ function fetchTodos() {
 
                 month = monthConverter(month);
                 let fixedFormattedDate = `${date} ${month} ${year}`
-                
-                $('.todos').append(`
-                <div onclick="editTodo(${todos[i].id})" class="todo">
-                    <div class="checkbox">
-                        <i class="fas fa-check-circle fa-2x"></i>
+                if (!todos.status) {
+                    $('.todos').append(`
+                    <div id="checkbox${todos[i].id}">
+                        <i onclick="markTodo(${todos[i].id})" class="fas fa-circle fa-2x"></i>
                     </div>
-                    <div class="theTodo">
-                        <div id="titleAndDesc">
-                            <h4>${todos[i].title}</h4>
-                            <p>${todos[i].description}</p>
+                    <div onclick="editTodo(${todos[i].id})" class="todo">
+                        <div class="theTodo">
+                            <div id="titleAndDesc">
+                                <h4>${todos[i].title}</h4>
+                                <p>${todos[i].description}</p>
+                            </div>
+                            <h4>${fixedFormattedDate}</h4>
                         </div>
-                        <h4>${fixedFormattedDate}</h4>
+                        <div class="delete">
+                            <i onclick="deleteTodo(${todos[i].id})" class="fas fa-trash-alt fa-2x"></i>
+                        </div>
+                    </div>`)
+                } else {
+                    $('.todos').append(`
+                    <div id="checkbox${todos[i].id}">
+                        <i onclick="markTodo(${todos[i].id})" class="fas fa-check-circle fa-2x"></i>
                     </div>
-                    <div class="delete">
-                        <i onclick="deleteTodo(${todos[i].id})" class="fas fa-trash-alt fa-2x"></i>
-                    </div>
-                </div>`)
+                    <div onclick="editTodo(${todos[i].id})" class="todo">
+                        <div class="theTodo">
+                            <div id="titleAndDesc">
+                                <h4>${todos[i].title}</h4>
+                                <p>${todos[i].description}</p>
+                            </div>
+                            <h4>${fixedFormattedDate}</h4>
+                        </div>
+                        <div class="delete">
+                            <i onclick="deleteTodo(${todos[i].id})" class="fas fa-trash-alt fa-2x"></i>
+                        </div>
+                    </div>`)
+                }
             }
             console.log(todos);
         })
@@ -148,6 +166,55 @@ function editTodo(id) {
         })
 }
 
+function markTodo(id) {
+    $.ajax({
+        method: 'GET',
+        url: `http://localhost:3000/todos/${id}`,
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+    .done(todoFound => {
+        if(!todoFound.status) {
+            $.ajax({
+                method: 'PATCH',
+                url: `http://localhost:3000/todos/markdone/${id}`,
+                headers: {
+                    token: localStorage.getItem('token')
+                }
+            })
+                .done(markedTodo => {
+                    console.log(markedTodo.status);
+                    console.log(markedTodo.id);
+                    $(`#checkbox${markedTodo.id}`).append('<i class="fas fa-check-circle fa-2x"></i>')
+                })
+                .fail(err => {
+                    console.log('error!', err);
+                })
+        } else {
+            $.ajax({
+                method: 'PATCH',
+                url: `http://localhost:3000/todos/markundone/${id}`,
+                headers: {
+                    token: localStorage.getItem('token')
+                }
+            })
+                .done(markedTodo => {
+                    console.log(markedTodo.status);
+                    console.log(markedTodo.id);
+                    $(`#checkbox${markedTodo.id}`).append('<i class="fas fa-circle fa-2x"></i>');
+                    
+                })
+                .fail(err => {
+                    console.log('error!', err);
+                })
+        }
+    })
+    .fail(err => {
+        console.log('error!', err);
+    })
+}
+
 function deleteTodo(id) {
     $.ajax({
         method: 'DELETE',
@@ -170,7 +237,34 @@ function deleteTodo(id) {
         })
 }
 
+function getQuote() {
+    $.ajax({
+        method: 'GET',
+        url: 'https://quote-garden.herokuapp.com/quotes/random'
+    })
+        .done(response => {
+            $('.quote').empty();
+            $('.quote').append(`
+                <p>${response.quoteText}</p>
+                <p>-${response.quoteAuthor}</p>
+            `)
+        })
+        .fail(error => {
+            console.log(error);
+        })
+}
+
+function showDashboard() {
+    fetchTodos();
+    $('#dashboard-page').show();
+    $('#signup-page').hide();
+    $('#signin-page').hide();
+    $('#create-todo-page').hide();
+    $('#update-todo-page').hide();
+}
+
 $(document).ready(function () {
+    getQuote();
     if (localStorage.getItem('token')) {
         fetchTodos();
         $('#dashboard-page').show();
@@ -208,6 +302,11 @@ $(document).ready(function () {
                 console.log('sign up success', token);
             })
             .fail(err => {
+                if (err.responseJSON.error) {
+                    swal ( "Oops" ,  `${err.responseJSON.error}` ,  "error" )
+                } else {
+                    swal ( "Oops" ,  `${err.responseJSON}` ,  "error" )
+                }
                 console.log('sign up failed', err);
             })
     })
@@ -235,7 +334,8 @@ $(document).ready(function () {
                 $('#update-todo-page').hide();
             })
             .fail(err => {
-                console.log('sign in failed', err);
+                swal ( "Oops" ,  `${err.responseJSON.error}` ,  "error" )
+                console.log('sign in failed', err.responseJSON.error);
             })
     })
 

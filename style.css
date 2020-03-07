@@ -22,22 +22,6 @@ body {
     line-height: 10rem;
 }
 
-.carousell {
-    height: 250px;
-    color: rgb(27, 25, 25);
-    padding-left: 10rem;
-    padding-right: 10rem;
-    margin-bottom: 30px;
-}
-
-.banner {
-    width: 100%;
-    height: 100%;
-    background-image: url('./banner-spot.jpg');
-    background-repeat: no-repeat;
-    background-size: 100%;
-}
-
 .todos {
     padding-left: 10rem;
     padding-right: 10rem;
@@ -59,7 +43,7 @@ body {
 }
 
 .todo:hover {
-    background-color: rgb(172, 207, 236);
+    background-color: rgb(76, 179, 165);
 }
 
 .theTodo {
@@ -95,7 +79,7 @@ body {
     cursor: pointer;
 }
 
-.fa-check-circle {
+.fa-circle {
     cursor: pointer;
 }
 
@@ -103,8 +87,8 @@ body {
     color: rgb(190, 0, 0);
 }
 
-.fa-check-circle:hover {
-    color: rgb(13, 146, 3);
+.fa-circle:hover {
+    color: rgb(243, 243, 243);
 }
 
 /* Sign In Page */
@@ -115,15 +99,54 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    /* flex-direction: column; */
+}
+
+#quote-and-welcome {
+    width: 50%;
+    height: 70%;
+    display: flex;
     flex-direction: column;
+    padding-left: 10rem;
+}
+
+.welcome {
+    font-size: 4rem;
+    letter-spacing: .2rem;
+    font-weight: 800;
+}
+
+.quote {
+    margin-top: 2rem;
+    font-style: italic;
+    color: rgb(76, 179, 165);
+}
+
+#space-for-form {
+    width: 50%;
 }
 
 #signin-form {
+    min-width: 300px;
     height: 50%;
-    width: 35%;
     display: flex;
     justify-content: center;
     flex-direction: column;
+    margin-right: 13.5rem;
+    margin-left: 5rem;
+}
+
+.submit-input {
+    font-family: inherit;
+    border: none;
+    padding: .5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgb(76, 179, 165);
+}
+
+.submit-input:hover {
+    background-color: rgb(155, 207, 200);
 }
 
 #google-signin-btn {
@@ -135,7 +158,8 @@ body {
 }
 
 #google-signin-btn p {
-    
+    margin-top: 1rem;
+    margin-bottom: .2rem;
 }
 
 #signin-btn {
@@ -147,7 +171,43 @@ body {
 .field {
     width: 100%;
     border: none;
-    font-size: xx-large;
+    font-size: large;
+    padding: .5rem 1rem;
     margin-bottom: 1.25rem;
+    border-radius: 5px;
+    border: 1px solid rgb(76, 179, 165);
+    font-family: inherit;
 }
 
+#redir-signup {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+#signin-title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* ------------- */
+
+/* Form */
+
+#create-todo-page, #update-todo-page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.back-btn {
+    position: fixed;
+    bottom: 7rem;
+    border: none;
+    background-color: rgb(155, 28, 28);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: .6rem 1.5rem;
+}
