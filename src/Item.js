@@ -1,10 +1,10 @@
 class TodoItem {
     constructor(obj, owner = {}) {
+        this.status = obj.status;
         this.date = this.parseDate(obj.due_date);
         this.id = this.generateId(obj.id);
         this.title = this.generateTitleElement(obj.title);
         this.description = this.generateDescElement(obj.description);
-        this.status = obj.status;
     }
     parseDate(date) {
         return date.split('T')[0]
@@ -15,21 +15,24 @@ class TodoItem {
     };
     generateTitleElement(title) {
         let element = `<h2>${title}</h2>`
+        element += `<p class="help">${this.status}</p>`
         return element
     };
     generateDescElement(desc) {
-        // console.log(this);
         let element = `<p>${desc}</p>`
         element += `<p>Due date: ${this.date}</p>`
         return element
     };
     generateStatusCheckBox(status) {
         let element = `<input type="checkbox" ${status === 'completed' ? 'checked' : ''}>${this.title}`
-        // console.log(element);
         return element
     };
     deleteButton() {
-        return `<button class="button is-danger is-rounded todo-delete-btn" id="${this.id}">Delete</button>`
+        let button = '';
+        if (this.status === 'completed') {
+            button = `<button class="button is-danger is-rounded todo-delete-btn" id="${this.id}">Delete</button>`
+        }
+        return button
     }
     editButton() {
         return `<button class="button is-primary is-rounded todo-edit-btn" id="${this.id}">Edit</button>`

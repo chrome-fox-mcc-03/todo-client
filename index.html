@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>AppQ</title>
+        <link rel="icon" href="icon.png">
+        <title>Todo App</title>
         <meta name="google-signin-client_id" content="698221343706-t1ij4b7mmq8qo9j4u5qi630b7a9djehu.apps.googleusercontent.com">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     </head>
     <body align="center">
-        <!-- Main container -->
         <nav role="navigation" aria-label="main navigation"
             class="navbar is-dark is-fixed-top">
             <div class="navbar-brand">
-                <a class="navbar-item">
-                    Muh Fancy Todo
-                </a>
+                <p class="navbar-item">
+                    <i class="fas fa-khanda"></i>
+                    &nbsp;&nbsp; Fancy Todo
+                </p>
+                <p class="navbar-item" id="navbar-name-container">
+                </p>
             </div>
             <div class="navbar-brand landing">
                 <div class="dropdown navbar-item">
@@ -45,19 +48,14 @@
             </div>
             <div class="navbar-brand todouser-dashboard" style="display: none;">
                 <div class="navbar-item">
-                    <button id="logout-button" class="button is-warning">Logout</button>
+                    <button class="button is-warning todo-user-logout">Logout</button>
                 </div>
                 <div class="navbar-item">
-                    <button id="add-todo-button" class="button is-info">Add Todo</button>
-                </div>
-            </div>
-            <div id="navbarBulma" class="navbar-menu">
-                <div class="navbar-start">
-                    <!-- empty atm -->
-                    <!-- hello user? -->
+                    <button class="button is-info todo-user-add-new">Add Todo</button>
                 </div>
             </div>
         </nav>
+
         <section id="register-container" style="display: none; margin: 140px;">
             <form id="register-form">
                 <div class="field">
@@ -80,22 +78,21 @@
         </section>
         <section class="todouser-dashboard container is-fluid" style="display: none; top:140px;">
             <div class="columns">
-                <div class="column is-9">
-                    <!-- <div style="display: none;"> -->
+                <div class="column is-9" style="background-color:burlywood;">
                     <p class="title">Todo List</p>
-                    <!-- todo items below -->
+                    <div class="box" id="message-container" style="background-color: coral; margin-top: -60px;">
+                    </div>
                     <div id="todo-items" class="box">
                         <progress class="progress is-small is-primary" max="100"></progress>
                     </div>
                 </div>
                 <div class="column is-3" style="position:fixed; right:0;">
                     <p class="title">Summary</p>
-                    <div class="box" id="message-container" style="background-color: coral;">
+                    <div class="box todo-user-profile-container">
                     </div>
-                    or Todo Details<br>
-                    or Todo Actions
                     <div class="box" style="background-color: sandybrown;">
-                        <!-- create new todo here -->
+                        <p class="is-info help">created by:</p>
+                        <p class="help is-link"><a target="_blank" href="https://www.github.com/thejatmik">thejatmik</a>&nbsp;2020</p>
                         <div class="modal" id="add-todo-modal">
                             <div class="modal-background"></div>
                             <div class="modal-card">
@@ -104,7 +101,6 @@
                                     <button class="delete" aria-label="close" id="add-todo-modal-close"></button>
                                 </header>
                                 <section class="modal-card-body">
-                                    <!-- Content ... -->
                                     <div class="field">
                                         <label class="label">Title</label>
                                         <div class="control">
@@ -125,7 +121,6 @@
                                 <footer class="modal-card-foot">
                                     <button class="button is-success" id="add-todo-modal-submit">Create New Todo</button>
                                     <button class="button" id="add-todo-modal-cancel">Cancel</button>
-                                    <!-- Error Message -->
                                     <div id="add-todo-error-msg" class="field">
                                     </div>
                                 </footer>
@@ -139,7 +134,6 @@
                                     <button class="delete" aria-label="close" id="edit-todo-modal-close"></button>
                                 </header>
                                 <section class="modal-card-body">
-                                    <!-- Content ... -->
                                     <div class="field">
                                         <label class="label">Title</label>
                                         <div class="control">
@@ -153,7 +147,7 @@
                                         </div>
                                         <label class="label">Due Date</label>
                                         <div class="control has-text-centered">
-                                            <input class="" type="date" id="due-date">
+                                            <input class="" type="date" id="edit-due-date">
                                         </div>
                                         <label class="label">Status</label>
                                         <div class="select">
@@ -165,8 +159,45 @@
                                 <footer class="modal-card-foot">
                                     <button class="button is-success" id="edit-todo-modal-submit">Submit Edit</button>
                                     <button class="button" id="edit-todo-modal-cancel">Cancel</button>
-                                    <!-- Error Message -->
                                     <div id="edit-todo-error-msg" class="field">
+                                    </div>
+                                </footer>
+                            </div>
+                        </div>
+                        <div class="modal" id="details-todo-modal">
+                            <div class="modal-background"></div>
+                            <div class="modal-card">
+                                <header class="modal-card-head">
+                                    <p class="modal-card-title">Details Todo</p>
+                                    <button class="delete" aria-label="close" id="details-todo-modal-close"></button>
+                                </header>
+                                <section class="modal-card-body">
+                                    <div id="details-todo-contents">
+                                    </div>
+                                </section>
+                                <footer class="modal-card-foot">
+                                    <button class="button" id="details-todo-modal-cancel">Close</button>
+                                    <div id="details-todo-error-msg" class="field">
+                                    </div>
+                                </footer>
+                            </div>
+                        </div>
+                        <div class="modal" id="delete-todo-modal">
+                            <div class="modal-background"></div>
+                            <div class="modal-card">
+                                <header class="modal-card-head">
+                                    <p class="modal-card-title">Delete Todo</p>
+                                    <button class="delete" aria-label="close" id="delete-todo-modal-close"></button>
+                                </header>
+                                <section class="modal-card-body">
+                                    <div id="delete-todo-modal-progress">
+                                        <p>Silakan konfirmasi</p>
+                                    </div>
+                                </section>
+                                <footer class="modal-card-foot">
+                                    <button class="button is-danger" id="delete-todo-modal-submit">Delete</button>
+                                    <button class="button" id="delete-todo-modal-cancel">Cancel</button>
+                                    <div id="delete-todo-error-msg" class="field">
                                     </div>
                                 </footer>
                             </div>
