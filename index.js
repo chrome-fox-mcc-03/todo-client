@@ -19,7 +19,8 @@ const fetchTodos = () => {
     })
         .done(function (response) {
             $("#todo-table-body").empty();
-            response.forEach(el => {
+            $("#quotes").empty();
+            response.data.forEach(el => {
                 el.due_date = el.due_date.slice(0, el.due_date.indexOf('.'))
                 el.due_date = el.due_date.split("T").join(" ");
                 $("#todo-table-body").append(
@@ -35,7 +36,11 @@ const fetchTodos = () => {
                     </tr>`
                 );
             });
-            // fetchTodos();
+
+            response.quotes.forEach(el => {
+                $("#quotes").append(`<h4>${el}</h4>`);
+            });
+
             showTodoList();
         })
         .fail((err) => {
@@ -43,7 +48,7 @@ const fetchTodos = () => {
             console.log(err);
             isError = true;
             // showError(err.responseText);
-            showTodoList(err.responseText)
+            showTodoList(err)
         })
 }
 
@@ -72,7 +77,8 @@ const createTodo = () => {
             console.log(err.responseText);
             console.log(err);
             isError = true;
-            showTodoList(err.responseJSON[0]);
+            showTodoList(err);
+            // showTodoList(err.responseJSON[0]);
         })
 }
 
@@ -95,7 +101,7 @@ const deleteTodo = (id) => {
                 console.log(err.responseText);
                 console.log(err);
                 isError = true;
-                showTodoList(err.responseText);
+                showTodoList(err);
                 // showError(err.responseText);
             })
     }
@@ -120,12 +126,27 @@ const editTodo = () => {
             showTodoList();
         })
         .fail((err) => {
-            console.log(err.responseText);
             console.log(err);
             isError = true;
-            showTodoList(err.responseText);
+            showTodoList(err);
             // showError(err.responseText);
         })
+}
+
+const convertDate = (iso) => {
+    return iso.slice(0, iso.indexOf('.'));
+}
+
+const generateDate = () => {
+    let date = convertDate(new Date().toISOString());
+    date = date.slice(0, date.length-3)
+    return date
+}
+
+const clearCreateTodo = () => {
+    $("#todo-duedate").val(generateDate());
+    $("#todo-description").val("");
+    $("#todo-title").val("");
 }
 
 const getEdit = (id) => {
@@ -137,8 +158,7 @@ const getEdit = (id) => {
         }
     })
         .done(function (response) {
-            console.log(response);
-            response.due_date = response.due_date.slice(0, response.due_date.indexOf('.'))
+            response.due_date = convertDate(response.due_date);
             $("#edit-todo-title").val(response.title);
             $("#edit-todo-description").val(response.description);
             $("#edit-todo-status").val(response.status);
@@ -147,10 +167,9 @@ const getEdit = (id) => {
             showUpdate();
         })
         .fail((err) => {
-            console.log(err.responseText);
             console.log(err);
             isError = true;
-            showUpdate(err.responseText);
+            showUpdate(err);
             // showError(err.responseText);
         })
 }
@@ -167,7 +186,6 @@ const login = () => {
         }
     })
         .done(function (response) {
-            console.log(response);
             localStorage.setItem('token', response.token);
             isLogin = true;
             fetchTodos();
@@ -175,13 +193,9 @@ const login = () => {
             showNav();
         })
         .fail((err) => {
-            // console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-            // console.log(err.responseText);
-            // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            // console.log(err);
+            console.log(err);
             isError = true;
-            // showError("Error connecting to server");
-            showLoginRegister("Error connecting to server");
+            showLoginRegister(err);
         })
 }
 
@@ -197,7 +211,6 @@ const register = () => {
         }
     })
         .done(function (response) {
-            console.log(response);
             localStorage.setItem('token', response.token)
             isLogin = true;
             fetchTodos();
@@ -205,10 +218,9 @@ const register = () => {
             showNav();
         })
         .fail((err) => {
-            console.log(err.responseText);
             console.log(err);
             isError = true;
-            showLoginRegister("Error connecting to server")
+            showLoginRegister(err)
         })
 }
 
@@ -249,7 +261,7 @@ function onSignIn(googleUser) {
             console.log(err.responseText);
             console.log(err);
             isError = true;
-            showLoginRegister("Error connecting to server");
+            showLoginRegister(err);
             // showError(err.responseText);
         })
 }
@@ -280,6 +292,8 @@ const showUpdate = (err) => {
 
 const showTodoList = (err) => {
     showError(err);
+    // $("#todo-duedate").val(generateDate());
+    clearCreateTodo();
     $("#login").hide();
     $("#register").hide();
     $("#update-todo").hide();
@@ -300,8 +314,15 @@ const showNav = () => {
     }
 }
 
-const showError = (msg) => {
+const showError = (err) => {
     if (isError) {
+        let msg;
+        if(err.status == 400) {
+            msg = err.responseJSON;
+        } else {
+            msg = err.statusText;
+        }
+        console.log(err);
         $("#error-alert").empty();
         $("#error-alert").append(msg);
         $("#error-alert").show();
@@ -337,6 +358,7 @@ const clearForm = () => {
 $(document).ready(function () {
     if (getToken()) {
         isLogin = true;
+        fetchTodos();
         showTodoList();
         showNav();
     } else {
