@@ -1,0 +1,59 @@
+body {
+    font-family: sans-serif;
+}
+
+hr {
+    height: 5px;
+    border: 0;
+    background: blue;
+}
+
+.title {
+    color: maroon;
+    text-align: center;
+    position: relative;
+}
+
+.error-msg {
+    margin: 3px;
+    padding: 3px;
+    color: red;
+}
+
+.success-msg {
+    margin: 3px;
+    padding: 3px;
+    color: green;
+}
+
+#signin-page, #signup-page, #dashboard-page, #pg-create-todo, #pg-update-todo {
+    padding: 1%;
+    text-align: center;
+    width: 50%;
+    margin: auto;
+    border: 1px dashed darkslategray;
+    background-color: khaki;
+}
+
+.pg-headers {
+    text-align: center;
+    display: inline-block;
+}
+
+
+table {
+    border-collapse: collapse;
+    justify-content: center;
+}
+  
+table, th, td {
+    border: 1px solid black;
+}
+
+thead {
+    text-align: center;
+    background-color: aquamarine;
+    font-style: bold;
+}
+
+

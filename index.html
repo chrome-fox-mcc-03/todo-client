@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-signin-client_id" content="294137411553-la3pudpu3292o78t8gukgqb6d9o8uvm2.apps.googleusercontent.com">
@@ -8,66 +9,78 @@
     
 </head>
 <body>
-    <h1>HELLO WORLD</h1>
+    <h1 class="title">FANCY TODOS</h1>
     <hr>
     <div id="signin-page">
+         
         <h3>Returning User? Let's Login!</h3>
         <form id="signin-form" onsubmit="login(event)">
-            Email:
-            <input type="email" name="email" id="signin-email">
+            Email:<br>
+            <input type="email" name="email" id="signin-email"><br>
 
-            Password:
-            <input type="password" name="password" id="signin-password">
-
+            Password:<br>
+            <input type="password" name="password" id="signin-password"><br>
+            <br>
             <input type="submit" value="SIGN IN">
         </form>
         <br>
-        <h3>New User?</h3>
-        <button type="button" id="btn-register" >Register here</button>
-        <br>
-        <br>
 
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <div class ="pg-headers">
+            <h3>New User?</h3>
+            <button type="button" id="btn-register" >Register here</button>
+            <br>
+            <br>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        </div>
+        
 
-
-        <p class="remarks">
-            
-        </p>
-        <br>
-
+        <p class="success-msg"></p>
+        <p class="error-msg"></p>
+      
     </div>
 
     <br>
-    <hr>
 
     <div id="signup-page">
         <h3>New User? Please Signup!</h3>
         <form onsubmit="register(event)" id="signup-form">
-            Email:
-            <input type="email" name="email" id="signup-email">
+            Email:<br>
+            <input type="email" name="email" id="signup-email"><br>
 
-            Password:
-            <input type="password" name="password" id="signup-password">
-        
+            Password:<br>
+            <input type="password" name="password" id="signup-password"><br>
+            <br>
             <input  type="submit" value="SIGN UP">
         </form>
 
         <br>
-        <h3>Returning User? </h3>
-        <button type="button" id="btn-login" >Login</button>
+        <div class ="pg-headers">
+            <h3>Returning User? </h3>
+            <button type="button" id="btn-login" >Login</button>
+        </div>
+
+        <br><br>
+
+        <p class="error-msg"></p>
 
     </div>
 
-        <hr>
+        <br>
 
     <div id="dashboard-page">
-        <h2>WELCOME BACK TO TODO-LIST!</h2>
-        <BR>
-        
-            <button type="button" id="btn-logout">LOGOUT</button>
-            <BR>
 
-        <h3>MY TODOS</h3>
+        <div class ="pg-headers">
+            <h2>WELCOME BACK TO TODO-LIST!</h2>
+            <BR>
+        
+            <button type="button" class="btn-logout">LOGOUT</button>
+            
+            <button type="button" id="btn-create-todo">ADD NEW TODO</button>
+            <h3>MY TODOS</h3>
+        </div>
+        
+
+        
             <table id="tbl-todos">
                 <thead >
                     <tr>
@@ -86,51 +99,88 @@
             </table>
         <br>
 
-        <!-- <h3>CREATE TO-DO</h3>
+        <p class="success-msg"></p><br>
+        <p class="error-msg"></p>
+    
+    </div>
+
+    <div id="pg-create-todo">
+
+        <div class ="pg-headers">
+            <h3>CREATE TO-DO</h3>
+            <button type="button" class="btn-logout">LOGOUT</button>
+            <button type="button" class="btn-back2Home">HOME</button>
+        </div>
+        
         <form id="create-todo" onsubmit="createTodo(event)">
             Title:<br>
             <input type="text" name="create-todo-title" id="create-todo-title"><br>
             Description:<br>
             <input type="text" name="create-todo-description" id="create-todo-description"><br>
             Status:<br>
-            <input type="radio" name="create-todo-status" class="create-todo-status" value="pending"> Pending
-            <input type="radio" name="create-todo-status" class="create-todo-status" value="done"> Done
+            <select  name="select-todo-status" id="create-select-todo-status">
+                <option value="pending" selected>Pending</option>
+                <option value="done">Done</option>
+            </select>
             <br>
             Due Date:<br>
             <input type="date" id="create-todo-due_date" name="create-todo-due_date"><br><br>
             <input type="submit" value="CREATE">
         </form>
 
-        <br>
-        <br>
+        <p class="error-msg"></p>
+
+    </div>
+        
+
+    <br>
+    <br>
+
+    <div id="pg-update-todo">
 
         <h3>UPDATE TO-DO</h3>
+        <button type="button" class="btn-logout">LOGOUT</button>
+        <button type="button" class="btn-back2Home">CANCEL</button>
 
-        <form id="update-todo">
+        <form id="form-update-todo" onsubmit="editTodo(todoId, event)">
             Todo ID:<br>
-            <input type="text" name="update-todo-id" class="todo-id"><br>
+            <input type="text" name="update-todo-id" id="edit-todo-id" readonly><br>
             Title:<br>
-            <input type="text" name="update-todo-title" class="todo-title"><br>
+            <input type="text" name="update-todo-title" id="edit-todo-title"><br>
             Description:<br>
-            <input type="text" name="update-todo-description" class="todo-description"><br>
+            <input type="text" name="update-todo-description" id="edit-todo-description"><br>
             Status:<br>
-            <input type="radio" name="update-todo-status" class="todo-status" value="pending"> Pending
-            <input type="radio" name="update-todo-status" class="todo-status" value="done"> Done
+            <select  name="select-todo-status" id="edit-select-todo-status">
+                <option value="pending">Pending</option>
+                <option value="done">Done</option>
+            </select>
             <br>
             Due Date:<br>
-            <input type="date" class="todo-due_date" name="update-todo-due_date"><br><br>
+            <input type="date" id="edit-todo-due_date" name="edit-todo-due_date"><br><br>
             <input type="submit" value="UPDATE">
         </form>
 
+        <p class="error-msg"></p>
 
+    </div>
+        
+
+    <div id="pg-delete-todo">
         <h3>DELETE TO-DO</h3>
+        <button type="button" id="btn-logout">LOGOUT</button>
+        <button type="button" id="btn-back2Home">HOME</button>
 
         <form id="delete-todo">
             Todo ID:<br>
             <input type="text" name="delete-todo-id" class="todo-id"><br><br>
             <input type="submit" value="DELETE">
         </form>
-    </div> -->
+
+        <p class="error-msg"></p>
+
+    </div>
+        
+    
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
