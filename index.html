@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google-signin-client_id"
+        content="1000672924433-82kc4a8i9fqerjrn2rrcr71bk9ki0c5l.apps.googleusercontent.com">
+    <title>Fancy Todo</title>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+
+    <!-- ERROR PAGE ======================================================================== -->
+
+    <div id="error_page">
+        <h1>ERROR!</h1>
+        <div id="errorMsg"></div>
+    </div>
+
+    <!-- SIGN UP PAGE ======================================================================== -->
+
+    <div id="sign_up_container">
+        <div id="sign_up_page_left">
+            <form id="sign_up_form" onsubmit="signup(event)">
+                <h1 id="sign_in_header">Sign Up</h1>
+                <input type="email" id="sign_up_email" placeholder="email"><br><br>
+                <input type="password" id="sign_up_password" placeholder="password"><br><br>
+                <button type="submit" id="sign_up_button">Sign Up</button>
+            </form>
+        </div>
+
+        <div id="sign_up_page_right">
+            <h1 id="sign_in_page_welcome">Welcome!</h1>
+            <h4 id="sign_in_page_text">please enter your personal details</h4>
+            <h4>or<a onclick="signinShow()" id="sign_in_button"> Sign In </a> to catch up!</h4>
+        </div>
+    </div>
+
+    <!-- SIGN IN PAGE ======================================================================== -->
+
+    <div id="welcome_container">
+        <div id="sign_in_page_left">
+            <form id="sign_in_form" onsubmit="login(event)">
+                <h1 id="sign_in_header">Login</h1>
+                <input id="email" type="email" name="email" placeholder="email"><br><br>
+                <input id="password" type="password" name="password" placeholder="password"><br><br>
+                <input type="submit" id="sign_in_button" value="Sign in"></input>
+                <h5>or login using<h5>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                <!-- <button onclick="logout();">Sign out</button> -->
+            </form>
+        </div>
+
+        <div id="sign_in_page_right">
+            <h1 id="sign_in_page_welcome">Welcome Back!</h1>
+            <h4 id="sign_in_page_text">please enter your personal details</h4>
+            <h4>or<a onclick="signupShow()" id="sign_up_button"> Sign Up </a> to join us!</h4>
+        </div>
+
+    </div>
+
+    <!-- HOMEPAGE ======================================================================== -->
+
+    <div id="home_page_container">
+        <div id="home_page">
+            <div id="home_page_header">
+                <h1 >TODO LIST</h1>
+                <a onclick="createShow()" id="create_button" value="Create Todo">+</a>
+            </div>
+            
+            <div id="show_todo"></div>
+            <a onclick="logout()" id="logout_button" value="Log Out">Log Out</a>
+        </div>
+
+        <div id="home_page_right">
+            <div>
+                <h1 id="description">DESCRIPTION</h1>
+                <p>click to-do to show description</p>
+            </div>
+            <div id="show_description">
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- EDIT PAGE ======================================================================== -->
+
+    <div id="edit_page_container">
+        <div id="edit_page">
+            <form id="edit_form" onsubmit="edit(event)">
+                <h1 id="sign_in_header">TODO TO BE EDITED</h1>
+                <label for="edit_title">Title</label><br>
+                <input id="edit_title" type="text" name="edit_title"><br><br>
+                <label for="edit_description">Description</label><br>
+                <input id="edit_description" type="text" name="edit_description"><br><br>
+                <label for="edit_due_date">Due Date</label><br>
+                <input id="edit_due_date" type="date" name="edit_due_date"><br><br>
+                <input type="submit" id="edit_todo_button" value="edit"></input>
+                <a onclick="homePageShow()" id="create_todo_button">CANCEL</a>
+            </form>
+        </div>
+    
+    </div>
+    
+    <!-- CREATE PAGE ======================================================================== -->
+
+    <div id="create_page_container">
+        <form id="create_form" onsubmit="create(event)">
+            <h1 id="sign_in_header">CREATE TODO</h1>
+            <label for="create_title">Title:</label><br>
+            <input id="create_title" type="text" name="create_title"><br><br>
+            <label for="create_description">Description:</label><br>
+            <input id="create_description" type="text" name="create_description"><br><br>
+            <label for="create_due_date">Due Date:</label><br>
+            <input id="create_due_date" type="date" name="create_due_date"><br><br>
+            <button type="submit" id="create_todo_button">ADD</button>
+            <a onclick="homePageShow()" id="create_todo_button">CANCEL</a>
+        </form>
+    </form>
+
+    
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="index.js"></script>
+
+</body>
+
+</html>

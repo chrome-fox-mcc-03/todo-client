@@ -1,0 +1,17 @@
+@import url("./sign_in_page.css");
+@import url("./sign_up_page.css");
+@import url("./home_page.css");
+@import url("./create_page.css");
+@import url("./edit_page.css");
+@import url("./error.css");
+@import url('https://fonts.googleapis.com/css?family=Yantramanav&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lalezar&display=swap');
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Yantramanav', sans-serif;
+}
+

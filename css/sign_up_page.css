@@ -1,0 +1,61 @@
+/* SIGN UP PAGE ============================================================================ */ 
+
+#sign_up_container {
+    background-color: #ececec;
+    /* background-color: red; */
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+#sign_up_page_left {
+    width: 30vw;
+    height: 60vh;
+    /* border: 5px solid #d6d6d6; */
+    /* border-radius: 1%; */
+    padding: 60px 30px 30px 30px;
+    margin: 6vw 0vw 0vw 23vw;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#sign_up_page_right {
+    width: 30vw;
+    height: 60vh;
+    background: linear-gradient(101deg, rgba(3,75,58,1) 0%, rgba(47,105,90,1) 57%, rgba(20,187,136,1) 100%);
+    margin: 6vw 0vw 0vw 0vw;
+    /* border-radius: 1%; */
+    padding: 60px 30px 30px 30px;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: #ececec;
+}
+
+#sign_up_container #sign_up_button {
+    border: rgba(47,105,90,1) 2px solid;
+    margin: 5px;
+    margin-bottom: 20px;
+    padding: 5px 10px 5px 10px;
+    border-radius: 10%;
+    color: rgba(47,105,90,1);
+}
+
+#sign_up_container #sign_up_button:hover {
+    background-color:rgba(47,105,90,1);
+    color: white;
+    cursor: pointer;
+}
+
+#sign_up_container #sign_in_button {
+    border: white 2px solid;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 10%;
+    color: white;
+}
+
+#sign_up_container #sign_in_button:hover {
+    background-color: white;
+    color: rgba(47,105,90,1);
+    cursor: pointer;
+}
