@@ -10,6 +10,15 @@ $("document").ready(function () {
     console.log(`document ready`);
 })
 
+if (localStorage.getItem('token')) {
+    $("#btn-login").hide()
+    $("#btn-reg").hide()
+    $("#btn-logout").show()
+} else {
+    $("#btn-login").show()
+    $("#btn-reg").show()
+    $("#btn-logout").hide()
+}
 showJumbotron()
 
 $("#btn-todos").on('click',function () {
