@@ -14,7 +14,7 @@ function landingPage() {
     $("#create-button").hide()
     $("#create-form").hide()
     $("#update-form").hide()
-
+    $("#dashboard-button").hide()
 }
 
 function showRegister() {
@@ -30,6 +30,7 @@ function showRegister() {
     $("#create-button").hide()
     $("#create-form").hide()
     $("#update-form").hide()
+    $("#dashboard-button").hide()
 }
 
 function showLogin() {
@@ -45,6 +46,7 @@ function showLogin() {
     $("#create-button").hide()
     $("#create-form").hide()
     $("#update-form").hide()
+    $("#dashboard-button").hide()
 }
 
 
@@ -62,6 +64,7 @@ function dashboard() {
     $("#create-button").show()
     $("#create-form").hide()
     $("#update-form").hide()
+    $("#dashboard-button").show()
 }
 
 function showCreateForm() {
@@ -78,6 +81,7 @@ function showCreateForm() {
     $("#create-button").show()
     $("#create-form").show()
     $("#update-form").hide()
+    $("#dashboard-button").show()
 }
 
 function showUpdateForm() {
@@ -94,6 +98,7 @@ function showUpdateForm() {
     $("#create-button").show()
     $("#create-form").hide()
     $("#update-form").show()
+    $("#dashboard-button").show()
 }
 
 function signUp(event) {
@@ -161,7 +166,6 @@ function showTodo() {
             response.data.forEach(list => {
                 $('#tbody-list').append(`
                 <tr>
-                        <th scope="row">1</th>
                         <td>${list.title}</td>
                         <td>${list.description}</td>
                         <td>${list.status}</td>
@@ -307,6 +311,10 @@ $(document).ready(function(){
 
     $("#home").on("click", function(){
         landingPage()
+    })
+
+    $("#dashboard-button").on("click", function(){
+        dashboard()
     })
 
 })
