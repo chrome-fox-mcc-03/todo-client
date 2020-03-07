@@ -12,23 +12,36 @@
 <body>
     <div>
         <div id="signup-page">
-            <form id="signup-form">
-                <h3>Sign Up</h3>
-                <input id="signup-email" type="email"><br>
-                <input id="signup-password" type="password"><br>
-                <input type="submit" value="Sign Up">
-            </form>
-            <p>Already registered? Try <a id="btn-redir-signin" href="#">signing in </a>instead</p>
-        </div>
-        <div id="signin-page">
-            <div id="quote-and-welcome">
+            <div class="quote-and-welcome">
                 <div class="welcome">
                     <p>Manage Your Todos Easily</p>
                 </div>
                 <div class="quote">
                 </div>
             </div>
-            <div id="space-for-form">
+            <div class="space-for-form">
+                <form id="signup-form">
+                    <p id="signup-title">Sign Up</p>
+                    <label for="email">Email address</label>
+                    <input id="signup-email" name="email" type="email" class="field">
+                    <label for="email">Password</label>
+                    <input id="signup-password" name="password" type="password" class="field">
+                    <div id="signup-btn">
+                        <input class="submit-input" type="submit" value="Sign Up">
+                    </div>
+                    <p class="redir">Already registered? Try <a id="btn-redir-signin" href="#">signing in </a>instead</p>
+                </form>
+            </div>
+        </div>
+        <div id="signin-page">
+            <div class="quote-and-welcome">
+                <div class="welcome">
+                    <p>Manage Your Todos Easily</p>
+                </div>
+                <div class="quote">
+                </div>
+            </div>
+            <div class="space-for-form">
                 <form id="signin-form">
                     <p id="signin-title">Sign In</p>
                     <label for="email">Email address</label>
@@ -42,7 +55,7 @@
                         <p>Or sign in with</p>
                         <div class="g-signin2" data-onsuccess="onSignIn"></div>
                     </div>
-                    <p id="redir-signup">Don't have an account? <a id="btn-redir-signup" href="#">Join us now</a></p>
+                    <p class="redir">Don't have an account? <a id="btn-redir-signup" href="#">Join us now</a></p>
                 </form>
             </div>
         </div>

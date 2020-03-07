@@ -403,6 +403,14 @@ $(document).ready(function () {
                 fetchTodos();
             })
             .fail(err => {
+                let theErrors = '';
+                for (let i = 0; i < err.responseJSON.length; i++) {
+                    theErrors += err.responseJSON[i]
+                    if (i !== err.responseJSON.length - 1) {
+                        theErrors += ', '
+                    }
+                }
+                swal ( "Oops" ,  `${theErrors}` ,  "error" )
                 console.log('Error!', err);
             })
     })

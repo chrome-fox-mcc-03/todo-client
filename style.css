@@ -93,7 +93,7 @@ body {
 
 /* Sign In Page */
 
-#signin-page {
+#signin-page, #signup-page {
     height: 100vh;
 
     display: flex;
@@ -102,7 +102,7 @@ body {
     /* flex-direction: column; */
 }
 
-#quote-and-welcome {
+.quote-and-welcome {
     width: 50%;
     height: 70%;
     display: flex;
@@ -122,11 +122,11 @@ body {
     color: rgb(76, 179, 165);
 }
 
-#space-for-form {
+.space-for-form {
     width: 50%;
 }
 
-#signin-form {
+#signin-form, #signup-form {
     min-width: 300px;
     height: 50%;
     display: flex;
@@ -162,7 +162,7 @@ body {
     margin-bottom: .2rem;
 }
 
-#signin-btn {
+#signin-btn, #signup-btn {
     display: flex;
     width: 100%;
     justify-content: center;
@@ -179,14 +179,15 @@ body {
     font-family: inherit;
 }
 
-#redir-signup {
+.redir {
     margin-top: 2rem;
     text-align: center;
 }
 
-#signin-title {
+#signin-title, #signup-title {
     text-align: center;
     margin-bottom: 2rem;
+    font-size: 2rem;
 }
 
 /* ------------- */
