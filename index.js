@@ -30,7 +30,7 @@ function showTodos(isComplete){
             
             $('.card-container').empty() ;
             response.data.forEach(element => {
-                let due_date = new Date (element.due_date)
+                let due_date = new Date (element.due_date) ;
                 let year = due_date.getFullYear() ;
                 let month = due_date.getMonth() + 1 ;
                 let day = due_date.getDate() + 1 ;
