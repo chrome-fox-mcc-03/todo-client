@@ -147,7 +147,7 @@ function fetchTodo() {
               <a onclick="viewDetail(${todo.id})">View Details</a>
           </div>
           <div class="delete-todo">
-              <a onclick="deleteTodo(${todo.id})"><i class="fas fa-trash-alt"></i></a>
+              <a style="cursor:pointer;" onclick="deleteTodo(${todo.id})"><i class="fas fa-trash-alt"></i></a>
           </div>
         </li>
         `
@@ -197,6 +197,18 @@ function addTodo(title, description, StatusId, due_date) {
       console.log(data)
       $('#add-todo').modal('hide')
       dashboardPage()
+      return $.ajax({
+        url: 'http://localhost:3000/googleCalender',
+        method: 'POST',
+        data: {
+          title: data.title,
+          description: data.description,
+          due_date: data.due_date
+        }
+      })
+    })
+    .done(dataCalender => {
+      console.log(dataCalender, '>>>>>>>>>>>>>')
     })
     .fail(err => {
       console.log(err)
