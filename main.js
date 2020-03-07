@@ -5,7 +5,7 @@ function onSignIn(googleUser) {
   const gToken = googleUser.getAuthResponse().id_token;
   $.ajax({
     method: "post",
-    url: "http://localhost:3000/gsignin",
+    url: "https://fierce-sierra-83913.herokuapp.com/gsignin",
     headers: {
       token: gToken
     }
@@ -83,7 +83,7 @@ function list() {
 
   $.ajax({
     method: 'get',
-    url: 'http://localhost:3000/todo',
+    url: 'https://fierce-sierra-83913.herokuapp.com/todo',
     headers: {
       token
     }
@@ -152,7 +152,7 @@ function updateForm() {
 function dataUpdate(id) {
   $.ajax({
     method: 'get',
-    url: `http://localhost:3000/todo/${id}`,
+    url: `https://fierce-sierra-83913.herokuapp.com/todo/${id}`,
     headers: {
       token
     }
@@ -192,7 +192,7 @@ function destroy(id) {
     if (result.value) {
       $.ajax({
         method: 'delete',
-        url: `http://localhost:3000/todo/${id}`,
+        url: `https://fierce-sierra-83913.herokuapp.com/todo/${id}`,
         headers: {
           token
         }
@@ -222,7 +222,7 @@ function doneUndone(id, status) {
 
   $.ajax({
     method: 'put',
-    url: `http://localhost:3000/todo/${id}`,
+    url: `https://fierce-sierra-83913.herokuapp.com/todo/${id}`,
     headers: {
       token
     },
@@ -266,7 +266,7 @@ $(document).ready(_ => {
     const password = $('#password-signup').val()
     $.ajax({
       method: 'post',
-      url: 'http://localhost:3000/signup',
+      url: 'https://fierce-sierra-83913.herokuapp.com/signup',
       data: {
         username,
         email,
@@ -305,7 +305,7 @@ $(document).ready(_ => {
     const password = $('#password-signin').val()
     $.ajax({
       method: 'post',
-      url: 'http://localhost:3000/signin',
+      url: 'https://fierce-sierra-83913.herokuapp.com/signin',
       data: {
         email,
         password
@@ -352,7 +352,7 @@ $(document).ready(_ => {
 
     $.ajax({
       method: 'post',
-      url: 'http://localhost:3000/todo',
+      url: 'https://fierce-sierra-83913.herokuapp.com/todo',
       headers: {
         token: localStorage.getItem('token')
       },
@@ -394,7 +394,7 @@ $(document).ready(_ => {
 
     $.ajax({
       method: 'put',
-      url: `http://localhost:3000/todo/${updateId}`,
+      url: `https://fierce-sierra-83913.herokuapp.com/todo/${updateId}`,
       headers: {
         token: localStorage.getItem('token')
       },
@@ -436,7 +436,7 @@ $(document).ready(_ => {
 
     $.ajax({
       method: 'get',
-      url: `http://localhost:3000/api/weather?city=${city}`,
+      url: `https://fierce-sierra-83913.herokuapp.com/api/weather?city=${city}`,
       headers: {
         token
       }
