@@ -17,20 +17,41 @@ function refreshContent(){
             let description = response.data[i].description
             let status = response.data[i].status ? 'Finished' : 'Unfinished'
             $('#list-content').append(`
-            <div class="list-group w-25 p-3 example hoverable" id="content_${i}">
-            <h5 id='content_${todo_id}_id'>${todo_id}</h5> 
-            <h5 class="text-default h5" id='content_${todo_id}_title'> >>> ${title}  </h5>
-                <small id='content_${todo_id}_due_date'> ${due_date} </small>
-                <a class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div id='content_${todo_id}_desc' class=""d-flex w-100 justify-content-between example hoverable w-50 p-3"">
-                        ${description}
-                    </div>
+            <div class="list-group w-25 p-3 example hoverable border border-primary" id="content_${i}">
+
+                <h5 id='content_${todo_id}_id' value='${todo_id}'>${todo_id}</h5> 
+                <h5 class="text-default h5" id='content_${todo_id}_title' value='${title}'> ${title}  </h5>
+                    <small id='content_${todo_id}_due_date' value="${due_date}"> ${due_date} </small>
+                        <a class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div id='container_${todo_id}_desc' class=""d-flex w-100 justify-content-between example hoverable w-50 p-3"">
+                                <span id='content_${todo_id}_desc'>${description}</span> 
+                            </div>
+                        </a>
+                    <small id='content_${todo_id}_status' value="${status}">status : ${status} </small>
+                
+                <a id="delete-btn-${todo_id}" href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modalDeleteForm"> 
+                    Delete
                 </a>
-                <small id='content_${todo_id}_status'>status : ${status} </small>
-                
-                
+                <a id="update-btn-${todo_id}" href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modalUpdateForm"> 
+                    Update 
+                </a>
                 
             </div>`)
+            
+            $(`#delete-btn-${todo_id}`).click(function(){
+                deleteData(todo_id)
+                $(this).parent().remove();
+            });
+
+            $(`#update-btn-${todo_id}`).click(function(){
+                const id = $(`#content_${todo_id}_id`).attr('value')
+                const title = $(`#content_${todo_id}_title`).attr('value')
+                const description = $(`#content_${todo_id}_desc`).text()
+                const due_date = $(`#content_${todo_id}_due_date`).attr('value')
+                const status = $(`#content_${todo_id}_status`).attr('value')
+                updateData(id, title, description, due_date, status)
+                
+            })
             
         }
     })
@@ -39,11 +60,41 @@ function refreshContent(){
     })
 }
 
-function updateContent(){
-    console.log('hello');
+function updateData(id, title, description, due_date, status){
+    // console.log(id, title, description, due_date, status);
+    $('#id-to-update').val(id).prop('readonly', true)
+    $('#title-to-update').val(title)
+    $('#description-to-update').val(description)
+    $('#status-to-update select').val(status)
+    $('#due-date-to-update').val(due_date)
     
-    $('#update-form-content#title-to-update').val('jguyfhhjv')
 }
+
+function deleteData(todo_id) {
+    const access_token = localStorage.getItem('access_token')
+    const id_toDelete = todo_id
+    // console.log(todo_id);
+    
+    $.ajax({
+
+        type: 'DELETE',
+        url: `http://localhost:3000/todos/${todo_id}`,
+        headers: {
+            'access_token': access_token
+        },
+        data:{
+            id: id_toDelete
+        }
+    })
+    .done(function (response) {
+        refreshContent()
+    })
+    .fail(function (err) {
+        console.log(err);
+        
+    })
+}
+
 
 $(document).ready(function(){
 
@@ -191,6 +242,7 @@ $(document).ready(function(){
         
         
     })
+
     
     $('#btn-logout').on('click', function(e){
         e.preventDefault()
