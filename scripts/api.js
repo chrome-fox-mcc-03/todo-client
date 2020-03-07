@@ -53,3 +53,48 @@ const addTodo = (payload) => {
     },
   });
 }
+
+const updateStatus = (payload) => {
+  const id = payload.id;
+  const status = payload.status;
+  console.log(id, status)
+  return $.ajax({
+    url: `${BASE_URL}/todo/${id}/status`,
+    method: 'PATCH',
+    headers: {
+      access_token: localStorage.getItem('access_token'),
+    },
+    data: {
+      status
+    }
+  });
+}
+
+const editTodo = (payload) => {
+  const id = payload.id;
+  const title = payload.title;
+  const description = payload.description;
+  const due_date = payload.due_date;
+  return $.ajax({
+    url: `${BASE_URL}/todo/${id}`,
+    method: 'PUT',
+    headers: {
+      access_token: localStorage.getItem('access_token'),
+    },
+    data: {
+      title,
+      description,
+      due_date,
+    }
+  });
+}
+
+const deleteTodo = (id) => {
+  return $.ajax({
+    url: `${BASE_URL}/todo/${id}`,
+    method: 'DELETE',
+    headers: {
+      access_token: localStorage.getItem('access_token'),
+    },
+  });
+}

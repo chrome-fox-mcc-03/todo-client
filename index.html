@@ -10,9 +10,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
     <script src="https://apis.google.com/js/api:client.js"></script>
+    <link rel="stylesheet" href="assets/css/hover.css">
     <link rel="stylesheet" href="assets/css/Login-Form-Dark.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <meta name="google-signin-client_id" content="609664859491-d1c9ph59fi581e4aij3307sg3fg55i03.apps.googleusercontent.com">
+    <link rel="icon" 
+      type="image/png" 
+      href="assets/favicon.ico">
 </head>
 
 <body>
@@ -21,11 +25,13 @@
             <h2 class="sr-only">Register Form</h2>
             <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
             <div class="form-group">
-                <input class="form-control" type="email" name="email" placeholder="Email" id="email-register">
+                <input class="form-control" type="email" name="email" placeholder="Email" id="email-register" required>
             </div>
             <div class="form-group">
-                <input class="form-control" type="password" name="password" placeholder="Password" id="password-register">
+                <input class="form-control" type="password" name="password" placeholder="Password" id="password-register" required>
             </div>
+            <span class="forgot text-danger err-message"></span>
+            <span class="forgot text-white loading-register"></span>
             <div class="form-group">
                 <input class="btn btn-primary btn-block" type="submit" value="Register">
                 <br>
@@ -37,8 +43,10 @@
         <form method="post" id="login-form">
             <h2 class="sr-only">Login Form</h2>
             <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
-            <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email" id="email-login"></div>
-            <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password" id="password-login"></div>
+            <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email" id="email-login" required></div>
+            <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password" id="password-login" required></div>
+            <span class="forgot text-danger err-message"></span>
+            <span class="forgot text-white loading-login"></span>
             <div class="form-group">
                 <input class="btn btn-primary btn-block" type="submit" value="Log In">
                 <!-- Google SignIn -->
@@ -49,48 +57,81 @@
         </form>
        
     </div>
-    <div style="height: 100%;" id="dashboard">
-        <div class="row" style="background-color: #242426;min-height: 100vh;">
+    <!-- <button class="test btn text-white shadow" data-id="2">Click me</button> -->
+    
+    <div style="height: 100%; width: 99vw" id="dashboard">
+        <div class="row text-white" style="background-color: #242426;min-height: 100vh;">
             <div class="col-md-3" style="background-color: rgb(36,36,38);opacity: 1;">
                 <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#" style="font-size: 26px;">
-                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-th-large" style="color: #9a9a9b;"></i></div>
-                    <div class="sidebar-brand-text mx-3"><span style="color: #9a9a9b;">Fancy Todo</span></div>
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-th-large text-white"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span class="text-white">Fancy Todo</span></div>
                 </a>
-                <hr class="sidebar-divider my-0" style="color: #9a9a9b;background-color: #9a9a9b;">
-                <ul class="nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link" href="index.html" style="font-size: 20px;"><i class="fas fa-list-ol" style="color: #9a9a9b;font-size: 18px;"></i><span style="color: #9a9a9b;">&nbsp;Todo List</span></a></li>
+                <hr class="sidebar-divider my-0" style="background-color: #9a9a9b;">
+                <ul class="nav text-light hvr-grow" id="accordionSidebar">
+                    <li class="nav-item" id="uncomplete-todo">
+                        <a class="nav-link" href="#" style="font-size: 20px;">
+                            <i class="fas fa-list-ol" style="color: #9a9a9b;font-size: 18px;"></i><span style="color: #9a9a9b;">&nbsp;Todo List</span>
+                        </a>
+                    </li>
                 </ul>
                 <ul class="nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link" href="index.html" style="font-size: 20px;"><i class="fas fa-check-square" style="color: #9a9a9b;font-size: 18px;"></i><span style="color: #9a9a9b;">&nbsp;Completed Task</span></a></li>
+                    <li class="nav-item hvr-grow" id="completed-todo">
+                        <a class="nav-link" href="#" style="font-size: 20px;">
+                            <i class="fas fa-check-square" style="color: #9a9a9b;font-size: 18px;"></i><span style="color: #9a9a9b;">&nbsp;Completed Task</span>
+                        </a>
+                    </li>
                 </ul>
                 <ul class="nav text-light" id="accordionSidebar">
-                    <li class="nav-item" id="logout"><a class="nav-link" href="#" style="font-size: 20px;"><i class="fas fa-sign-out-alt" style="color: #9a9a9b;font-size: 18px;"></i><span style="color: #9a9a9b;">&nbsp;Logout</span></a></li>
+                    <li class="nav-item hvr-grow" id="logout"><a class="nav-link" href="#" style="font-size: 20px;"><i class="fas fa-sign-out-alt" style="color: #9a9a9b;font-size: 18px;"></i><span style="color: #9a9a9b;">&nbsp;Logout</span></a></li>
                 </ul>
             </div>
             <div id="todo-board" class="col-md-6 d-flex d-lg-flex flex-column justify-content-start align-items-center" style="background-image: url(&quot;assets/img/undraw_to_do_list_a49b.svg&quot;);background-color: #696a6a;">
             </div>
             <div class="col-md-3" style="background-color: #242426;">
-                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-th-list" style="color: #9a9a9b;"></i></div>
-                    <div class="sidebar-brand-text mx-3"><span style="color: #9a9a9b;">Add New Todo</span></div>
-                </a>
                 <form id="add-todo">
+                    <a class="navbar-brand d-flex text-white justify-content-center align-items-center sidebar-brand m-0" href="#">
+                        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-th-list"></i></div>
+                        <div class="sidebar-brand-text mx-3"><span">Add New Todo</span></div>
+                    </a>
                     <div style="margin: 0px;padding: 5px;">
                         <label style="color: #9a9a9b;">Title</label>
-                        <input id="add-todo-title" class="form-control" type="text" name="title" placeholder="Todo's title" style="opacity: 1;">
+                        <input id="add-todo-title" class="form-control" type="text" name="title" placeholder="Todo's title" style="opacity: 1;" required>
                     </div>
                     <div style="margin: 0px;padding: 5px;">
                         <label style="color: #9a9a9b;">Description</label>
-                        <input id="add-todo-description" class="form-control" type="text" name="title" placeholder="Todo's description" style="opacity: 1;">
+                        <input id="add-todo-description" class="form-control" type="text" name="title" placeholder="Todo's description" style="opacity: 1;" required>
                     </div>
                     <div style="margin: 0px;padding: 5px;">
                         <label style="color: #9a9a9b;">Due Date</label>
                         <input id="add-todo-date" class="form-control" type="date">
                     </div>
                     <div style="margin: 0px;padding: 5px;">
-                        <button class="btn text-white shadow" type="submit" style="background-color: rgb(33,74,128);">
+                        <button class="btn text-white shadow hvr-radial-out" type="submit" style="background-color: rgb(33,74,128);">
                             Add
                         </button>
+                    </div>
+                </form>
+                <form id="edit-todo">
+                    <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                        <div class="sidebar-brand-icon rotate-n-15"><i class="far fa-edit" style="color: #ffffff;"></i></div>
+                        <div class="sidebar-brand-text mx-3"><span style="color: #ffffff;">Edit Todo</span></div>
+                    </a>
+                    <div style="margin: 0px;padding: 5px;">
+                        <label style="color: #9a9a9b;">Title</label>
+                        <input class="form-control" id="edit-title" type="text" name="title" placeholder="Todo&#39;s title" style="opacity: 1;" /></div>
+                    <div style="margin: 0px;padding: 5px;">
+                        <label style="color: #9a9a9b;">Description</label>
+                        <input class="form-control" id="edit-description" type="text" name="title" placeholder="Todo&#39;s description" style="opacity: 1;" />
+                    </div>
+                    <div style="margin: 0px;padding: 5px;">
+                        <label style="color: #9a9a9b;">Due Date</label>
+                        <input class="form-control" id="edit-date" type="date" />
+                    </div>
+                    <input class="form-control" id="edit-id" type="number" hidden />
+                    <div style="margin: 0px;padding: 5px;">
+                        <button class="btn btn-light shadow text-primary" id="cancel-edit" type="button">Cancel</button>
+                        <button class="btn text-white shadow hvr-radial-out" type="submit" style="background-color: rgb(33,74,128); margin-left: 6px;">Edit</button>
+                        <button class="btn text-white bg-danger shadow" type="button" style="margin-left: 6px;">Delete</button>
                     </div>
                 </form>
             </div>
@@ -99,6 +140,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="scripts/jquery.loading.js"></script>
+    <script src="scripts/notify.js"></script>
     <script src="scripts/api.js"></script>
     <script src="scripts/index.js"></script>
 </body>
