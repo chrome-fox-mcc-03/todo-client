@@ -142,7 +142,6 @@ function login(event) {
         
     })
     .fail(function(err) {
-        // alert(err.responseJSON.error);
         $("#errorPass").append(`<p> ${err.responseJSON.error} </p>`)
         
     })
@@ -167,6 +166,7 @@ function showTodo() {
                         <td>${list.description}</td>
                         <td>${list.status}</td>
                         <td>${list.due_date}</td>
+                        <td> <a href="${list.countdown}"> link countdown </a> </td>
                         <td> <button class="btn btn-success" onclick="findOne(${list.id})">Edit</button> 
                              <button class="btn btn-danger" onclick="deleteTodo(${list.id})">Delete</button>
                              <button class="btn btn-info" onclick="updateStatus(${list.id})">Set to true</button>
@@ -177,7 +177,7 @@ function showTodo() {
         }
     })
     .fail(function(err) {
-        alert(err.response)
+        console.log(err)
     })
 }
 
@@ -201,6 +201,7 @@ function create(event) {
         }
     })
         .done(response => {
+            console.log(response);
             dashboard()
             showTodo()
         })
@@ -222,7 +223,7 @@ function deleteTodo(id) {
             showTodo()
         })
         .fail(err => {
-            alert("failed delete todo")
+            console.log("failed delete todo")
         })
 }
 
@@ -247,7 +248,7 @@ function findOne(id) {
         })
         .fail(err => {
             console.log(err);
-            alert("failed update form")
+            console.log("failed update form")
         })
 }
 
@@ -273,12 +274,12 @@ function update(event) {
             showTodo()
         })
         .fail(err => {
-            alert("failed updating data")
+            console.log("failed updating data")
         })
 }
 
 function updateStatus() {
-    
+
 }
 
 $(document).ready(function(){
