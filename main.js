@@ -1,4 +1,3 @@
-const token = localStorage.getItem('token')
 let updateId = 0
 
 function onSignIn(googleUser) {
@@ -13,7 +12,6 @@ function onSignIn(googleUser) {
     .done(data => {
       localStorage.setItem('token', data.token)
       list()
-      home()
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -32,6 +30,7 @@ function onSignIn(googleUser) {
 }
 
 function signin() {
+  localStorage.clear()
   $('.signin').show()
   $('#btn-signup').show()
 
@@ -60,9 +59,9 @@ function signup() {
 function signOut() {
   var auth2 = gapi.auth2.getAuthInstance();
   auth2.signOut().then(function () {
-    localStorage.clear()
-    signin()
   });
+  localStorage.clear()
+  signin()
 }
 
 function home() {
@@ -85,7 +84,7 @@ function list() {
     method: 'get',
     url: 'https://fierce-sierra-83913.herokuapp.com/todo',
     headers: {
-      token
+      token: localStorage.getItem('token')
     }
   })
     .done(({ data }) => {
@@ -115,6 +114,7 @@ function list() {
         </tr>
       `)
       })
+      home()
     })
     .fail(err => {
       Swal.fire({
@@ -154,7 +154,7 @@ function dataUpdate(id) {
     method: 'get',
     url: `https://fierce-sierra-83913.herokuapp.com/todo/${id}`,
     headers: {
-      token
+      token: localStorage.getItem('token')
     }
   })
     .done(({ data }) => {
@@ -194,12 +194,11 @@ function destroy(id) {
         method: 'delete',
         url: `https://fierce-sierra-83913.herokuapp.com/todo/${id}`,
         headers: {
-          token
+          token: localStorage.getItem('token')
         }
       })
         .then(_ => {
           list()
-          home()
           Swal.fire(
             'Deleted!',
             'Your ToDo has been deleted.',
@@ -224,15 +223,14 @@ function doneUndone(id, status) {
     method: 'put',
     url: `https://fierce-sierra-83913.herokuapp.com/todo/${id}`,
     headers: {
-      token
+      token: localStorage.getItem('token')
     },
     data: {
       status
     }
   })
-    .done(data => {
+    .done(_ => {
       list()
-      home()
     })
     .fail(err => {
       Swal.fire({
@@ -244,20 +242,15 @@ function doneUndone(id, status) {
 }
 
 $(document).ready(_ => {
-  if (token) {
-    list()
-    home()
-  } else {
-    signin()
-  }
+  localStorage.getItem('token') ? list() : signin()
 
   // SIGN OUT
-  $('#btn-signout').on('click', (e) => {
+  $('#btn-signout').on('click', () => {
     signOut()
   })
 
   // SIGN UP
-  $('#btn-signup').on('click', (e) => {
+  $('#btn-signup').on('click', () => {
     signup()
   })
   $('.signup').submit(e => {
@@ -297,7 +290,7 @@ $(document).ready(_ => {
   })
 
   // SIGN IN
-  $('#btn-signin').on('click', (e) => {
+  $('#btn-signin').on('click', () => {
     signin()
   })
   $('.signin').submit(e => {
@@ -314,7 +307,6 @@ $(document).ready(_ => {
       .done(data => {
         localStorage.setItem('token', data.token)
         list()
-        home()
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -336,13 +328,12 @@ $(document).ready(_ => {
   })
 
   // HOME
-  $('#a-logo').on('click', _ => {
-    list()
-    home()
+  $('#a-logo').on('click', () => {
+    localStorage.getItem('token') ? list() : signin()
   })
 
   // CREATE
-  $('#a-create').on('click', (e) => {
+  $('#a-create').on('click', () => {
     createForm()
   })
   $('.create').submit(e => {
@@ -362,9 +353,8 @@ $(document).ready(_ => {
         due_date: new Date(due_date)
       }
     })
-      .done(data => {
+      .done(_ => {
         list()
-        home()
         $('#title-create').val('')
         $('#description-create').val('')
         $('#due_date-create').val('')
@@ -404,7 +394,6 @@ $(document).ready(_ => {
     })
       .done(_ => {
         list()
-        home()
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -438,7 +427,7 @@ $(document).ready(_ => {
       method: 'get',
       url: `https://fierce-sierra-83913.herokuapp.com/api/weather?city=${city}`,
       headers: {
-        token
+        token: localStorage.getItem('token')
       }
     })
       .done(({ data }) => {
