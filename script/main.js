@@ -89,6 +89,7 @@ function showContent() {
   fetchTodo()
   $('#todos').show()
   $('#landing-page').hide()
+  weather()
 }
 
 function logout () {

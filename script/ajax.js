@@ -1,5 +1,3 @@
-// import { response } from "express"
-
 //login
 function login () {
   $('#login-form').on('submit', e => {
@@ -58,7 +56,6 @@ function onSignIn (googleUser) {
     })
 }
 
-
 function register() {
   $('#register-form').on('submit', e => {
     e.preventDefault()
@@ -80,11 +77,10 @@ function register() {
         M.toast({html: `${response.message}`, classes: 'rounded'})
       })
       .fail(err => {
-        console.log(err.responseText)
         $('#username-register').val('')
         $('#email-register').val('')
         $('#password-register').val('')
-        M.toast({html: `${err.responseText}`, classes: 'rounded red'})
+        M.toast({html: `${err.responseJSON}`, classes: 'rounded red'})
       })
   })
 }
@@ -142,6 +138,7 @@ function fetchTodo() {
       $('#todo').html(todoCards)
     })
     .fail(err => {
+      console.log(err)
       M.toast({html: 'Something went wrong. Please login again', classes: 'rounded red'})
     })
     .always(() => {
@@ -273,5 +270,46 @@ function deleteTodo (todoId) {
 }
 
 function weather() {
-  
+  let token = localStorage.getItem('token')
+  $('#weather-card').html(`
+    <div class="progress">
+      <div class="indeterminate"></div>
+    </div>
+  `)
+  $.ajax({
+    url: 'http://localhost:3000/api/weather',
+    method: 'GET',
+    headers: { token }
+  })
+    .done(response => {
+      fetching = false
+      let weatherCard = `
+        <div class="card-image">
+          <img 
+            src="https://www.metaweather.com/static/img/weather/png/${response.weather_state_abbr}.png"
+            height="100" 
+            width="42"
+          >
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <span class="card-title">Tommorow will be ${response.weather_state_name} in Jakarta</span>
+            <p>${Math.trunc(response.the_temp)} &#8451</p>
+            <p>${response.humidity}% of humidity</p>
+            <p>${response.predictability} % of happening</p>
+          </div>
+          <div class="card-action">
+            <a href="https://www.metaweather.com" target="_blank">Provided by meta weather</a>
+          </div>
+        </div>
+      `
+      $('#weather-card').html(weatherCard)
+    })
+    .fail(err => {
+      let msg = ''
+      if (err.status === 500) msg = err.statusText
+      else msg = err.responseJSON.errors
+      M.toast({html: `${msg}`, classes: 'rounded red'})
+      $('#weather-card').html('WEATHER ERROR')
+    })
 }
