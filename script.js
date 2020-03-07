@@ -1,3 +1,177 @@
+$("document").ready(() => {
+    $("#log-out").hide()
+    $(".dashboard-class").hide()
+    if(localStorage.getItem('token')) {
+        $("#log-out").show()
+        $(".landing-page").hide()
+        $(".dashboard-class").show()
+        $(".welcome-text").append(`<h1 class='welcome-text-child-name'> ${localStorage.getItem('name')}</h1>`)
+        
+    }
+    $("#log-in-page").hide()
+    $("#sign-up-page").hide()
+    $("#start-now").on('click', (e) => {
+        e.preventDefault()
+        $("#sign-up-page").slideDown()
+        $(".landing-page").css("filter", "blur(3px)")
+    })
+
+    $(".sign-up-back-btn").on('click', (e) => {
+        e.preventDefault()
+        $("#sign-up-page").hide()
+        $("#log-in-page").hide()
+        $('#error-signup').text(``)
+        $('#error-login').text(``)
+        $(".landing-page").css("filter", "")
+    })
+     
+    $("#login").on('click', (e) => {
+        e.preventDefault()
+        $("#log-in-page").slideDown()
+        $(".landing-page").css("filter", "blur(3px)")
+    })
+
+    $("#sign-up-form").on('submit', (e) => {
+        e.preventDefault()
+        const data = {
+            first_name: $("#first_name").val(),
+            last_name: $("#last_name").val(),
+            username: $("#username").val(),
+            email: $("#email").val(),
+            password: $("#password").val(),
+        }
+        $.ajax({
+            url: 'http://localhost:3000/users/register',
+            method: 'POST',
+            data: data
+        })
+        .then(signedUpData => {
+            return $.ajax({
+                url: 'http://localhost:3000/users/login',
+                method: 'POST',
+                data: {
+                    emailOrUsername: data.email,
+                    password: data.password
+                }
+            })
+        })
+        .done(response => {
+            localStorage.setItem('token', response)
+            localStorage.setItem('name', response.name)
+            $('#error-signup').text(``)
+            $("#sign-up-page").hide()
+            $("#log-in-page").hide()
+            $(".landing-page").hide()
+            $(".dashboard-class").show()
+            $(".welcome-text-child-name").remove()
+            $(".welcome-text").append(`<h1 class='welcome-text-child-name'> ${localStorage.getItem('name')}</h1>`)
+            showTodo(localStorage.getItem('token'))
+            .then(placeTodo)
+            $("#log-out").show()
+        })
+        .fail(error => {
+            const errors = error.responseJSON.msg.split(',')
+            $('#error-signup').text(`${errors[0].split(': ')[1]}`)
+        })
+        
+
+    })
+
+    $("#log-in-form").on('submit', (e) => {
+        e.preventDefault()
+        const data = {
+            emailOrUsername: $("#emailOrUsername").val(),
+            passwordLogIn: $("#passwordLogIn").val(),
+        }
+        $.ajax({
+            url: 'http://localhost:3000/users/login',
+            method: 'POST',
+            data: {
+                emailOrUsername: data.emailOrUsername,
+                password: data.passwordLogIn
+            }
+        })
+        .done(response => {
+            localStorage.setItem('token', response.userToken)
+            localStorage.setItem('name', response.name)
+            $("#sign-up-page").hide()
+            $('#error-login').text(``)
+            $("#log-in-page").hide()
+            $(".landing-page").hide()
+            $(".dashboard-class").show()
+            $(".welcome-text-child-name").remove()
+            $(".welcome-text").append(`<h1 class='welcome-text-child-name'> ${localStorage.getItem('name')}</h1>`)
+            showTodo(localStorage.getItem('token'))
+            .then(placeTodo)
+            $("#log-out").show()
+        })
+        .fail(error => {
+            $('#error-login').text(`${error.responseJSON.msg}`)
+        })
+        
+    })
+
+    $(".add-btn").on('click', () => {
+        $(".add-todos").slideDown()
+        $(".dashboard-class").css("filter", "blur(3px)")
+    })
+
+    $(".back-todos-add").on('click', (e) => {
+        e.preventDefault()
+        $('#error-add').text(``)
+        backToDashboard(".add-todos")
+    })
+
+    $("#todos-form").on('submit', (e) => {
+        e.preventDefault()
+        const data = {
+            title: $("#title").val(),
+            description: $("#description").val(),
+            due_date: $("#due_date").val(),
+        }
+        $.ajax({
+            url: 'http://localhost:3000/todos',
+            method: 'POST',
+            data,
+            headers: {
+                user_token: localStorage.getItem('token')
+            }
+        })
+        .done((result) => {
+            backToDashboard(".add-todos")
+            $('#error-add').text(``)
+            restartDashboard()
+        })
+        .fail(error => {
+            const errors = error.responseJSON.msg.split(',')
+            $('#error-add').text(`${errors[0].split(': ')[1]}`)
+        })
+    })
+
+    $("#log-out").on('click', () => {
+        localStorage.clear()
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+          console.log('User signed out.');
+        });
+        $(".landing-page").show()
+        $(".dashboard-class").hide()
+        $("#log-out").hide()
+        $(".landing-page").css("filter", "")
+        $("#ds-3").empty()
+        $("#ds-2").empty()
+        $("#ds-1").empty()
+        $("#emailOrUsername").val('')
+        $("#passwordLogIn").val('')
+        $("#first_name").val(''),
+        $("#last_name").val(''),
+        $("#username").val(''),
+        $("#email").val(''),
+        $("#password").val(''),
+        $("#sign-up-page").val('')
+    })
+})
+
 function showTodo(token){
     return $.ajax({
         url: 'http://localhost:3000/todos',
@@ -8,34 +182,96 @@ function showTodo(token){
     })
 }
 
+function backToDashboard(toHide){
+    $(toHide).hide()
+    $(".dashboard-class").css("filter", "") 
+}
+
+function restartDashboard(){
+    $("#ds-2").empty()
+    $("#ds-1").empty()
+    $("#ds-3").empty()
+    showTodo(localStorage.getItem('token'))
+    .then(placeTodo)
+}
+
 function placeTodo(result) {
-    let todosData = []
+    let todosDataNotDone = []
+    let todosDataDone = []
+    $("#ds-1").append('<h3>Your todos</h3>')
+    $("#ds-3").append('<h3>Done todos</h3>')
     $.each(result, (i, v) => {
-        $("#ds-1").append(`<p class='todos' id='todos-${v.id}'>${v.title}</p>`)
-        todosData.push(v)
-        $(`#todos-${v.id}`).on('click', () => {
-            $("#ds-2").empty()
-            todos= {
-                title: todosData[i].title,
-                description: todosData[i].description,
-                status: (todosData[i].status) ? 'Done' : 'Not done'
-            }
-            let color = ''
-            if(!todosData[i].status) color = 'style = "color:red"'
-            else color = 'style = "color:green"'
-            $("#ds-2").append(`<p class='todos-detail todos-title' > ${todos.title.toUpperCase()}</p>`)
-            $("#ds-2").append(`<p class='todos-detail todos-desc' > ${todos.description}</p>`)
-            $("#ds-2").append(`<p class='todos-detail todos-status' ${color}> ${todos.status}</p>`)
-            $("#ds-2").append(`<button id='button-${v.id}'>Delete</button>`)
-            $(`#button-${v.id}`).on('click', () => {
-                deleteTodo(v.id)
+        if(!v.status) {
+            $("#ds-1").append(`<p class='todos' id='todos-${v.id}'>${v.title}</p>`)
+            todosDataNotDone.push(v)
+            $(`#todos-${v.id}`).on('click', () => {
+                $("#ds-2").empty()
+                const todos = {
+                    title: v.title,
+                    description: v.description,
+                    status: (v.status) ? 'Done' : 'Not done (yet!!!)',
+                    due_date: parseDueDate(v.due_date)
+                }
+                let color = ''
+                if(!v.status) color = 'style = "color: rgb(48, 3, 48)"'
+                else color = 'style = "color:green"'
+                $("#ds-2").append('<h3>Detail</h3>')
+                $("#ds-2").append(`<p class='todos-detail todos-title' > ${todos.title.toUpperCase()}</p>`)
+                $("#ds-2").append(`<p class='todos-detail todos-desc' > ${todos.description} </p>`)
+                $("#ds-2").append(`<p class='todos-detail todos-due_date' > Due date: ${todos.due_date} </p>`)
+                $("#ds-2").append(`<p class='todos-detail todos-status' ${color}> ${todos.status}</p>`)
+                if(todos.status !== 'Done') {
+                    $("#ds-2").append(`<button id='done-${v.id}' class= 'done-todos-btn'>I've done this!</button>`)
+                    $(`#done-${v.id}`).on('click', () => {
+                        doneTodo(v.id)
+                    })
+                }
+                $("#ds-2").append(`<button id='edit-${v.id}' class= 'todos-btn'>Edit</button>`)
+                $(`#edit-${v.id}`).on('click', () => {
+                    showUpdateTodo(v.id)
+                })
+                $("#ds-2").append(`<button class= 'todos-btn'id='button-${v.id}'>Delete</button>`)
+                $(`#button-${v.id}`).on('click', () => {
+                    deleteTodo(v.id)
+                })
             })
-            $("#ds-2").append(`<button id='edit-${v.id}'>Edit</button>`)
-            $(`#edit-${v.id}`).on('click', () => {
-                showUpdateTodo(v.id)
+        }
+        else{
+        $("#ds-2").empty()
+            $("#ds-3").append(`<p class='todos' id='todos-${v.id}'>${v.title}</p>`)
+            todosDataDone.push(v)
+            $(`#todos-${v.id}`).on('click', () => {
+                $("#ds-2").empty()
+                const todos= {
+                    title: todosDataDone[i].title,
+                    description: todosDataDone[i].description,
+                    status: (todosDataDone[i].status) ? 'Done' : 'Not done (yet!!!)',
+                    due_date: parseDueDate(todosDataDone[i].due_date)
+                }
+                let color = ''
+                if(!todosDataDone[i].status) color = 'style = "color: rgb(48, 3, 48)"'
+                else color = 'style = "color:green"'
+                $("#ds-2").append('<h3>Detail</h3>')
+                $("#ds-2").append(`<p class='todos-detail todos-title' > ${todos.title.toUpperCase()}</p>`)
+                $("#ds-2").append(`<p class='todos-detail todos-desc' > ${todos.description} </p>`)
+                $("#ds-2").append(`<p class='todos-detail todos-due_date' > Due date: ${todos.due_date} </p>`)
+                $("#ds-2").append(`<p class='todos-detail todos-status' ${color}> ${todos.status}</p>`)
+                if(todos.status !== 'Done') {
+                    $("#ds-2").append(`<button id='done-${v.id}' class= 'done-todos-btn'>I've done this!</button>`)
+                    $(`#done-${v.id}`).on('click', () => {
+                        doneTodo(v.id)
+                    })
+                }
+                $("#ds-2").append(`<button id='edit-${v.id}' class= 'todos-btn'>Edit</button>`)
+                $(`#edit-${v.id}`).on('click', () => {
+                    showUpdateTodo(v.id)
+                })
+                $("#ds-2").append(`<button class= 'todos-btn'id='button-${v.id}'>Delete</button>`)
+                $(`#button-${v.id}`).on('click', () => {
+                    deleteTodo(v.id)
+                })
             })
-            
-        })
+        }
     })
 }
 
@@ -49,7 +285,22 @@ function deleteTodo(id){
     })
     .done (result => {
         $(`#todos-${id}`).remove()
-        $("#ds-2").empty()
+    })
+}
+
+function doneTodo(id){
+    $.ajax({
+        url: `http://localhost:3000/todos/${id}`,
+        method: 'PUT',
+        headers: {
+            user_token: localStorage.getItem('token')
+        },
+        data : {
+            status: true,
+        }
+    })
+    .done(res => {
+        restartDashboard()
     })
 }
 
@@ -101,176 +352,14 @@ function showUpdateTodo(id){
                 }
             })
             .done(result => {
-                $(".edit-todos").hide()
-                $(".dashboard-class").css("filter", "")
-                $("#ds-1").empty()
-                showTodo(localStorage.getItem('token'))
-                .then(placeTodo)
-                $("#ds-2").empty()
+                backToDashboard(".edit-todos")
+                restartDashboard()
             })
         })
     })
 }
 
-$("document").ready(() => {
-    $("#log-out").hide()
-    $(".dashboard-class").hide()
-    if(localStorage.getItem('token')) {
-        $("#log-out").show()
-        $(".landing-page").hide()
-        $(".dashboard-class").show()
-        $(".welcome-text").append(`<h1 class='welcome-text-child-name'> ${localStorage.getItem('name')}</h1>`)
-        
-    }
-    $("#log-in-page").hide()
-    $("#sign-up-page").hide()
-    $("#start-now").on('click', (e) => {
-        e.preventDefault()
-        $("#sign-up-page").slideDown()
-        $(".landing-page").css("filter", "blur(3px)")
-    })
 
-    $(".sign-up-back-btn").on('click', (e) => {
-        e.preventDefault()
-        $("#sign-up-page").hide()
-        $("#log-in-page").hide()
-        $(".landing-page").css("filter", "")
-    })
-     
-    $("#login").on('click', (e) => {
-        e.preventDefault()
-        $("#log-in-page").slideDown()
-        $(".landing-page").css("filter", "blur(3px)")
-    })
-
-    $("#sign-up-form").on('submit', (e) => {
-        e.preventDefault()
-        const data = {
-            first_name: $("#first_name").val(),
-            last_name: $("#last_name").val(),
-            username: $("#username").val(),
-            email: $("#email").val(),
-            password: $("#password").val(),
-        }
-        $.ajax({
-            url: 'http://localhost:3000/users/register',
-            method: 'POST',
-            data: data
-        })
-        .then(signedUpData => {
-            return $.ajax({
-                url: 'http://localhost:3000/users/login',
-                method: 'POST',
-                data: {
-                    emailOrUsername: data.email,
-                    password: data.password
-                }
-            })
-        })
-        .done(response => {
-            localStorage.setItem('token', response)
-            localStorage.setItem('name', response.name)
-            $("#sign-up-page").hide()
-            $("#log-in-page").hide()
-            $(".landing-page").hide()
-            $(".dashboard-class").show()
-            $(".welcome-text-child-name").remove()
-            $(".welcome-text").append(`<h1 class='welcome-text-child-name'> ${localStorage.getItem('name')}</h1>`)
-            showTodo(localStorage.getItem('token'))
-            .then(placeTodo)
-            $("#log-out").show()
-        })
-        
-
-    })
-
-    $("#log-in-form").on('submit', (e) => {
-        e.preventDefault()
-        const data = {
-            emailOrUsername: $("#emailOrUsername").val(),
-            passwordLogIn: $("#passwordLogIn").val(),
-        }
-        $.ajax({
-            url: 'http://localhost:3000/users/login',
-            method: 'POST',
-            data: {
-                emailOrUsername: data.emailOrUsername,
-                password: data.passwordLogIn
-            }
-        })
-        .done(response => {
-            localStorage.setItem('token', response.userToken)
-            localStorage.setItem('name', response.name)
-            $("#sign-up-page").hide()
-            $("#log-in-page").hide()
-            $(".landing-page").hide()
-            $(".dashboard-class").show()
-            $(".welcome-text-child-name").remove()
-            $(".welcome-text").append(`<h1 class='welcome-text-child-name'> ${localStorage.getItem('name')}</h1>`)
-            showTodo(localStorage.getItem('token'))
-            .then(placeTodo)
-            $("#log-out").show()
-        })
-        
-    })
-
-    $(".add-btn").on('click', () => {
-        $(".add-todos").slideDown()
-        $(".dashboard-class").css("filter", "blur(3px)")
-    })
-
-    $(".back-todos-add").on('click', (e) => {
-        e.preventDefault()
-        $(".add-todos").hide()
-        $(".dashboard-class").css("filter", "")
-    })
-
-    $("#todos-form").on('submit', (e) => {
-        e.preventDefault()
-        const data = {
-            title: $("#title").val(),
-            description: $("#description").val(),
-            due_date: $("#due_date").val(),
-        }
-        $.ajax({
-            url: 'http://localhost:3000/todos',
-            method: 'POST',
-            data,
-            headers: {
-                user_token: localStorage.getItem('token')
-            }
-        })
-        .done((result) => {
-            $(".add-todos").hide()
-            $(".dashboard-class").css("filter", "")
-            $("#ds-1").empty()
-            showTodo(localStorage.getItem('token'))
-            .then(placeTodo)
-        })
-    })
-
-    $("#log-out").on('click', () => {
-        localStorage.clear()
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-          console.log('User signed out.');
-        });
-        $(".landing-page").show()
-        $(".dashboard-class").hide()
-        $("#log-out").hide()
-        $(".landing-page").css("filter", "")
-        $("#ds-2").empty()
-        $("#ds-1").empty()
-        $("#emailOrUsername").val('')
-        $("#passwordLogIn").val('')
-        $("#first_name").val(''),
-        $("#last_name").val(''),
-        $("#username").val(''),
-        $("#email").val(''),
-        $("#password").val(''),
-        $("#sign-up-page").val('')
-    })
-})
 
 function onSignIn(googleUser) {
     const id_token = googleUser.getAuthResponse().id_token;
@@ -297,3 +386,12 @@ function onSignIn(googleUser) {
   }
 
   
+function parseDueDate(datei){
+    datei = new Date(datei)
+    let date = datei.getUTCDate() + 1;
+    if(String(date).length < 2) date = '0' + date;
+    let month = datei.getUTCMonth() + 1;
+    if(String(month).length < 2) month = '0' + month;
+    let year = datei.getUTCFullYear();
+    return `${date}/${month}/${year}`;
+}
