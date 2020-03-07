@@ -152,3 +152,10 @@ body {
 .login-separator::after {
     margin-left: 1em;
 }
+
+/* gooogle sign in */
+.google-signin {
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+}
