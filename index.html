@@ -3,43 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="135525706438-o38kb06ifqc8aulai67fommjhbpebddq.apps.googleusercontent.com">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="./style.css">
     <title>YouDo!!</title>
 </head>
 <body>
-    <!-- <header>
-        <div class="container">
-            <div>
-                <a href="/">
-                    <img src="https://thumbs.gfycat.com/VeneratedSlimIcelandichorse-small.gif" height="42" width="42">
-                </a>
-            </div>
-            <div>
-                <nav>
-                    <ul class="nav">
-                        <li class="nav-item">
-                          <a class="nav-link active" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Create Todo</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Logout</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header> -->
     <!-- NAVBAR ============================================================================================ -->
-    
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg h3 bg-transparent font-weight-bold">
         <a href="/"  class="navbar-brand">
             <img src="https://media2.giphy.com/media/jy0i40edNluhyKuToN/giphy.gif?cid=790b76111a337871c7a753e8241c675e1ef51485b0e9de84&rid=giphy.gif" height="100" width=100">
         </a>
         <ul class="nav" id="nav-login">
-            <li class="nav-item">
+            <li id="home" class="nav-item">
               <a class="nav-link active" href="#">Home</a>
             </li>
             <li class="nav-item"  id="createTodo" >
@@ -50,114 +27,62 @@
             </li>
         </ul>
     </nav>
-
-    <!-- LOGIN ============================================================================================= -->
-
-    <!-- <div class="login-wrap">
-        <div class="login-html">
-            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
-            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
-            <div class="login-form">
-                <div class="sign-in-htm">
-                    <div class="group">
-                        <label for="user" class="label">Username</label>
-                        <input id="user" type="text" class="input">
-                    </div>
-                    <div class="group">
-                        <label for="pass" class="label">Password</label>
-                        <input id="pass" type="password" class="input" data-type="password">
-                    </div>
-                    <div class="group">
-                        <input type="submit" class="button" value="Sign In">
-                    </div>
-                    <div class="hr"></div>
-                    <div class="foot-lnk">
-                        <a href="#f">Register?</a>
-                    </div>
-                </div> -->
-
-    <!-- REGISTER ========================================================================================== -->
-<!-- 
-                <div class="sign-up-htm">
-                    <div class="group">
-                        <label for="user" class="label">Username</label>
-                        <input id="user" type="text" class="input">
-                    </div>
-                    <div class="group">
-                        <label for="pass" class="label">Password</label>
-                        <input id="pass" type="password" class="input" data-type="password">
-                    </div>
-                    <div class="group">
-                        <label for="pass" class="label">Repeat Password</label>
-                        <input id="pass" type="password" class="input" data-type="password">
-                    </div>
-                    <div class="group">
-                        <label for="pass" class="label">Email Address</label>
-                        <input id="pass" type="text" class="input">
-                    </div>
-                    <div class="group">
-                        <input type="submit" class="button" value="Sign Up">
-                    </div>
-                    <div class="hr"></div>
-                    <div class="foot-lnk">
-                        <label for="tab-1">Already Member?</a>
+    
+    <!-- LANDING PAGE ====================================================================================== -->
+    <div id="landing-page" class="d-flex flex-column align-items-center justify-content-center">
+            <div  id="quote-container" class="">
+                <div id="quote-image"class="">
+                    <div class="container" id="quote">
                     </div>
                 </div>
+                <!-- LOGIN  ============================================================================================-->
+                <form class="container" id="login">
+
+                    <!-- <h3>LOGIN</h3> -->
+                    <div class="form-group">
+                        <label class=" text-center">Email address</label>
+                        <input type="email" class="form-control" id="emailLogin" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label class="text-center">Password</label>
+                        <input type="password" class="form-control" id="passwordLogin">
+                    </div>
+                    <div class="d-flex justify-content-center"> 
+                        <button type="submit=" class="btn btn-primary btn-lg" id="">Submit</button>
+                        <button class="btn btn-link btn-lg text-light" id="registerButton">Register</button>
+                    </div>
+                    <br>
+                    <div class="g-signin2 d-flex justify-content-center" id="googleLogin" data-onsuccess="onSignIn"></div>
+                </form>
+                
+                
+                
+                <!-- REGISTER  =========================================================================================-->
+                <form class="container" id="register">
+                    <h3>REGISTER</h3>
+                    <div class="form-group">
+                        <label>Email address</label>
+                        <input type="email" class="form-control" id="emailRegister" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" id="passwordRegister">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
-        </div>
-    </div> -->
-
-    <!-- LOGIN  ============================================================================================-->
-    <form class="container" id="login">
-        <h3>LOGIN</h3>
-        <div class="form-group">
-          <label>Email address</label>
-          <input type="email" class="form-control" id="emailLogin" aria-describedby="emailHelp">
-        </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" class="form-control" id="passwordLogin">
-        </div>
-        <div class="d-flex justify-content-end"> 
-            <button class="btn btn-link" id="registerButton">Register</button>
-            <button type="submit=" class="btn btn-primary" id="">Submit</button>
-        </div>
-      </form>
-
-
-    <!-- REGISTER  =========================================================================================-->
-    <form class="container" id="register">
-        <h3>REGISTER</h3>
-        <div class="form-group">
-          <label>Email address</label>
-          <input type="email" class="form-control" id="emailRegister" aria-describedby="emailHelp">
-        </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" class="form-control" id="passwordRegister">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-
+        <!-- </div>       -->
+    </div>
 
     <!-- LIST TODO ========================================================================================= -->
-    <div id="table">
-        <table class="table">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Description</th>
-                <th scope="col">Date</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody id="listTodo">
-            </tbody>
-          </table>
+    <div id="lists">
+        <div class="card-group  d-flex justify-content-center">
+            <div id="listTodo" class="">
+            </div>
+          </div>
 
     </div>
-<a href=""></a>
+
     <!-- CREATE TODO ======================================================================================= -->
     <form class="container" id="create">
         <h3>Create Todo</h3>
@@ -175,6 +100,36 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Recipient:</label>
+                  <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="form-group">
+                  <label for="message-text" class="col-form-label">Message:</label>
+                  <textarea class="form-control" id="message-text"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Send message</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     <!-- EDIT TODO ========================================================================================= -->
     <form class="container" id="update">
         <h3>Update Todo</h3>
@@ -200,7 +155,12 @@
     <div class="d-flex justify-content-center">
         <img id="loading" src="https://www-tastemade-com.akamaized.net/dist/images/cats/preloader-002-dbcca15c4c.gif" alt="loading" height="200" width="200">
     </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="index.js"></script>
 </body>
 </html>

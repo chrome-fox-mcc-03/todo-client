@@ -1,8 +1,10 @@
 function hideAll() {
     $("#loading").hide()
+    $("#landing-page").hide()
+    $("#quotes").hide()
     $("#login").hide()
     $("#register").hide()
-    $("#table").hide()
+    $("#lists").hide()
     $("#create").hide()
     $("#update").hide()
 }
@@ -23,23 +25,79 @@ function fetchData() {
                 counter++
                 console.log(todo)
                 $("#listTodo").append(`
-                <tr>
-                    <th scope="row">${counter}</th>
-                    <td>${todo.title}</td>
-                    <td>${todo.description}</td>
-                    <td>${todo.due_date}</td>
-                    <td>
-                    <button type="click" onclick="edit(${todo.id})" class="btn btn-success">Edit</button>| 
-                    <button type="click" onclick="remove(${todo.id})" class="btn btn-danger">Delete</button>
-                    </td> 
-                </tr>
+                    <div class="card mb-3 text-dark" style="max-width: 540px;">
+                        <div class="row no-gutters">
+                        <div class="col-md-10">
+                            <div class="card-body">
+                                <h5 class="card-title font-weight-bold">${todo.title}</h5>
+                                <p class="card-text font-weight-light">${todo.description}</p>
+                                <p class="card-text" id="due_date"><small class="text-muted">${todo.due_date}</small></p>                                
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex align-item-center">
+                            <button type="button" onclick="edit(${todo.id})" class="btn btn-success">Edit</button>
+                            <button type="button" onclick="remove(${todo.id})" class="btn btn-danger">Remove</button>                        </div>
+                    </div>
                 `)
             })
-            $("#table").show()
-
+            $("#lists").show()
         })
         .fail(err => {
-            console.log(err.responseText)
+            Toastify({
+                text: err.responseText,
+                newWindow: true,
+                backgroundColor: "#b80d57",
+                className: "ERROR",
+              }).showToast();
+        })
+}
+
+function fetchQuotes() {
+    $.ajax({
+        method: 'GET',
+        url: 'http://localhost:3000/quotes'
+    })
+        .done(quote => {
+            console.log(quote)
+            $("#quote").empty()
+            $("#quote").append(`
+                    <h1 class="display-3 text-center font-weight-bold">${quote.quoteText}</h1>
+                    <p class="display-4 text-center">Login and create your pupose today!</p>
+            `)
+            
+        })
+        .fail(err => {
+            Toastify({
+                text: err.responseText,
+                newWindow: true,
+                backgroundColor: "#b80d57",
+                className: "ERROR",
+              }).showToast();
+        })
+}
+
+function fetchImages() {
+    $.ajax({
+        method: 'GET',
+        url: 'http://localhost:3000/images'
+    })
+        .done(image => {
+            // $("#landing-page").append(`
+            // <div  id="quote-container" class="p-6 flex-fill " style="background-image: url(${image.url});">
+            //     <div id="quote-image"class="jumbotron-fluid">
+                    
+            //     </div>
+            // </div>
+            // `)
+            console.log(image)
+        })
+        .fail(err => {
+            Toastify({
+                text: err.responseText,
+                newWindow: true,
+                backgroundColor: "#b80d57",
+                className: "ERROR",
+              }).showToast();
         })
 }
 
@@ -65,7 +123,12 @@ function edit(id) {
             $("#update").show()
         })
         .fail(err => {
-            console.log(err)
+            Toastify({
+                text: err.responseText,
+                newWindow: true,
+                backgroundColor: "#b80d57",
+                className: "ERROR",
+              }).showToast();
         })
 }
 
@@ -83,20 +146,65 @@ function remove(id) {
             console.log(todo)
         })
         .fail(err => {
-            console.log(err)
+            Toastify({
+                text: err.responseText,
+                newWindow: true,
+                backgroundColor: "#b80d57",
+                className: "ERROR",
+            }).showToast();
         })
 }
 
 function isLogin() {
     if(localStorage.access_token){
         hideAll()
+        $("#quote").empty()
+        $("#nav-login").show()
         fetchData()
-        
     } else {
         hideAll()
         $("#nav-login").hide()
+        fetchQuotes()
+        fetchImages()
+        $("#quotes").show()
         $("#login").show()
     }
+}
+
+function onSignIn(googleUser) {
+    let token_google = googleUser.getAuthResponse().id_token
+    let profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    $.ajax({
+        method: "POST",
+        url: "http://localhost:3000/googleSignIn",
+        headers: {
+            token_google : token_google
+        }
+    })
+        .done(({ access_token}) => {
+            localStorage.setItem("access_token", access_token)
+            isLogin()
+        })
+        .fail( err => {
+            Toastify({
+                text: err.responseText,
+                newWindow: true,
+                backgroundColor: "#b80d57",
+                className: "ERROR",
+              }).showToast();
+        })
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance()
+    auth2.signOut().then(function () {
+        console.log('User signed out.')
+    })
+    localStorage.clear()
 }
 
 $(document).ready( () => {
@@ -106,6 +214,17 @@ $(document).ready( () => {
         e.preventDefault()
         hideAll()
         $("#register").show()
+    })
+
+    $("#logout").on("click", (e) => {
+        e.preventDefault()
+        signOut()
+        isLogin()
+    })
+
+    $("#createTodo").on("click", (e) => {
+        hideAll()
+        $("#create").show()
     })
 
     $("#register").on("submit", (e) => {
@@ -125,7 +244,12 @@ $(document).ready( () => {
                 console.log('berhasil register')
             })
             .fail(err => {
-                console.log(err.responseText)
+                Toastify({
+                    text: err.responseText,
+                    newWindow: true,
+                    backgroundColor: "#b80d57",
+                    className: "ERROR",
+                  }).showToast();
             })
     })
 
@@ -142,26 +266,22 @@ $(document).ready( () => {
         })
             .done(({access_token}) => {
                 hideAll()
+                $("#quote").empty()
                 $("#nav-login").show()
                 localStorage.setItem('access_token', access_token)
                 fetchData()
-                $("#table").show()
+                $("#lists").show()
             })
             .fail(err => {
+                Toastify({
+                    text: err.responseText,
+                    newWindow: true,
+                    backgroundColor: "#b80d57",
+                    className: "ERROR",
+                  }).showToast();
                 console.log(err.responseText)
                 isLogin()
             })
-    })
-
-    $("#logout").on("click", (e) => {
-        e.preventDefault()
-        localStorage.clear()
-        isLogin()
-    })
-
-    $("#createTodo").on("click", (e) => {
-        hideAll()
-        $("#create").show()
     })
 
     $("#create").on("submit", (e) => {
@@ -186,7 +306,12 @@ $(document).ready( () => {
                 fetchData()
             })
             .fail(err => {
-                console.log(err)
+                Toastify({
+                    text: err.responseText,
+                    newWindow: true,
+                    backgroundColor: "#b80d57",
+                    className: "ERROR",
+                  }).showToast();
             })
     })
     
@@ -212,8 +337,14 @@ $(document).ready( () => {
                 fetchData()
             })
             .fail(err => {
-                console.log(err)
+                Toastify({
+                    text: err.responseText,
+                    newWindow: true,
+                    backgroundColor: "#b80d57",
+                    className: "ERROR",
+                  }).showToast();
             })
 
     })
+
 })
