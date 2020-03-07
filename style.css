@@ -20,10 +20,16 @@
 
 #login-page{
 display: flex;
+flex-direction: column;
 justify-content: center;
 align-items: center;
 height: 100vh;
 background-image: url('./images/background.png');
+}
+
+#quotes{
+  color: white;
+  margin-top: 3rem;
 }
 
 #login{
@@ -46,4 +52,23 @@ text-align: center;
 #gsignin{
   display: flex;
   justify-content: center;
+}
+
+#dashboard-page{
+  display: flex;
+  flex-direction: column;
+  
+  height: 100vh;
+  padding: 0 20rem;
+}
+
+#header-dash{
+  display: flex;
+  margin-top: 10rem;
+  justify-content: space-between;
+}
+
+#todos{
+  display: flex;
+
 }

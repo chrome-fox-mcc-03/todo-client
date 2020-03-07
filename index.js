@@ -30,6 +30,48 @@ function signOut() {
   });
 }
 
+function monthConvert(month) {
+  switch (month) {
+    case '01': 
+        month = 'Jan';
+        break;
+    case '02': 
+        month = 'Feb';
+        break;
+    case '03': 
+        month = 'Mar';
+        break;
+    case '04': 
+        month = 'Apr';
+        break;
+    case '05': 
+        month = 'May';
+        break;
+    case '06': 
+        month = 'Jun';
+        break;
+    case '07': 
+        month = 'Jul';
+        break;
+    case '08': 
+        month = 'Aug';
+        break;
+    case '09': 
+        month = 'Sep';
+        break;
+    case '10': 
+        month = 'Oct';
+        break;
+    case '11': 
+        month = 'Nov';
+        break;
+    case '12': 
+        month = 'Dec';
+        break;
+}
+return month;
+}
+
 function fetchTodoList() {
   $.ajax({
     method: "GET",
@@ -41,7 +83,28 @@ function fetchTodoList() {
     .done((todo) => {
       $('#todos').empty()
       for (let i = 0; i < todo.length; i++) {
-        $('#todos').append(`<p>${todo[i].title}</p><button onclick="editTodo(${todo[i].id})">Edit</button><button onclick="deleteTodo(${todo[i].id})">Delete</button>`)
+        let date = new Date(todo[i].due_date).toISOString().substring(0, 10)
+        let year = date.substring(0, 4)
+        let month = date.substring(5, 7)
+        let day = date.substring(8, 10)
+
+        month = monthConvert(month)
+        let newDate = `${day} ${month} ${year}`
+        $('#todos').append(`
+        <div class="col-md-4 col-sm-6 mb-3">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">${todo[i].title}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">${newDate}</h6>
+              <p class="card-text">${todo[i].description}</p>
+              <button onclick="deleteTodo(${todo[i].id})"   class="card-link">Delete</button>
+              <button onclick="editTodo(${todo[i].id})"   class="card-link">Update</button>
+            </div>
+          </div>
+        </div>
+        `)
+
+        // (`<p>${todo[i].title}</p><button onclick="editTodo(${todo[i].id})">Edit</button><button onclick="deleteTodo(${todo[i].id})">Delete</button>`)
       }
       console.log(todo);
     })
@@ -105,6 +168,19 @@ function deleteTodo(id) {
 }
 
 $(document).ready(function () {
+  $.ajax({
+    method: "GET",
+    url: "https://quote-garden.herokuapp.com/quotes/random",
+  })
+  .done((quotes) => {
+    console.log(quotes);
+    $('#quotes').append(`${quotes.quoteText}`)
+  })
+  .fail((err) => {
+    console.log(err);
+    
+  })
+
   let token = localStorage.getItem('token')
   if (token) {
     $('#register-page').hide()
@@ -132,7 +208,7 @@ $(document).ready(function () {
     })
       .done((token) => {
         localStorage.setItem('token', token)
-        console.log(token);
+        console.log(token.email);
         fetchTodoList()
         $('#register-page').hide()
         $('#login-page').hide()
@@ -265,7 +341,7 @@ $(document).ready(function () {
   $('#create-btn').on('click', function () {
     $('#register-page').hide()
     $('#login-page').hide()
-    $('#dashboard-page').show()
+    $('#dashboard-page').hide()
     $('#create-page').show()
     $('#update-page').hide()
   })
