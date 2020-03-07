@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Assistant&display=swap" rel="stylesheet">
+    <title>Fancy-Todo</title>
+</head>
+<body>
+        <!-- Navbar -->
+    <div class="container-fluid bg-dark" id="menu">
+        <div class="container">
+          <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-10">
+                  <nav class="navbar navbar-expand-lg navbar-light bg-transparent px-0">
+                      <button class="navbar-brand text-white bg-transparent btn " id="home">Fancy Todo</button>
+                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                      </button>
+                      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                          <ul class="navbar-nav mr-auto"></ul>
+                          <ul class="navbar-nav">
+                          <li class="nav-item">
+                             <button class="nav-link text-white btn bg-transparent mr-auto" id="signup">Sign Up</button>
+                          </li>
+                          <li class="nav-item">
+                              <button class="nav-link text-white btn bg-transparent mr-auto" id="login">Log In</button>
+                          </li>
+                          <li class="nav-item">
+                            <button class="nav-link text-white btn bg-transparent mr-auto" id="create-button">Create Todo</button>
+                          </li>
+
+                          </ul>
+                      </div>
+                      </nav>
+              </div>
+              <div class="col-md-1"></div>
+          </div>
+          </div>
+      </div>
+    
+      <div class="container-fluid bg-secondary py-5" id="navbar">
+          <div class="container">
+          <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-10">
+                  <h1 class="bg-white p-2 mb-2">Be productive with Fancy-Todo</h1>
+                  <h3 class="bg-white p-2">Make your day with Todo List</h3>
+              </div>
+              <div class="col-md-1"></div>
+          </div>
+          </div>
+      </div>
+  
+          <!-- END OF HEADER -->
+
+
+          <!-- Form Sign Up -->
+  
+      <div class="container" id="formRegister">
+          <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-5 mt-5">
+                  <h4>Create Your Account</h4>
+                  <form onsubmit="signUp(event)" id="sign-up">
+                    <div class="form-group" >         
+                        <label for="" class="h6">Email</label><br>
+                        <input type="text"  class="form-control" name="email" id="email">
+                    </div>
+                    <div class="form-group" >         
+                        <label for="" class="h6">Password</label><br>
+                        <input type="password"  class="form-control" name="password" id="password">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-dark btn-sm btn-block active" value="Submit">
+                    </div>
+                </form>
+              </div>
+              <div class="col-md-5 mt-4">
+              <img src="img/docs-anywhere.png" class="img-fluid">
+              </div>
+              <div class="col-md-1"></div>
+          </div>
+      </div>
+
+      <!-- FORM create-todo -->
+      <div class="container">
+          <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <div id="create-form">
+                    <h2>Create New Todo</h2>
+                    <form onsubmit="create(event)">
+                      <div class="form-group">
+                        <label >Title</label>
+                        <input type="text" class="form-control" id="title-create">
+                      </div>
+                      <div class="form-group">
+                          <label >Description</label>
+                          <input type="text" class="form-control" id="description-create">
+                      </div>
+                      <div class="form-group">
+                          <label >Due Date</label>
+                          <input type="date" class="form-control" id="due_date-create">
+                      </div>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    </div>
+              </div>
+              <div class="col-md-4"></div>
+          </div>
+      </div>
+
+       <!-- FORM update-todo -->
+       <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+              <div id="update-form">
+                  <h2>Update Todo</h2>
+                  <form onsubmit="update(event)">
+                    <div class="form-group">
+                      <label >Title</label>
+                      <input type="text" class="form-control" id="title-update">
+                    </div>
+                    <div class="form-group">
+                        <label >Description</label>
+                        <input type="text" class="form-control" id="description-update">
+                    </div>
+                    <div class="form-group">
+                        <label >Due Date</label>
+                        <input type="date" class="form-control" id="due_date-update">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+                  </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+
+      <!-- Login -->
+
+      <div class="container" id="formLogin">
+          <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-5 mt-1">
+              <img src="img/never-lose-a-file-again.png" class="img-fluid">
+              </div>
+              <div class="col-md-5 mt-3">
+                  <h4>Log In</h4>
+                  <form method="POST" onsubmit="login(event)">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput" class="h6" >Your Email:</label>
+                        <input type="email" name="email" class="form-control" id="emailLogin">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2" class="h6">Your Password:</label>
+                        <div id="errorPass"></div>
+                        <input type="password" name="password" class="form-control" id="passLogin">
+                    </div>
+                    <input type="submit" class="btn btn-dark btn-sm btn-block active" value="Submit">
+                </form>
+              </div>
+              <div class="col-md-1"></div>
+          </div>
+      </div>
+
+      <!-- table-todo -->
+
+      <div class="container" id="tableTodo">
+          <div class="row">
+            <table class="table table-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Options</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-list">
+                </tbody>
+              </table>
+          </div>
+      </div>
+
+      <!-- Home -->
+
+      <div class="container" id="welcome">
+          <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-5 mt-5">
+                  <h2>Welcome To Fancy-Todo</h2>
+                  <p>Fancy-Todo will help you to organize your plan in the next time. Let's join Fancy Todo!</p>
+              </div>
+              <div class="col-md-5">
+                  <img src="img/send-videos-quickly.png" class="img-fluid">
+              </div>
+              <div class="col-md-1"></div>
+          </div>
+      </div>
+
+      <!-- Footer here -->
+  
+      <div class="container" id="footer">
+          <div class="row mt-5">
+              <div class="col-md-1"></div>
+              <div class="col-md-10 footer">
+                  <p>Copyright &copy; Fancy-Todo by Ulfa Hasanah 2020</p>
+              </div>
+              <div class="col-md-1"></div>
+          </div>
+      </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+</body>
+</html>
