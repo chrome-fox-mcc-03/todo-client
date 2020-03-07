@@ -221,3 +221,28 @@ html, body {
   overflow-y: visible;
   height: 100%;
 }
+
+/* loading */
+.modalLoading {
+  display:    none;
+  position:   fixed;
+  z-index:    1000;
+  top:        0;
+  left:       0;
+  height:     100%;
+  width:      100%;
+  background: rgba( 255, 255, 255, .8 ) 
+              url('http://i.stack.imgur.com/FhHRx.gif') 
+              50% 50% 
+              no-repeat;
+  z-index: 1;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+body.loading .modalLoading {
+  overflow: hidden;   
+}
+
+body.loading .modalLoading {
+  display: block;
+}

@@ -13,7 +13,14 @@ $.ajax(settings).done(function (response) {
             `)
 });
 
+$body = $("body");
+
+$(document).on({
+    ajaxStart: function() { $body.addClass("loading");    },
+     ajaxStop: function() { $body.removeClass("loading"); }    
+});
 function fetchData() {
+
     $.ajax({
         method: "GET",
         url: "https://morning-reef-94255.herokuapp.com/todos",
