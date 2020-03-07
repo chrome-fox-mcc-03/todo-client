@@ -117,7 +117,11 @@ function list() {
       })
     })
     .fail(err => {
-      console.log(err, 'error list')
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: err.responseJSON.message
+      })
     })
 }
 
@@ -167,7 +171,11 @@ function dataUpdate(id) {
       updateId = id
     })
     .fail(err => {
-      console.log(err, 'error dataUpdate')
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: err.responseJSON.message
+      })
     })
 }
 
@@ -227,7 +235,11 @@ function doneUndone(id, status) {
       home()
     })
     .fail(err => {
-      console.log(err, 'error status')
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: err.responseJSON.message
+      })
     })
 }
 
@@ -448,7 +460,6 @@ $(document).ready(_ => {
           imageWidth: 500,
           imageHeight: 300
         })
-        console.log(data[0], 'success weather api')
         id()
       })
       .fail(_ => {
