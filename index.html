@@ -110,24 +110,29 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form class="form" id="formUpdate">
-                <div class="modal-body">
+            <div class="modal-body">
+                <form class="form" id="formUpdate">
                     <!-- <div class="containerSection" id="containerUpdate"> -->
-                    <input class="inputNotSubmit" id="titleUpdate" type="text" placeholder="Title"><br>
-                    <input class="inputNotSubmit" id="descriptionUpdate" type="text" placeholder="Description"><br>
-                    <select class="inputNotSubmit" id="statusUpdate">
+                    <label for="titleUpdate">To do</label>
+                    <input class="inputNotSubmitModal" id="titleUpdate" type="text" placeholder="Title"><br>
+                    <label for="descriptionUpdate">Description</label>
+                    <input class="inputNotSubmitModal" id="descriptionUpdate" type="text" placeholder="Description"><br>
+                    <label for="statusUpdate">Status</label>
+                    <select class="inputNotSubmitModal" id="statusUpdate">
                         <option value= "" >---STATUS---</option>
                         <option value="false">False</option>
                         <option value="true">True</option>
                     </select><br>
-                    <input class="inputNotSubmit" id="due_dateUpdate" type="date"><br>
+                    <label for="due_dateUpdate">Due Date</label>
+                    <input class="inputNotSubmitModal" id="due_dateUpdate" type="date"><br>
+                    <input class="submit" type="submit" value="Update" style="display: none;">
                     <!-- </div> -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <input class="btn btn-secondary" class="submit" type="submit" value="Update">
-                </div>
-            </form>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary"  id="submit-dummy-update">Update</button>
+            </div>
           </div>
         </div>
     </div>    
