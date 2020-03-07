@@ -1,10 +1,18 @@
 $("document").ready(() => {
+    generateQuotes()
     $("#log-out").hide()
     $(".dashboard-class").hide()
     if(localStorage.getItem('token')) {
         $("#log-out").show()
         $(".landing-page").hide()
         $(".dashboard-class").show()
+        generateQuotes()
+        .then(quotes => {
+            const random = Math.floor(Math.random() * 5)
+            const quoteToShow = quotes.results[random].quote
+            const author = quotes.results[random].author
+            $("#quotes").append(`<p class="quote-text">"${quoteToShow}"</p><p class="quote-author">— ${author}</p>`)
+        })
         $(".welcome-text").append(`<h1 class='welcome-text-child-name'> ${localStorage.getItem('name')}</h1>`)
         
     }
@@ -124,10 +132,11 @@ $("document").ready(() => {
 
     $("#todos-form").on('submit', (e) => {
         e.preventDefault()
+        const inputDate = `${parseDueDateEdit($("#due_date").val())}T${$("#due_time").val()}:00`
         const data = {
             title: $("#title").val(),
             description: $("#description").val(),
-            due_date: $("#due_date").val(),
+            due_date: new Date(inputDate),
         }
         $.ajax({
             url: 'http://localhost:3000/todos',
@@ -185,93 +194,73 @@ function showTodo(token){
 function backToDashboard(toHide){
     $(toHide).hide()
     $(".dashboard-class").css("filter", "") 
+    generateQuotes()
+    .then(quotes => {
+        const random = Math.floor(Math.random() * 5)
+        const quoteToShow = quotes.results[random].quote
+        const author = quotes.results[random].author
+        $("#quotes").append(`<p class="quote-text">"${quoteToShow}"</p><p class="quote-author">— ${author}</p>`)
+    })
+
+}
+
+function generateQuotes(){
+    $("#quotes").empty()
+    return $.ajax({ 
+        type : "GET", 
+        url : "https://api.paperquotes.com/apiv1/quotes/?lang=en&random=random&order=?", 
+        beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Token {token}');},
+        success : function(result) { 
+            return result.results; 
+        }, 
+        error : function(result) { 
+          console.error(result)
+        } 
+      }); 
 }
 
 function restartDashboard(){
     $("#ds-2").empty()
     $("#ds-1").empty()
     $("#ds-3").empty()
+    restartTodosForm()
+    $("#quotes").empty()
     showTodo(localStorage.getItem('token'))
     .then(placeTodo)
 }
 
 function placeTodo(result) {
-    let todosDataNotDone = []
-    let todosDataDone = []
-    $("#ds-1").append('<h3>Your todos</h3>')
-    $("#ds-3").append('<h3>Done todos</h3>')
+    $("#ds-1").append('<h3 class="div-title">Your todos</h3>')
+    $("#ds-3").append('<h3 class="div-title">Done todos</h3>')
+    $("#ds-2").append('<h3 class="div-title">Detail</h3>')
     $.each(result, (i, v) => {
-        if(!v.status) {
-            $("#ds-1").append(`<p class='todos' id='todos-${v.id}'>${v.title}</p>`)
-            todosDataNotDone.push(v)
-            $(`#todos-${v.id}`).on('click', () => {
-                $("#ds-2").empty()
-                const todos = {
-                    title: v.title,
-                    description: v.description,
-                    status: (v.status) ? 'Done' : 'Not done (yet!!!)',
-                    due_date: parseDueDate(v.due_date)
-                }
-                let color = ''
-                if(!v.status) color = 'style = "color: rgb(48, 3, 48)"'
-                else color = 'style = "color:green"'
-                $("#ds-2").append('<h3>Detail</h3>')
-                $("#ds-2").append(`<p class='todos-detail todos-title' > ${todos.title.toUpperCase()}</p>`)
-                $("#ds-2").append(`<p class='todos-detail todos-desc' > ${todos.description} </p>`)
-                $("#ds-2").append(`<p class='todos-detail todos-due_date' > Due date: ${todos.due_date} </p>`)
-                $("#ds-2").append(`<p class='todos-detail todos-status' ${color}> ${todos.status}</p>`)
-                if(todos.status !== 'Done') {
-                    $("#ds-2").append(`<button id='done-${v.id}' class= 'done-todos-btn'>I've done this!</button>`)
-                    $(`#done-${v.id}`).on('click', () => {
-                        doneTodo(v.id)
-                    })
-                }
-                $("#ds-2").append(`<button id='edit-${v.id}' class= 'todos-btn'>Edit</button>`)
-                $(`#edit-${v.id}`).on('click', () => {
-                    showUpdateTodo(v.id)
+        const status = (v.status) ? 'Done' : 'Not done (yet!!!)'
+        const color = (v.status) ?  'style = "color:green"' : 'style = "color: rgb(48, 3, 48)"'
+        const toAppend = (v.status) ?  "#ds-3" : "#ds-1"
+        $(toAppend).append(`<p class='todos' id='todos-${v.id}'>${v.title}</p>`)
+        $(`#todos-${v.id}`).on('click', () => {
+            $("#ds-2").empty()
+            $("#ds-2").append('<h3 class="div-title">Detail</h3>')
+            $("#ds-2").append(`<p class='todos-detail todos-title' > ${v.title.toUpperCase()}</p>`)
+            $("#ds-2").append(`<p class='todos-detail todos-desc' > ${v.description} </p>`)
+            $("#ds-2").append(`<p style="font-size:12px; margin:0; color:black">Due date: </p>`)
+            $("#ds-2").append(`<p class='todos-detail todos-due_date' style="margin:0" >${parseDueDate(v.due_date)} </p>`)
+            $("#ds-2").append(`<p class='todos-detail todos-status' ${color}> ${status}</p>`)
+            if(status !== 'Done') {
+                $("#ds-2").append(`<button id='done-${v.id}' class= 'done-todos-btn'>I've done this!</button>`)
+                $(`#done-${v.id}`).on('click', () => {
+                    doneTodo(v.id)
                 })
-                $("#ds-2").append(`<button class= 'todos-btn'id='button-${v.id}'>Delete</button>`)
-                $(`#button-${v.id}`).on('click', () => {
-                    deleteTodo(v.id)
-                })
+            }
+            $("#ds-2").append(`<button id='edit-${v.id}' class= 'todos-btn'>Edit</button>`)
+            $(`#edit-${v.id}`).on('click', () => {
+                showUpdateTodo(v.id)
             })
-        }
-        else{
-        $("#ds-2").empty()
-            $("#ds-3").append(`<p class='todos' id='todos-${v.id}'>${v.title}</p>`)
-            todosDataDone.push(v)
-            $(`#todos-${v.id}`).on('click', () => {
-                $("#ds-2").empty()
-                const todos= {
-                    title: todosDataDone[i].title,
-                    description: todosDataDone[i].description,
-                    status: (todosDataDone[i].status) ? 'Done' : 'Not done (yet!!!)',
-                    due_date: parseDueDate(todosDataDone[i].due_date)
-                }
-                let color = ''
-                if(!todosDataDone[i].status) color = 'style = "color: rgb(48, 3, 48)"'
-                else color = 'style = "color:green"'
-                $("#ds-2").append('<h3>Detail</h3>')
-                $("#ds-2").append(`<p class='todos-detail todos-title' > ${todos.title.toUpperCase()}</p>`)
-                $("#ds-2").append(`<p class='todos-detail todos-desc' > ${todos.description} </p>`)
-                $("#ds-2").append(`<p class='todos-detail todos-due_date' > Due date: ${todos.due_date} </p>`)
-                $("#ds-2").append(`<p class='todos-detail todos-status' ${color}> ${todos.status}</p>`)
-                if(todos.status !== 'Done') {
-                    $("#ds-2").append(`<button id='done-${v.id}' class= 'done-todos-btn'>I've done this!</button>`)
-                    $(`#done-${v.id}`).on('click', () => {
-                        doneTodo(v.id)
-                    })
-                }
-                $("#ds-2").append(`<button id='edit-${v.id}' class= 'todos-btn'>Edit</button>`)
-                $(`#edit-${v.id}`).on('click', () => {
-                    showUpdateTodo(v.id)
-                })
-                $("#ds-2").append(`<button class= 'todos-btn'id='button-${v.id}'>Delete</button>`)
-                $(`#button-${v.id}`).on('click', () => {
-                    deleteTodo(v.id)
-                })
+            $("#ds-2").append(`<button class= 'todos-btn'id='button-${v.id}'>Delete</button>`)
+            $(`#button-${v.id}`).on('click', () => {
+                deleteTodo(v.id)
             })
-        }
+        })
     })
 }
 
@@ -322,10 +311,9 @@ function showUpdateTodo(id){
                 <input type="text" id="edit-title-${id}" name="title" class= "sign-up-text" value="${result[0].title}"><br>
                 <label for="description" class= "sign-up-text-top">Description: </label><br>
                 <input type="text" id="edit-description-${id}" name="description" class= "sign-up-text" value="${result[0].description}"><br>
-                <label for="due_date" class= "sign-up-text-top">Due-date: </label><br>
-                <input type="text" id="edit-due_date-${id}" name="due_date" class= "sign-up-text" value="${result[0].due_date}"><br>
                 <input type="submit" value="Edit" class="add-todos-btn" id="edit-todos-${id}">
                 <button type="button" id="back-todos-edit-${id}" class="back-todos-edit">Back</button>
+                <p id="error-edit" class="error-msg"><br></p>
             </form>
         </div>
         </section>`)
@@ -354,6 +342,10 @@ function showUpdateTodo(id){
             .done(result => {
                 backToDashboard(".edit-todos")
                 restartDashboard()
+            })
+            .fail(error => {
+                const errors = error.responseJSON.msg.split(',')
+                $('#error-edit').text(`${errors[0].split(': ')[1]}`)
             })
         })
     })
@@ -389,9 +381,35 @@ function onSignIn(googleUser) {
 function parseDueDate(datei){
     datei = new Date(datei)
     let date = datei.getUTCDate() + 1;
+    let month = datei.getUTCMonth() + 1;
+    let year = datei.getUTCFullYear();
+    let hour = datei.getHours()
+    let ampm = ''
+    if(hour > 12) {
+        hour = hour - 12;
+        ampm = 'PM'
+    } else {
+        ampm = 'AM'
+    }
+    if(String(hour).length < 2) hour = '0' + hour;
+    let minutes = datei.getMinutes()
+    if(String(minutes).length < 2) minutes = '0' + minutes;
+
+    return ` ${hour} : ${minutes} ${ampm} - ${date}/${month}/${year}`;
+}
+
+function parseDueDateEdit(datei){
+    datei = new Date(datei)
+    let date = datei.getUTCDate() + 1;
     if(String(date).length < 2) date = '0' + date;
     let month = datei.getUTCMonth() + 1;
     if(String(month).length < 2) month = '0' + month;
     let year = datei.getUTCFullYear();
-    return `${date}/${month}/${year}`;
+    return `${year}-${month}-${date}`;
+}
+
+function restartTodosForm(){
+    $("#title").val('')
+    $("#description").val('')
+    $("#due_date").val('')
 }

@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Lato|Spartan:500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Spartan:500,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:400,600,800&display=swap" rel="stylesheet">
     <meta name="google-signin-client_id" content="599194754739-9ni3gbquv1bshig5tkarkra973add22c.apps.googleusercontent.com">
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Todo client</title>
@@ -72,14 +73,22 @@
             <div class="content-body">
                 <div class="ds-divs" id="ds-1">
                 </div>
-                <div class="ds-divs" id="ds-2">                    
+                <div class="ds-divs" id="ds-2">                   
                 </div>
                 <div class="ds-divs" id="ds-3">
-                    
+                </div>
+                <div class="ds-divs div-additional" id="ds-4">
+                </div>
+                <div class="ds-divs div-additional" id="ds-5">
                 </div>
             </div>
-                
-            <a class="add-btn"><img src="./img/add.svg" alt="add" ></a>
+            <div class="footer-dashboard">
+                <div class='btn-div'>
+                    <a class="add-btn"><img src="./img/add.svg" alt="add" ></a>
+                </div>
+                <div id="quotes" style="display: flex; flex-direction: row;">
+                </div>
+            </div>
         </div>
     </section>
 
@@ -92,7 +101,9 @@
                 <label for="description" class= "sign-up-text-top">Description: </label><br>
                 <input type="text" id="description" name="description" class= "sign-up-text"><br>
                 <label for="due_date" class= "sign-up-text-top">Due-date: </label><br>
-                <input type="text" id="due_date" name="due_date" class= "sign-up-text"><br>
+                <input type="date" id="due_date" name="due_date" class= "sign-up-text"><br>
+                <label for="time" class= "sign-up-text-top">Time: </label><br>
+                <input type="time" id="due_time" name="due_time" class= "sign-up-text"><br>
                 <input type="submit" value="Add" class="add-todos-btn" id="add-todos">
                 <button type="button" class="back-todos-add">Back</button>
                 <p id="error-add" class="error-msg"><br></p>
