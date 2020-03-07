@@ -119,7 +119,6 @@ function fetchTodo() {
         </div>
       </div>`
       $('#todo-board').html(content);
-      $.notify(err.responseJSON.message, 'error');
     })
     .always(_=> {
       $("#todo-board").loading('stop');
