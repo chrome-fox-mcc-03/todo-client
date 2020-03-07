@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="container"></div>
+    
         <nav id="nav-not-logedIn" class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">Fancy Todo</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -52,9 +52,10 @@
     
          <br>
 
-    
-        <div class="row">
-            <section id="login" class="col-sm-6">
+    <div class="container-flex">
+        <div class="row logn-register">
+            <div class="col-sm-1"></div>
+            <section id="login" class="col-sm-5">
                 <h1>Login</h1>
                 <form id="login-form">
                     <div class="form-group row">
@@ -74,7 +75,7 @@
                 <div class="g-signin2" data-onsuccess="onSignIn"></div>
             </section>
     
-            <section id="register" class="col-sm-6"">
+            <section id="register" class="col-sm-5">
                 <h1>Register</h1>
                 <form id="register-form">
                     <div class="form-group row">
@@ -92,50 +93,55 @@
                     <button type="submit" class="btn btn-primary">Register</button>
                 </form>
             </section>
+            <div class="col-sm-1"></div>
         </div>
 
-        <section id="update-todo" style="width: 25vw;">
-            <h1>Update Todo</h1>
-            <form id="update-todo-form">
-                <div class="form-group row">
-                    <label for="edit-todo-title" class="col-sm-3 col-form-label">Title</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" id="edit-todo-title">
+        <section id="update-todo" class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <h1>Update Todo</h1>
+                <form id="update-todo-form">
+                    <div class="form-group row">
+                        <label for="edit-todo-title" class="col-md-3 col-form-label">Title</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="edit-todo-title">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="edit-todo-description" class="col-sm-3 col-form-label">Description</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" id="edit-todo-description">
+                    <div class="form-group row">
+                        <label for="edit-todo-description" class="col-md-3 col-form-label">Description</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="edit-todo-description">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="edit-todo-duedate" class="col-3 col-form-label">Due date</label>
-                    <div class="col-9">
-                        <input class="form-control" type="datetime-local" id="edit-todo-duedate">
+                    <div class="form-group row">
+                        <label for="edit-todo-duedate" class="col-md-3 col-form-label">Due date</label>
+                        <div class="col-md-9">
+                            <input class="form-control" type="datetime-local" id="edit-todo-duedate">
+                        </div>
                     </div>
-                </div>
-                <!-- <div class="form-group row">
-                    <label for="edit-todo-status" class="col-3 col-form-label">status</label>
-                    <div class="col-9">
-                        <input class="form-control" type="text" id="edit-todo-status">
+                    <!-- <div class="form-group row">
+                        <label for="edit-todo-status" class="col-3 col-form-label">status</label>
+                        <div class="col-9">
+                            <input class="form-control" type="text" id="edit-todo-status">
+                        </div>
+                    </div> -->
+                    <div class="form-group row">
+                        <label for="edit-todo-status" class="col-md-3 col-form-label">status</label>
+                        <div class="col-md-9">
+                            <select class="form-control" id="edit-todo-status">
+                                <option value="pending">Pending</option>
+                                <option value="done">Done</option>
+                            </select>
+                        </div>
                     </div>
-                </div> -->
-                <div class="form-group row">
-                    <label for="edit-todo-status" class="col-3 col-form-label">status</label>
-                    <div class="col-9">
-                        <select class="form-control" id="edit-todo-status">
-                            <option value="pending">Pending</option>
-                            <option value="done">Done</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Update</button>
-            </form>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
         </section>
 
         <div id="home" class="row">
-            <section id="todo-create" class="col-sm-4">
+            <div class="col-md-1"></div>
+            <section id="todo-create" class="col-md-3">
                 <h1>Create New Todo</h1>
                 <form id="create-todo-form">
                     <div class="form-group row">
@@ -160,12 +166,12 @@
                     <button type="submit" class="btn btn-primary float-right">Create</button>
                 </form>
                 <br><br><br><br>
-                <div id="quotes">
+                <div id="quotes" style="text-align: center;">
 
                 </div>
             </section>
 
-            <section id="todo-list" class="col-sm-8">
+            <section id="todo-list" class="col-md-7">
                 <h1>Todo List </h1>
                 <table class="table table-striped" id="todo-table">
                     <thead>
@@ -182,6 +188,7 @@
                     </tbody>
                 </table>
             </section>
+            <div class="col-md-1"></div>
         </div>
 
     </div>

@@ -272,8 +272,9 @@ function onSignIn(googleUser) {
 
 const showLoginRegister = (err) => {
     showError(err);
-    $("#login").show();
-    $("#register").show();
+    // $("#login").show();
+    // $("#register").show();
+    $("#login-register").show();
     $("#update-todo").hide();
     $("#todo-list").hide();
     $("#todo-create").hide();
@@ -282,8 +283,9 @@ const showLoginRegister = (err) => {
 
 const showUpdate = (err) => {
     showError(err);
-    $("#login").hide();
-    $("#register").hide();
+    // $("#login").hide();
+    // $("#register").hide();
+    $("#login-register").hide();
     $("#update-todo").show();
     $("#todo-list").hide();
     $("#todo-create").hide();
@@ -294,8 +296,9 @@ const showTodoList = (err) => {
     showError(err);
     // $("#todo-duedate").val(generateDate());
     clearCreateTodo();
-    $("#login").hide();
-    $("#register").hide();
+    // $("#login").hide();
+    // $("#register").hide();
+    $("#login-register").hide();
     $("#update-todo").hide();
     $("#todo-list").show();
     $("#todo-create").show();
