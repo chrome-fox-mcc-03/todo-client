@@ -1,10 +1,12 @@
 /* DEFAULT */
 const defaultView = () => {
     $('#registerForm').show();
+    $('#register').show();
     // todoCards
     $('#todoCards').hide();
     // Login Form
     $('#loginForm').hide();
+    $('#login').show();
     // Logout Button
     $('#logout').hide();
     // Default Register Form Show
@@ -28,12 +30,10 @@ const loginView = () => {
 const isLogin = () => {
     $('#registerForm').hide();
     $('#register').hide();
-    // todoCards
-    $('#todoCards').show();
     // Login Form
     $('#login').hide();
     $('#loginForm').hide();
-    // Logout Button$('#login').hide();
+    // Logout Button
     $('#logout').show();
     // Default Register Form Show
     $('#emailLoginAlert').hide();
@@ -47,10 +47,6 @@ const registerSuccess = () => {
     $('#loginForm').show();
 };
 
-/* HOME AREA */
-
-
-/* REGISTER AREA */
 const registerClick = () => {
     $('#register').on('click', () => {
         // register form;
@@ -72,6 +68,44 @@ const clearInput = () => {
     $('#inputEmail').val('');
     $('#inputPassword').val('');
 }
+
+/* CONTENT CARD TODO */
+
+const cardTodo = (todos) => {
+    let string;
+    $('#todoCards').empty();
+    todos.forEach((todo, index) => {
+        if (todo.status === null) todo.status = false;
+        string = `<div class="card-box"><div class="card text-white bg-info todolist">
+  <div class="card-header">#${index + 1}.</div>
+  <div class="card-body">
+    <h5 class="card-title">${todo.title}</h5>
+    <p class="card-text">
+    ${todo.description}
+    </p>
+    <h6>Todo Status</h6>
+    <p class="card-text">
+    ${todo.status}
+    </p>
+    <h6>Due Date</h6>
+    <p class="card-text">
+    ${todo.due_date}
+    </p>    
+  </div>
+  <div class="btn-group">
+      <button type="button" class="updateTodo btn btn-light">
+        Update
+      </button>
+      <button type="button" class="deleteTodo btn btn-dark">
+        Delete
+      </button>
+      </div>
+    </div>
+    </div>`
+        $('#todoCards').append(string);
+    })
+}
+
 
 $(document).ready(() => {
     if (!localStorage.token) {
@@ -115,18 +149,32 @@ $(document).ready(() => {
             email: $('#loginEmail').val(),
             password: $('#loginPassword').val()
         }
-        console.log(payload)
+
+        console.log(payload);
 
         login(payload).done(response => {
             console.log(response)
             const token = response.token;
             localStorage.setItem('token', token);
             isLogin();
+            // Fetch todos
+            fetchTodos().done(response => {
+                $('#todoCards').show();
+                cardTodo(response);
+            }).fail(err => {
+                console.log(err);
+            })
+
         }).fail(err => {
             loginView();
         })
     })
 
-
+    $('#logout').on('click', () => {
+        localStorage.removeItem('token');
+        localStorage.clear();
+        loginView();
+        clearInput();
+    });
 })
 
