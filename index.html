@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-signin-client_id" content="1020945771556-q3akh0umr2vg72h63s3c4pehsinsmea1.apps.googleusercontent.com">
     <title>Fancy Todo</title>
+    <link href="https://fonts.googleapis.com/css?family=Caveat|Indie+Flower|Oswald|Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css">
 </head>
 <body style="margin-left: 15vw;margin-right: 15vw">
-    <h1 align="center">Welcome</h1>
+    <h1 align="center" id="title-todo">Your Todo Fancy</h1>
 
     <section id="login-page" align="center">
-        <h2>Login Page</h2>
-        Please log-in first!
+        <h2>Login</h2>
+        <p>Please log-in first!</p>
         <br><br>
         <form onsubmit="login(event)" style="margin: 0px 25px;" id="form-login">
             <div class="form-group">
@@ -22,53 +25,56 @@
             <div class="form-group">
               <input type="password" class="form-control" id="password-login" placeholder="password">
             </div>
-            <br>
-            <input id="btn-login" type="submit" value="Login"><br>
-
+            <input class="btn btn-light" id="btn-login" type="submit" value="Login"><br>
             <small id="errorMessage-login" style="color:red"></small>
         </form>
         <br>
         <div align="center">
-          Don't have account? <a onclick="wantToRegister()" id="wantToRegister" style="cursor: pointer;color: blue">Please register here!</a> 
-          <br><br>
-          OR<br><br>
-          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          <p>
+            Don't have account? <a onclick="wantToRegister()" id="wantToRegister" style="cursor: pointer;color: lightblue">Please register here!</a> 
+            <br><br>
+            OR<br><br>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          </p>
         </div>
     </section>
 
-    <section id="register-page" style="display: none;">
-        <h2>Register Page</h2>
-        Register here!
+    <section id="register-page" style="display: none;" align="center">
+        <h2>Register</h2>
+        <p>Register here!</p>
         <br><br>
         <form onsubmit="register(event)" style="margin: 0px 25px;" id="form-register">
             <div class="form-group">
-              <label for="email">E-mail: </label>
+              <label for="email"><p>E-mail:</p> </label>
               <input type="text" class="form-control" id="email-register" placeholder="email">
             </div>
             <br>
             <div class="form-group">
-              <label for="password">Password: </label>
-              <input type="password" class="form-control" id="password-register" placeholder="password minimal 6 characters">
+              <label for="password"><p>Password:</p> </label>
+              <input type="password" class="form-control" id="password-register" placeholder="password minimal 5 chars">
             </div>
             <br>
-            <input type="submit" value="Register">
+            <input class="btn btn-light" type="submit" value="Register">
             <br>
             <small id="errorMessage-register" style="color:red"></small>
           </form>
           <br>
-          Have account? <a onclick="wantToLogin()" id="wantToLogin" style="cursor: pointer;color: blue">Please login here!</a>
+          <p>Have account? <a onclick="wantToLogin()" id="wantToLogin" style="cursor: pointer;color: lightblue">Please login here!</a></p>
     </section>
 
     <section id="dashboard-page" style="display: none;" align="center">
-        <h2>Dashboard Page</h2>
-        <table class="table">
+        <br>
+        <button type="button" data-toggle="modal" data-target="#addTodo-class" class="btn btn-success">Add Todo</button>
+        <br><br>
+        <table class="table table-striped" id="table-dashboard">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Todo</th>
-              <th scope="col">Description</th>
-              <th scope="col">status</th>
-              <th scope="col">Due Date</th>
+              <th>#</th>
+              <th>Todo</th>
+              <th>Description</th>
+              <th>Status</th>
+              <th>Due Date</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody id="todoLists">
@@ -76,25 +82,121 @@
         </table>
         <br>
         <div id="quotesOfTheDay">
-          <p id="quotes">Give me a musem and I'll fill it!</p>
-          <p id="author">Pablo Picasso</p>
+          <p id="quotes-title" >Your Quotes of The Day!</p>
+          <p id="quotes"><i>Give me a museum and I'll fill it! </i></p>
+          <br>
+          <p id="author">- Pablo Picasso</p>
         </div>
         <br>
-        <button onclick="logout()" id="btn-logout">Logout</button>
+        <button class="btn btn-warning" onclick="logout()" id="btn-logout">Logout</button>
     </section>
 
-    <section id="addTodo-section">
-
+    <section id="addTodo-section" style="top: -1080px;">
+      <div class="modal" id="addTodo-class" tabindex="-1" role="dialog" aria-labelledby="AddTodo" aria-hidden="true" style="height: auto">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addTodo-label">New Todo</h5>
+            </div>
+            <div class="modal-body">
+              <form onsubmit="createTodo(event)">
+                <div class="form-group">
+                  <label class="col-form-label">Title:</label>
+                  <input type="text" class="form-control" id="todo-title">
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Description:</label>
+                  <textarea class="form-control" id="todo-description"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Due Date:</label>
+                  <input class="form-control" id="todo-due_date" type="date"></input>
+                  </div>
+                  
+                </div>
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="Add Todo">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                  <small id="errorMessage-addTodo" style="color:red"></small>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
-    
+  
+    <section id="updateTodo-section" style="top: -1080px;">
+      <div class="modal" id="updateTodo-class" tabindex="-1" role="dialog" aria-labelledby="UpdateTodo" aria-hidden="true" style="height: auto">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="updateTodo-label">Update Todo</h5>
+            </div>
+            <div class="modal-body">
+              <form id="updateTodo">
+                <div class="form-group">
+                  <label class="col-form-label">Title:</label>
+                  <input type="text" class="form-control" id="update-todo-title">
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Description:</label>
+                  <textarea class="form-control" id="update-todo-description"></textarea>
+                </div>
+                <div class="form-group">
+                  <input class="form-control" id="update-todo-due_date" type="date"></input>
+                <div class="form-group">
+                  <label>Status</label>
+                  <select id="update-todo-status">
+                    <option id="status-true" value="true">Complete</option>
+                    <option id="status-false" value="false">On Progress</option>
+                  </select>
+                </div>
+                  <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="Update Todo">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                  <small id="errorMessage-addTodo" style="color:red"></small>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
+
+
+    <section id="deleteConfirmation-section" style="top: -1080px;">
+      <div class="modal" tabindex="-1" role="dialog" id="deleteConfirmation-class" style="height: auto">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Delete Confirmation</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              </button>
+            </div>
+            <div class="modal-body">
+              <p id="delete-message" style="color: black">Are you sure want to delete your Todos?</p>
+              <form onsubmit="deleteConfirmation(event, id)">
+                <input type="submit" class="btn btn-primary" value="Delete Todo">
+              </form>
+            </div>
+            <div class="modal-footer">
+
+              <button onclick="test(event, id)" type="submit" class="btn btn-danger ">Yes</button>
+              <button type="button" class="btn btn-light" data-dismiss="modal">No</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <script src="index.js"></script>
     
 </body>
 </html>

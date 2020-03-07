@@ -1,7 +1,9 @@
-
 $(document).ready(function() {
     let token = localStorage.getItem('token')
-    
+    $("#addTodo-class").modal('hide')
+    $("#updateTodo-class").modal('hide') 
+    $("#errorMessage-login").empty()   
+
     if(token) {
         $("#dashboard-page").show()
         $("#register-page").hide()
@@ -14,15 +16,13 @@ $(document).ready(function() {
         $("#login-page").show()
     }
 
-
-
 })
 
 function login(event) {
     event.preventDefault()
+    $("#errorMessage-login").empty()
     const email = $("#email-login").val();
     const password = $("#password-login").val();
-    $("#errorMessage").empty()
 
     $.ajax({
         method: "POST",
@@ -101,6 +101,7 @@ function wantToLogin() {
 }
 
 function getTodos(token) {
+    let status;
     $.ajax({
         method: "GET",
         url: "http://localhost:3000/todos",
@@ -111,13 +112,23 @@ function getTodos(token) {
         .done(function(response) {
             $("#todoLists").empty()
             response.todos.forEach((element, i) => {
+                if(element.status) {
+                    status = "Completed"
+                }
+                else {
+                    status = "On Progress"
+                }
                 $("#todoLists").append(`
                 <tr>
                     <td>${i+1}</td>
                     <td>${element.title}</td>
                     <td>${element.description}</td>
-                    <td>${response.status === "true" ? "Completed"  : "On Progress"}</td>
+                    <td>${status}</td>
                     <td>${moment(element.due_date).format('LL')}</td>
+                    <td>
+                    <button onclick="updateTodoLanding(event, ${element.id})" type="button" data-toggle="modal" data-target="#updateTodo-class" class="btn btn-primary">Update</button>                    
+                    <button onclick="deleteTodo(event, ${element.id})" type="button" class="btn btn-danger">Delete</button>
+                    </td>
                 </tr>
                 `)
             })
@@ -149,34 +160,157 @@ function onSignIn(googleUser) {
             $("#dashboard-page").show()
             $("#register-page").hide()
             $("#login-page").hide()
-            getTodos(response)
+            localStorage.setItem('token', response)
+            quotes()
         })
         .fail(function(err, msg) {
+            $("#errorMessage-login").empty()
             err.responseText = JSON.parse(err.responseText)
             $("#errorMessage-login").append(err.responseText.message)
         })
 
   }
 
-  function quotes() {
+function quotes() {
 
-        $("#quotesOfTheDay").empty()
-        $.ajax({
-            method: "GEaasdasdT", // only 50 calls / day, if exceeded, will show given quotes, change to "GET" with caution! 
-            url: "http://localhost:3000/todos/quotes"
+    $("#quotesOfTheDay").empty()
+    $.ajax({
+        method: "GE_T", // only 50 calls / month, if exceeded, will show given quotes, change to "GET" with caution! 
+        url: "http://localhost:3000/todos/quotes"
+    })
+        .done(response => {
+            let quote = response[0].quote
+            let author = response[0].author
+            $("#quotesOfTheDay").append(`
+            <p id="quotes-title" >Your Quotes of The Day!</p>
+            <p id="quotes"> ${quote} </p>
+            <p id="author"> - ${author} </p>
+            `)
         })
-            .done(response => {
-                let quote = response[0].quote
-                let author = response[0].author
-                $("#quotesOfTheDay").append(`
-                <p id="quotes"> ${quote} </p>
-                <p id="author"> - ${author} </p>
-                `)
-            })
-            .fail(err => {
-                $("#quotesOfTheDay").append(`
-                <p id="quotes"> Astra inclinant, sed non obligant. </p>
-                <p id="author"> NOT Andreas Anggara </p>
-                `)
-            })
-  }
+        .fail(err => {
+            $("#quotesOfTheDay").append(`
+            <p id="quotes-title" >Your Quotes of The Day!</p>
+            <p id="quotes"> Astra inclinant, sed non obligant. </p> 
+            <p id="author"> NOT Andreas Anggara </p>
+            `)
+            // Astra inclinant, sed non obligant means "The stars incline us, they do not bind us" in latin
+        })
+}
+
+function createTodo(event) {
+    event.preventDefault()
+    $("#errorMessage-addTodo").empty()
+    const title = $("#todo-title").val();
+    const description = $("#todo-description").val();
+    const due_date = $("#todo-due_date").val();
+    let token = localStorage.getItem('token') 
+    $.ajax({
+        method: "POST",
+        url: "http://localhost:3000/todos",
+        headers: {
+            token  
+        },
+        data: {
+            title,
+            description,
+            due_date
+        }
+    })
+        .done(response => {
+            getTodos(token)
+            $("#dashboard-page").show()
+            $("#register-page").hide()
+            $("#login-page").hide()
+            $("#addTodo-class").modal('toggle')
+
+        })
+        .fail(err => {
+            err.responseText = JSON.parse(err.responseText)
+            $("#errorMessage-addTodo").append(err.responseText.message[0])
+        })
+}
+
+function deleteTodo(event, id) {
+    event.preventDefault()
+    let token = localStorage.getItem('token')
+    $.ajax({
+        method: "DELETE",
+        url: `http://localhost:3000/todos/${id}`,
+        headers: {
+            token
+        }
+    })
+        .done(response => {
+            getTodos(token)
+            $("#dashboard-page").show()
+            $("#register-page").hide()
+            $("#login-page").hide()
+        })
+        .fail(err => {
+            console.log(err);
+        })
+}
+
+function updateTodo(event, id) {
+    event.preventDefault()
+    let token = localStorage.getItem('token')
+    let title = $("#update-todo-title").val()
+    let description = $("#update-todo-description").val()
+    let due_date = $("#update-todo-due_date").val()
+    let status = $("#update-todo-status").val()
+
+    $.ajax({
+        method: "PUT",
+        url: `http://localhost:3000/todos/${id}`,
+        headers: {
+            token
+        },
+        data: {
+            title,
+            description,
+            due_date,
+            status
+        }
+    })
+        .done(response => {
+            getTodos(token)
+            $("#dashboard-page").show()
+            $("#register-page").hide()
+            $("#login-page").hide()
+            $("#updateTodo-class").modal('toggle')
+        })
+
+        .fail(err => {
+            console.log(err);
+        })
+}
+
+function updateTodoLanding(event, id) {
+    event.preventDefault()
+    $("#updateTodo").attr("onsubmit", `updateTodo(event, ${id})`)
+
+    let token = localStorage.getItem('token')
+    $.ajax({
+        method: "GET",
+        url: `http://localhost:3000/todos/${id}`,
+        headers: {
+            token
+        }
+    })
+        .done(response => {
+            let date = response.todo.due_date.substring(0,10)
+            $("#update-todo-title").val(response.todo.title)
+            $("#update-todo-description").val(response.todo.description)
+            $("#update-todo-due_date").val(date)
+            if(response.todo.status) {
+                $("#status-true").attr("selected", "")
+            }
+            else {
+                $("#status-false").attr("selected", "")
+            }
+        })
+
+        .fail(err => {
+            console.log(err);
+        })
+}
