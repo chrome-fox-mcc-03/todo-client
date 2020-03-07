@@ -25,6 +25,9 @@ function hideAll() {
   $("#list-id").hide()
   $(".form-edit").hide()
   $(".drop").hide()
+  $(".news").hide()
+  $("#news").hide()
+  $("#news-title").hide()
 }
 
 function randomImage(){
@@ -42,6 +45,9 @@ function isLogin() {
     hideAll()
     $(".drop").show()
     $("#list-id").empty()
+    $(".news").empty()
+    $("#news").show()
+    news()
     fetch()
     $(".logout").show()
     $(".add").show()
@@ -53,7 +59,47 @@ function isLogin() {
   }
 }
 
+function news() {
+  $("#news-title").show()
+  $.ajax({
+    url: 'http://localhost:3000/api',
+    method: 'get',
+    headers: {
+      token: localStorage.getItem('token')
+    }
+  })
+    .done(data => {
+      for(let i = 0 ; i < 6;i++ ){
+        $('#news').append(
+          `
+        <div class="col s12 m4">
+          <div class="card medium">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="${data.articles[i].urlToImage}">
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">${data.articles[i].title}<i class="material-icons right">info_outline
+            </i></span>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">Details<i class="material-icons right">close</i></span>
+            <div>Description: <blockquote>${data.articles[i].description}</blockquote></div>
+            <div>publishedAt: <blockquote>${new Date(data.articles[i].publishedAt).toDateString()}</blockquote></div>
+            <div>content: <blockquote>${data.articles[i].content}</blockquote></div>
+          </div>
+          </div>
+        </div>
+     `
+        )
+      }
+    })
+    .fail(err =>{
+      console.log(err)
+    })
+}
+
 function fetch() {
+  $("#todo-title").show()
   $.ajax({
     method: "get",
     url: "http://localhost:3000/todo",
@@ -265,6 +311,7 @@ $(".errorPassword").hide()
 
 
 $(document).ready(() => {
+  isLogin()
   $('.dropdown-trigger').dropdown({
     'hover': true,
     'autoTrigger': true,
@@ -272,7 +319,6 @@ $(document).ready(() => {
     
   });
   hideAll()
-  $('.carousel').carousel();
   isLogin()
   $('.progress').hide()
   $(".form-todo").on('submit', (e) => {
@@ -312,6 +358,7 @@ $(document).ready(() => {
   })
   $(".logout").on('click',(e) => {
     e.preventDefault()
+    hideAll()
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
       console.log('User signed out.');
