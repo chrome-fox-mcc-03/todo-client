@@ -4,7 +4,7 @@ $(document).ready(() => {
       dashboard()
    } else {
       landingPage()
-   }
+   }  
 })
 
 function registerPage() {
@@ -17,6 +17,7 @@ function registerPage() {
 
 function landingPage() {
    $('#landingPage').show()
+   $('#navbar').hide()
    $('#registerPage').hide()
    $('#createTodo').hide()
    $('#updateTodo').hide()
@@ -32,16 +33,16 @@ function showUpdate(id) {
          token: localStorage.getItem('token')
       }
    })
-      .done(response => {
-         console.log(response);
-         
+      .done(response => {         
          let dueDate = moment(response.due_date).format('YYYY-MM-DD')
          $("#titleUpdate").val(response.title);
          $("#descriptionUpdate").val(response.description);
          $("#due_dateUpdate").val(dueDate);
       })
       .fail(err => {
-         console.log(err)
+         let msg = err.responseJSON.err
+         let status = err.status
+         swal(`Error ${status}`, `${msg}`, "error");
       })
    $('#landingPage').hide()
    $('#registerPage').hide()
@@ -55,8 +56,10 @@ function dashboard() {
    $('#registerPage').hide()
    $('#createTodo').hide()
    $('#updateTodo').hide()
+   $('#navbar').show()
    $('#dashboard').show()
    getTodos()
+   $('body').attr('style', `background-image:url(https://static.pexels.com/photos/371633/pexels-photo-371633.jpeg); background-repeat:no-repeat; background-size: 100%;`)
 }
 
 function createPage() {
@@ -82,10 +85,18 @@ function signUp(event) {
    })
       .done(response => {
          localStorage.setItem('token', response)
+         swal({
+            title: "Good job!",
+            text: "Register is success",
+            icon: "success",
+            button: "Please Login",
+        });
          dashboard()
       })
       .fail(err => {
-         console.log(err);
+         let msg = err.responseJSON.err
+         let status = err.status
+         swal(`Error ${status}`, `${msg}`, "error");
       })
 }
 
@@ -104,19 +115,34 @@ function signIn(event) {
    })
       .done(response => {
          localStorage.setItem('token', response)
+         swal({
+            title: "Good job!",
+            text: "You are Login now",
+            icon: "success",
+            button: "Oke",
+        });
          dashboard()
+
       })
       .fail(err => {
-         console.log(err);
+         let msg = err.responseJSON.err
+         let status = err.status
+         swal(`Error ${status}`, `${msg}`, "error");
       })
    }
 function signOut() {
    localStorage.removeItem('token')
    var auth2 = gapi.auth2.getAuthInstance();
    auth2.signOut().then(function () {
-   console.log('User signed out.');
    });
+   swal({
+      title: "Good Bye!",
+      text: "See You Later",
+      icon: "success",
+  });
+   $('body').attr('style', 'background: grey')
    $('#dashboard').hide()
+   $('#navbar').hide()
    $('#landingPage').show()
 }
 
@@ -139,15 +165,19 @@ function getTodos() {
             <tr>
                <td>${i + 1}</td>
                <td>${el.title}</td>
+               <td>${el.description}</td>
                <td>${status}</td>
                <td>${moment(el.due_date).format('LL')}</td>
-               <td style="text-align:right"><button type="button" class="btn btn-primary" onClick="showUpdate(${el.id})">Update</button></td>
-					<td><button type="button" class="btn btn-danger" onClick="deleteTodo(${el.id})">Delete</button></td>
-         `)
+               <td><button class="btn btn-sm btn-primary" onclick="showUpdate(${el.id})"><i class="far fa-edit"></i> edit</button>
+               <button class="btn btn-sm btn-danger" onclick="deleteTodo(${el.id})"><i class="fas fa-trash-alt"></i> delete</button>
+               </td>
+         </tr>`)
       })
    })
    .fail(err => {
-      console.log(err);
+      let msg = err.responseJSON.err
+      let status = err.status
+      swal(`Error ${status}`, `${msg}`, "error");
    })
 }
 
@@ -170,10 +200,18 @@ function createTodo(event) {
       }
    })
       .done(response => {
+         swal({
+            title: "Good job!",
+            text: "Todo Created",
+            icon: "success",
+        });
          dashboard()
+         $('.bd-example-modal-lg').modal('hide');
       })
-      .fail((err, msg) => {
-         console.log(err)
+      .fail((err) => {
+         let msg = err.responseJSON.err
+         let status = err.status
+         swal(`Error ${status}`, `${msg}`, "error");
       })
 }
 
@@ -199,10 +237,18 @@ function updateTodo(event, id) {
       }
    })
    .done(response => {
+      swal({
+         title: "Updated",
+         text: "TODO UPDATED",
+         icon: "success",
+         button: "Oke",
+     });
       dashboard()
    })
    .fail(err => {
-      console.log(err)
+      let msg = err.responseJSON.err
+      let status = err.status
+      swal(`Error ${status}`, `${msg}`, "error");
    })
 }
 
@@ -217,9 +263,43 @@ function onSignIn(googleUser) {
    })
       .done(response => {
          localStorage.setItem('token', response)
+         swal({
+            title: "Good job!",
+            text: "You are Login now",
+            icon: "success",
+            button: "Oke",
+        });
          dashboard()
       })
       .fail(err => {
-         console.log(err)
+         let msg = err.responseJSON.err
+         let status = err.status
+         swal(`Error ${status}`, `${msg}`, "error");
       })
+}
+
+function deleteTodo(id) {
+   if(confirm('Are you sure want to delete?')) {
+      $.ajax({
+         method: "DELETE",
+         url: `http://localhost:3000/todos/${id}`,
+         headers: {
+            token: localStorage.getItem('token')
+         }
+      })
+      .done(response => {
+         swal({
+            title: "DELETED",
+            text: "TODO DELETED",
+            icon: "success",
+            button: "Oke",
+        });
+         dashboard()
+      })
+      .fail(err => {
+         let msg = err.responseJSON.err
+         let status = err.status
+         swal(`Error ${status}`, `${msg}`, "error");
+      })
+   }
 }
