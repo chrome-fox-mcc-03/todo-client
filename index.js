@@ -12,14 +12,17 @@ function showDashboard() {
     }).done(function(response) {
         $('#list-item').empty()
         response.forEach(el => $('#list-item').append(`
+        <section>
+        <div class="text">
             <p>
             <h5><b>${el.title}</b></h5>
             ${el.description}<br>
-            Done: ${el.status}<br>
-            ${el.due_date}<br><br>
-            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#editToDo" onClick="editToDo(${el.id}, ['${el.title}', '${el.description}', '${el.status}', '${el.due_date}'])">Edit</button> | 
-            <button type="button" class="btn btn-dark" onClick="deleteToDo(${el.id}, '${el.title}')">Delete</button></p><br>
-
+            <b>Done:</b> ${el.status}<br>
+            <b>Due on: </b> ${el.due_date}<br><br>
+            <button type="button" class="edit-or-delete" data-toggle="modal" data-target="#editToDo" onClick="editToDo(${el.id}, ['${el.title}', '${el.description}', '${el.status}', '${el.due_date}'])">Edit</button> | 
+            <button type="button" class="edit-or-delete" onClick="deleteToDo(${el.id}, '${el.title}')">Delete</button></p><br>
+        </div>
+        <section>
             `))
             // console.log(response)
     })

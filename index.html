@@ -12,14 +12,14 @@
 
         <!-- <h1 style="text-align: center;">To-Do App</h1> -->
         <div id="landing-page">
-            
+            <h3 class="title-login" style="font-weight: bolder; text-align: center;">To-Do App</h3><br>
             <p style="font-weight: bold;">Register Now:</p>
             <form id="register">
                 <label for="email-register">E-mail:</label><br>
                 <input type="text" id="email-register"><br>
                 <label for="password-register">Password:</label><br>
                 <input type="password" id="password-register"><br><br>
-                <input type="submit" value="Register">
+                <input class="logout" type="submit" value="Register">
             </form><br><br>
             <p style="font-weight: bold;">Or Login:</p>
             <form id="login">
@@ -27,48 +27,34 @@
                 <input type="text" id="email-login"><br>
                 <label for="password-login">Password:</label><br>
                 <input type="password" id="password-login"><br><br>
-                <input type="submit" value="Log In">
+                <input class="logout" type="submit" value="Log In">
             </form><br>
             <h4 id="login-error"></h4>
             <br>
             <p style="font-weight: bold;">Or Log in through Papa Google:</p>
-            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="light"></div>
+            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
             <br>
-            <p style="color:#8ed0f8">Forgot password? Contact my email!</p>
-        </div>
+            <p style="color: black; font-weight: bold;">Forgot password? Contact my email!</p>
+        </div><br>
+        
         <div id="dashboard">
             <h2 id="welcome">Welcome home, To-Do-ers!</h2> <br>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#addToDoModal">Add To-Do!</button> <br> <br>
-            <!-- The Modal -->
-            <div class="modal" id="addToDoModal">
-                <div class="modal-dialog">
-                <div class="modal-content">
-                
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                    <h4 class="modal-title">Create a new To-Do item</h4>
-                    <button type="button" class="btn btn-dark" data-dismiss="modal">Cancel</button>
-                    </div>
-                    
-                    <!-- Modal body -->
+            
+
+            <section>
+                <div class="text">
                     <form id="add-todo">
-                        <div class="modal-body">
-                            <label for="title-add">Title:</label><br>
-                            <input type="text" id="title-add"><br>
-                            <label for="description-add">Description:</label><br>
-                            <textarea form="add-todo" id="description-add" cols="35"></textarea><br>
-                            <label for="due_date-add">Due Date:</label><br>
-                            <input type="text" id="due_date-add" placeholder="Please use YYYY-MM-DD!"><br><br>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="submit" value="Create">
-                        </div>
-                    </form><br>
-                    
+                        <label for="title-add" style="font-weight: bold;">New To-Do?</label><br>
+                        <input type="text" class="input-one-line" id="title-add" placeholder="Title here"><br>
+                        <label for="description-add">Description:</label><br>
+                        <textarea form="add-todo" id="description-add" cols="35" placeholder="Describe this activity!"></textarea><br>
+                        <label for="due_date-add">Due Date:</label><br>
+                        <input class="input-one-line" type="text" id="due_date-add" placeholder="Please use YYYY-MM-DD!"><br><br>
+                    <input type="submit" value="post"/>
+                    </form>
                 </div>
-                </div>
-            </div>
-  
+            </section>
+            <div class="overlay"></div>
             <div id="list-item"></div>
             <!-- The Modal -->
             <div class="modal" id="editToDo">
@@ -97,15 +83,22 @@
                             <input type="text" id="due_date-edit" placeholder="Please use YYYY-MM-DD!"><br><br>
                         </div>
                         <div class="modal-footer">
-                            <input onClick="edit(${el.id})" data-dismiss="modal" value="Edit">
+                            <input onClick="edit()" data-dismiss="modal" value="Edit">
                         </div>
                     </form><br>
                     
                 </div>
                 </div>
             </div>
-            <button id="btn-logout">Logout</button>
-        </div>      
+            
+            <section>
+                <div class="text">
+                    <button class="logout" id="btn-logout">Logout</button>
+                </div>
+            </section>
+        </div>
+        <br>
+        <p style="color:black;">hehehehehehehehehe</p>      
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
