@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-signin-client_id"
     content="255879747921-ihqouaqvl44sntbv684v40trnp05795l.apps.googleusercontent.com">
-  <title>Sport ToDo</title>
+  <title>ToDo</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
   <link rel="stylesheet" href="style.css">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
@@ -14,17 +14,24 @@
 
 <body>
 
-  <nav class="navbar is-black" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" id="a-logo">
-        <h2 style="color: white;">ToDo</h2>
+        <h2 style="color: whitesmoke; font-size: 30px; font-family: fantasy;"><strong>ToDo List</strong></h2>
       </a>
     </div>
 
     <div id="navbarBasicExample" class="navbar-menu">
-
       <div class="navbar-end">
         <div class="navbar-item">
+          <form class="weather">
+            <div class="control has-icons-left" style="width: 200px; margin-right: 40px;">
+              <input class="input" id="weather" type="text" placeholder="Your city weather">
+              <span class="icon is-small is-left">
+                <i class="fas fa-search-location"></i>
+              </span>
+            </div>
+          </form>
           <div class="buttons">
             <button class="button is-warning" id="btn-signup"><strong>Sign Up</strong></button>
             <button class="button is-link" id="btn-signin"><strong>Sign In</strong></button>
@@ -109,9 +116,10 @@
   <div class="todo">
     <h1>ToDo List</h1>
     <a id="a-create"><i class="fas fa-plus-circle" style="color: green; width: 35px; height: 35px;"></i></a>
-    <table class="table" style="width: 1000px;">
+    <table class="table table is-hoverable" style="width: 1000px;">
       <thead>
         <tr>
+          <th>No</th>
           <th>Title</th>
           <th>Description</th>
           <th>Status</th>
@@ -119,7 +127,7 @@
           <th>Option</th>
         </tr>
       </thead>
-      
+
       <tbody>
       </tbody>
 
@@ -206,10 +214,10 @@
     </div>
   </form>
 
-  <!-- <button onclick="signOut()">SignOut</button> -->
 
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <script src="main.js"></script>
 </body>
 

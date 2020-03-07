@@ -1,5 +1,5 @@
 const token = localStorage.getItem('token')
-let tempUpdate = {}
+let updateId = 0
 
 function onSignIn(googleUser) {
   const gToken = googleUser.getAuthResponse().id_token;
@@ -14,9 +14,20 @@ function onSignIn(googleUser) {
       localStorage.setItem('token', data.token)
       list()
       home()
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: data.message,
+        showConfirmButton: false,
+        timer: 2000
+      })
     })
     .fail(err => {
-      console.log(err, 'error gsignin')
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: err.responseJSON.message
+      })
     })
 }
 
@@ -24,6 +35,7 @@ function signin() {
   $('.signin').show()
   $('#btn-signup').show()
 
+  $('.weather').hide()
   $('.todo').hide()
   $('.signup').hide()
   $('.create').hide()
@@ -36,6 +48,7 @@ function signup() {
   $('.signup').show()
   $('#btn-signin').show()
 
+  $('.weather').hide()
   $('.todo').hide()
   $('.create').hide()
   $('.update').hide()
@@ -55,6 +68,7 @@ function signOut() {
 function home() {
   $('.todo').show()
   $('#btn-signout').show()
+  $('.weather').show()
 
   $('.signup').hide()
   $('.signin').hide()
@@ -62,7 +76,6 @@ function home() {
   $('.update').hide()
   $('#btn-signup').hide()
   $('#btn-signin').hide()
-
 }
 
 function list() {
@@ -76,19 +89,26 @@ function list() {
     }
   })
     .done(({ data }) => {
+      let status = null
       $('.table tbody').empty()
-      data.forEach(el => {
+      data.forEach((el, i) => {
+        if (el.status) {
+          status = `<button class="button is-success is-outlined" id="status-true" onclick="doneUndone(${el.id}, ${el.status})">Done</button>`
+        } else {
+          status = `<button class="button is-danger is-outlined" id="status-false"  onclick="doneUndone(${el.id}, ${el.status})">Undone</button>`
+        }
         $('.table tbody').append(`
         <tr>
+          <td>${i + 1}</td>
           <td>${el.title}</td>
           <td>${el.description}</td>
-          <td>${el.status}</td>
+          <td>${status}</td>
           <td>${new Date(el.due_date).toLocaleDateString('en-US', options)}</td>
           <td>
           <a onclick="dataUpdate(${el.id})">
           <i class="fas fa-pen" style="margin-right: 15px; color: navy;"></i>
           </a>
-          <a>
+          <a onclick="destroy(${el.id})">
           <i class="fas fa-trash" style="color: red;"></i>
           </a>
           </td>
@@ -116,7 +136,7 @@ function createForm() {
 function updateForm() {
   $('.update').show()
   $('#btn-signout').show()
-  
+
   $('.todo').hide()
   $('.signup').hide()
   $('.signin').hide()
@@ -134,28 +154,81 @@ function dataUpdate(id) {
     }
   })
     .done(({ data }) => {
-      update(data)
+      const { title, description } = data
+      let date = new Date(data.due_date)
+      let day = ("0" + date.getDate()).slice(-2)
+      let month = ("0" + (date.getMonth() + 1)).slice(-2)
+      let dateTodo = date.getFullYear() + "-" + (month) + "-" + (day)
+
+      $('#title-update').val(title)
+      $('#description-update').val(description)
+      $('#due_date-update').val(dateTodo)
+      updateForm()
+      updateId = id
     })
     .fail(err => {
       console.log(err, 'error dataUpdate')
     })
 }
 
-function update(data) {
-  updateForm()
-  const { id, title, description, status, due_date } = data
-  const day = ('0' + new Date(due_date).getDate()).slice(-2)
-  const month = ('0', + (due_date.getMonth() + 1)).slice(-2)
-  const date = `${day} - ${month} - ${new Date(due_date).getFullYear}`
-  console.log(month)
+function destroy(id) {
+  Swal.fire({
+    title: 'Are you sure want to delete this ToDo?',
+    text: "This ToDo will deleted permanently",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Delete'
+  }).then((result) => {
+    if (result.value) {
+      $.ajax({
+        method: 'delete',
+        url: `http://localhost:3000/todo/${id}`,
+        headers: {
+          token
+        }
+      })
+        .then(_ => {
+          list()
+          home()
+          Swal.fire(
+            'Deleted!',
+            'Your ToDo has been deleted.',
+            'success'
+          )
+        })
+        .catch(err => {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: err.responseJSON.message
+          })
+        })
+    }
+  })
+}
 
-  const newTitle = $('#title-update').val(title)
-  const newDescription = $('#description-update').val(description)
-  const newStatus = status
-  const newDue_date = $('#due_date-update').val(new Date(due_date))
-  
+function doneUndone(id, status) {
+  status ? status = false : status = true
 
-
+  $.ajax({
+    method: 'put',
+    url: `http://localhost:3000/todo/${id}`,
+    headers: {
+      token
+    },
+    data: {
+      status
+    }
+  })
+    .done(data => {
+      list()
+      home()
+    })
+    .fail(err => {
+      console.log(err, 'error status')
+    })
 }
 
 $(document).ready(_ => {
@@ -179,7 +252,6 @@ $(document).ready(_ => {
     const username = $('#username-signup').val()
     const email = $('#email-signup').val()
     const password = $('#password-signup').val()
-    console.log(username, email, password)
     $.ajax({
       method: 'post',
       url: 'http://localhost:3000/signup',
@@ -190,10 +262,24 @@ $(document).ready(_ => {
       }
     })
       .done(data => {
-        console.log(data, 'data signup')
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: data.message,
+          showConfirmButton: false,
+          timer: 2000
+        })
+        signin()
+        $('#username-signup').val('')
+        $('#email-signup').val('')
+        $('#password-signup').val('')
       })
       .fail(err => {
-        console.log(err, 'error signup')
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: err.responseJSON.message
+        })
       })
     e.preventDefault()
   })
@@ -217,9 +303,22 @@ $(document).ready(_ => {
         localStorage.setItem('token', data.token)
         list()
         home()
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: data.message,
+          showConfirmButton: false,
+          timer: 2000
+        })
+        $('#email-signin').val('')
+        $('#password-signin').val('')
       })
       .fail(err => {
-        console.log(err, 'error signin')
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: err.responseJSON.message
+        })
       })
     e.preventDefault()
   })
@@ -254,23 +353,113 @@ $(document).ready(_ => {
       .done(data => {
         list()
         home()
-        console.log(data, 'data create')
+        $('#title-create').val('')
+        $('#description-create').val('')
+        $('#due_date-create').val('')
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Success create new Todo',
+          showConfirmButton: false,
+          timer: 2000
+        })
       })
       .fail(err => {
-        console.log(err, 'error create')
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: err.responseJSON.message
+        })
       })
     e.preventDefault()
   })
 
   // UPDATE
-  $('#a-').on('click', (e) => {
-    updateForm()
-  })
   $('.update').submit(e => {
     const title = $('#title-update').val()
     const description = $('#description-update').val()
     const due_date = $('#due_date-update').val()
-    console.log(title, description, new Date(due_date))
+
+    $.ajax({
+      method: 'put',
+      url: `http://localhost:3000/todo/${updateId}`,
+      headers: {
+        token: localStorage.getItem('token')
+      },
+      data: {
+        title, description, due_date
+      }
+    })
+      .done(_ => {
+        list()
+        home()
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Success update Todo',
+          showConfirmButton: false,
+          timer: 2000
+        })
+        $('#title-update').val('')
+        $('#description-update').val('')
+        $('#due_date-update').val('')
+      })
+      .fail(err => {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: err.responseJSON.message
+        })
+      })
+    e.preventDefault()
+  })
+
+  // WEATHER API
+  $('.weather').submit(e => {
+    const city = $('#weather').val()
+    const rain = 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ec0cca0d-55c3-45b9-a196-300ef1fe13e8/db79s4v-6a187d85-bd3d-4370-87df-8bb7ef88df4c.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2VjMGNjYTBkLTU1YzMtNDViOS1hMTk2LTMwMGVmMWZlMTNlOFwvZGI3OXM0di02YTE4N2Q4NS1iZDNkLTQzNzAtODdkZi04YmI3ZWY4OGRmNGMuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.fjw5KUM5mPmDPDbxmfkNTrwHUhEbq_mVSnal0ckIPNI'
+    const cloud = 'https://cdn.clipart.email/511b37b2b0db1ddd3359338441ec91ff_cloud-sticker-for-ios-android-giphy_480-240.gif'
+    const thunderStorm = 'https://i.gifer.com/5RTL.gif'
+    const sunny = 'https://media.giphy.com/media/BCgbjF9Y41UgGEam5O/giphy.gif'
+
+    $.ajax({
+      method: 'get',
+      url: `http://localhost:3000/api/weather?city=${city}`,
+      headers: {
+        token
+      }
+    })
+      .done(({ data }) => {
+        const { main, description } = data[0]
+        let gif = ''
+        if (main === 'Rain') {
+          gif = rain
+        } else if (main === 'Clouds') {
+          gif = cloud
+        } else if (main === 'Thunderstorm') {
+          gif = thunderStorm
+        } else {
+          gif = sunny
+        }
+        Swal.fire({
+          title: city,
+          text: description,
+          imageUrl: gif,
+          imageWidth: 500,
+          imageHeight: 300
+        })
+        console.log(data[0], 'success weather api')
+        id()
+      })
+      .fail(_ => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid city name',
+          text: 'Please insert city name correctly!'
+        })
+      })
+    $('#weather').val('')
+    e.preventDefault()
   })
 
 })
