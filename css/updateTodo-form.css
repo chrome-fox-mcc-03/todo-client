@@ -1,0 +1,16 @@
+#update-form-content{
+    text-align: center;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 15%;
+}
+
+#btn-update{
+  transition: 0.2s;
+  width: 70%;
+}
+
+#btn-update:hover{
+    background-color: #3e8e41;
+    color: white;
+}

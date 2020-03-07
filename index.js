@@ -1,5 +1,46 @@
 const access_token = localStorage.getItem('access_token')
 
+function refreshContent(){
+    $.ajax({
+        method: 'GET',
+        url: 'http://localhost:3000/todos/users',
+        headers: {
+            access_token
+        }
+    })
+    .done(function(response){
+        $('#list-content').empty()
+        for(let i = 0; i < response.data.length; i++){
+            let todo_id = response.data[i].id
+            let due_date = new Date(response.data[i].due_date).toLocaleDateString()
+            let title = response.data[i].title
+            let description = response.data[i].description
+            let status = response.data[i].status = false ? 'Finished' : 'Unfinished'
+            $('#list-content').append(`
+            <div class="list-group w-25 p-3 example hoverable" id="content_${i}">
+            <h5 id='content_${todo_id}_id'>${todo_id}</h5> 
+            <h5 class="text-default h5" id='content_${todo_id}_title'> >>> ${title}  </h5>
+                <small id='content_${todo_id}_due_date'> ${due_date} </small>
+                <a class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div id='content_${todo_id}_desc' class=""d-flex w-100 justify-content-between example hoverable w-50 p-3"">
+                        ${description}
+                    </div>
+                </a>
+                <small id='content_${todo_id}_status'>status : ${status} </small>
+                
+                <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modalUpdateForm"> 
+                    Update 
+                </a>
+                
+            </div>`)
+            
+        }
+    })
+    .fail(err => {
+        console.log(err);
+    })
+}
+
 $(document).ready(function(){
 
     if(access_token){
@@ -7,12 +48,19 @@ $(document).ready(function(){
         $('#home').hide()
         $('#register-section').hide()
         $('#login-section').hide()
+        refreshContent()
+        //FETCHING DATA TODO BY ID (ACCESS_TOKEN)
         
+
+        
+
     }else{
         $('#todo-dashboard').hide()
         $('#home').show()
         $('#register-section').hide()
         $('#login-section').hide()
+        $('#todo-create-section').hide()
+        $('#todo-update-section').hide()
         
     }
 
@@ -32,7 +80,7 @@ $(document).ready(function(){
                 password
             }
         }).done( function(response){
-            console.log(response)
+            // console.log(response)
             $('#home').show()
             $('#register-section').hide()
         }).fail( function(err){
@@ -56,85 +104,66 @@ $(document).ready(function(){
                 password
             }
         }).done( function(response){
-            console.log(response);
-            var todoData = {}
-            $.each( response, function( key, val ) {
-                if(key !== 'access_token'){
-                    todoData = val
-                }
-            });
-            for(let i = 0; i < todoData.length; i++){
-                
-                var outer_div = document.createElement('div');
-                outer_div.className = 'list-group w-25 p-3 example hoverable'
-                var inner_div = document.createElement('div');
-                inner_div.className = "d-flex w-100 justify-content-between example hoverable w-50 p-3"
-                
-                let todo_data = document.createElement('a')
-                todo_data.className = "list-group-item list-group-item-action flex-column align-items-start"
-                
 
-                $.each( todoData[i], function(subkey, todoVal){
-                    console.log(subkey, todoVal);
-                    switch (subkey) {
-                        case 'title':
-                            let str_title = document.createElement('h5')
-                            str_title.className = "text-default h5"
-                            str_title.append(`>> ${todoVal}`)
-
-                            outer_div.appendChild(str_title)
-                            
-                            break;
-                        case 'description':
-                            let todo_desc = document.createElement('p')
-                            todo_desc.append(`Todo Description :`)
-
-                            let str_desc = document.createElement('p')
-                            str_desc.append(`${todoVal}`)
-
-                            todo_desc.appendChild(str_desc)
-                            inner_div.appendChild(todo_desc)
-
-                            break;
-                        case 'due_date':
-                            let due_date = document.createElement('small')
-                            let convert_date = new Date(todoVal).toLocaleDateString()
-                            due_date.append(`${convert_date}`)
-
-                            inner_div.appendChild(due_date)
-                            break;
-                        case 'status':
-                            let status = document.createElement('small')
-                            status.append(`Completion Status : ${todoVal}`)
-
-                            outer_div.appendChild(status)
-                            break;
-                        default:
-                            break;
-                    }
-
-                    todo_data.appendChild(inner_div)
-                    outer_div.appendChild(todo_data)
-                    $('#todo-dashboard').append(outer_div)
-                })
-                
-            }
-            
-               
-            
             localStorage.setItem('access_token', response.access_token)
             $('#todo-dashboard').show()
             $('#login-section').hide()
+
         }).fail( function (err) {
             console.log(err);
         })
     })
 
+    //CREATE TODO
+    $('#btn-create').on('click', function(e){
+        e.preventDefault()
+
+        const title = $('#title-input').val()
+        const description = $('#description-input').val()
+        const due_date = $('#date-input').val()
+        const access_token = localStorage.getItem('access_token')
+        // console.log(title, description, due_date);
+        // console.log(access_token);
+        
+        
+        $.ajax({
+            method: 'POST',
+            url: 'http://localhost:3000/todos',
+            headers: {
+                access_token
+            },
+            data: {
+                title: title,
+                description: description,
+                due_date: due_date
+            }
+        })
+        .done(function(response){
+            refreshContent()
+            // $('#modalCreateForm').modal('hide')
+            
+        })
+        .fail(function(err){
+            console.log(err);
+            
+        })
+    })
+
+    $('#update-btn').on('click', function(e){
+        e.preventDefault()
+        console.log($('#content_todo_id').val());
+        
+    })
+    
     $('#btn-logout').on('click', function(e){
         e.preventDefault()
         localStorage.removeItem('access_token')
         $('#home').show()
         $('#todo-dashboard').hide()
+        var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
 
     })
 
