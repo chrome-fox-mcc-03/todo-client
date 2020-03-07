@@ -116,6 +116,7 @@ function deleteData(todo_id) {
 $(document).ready(function(){
 
     if(access_token){
+        // $('#list-content').html(refreshContent());
         // setTimeout(function(){ refreshContent() }, 10);
         refreshContent()
         $('#todo-dashboard').show()
