@@ -3,71 +3,267 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <!-- google log-in -->
+    <meta
+      name="google-signin-client_id"
+      content="905584410131-vafvavjvusjfinkt8fj03kq6ua12eoqm.apps.googleusercontent.com"
+    />
+    <!-- google log-in -->
+    <title>Fancy Todo</title>
+    <!-- bootstrap-css -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <!-- bootstrap-css -->
+    <!-- normal css -->
+    <link rel="stylesheet" href="./style.css" type="text/css" />
+    <!-- normal css -->
   </head>
   <body>
     <section id="landing-page">
-      <form id="landing-register">
-        <h1>Register</h1>
-        <label for="register-email">Email:</label><br />
-        <input type="text" id="register-email" /><br />
-        <label for="register-password">Password:</label><br />
-        <input type="text" id="register-password" /><br />
-        <input type="submit" value="register" id="register-submit" />
-        <button type="button" id="login-link">change to login</button>
-      </form>
-      <form id="landing-login">
-        <h1>Log In</h1>
-        <label for="login-email">Email:</label><br />
-        <input type="text" id="login-email" /><br />
-        <label for="login-password">Password:</label><br />
-        <input type="text" id="login-password" /><br />
-        <input type="submit" value="login" id="login-submit" />
-        <button type="button" id="register-link">change to register</button>
-      </form>
+      <div class="container-fluid">
+        <div class="row no-gutter">
+          <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+          <div class="col-md-8 col-lg-6" style="background-color: white;">
+            <div class="login d-flex align-items-center py-5">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-9 col-lg-8 mx-auto">
+                    <h3 class="login-heading mb-4">
+                      Welcome to fadhilahm's Fancy Todo!
+                    </h3>
+                    <form id="landing-register">
+                      <div class="form-label-group">
+                        <input
+                          type="email"
+                          id="register-email"
+                          class="form-control"
+                          placeholder="Email address"
+                          required
+                          autofocus
+                        />
+                        <label for="register-email">Email address</label>
+                      </div>
+
+                      <div class="form-label-group">
+                        <input
+                          type="password"
+                          id="register-password"
+                          class="form-control"
+                          placeholder="Password"
+                          required
+                        />
+                        <label for="register-password">Password</label>
+                      </div>
+                      <button
+                        class="btn btn-lg btn-success btn-block btn-login text-uppercase font-weight-bold mb-2"
+                        type="submit"
+                        id="register-submit"
+                      >
+                        Register
+                      </button>
+                      <div class="text-center">
+                        <a class="small" href="javascript:;" id="login-link"
+                          >Already have an account?</a
+                        >
+                      </div>
+                      <br />
+                      <div style="display: flex; justify-content: center;">
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                      </div>
+                    </form>
+                    <form id="landing-login">
+                      <div class="form-label-group">
+                        <input
+                          type="email"
+                          id="login-email"
+                          class="form-control"
+                          placeholder="Email address"
+                          required
+                          autofocus
+                        />
+                        <label for="login-email">Email address</label>
+                      </div>
+
+                      <div class="form-label-group">
+                        <input
+                          type="password"
+                          id="login-password"
+                          class="form-control"
+                          placeholder="Password"
+                          required
+                        />
+                        <label for="login-password">Password</label>
+                      </div>
+                      <button
+                        class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                        type="submit"
+                        id="login-submit"
+                      >
+                        Log In
+                      </button>
+                      <div class="text-center">
+                        <a class="small" href="javascript:;" id="register-link"
+                          >Doesn't have any account?</a
+                        >
+                      </div>
+                      <br />
+                      <div style="display: flex; justify-content: center;">
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
+    <!-- <h1>Dashboard Page</h1>
+    <h3>hello</h3>
+
+    <button type="button" id="create-link">Create a new Todo</button>
+    <div id="dashboard-todos-all">
+      <table id="dashboard-todos-all-table" style="width:100%" border="1">
+        <h1>This is all the Todos</h1>
+        <tr>
+          <th>id</th>
+          <th>title</th>
+          <th>description</th>
+          <th>status</th>
+          <th>due date</th>
+          <th>option</th>
+        </tr>
+      </table>
+    </div> -->
     <section id="dashboard-page">
-      <h1>Dashboard Page</h1>
-      <h3>hello</h3>
-      <button type="button" id="create-link">Create a new Todo</button>
-      <div id="dashboard-todos-all">
-        <table  id="dashboard-todos-all-table" style="width:100%" border="1">
-          <h1>This is all the Todos</h1>
-          <tr>
-            <th>id</th>
-            <th>title</th>
-            <th>description</th>
-            <th>status</th>
-            <th>due date</th>
-            <th>option</th>
-          </tr>
-        </table>
-      </div>
-      <div id="dashboard-create">
-        <form>
-          <h1>Create a new Todo</h1>
-          <label for="create-title">Title:</label><br />
-          <input type="text" id="create-title" /><br />
-          <label for="create-description">Description:</label><br />
-          <input type="text" id="create-description" /><br />
-          <label for="create-status">Status:</label><br />
-          <select id="create-status">
-            <option value="true">true</option>
-            <option value="false" selected>false</option> </select
-          ><br />
-          <label for="create-due-date">Due Date:</label><br />
-          <input type="date" id="create-due-date" /><br />
-          <input type="submit" value="Create" id="create-submit" />
-        </form>
+      <div class="container">
+        <div class="card border-0 shadow my-5">
+          <div class="card-body p-5">
+            <div class="row">
+              <div class="col-2 my-auto">
+                <button
+                  type="button"
+                  id="dashboard-logout"
+                  class="btn btn-danger"
+                >
+                  Log Out
+                </button>
+              </div>
+              <div class="col my-auto">
+                <h1 class="font-weight-light">Welcome to my Fancy Todo</h1>
+              </div>
+            </div>
+            <div id="dashboard-todos-all">
+              <table
+                id="dashboard-todos-all-table"
+                style="width:100%"
+                border="1"
+              >
+                <tr>
+                  <th>id</th>
+                  <th>title</th>
+                  <th>description</th>
+                  <th>status</th>
+                  <th>due date</th>
+                  <th>option</th>
+                </tr>
+              </table>
+            </div>
+            <div class="row">
+              <button type="button" id="create-link" class="btn btn-success">
+                Create a new Todo
+              </button>
+            </div>
+            <div id="dashboard-create">
+              <form>
+                <h1>Create a new Todo</h1>
+                <label for="create-title">Title:</label><br />
+                <input type="text" id="create-title" /><br />
+                <label for="create-description">Description:</label><br />
+                <input type="text" id="create-description" /><br />
+                <label for="create-status">Status:</label><br />
+                <select id="create-status">
+                  <option value="true">true</option>
+                  <option value="false" selected>false</option> </select
+                ><br />
+                <label for="create-due-date">Due Date:</label><br />
+                <input type="date" id="create-due-date" /><br />
+                <input
+                  type="submit"
+                  class="btn btn-primary"
+                  value="Create"
+                  id="create-submit"
+                />
+                <button type="button" class="btn btn-warning to-home">
+                  Cancel
+                </button>
+              </form>
+            </div>
+            <div id="dashboard-edit">
+              <form>
+                <h1>Edit an existing Todo</h1>
+                <label for="edit-index">Index:</label><br />
+                <input type="text" id="edit-index" disabled /><br />
+                <label for="edit-title">Title:</label><br />
+                <input type="text" id="edit-title" /><br />
+                <label for="edit-description">Description:</label><br />
+                <input type="text" id="edit-description" /><br />
+                <label for="edit-status">Status:</label><br />
+                <select id="edit-status">
+                  <option value="true">true</option>
+                  <option value="false">false</option> </select
+                ><br />
+                <label for="edit-due-date">Due Date:</label><br />
+                <input type="date" id="edit-due-date" /><br />
+                <input
+                  type="submit"
+                  value="edit"
+                  id="edit-submit"
+                  class="btn btn-primary"
+                />
+                <button type="button" class="btn btn-warning to-home">
+                  Cancel
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
+    <!-- bootstrap-JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <!-- bootstrap-JS -->
     <!-- JQUERY CDN -->
     <script
       src="https://code.jquery.com/jquery-3.4.1.js"
       integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
       crossorigin="anonymous"
     ></script>
+    <!-- JQUERY CDN -->
+    <!-- google sign-in -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <!-- google sign-in -->
     <!-- index.js -->
     <script src="/index.js"></script>
+    <!-- index.js -->
   </body>
 </html>
