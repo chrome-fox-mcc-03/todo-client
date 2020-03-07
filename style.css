@@ -32,7 +32,7 @@ hr {
     width: 50%;
     margin: auto;
     border: 1px dashed darkslategray;
-    background-color: khaki;
+    background-color: rgb(205, 252, 217);
 }
 
 .pg-headers {
@@ -43,17 +43,60 @@ hr {
 
 table {
     border-collapse: collapse;
-    justify-content: center;
-}
-  
-table, th, td {
-    border: 1px solid black;
 }
 
-thead {
-    text-align: center;
-    background-color: aquamarine;
-    font-style: bold;
+#tbl-todos {
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
 }
+  
+
+thead {
+    display: none;
+}
+
+tr {
+    display: block;
+    margin: 1rem 0.5rem 0.5rem 1rem;
+    /* padding: 1rem 0.5rem 0.5rem 1rem; */
+    border: 1px solid black;
+    background-color: transparentize(white, 0.15);
+    /* box-shadow: 0 0 1rem transparentize(black, 0.9); */
+}
+
+td {
+    display: block;
+    justify-content: center;
+    border-collapse: collapse;
+    background-color: whitesmoke;
+}
+
+td:first-child {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    font-size: larger;
+}
+
+/* set the status element as bolder text */
+td:nth-child(4) {
+    font-weight: bolder;
+    font-style: italic;
+}
+
+/* COLOR CODE THE STATUS SECTION:
+    PENDING STATUS SHOULD BE MARKED AS RED AND WITH YELLOW BACKGROUND
+    DONE STATUS SHOULD JUST BE MARKED AS BLUE TEXT
+ */
+td[data-status="pending"] {
+    color: red;
+    background-color: yellow;
+}
+
+td[data-status="done"] {
+    color: green;
+}
+
 
 

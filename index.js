@@ -171,7 +171,7 @@ function showTodos(event) {
                         <td>${el.id}</td>
                         <td>${el.title}</td>
                         <td>${el.description}</td>
-                        <td>${el.status}</td>
+                        <td data-status="${el.status}">${el.status}</td>
                         <td>${el.due_date}</td>
                         <td>
 
