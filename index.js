@@ -37,6 +37,7 @@ function login(event) {
             $("#login-page").hide()
             $("#dashboard-page").show()
             getTodos(response)
+            quotes()
         })
         .fail(function(err, msg) {
             err.responseText = JSON.parse(err.responseText)
@@ -115,7 +116,7 @@ function getTodos(token) {
                     <td>${i+1}</td>
                     <td>${element.title}</td>
                     <td>${element.description}</td>
-                    <td>${element.status}</td>
+                    <td>${response.status === "true" ? "Completed"  : "On Progress"}</td>
                     <td>${moment(element.due_date).format('LL')}</td>
                 </tr>
                 `)
@@ -144,7 +145,7 @@ function onSignIn(googleUser) {
         }
     })
         .done(function(response) {
-            console.log(response, "clg dari done ajax");
+            localStorage.setItem('token', response)
             $("#dashboard-page").show()
             $("#register-page").hide()
             $("#login-page").hide()
@@ -155,4 +156,27 @@ function onSignIn(googleUser) {
             $("#errorMessage-login").append(err.responseText.message)
         })
 
+  }
+
+  function quotes() {
+
+        $("#quotesOfTheDay").empty()
+        $.ajax({
+            method: "GEaasdasdT", // only 50 calls / day, if exceeded, will show given quotes, change to "GET" with caution! 
+            url: "http://localhost:3000/todos/quotes"
+        })
+            .done(response => {
+                let quote = response[0].quote
+                let author = response[0].author
+                $("#quotesOfTheDay").append(`
+                <p id="quotes"> ${quote} </p>
+                <p id="author"> - ${author} </p>
+                `)
+            })
+            .fail(err => {
+                $("#quotesOfTheDay").append(`
+                <p id="quotes"> Astra inclinant, sed non obligant. </p>
+                <p id="author"> NOT Andreas Anggara </p>
+                `)
+            })
   }
