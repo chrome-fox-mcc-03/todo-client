@@ -19,6 +19,7 @@ if (localStorage.getItem('token')) {
     $("#btn-reg").show()
     $("#btn-logout").hide()
 }
+
 showJumbotron()
 
 $("#btn-todos").on('click',function () {
@@ -174,9 +175,9 @@ $("#formUpdate").on('submit', function (e) {
     const title = $("#titleUpdate").val()
     const description = $("#descriptionUpdate").val()
     const status = $("#statusUpdate").val()
-    const due_date = $("#due_dateUpdate").val()
+    // const due_date = $("#due_dateUpdate").val()
     $.ajax({
-        method: "PUT",
+        method: "PATCH",
         headers: {
             token
         },
@@ -185,7 +186,7 @@ $("#formUpdate").on('submit', function (e) {
             title,
             description,
             status,
-            due_date
+            // due_date
         }
     })
         .always(loading => {
@@ -201,6 +202,7 @@ $("#formUpdate").on('submit', function (e) {
             },2000)
         })
         .fail(err => {
+            console.log(err)
             setTimeout(function () {
                 hideLoading()
                 $("#exampleModalScrollable").modal('hide')
@@ -376,9 +378,9 @@ function updateTodo (idUpdate) {
             showLoading()
             showTodos()
             $("#titleUpdate").val("")
-            $("#descriptionUpdate").val("")
+            // $("#descriptionUpdate").val("")
             $("#statusUpdate").val("")
-            $("#due_dateUpdate").val("")
+            // $("#due_dateUpdate").val("")
 
         })
         .done(response => {
@@ -388,18 +390,18 @@ function updateTodo (idUpdate) {
                 $("#titleUpdate").val(response.title)
                 $("#descriptionUpdate").val(response.description)
                 $("#statusUpdate").val(`${response.status}`)
-                let dd = new Date(response.due_date).getDate();
-                let mm = new Date(response.due_date).getMonth() + 1; 
-                let yyyy = new Date(response.due_date).getFullYear();
-                if (dd < 10) {
-                dd = '0' + dd;
-                } 
-                if (mm < 10) {
-                mm = '0' + mm;
-                } 
-                let newDate = yyyy + '-' + mm + '-' + dd;
-                response.due_date = newDate                
-                $("#due_dateUpdate").val(response.due_date)
+                // let dd = new Date(response.due_date).getDate();
+                // let mm = new Date(response.due_date).getMonth() + 1; 
+                // let yyyy = new Date(response.due_date).getFullYear();
+                // if (dd < 10) {
+                // dd = '0' + dd;
+                // } 
+                // if (mm < 10) {
+                // mm = '0' + mm;
+                // } 
+                // let newDate = yyyy + '-' + mm + '-' + dd;
+                // response.due_date = newDate                
+                // $("#due_dateUpdate").val(response.due_date)
             },500)
         })
         .fail(err => {
