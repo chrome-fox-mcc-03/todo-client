@@ -10,11 +10,12 @@ function landingPage() {
     $("#footer").show()
     $("#formLogin").hide()
     $("#formRegister").hide()
-    $("#tableTodo").show()
+    $("#tableTodo").hide()
     $("#create-button").hide()
     $("#create-form").hide()
     $("#update-form").hide()
     $("#dashboard-button").hide()
+    $("#logout").hide()
 }
 
 function showRegister() {
@@ -31,6 +32,7 @@ function showRegister() {
     $("#create-form").hide()
     $("#update-form").hide()
     $("#dashboard-button").hide()
+    $("#logout").hide()
 }
 
 function showLogin() {
@@ -47,6 +49,7 @@ function showLogin() {
     $("#create-form").hide()
     $("#update-form").hide()
     $("#dashboard-button").hide()
+    $("#logout").hide()
 }
 
 
@@ -65,6 +68,7 @@ function dashboard() {
     $("#create-form").hide()
     $("#update-form").hide()
     $("#dashboard-button").show()
+    $("#logout").show()
 }
 
 function showCreateForm() {
@@ -82,6 +86,7 @@ function showCreateForm() {
     $("#create-form").show()
     $("#update-form").hide()
     $("#dashboard-button").show()
+    $("#logout").show()
 }
 
 function showUpdateForm() {
@@ -99,6 +104,7 @@ function showUpdateForm() {
     $("#create-form").hide()
     $("#update-form").show()
     $("#dashboard-button").show()
+    $("#logout").show()
 }
 
 function signUp(event) {
@@ -173,7 +179,6 @@ function showTodo() {
                         <td> <a href="${list.countdown}"> link countdown </a> </td>
                         <td> <button class="btn btn-success" onclick="findOne(${list.id})">Edit</button> 
                              <button class="btn btn-danger" onclick="deleteTodo(${list.id})">Delete</button>
-                             <button class="btn btn-info" onclick="updateStatus(${list.id})">Set to true</button>
                         </td>
                 </tr>
                 `)
@@ -227,7 +232,7 @@ function deleteTodo(id) {
             showTodo()
         })
         .fail(err => {
-            console.log("failed delete todo")
+            console.log(err)
         })
 }
 
@@ -247,12 +252,10 @@ function findOne(id) {
             showUpdateForm()
             $("#title-update").val(response.data.title)
             $("#description-update").val(response.data.description)
-            // $("#due_date-update").val(m + "-" + d + "-" + y)
             $("#due_date-update").val(response.data.due_date)
         })
         .fail(err => {
             console.log(err);
-            console.log("failed update form")
         })
 }
 
@@ -278,12 +281,8 @@ function update(event) {
             showTodo()
         })
         .fail(err => {
-            console.log("failed updating data")
+            console.log(err)
         })
-}
-
-function updateStatus() {
-
 }
 
 $(document).ready(function(){
@@ -294,9 +293,6 @@ $(document).ready(function(){
         landingPage() 
     }
 
-    // $("#fetch").on("click", function(){ 
-    //     showTodo()
-    // })
     $("#create-button").on("click", function(){
         showCreateForm()
     })
@@ -315,6 +311,11 @@ $(document).ready(function(){
 
     $("#dashboard-button").on("click", function(){
         dashboard()
+    })
+
+    $("#logout").on("click", function(){
+        localStorage.clear()
+        landingPage()
     })
 
 })
