@@ -95,6 +95,10 @@ $(document).ready(function() {
             }
         })
             .done(function(result) {
+                $("#Message").append(`Welcome ${result.payload.Email}`)
+                setTimeout(() => {
+                    $("#Message").empty()
+                }, 3000);
                 localStorage.setItem("access_token", result.access_token)
                 let isLogin = localStorage.getItem('access_token')
                 console.log(isLogin)
@@ -122,9 +126,14 @@ $(document).ready(function() {
     })
 
     $("#CreateButton").on("click", function() {
+        $("#updates").hide()
         $("#creates").show()
     })
 
+    $("#CancelButton").on("click", function() {
+        $("#updates").hide()
+        $("#creates").hide()
+    })
     $("#Create-Form").on('submit', function(e) {
         e.preventDefault()
         let isLogin = localStorage.getItem('access_token')

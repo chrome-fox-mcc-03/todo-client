@@ -90,6 +90,7 @@ function UpdateData(CurrentId) {
             $("#updates").hide()
             emptyTable()
             AjaxDashboard()
+
         })
         .fail(function(err) {
             $("#UpdateError").append(`${err.responseJSON[0]}`)
@@ -152,10 +153,10 @@ function AjaxDashboard() {
             })
 
             $(".update").on('click', function() {
-                $("#dashboard").hide()
                 let currentId = this.value
                 console.log(this.value)
                 $("#updates").show()
+                $("#creates").hide()
                 $("#Update-Form").on('submit', function (e) {
                     e.preventDefault()
                     UpdateData(currentId)
