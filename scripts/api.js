@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'https://aqueous-plateau-61534.herokuapp.com';
 
 const register = (payload) => {
   return $.ajax({
