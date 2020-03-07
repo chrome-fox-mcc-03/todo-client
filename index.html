@@ -3,15 +3,17 @@
     <head>
         <title>To-Do (But Fancy!)</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <!-- <link rel="stylesheet" href="style.css"> -->
+        <link rel="stylesheet" href="style.css">
         <meta name="google-signin-scope" content="profile email">
         <meta name="google-signin-client_id" content="919301433582-d8qn1m1jjfcoinjr353ok8sjnq7d9k8h.apps.googleusercontent.com">
         <script src="https://apis.google.com/js/platform.js" async defer></script>
     </head>
     <body>
 
-        <h1>To-Do App</h1>
-        <div id="landing-page"><p>Register Now:</p>
+        <!-- <h1 style="text-align: center;">To-Do App</h1> -->
+        <div id="landing-page">
+            
+            <p style="font-weight: bold;">Register Now:</p>
             <form id="register">
                 <label for="email-register">E-mail:</label><br>
                 <input type="text" id="email-register"><br>
@@ -19,7 +21,7 @@
                 <input type="password" id="password-register"><br><br>
                 <input type="submit" value="Register">
             </form><br><br>
-            <p>Or Login:</p>
+            <p style="font-weight: bold;">Or Login:</p>
             <form id="login">
                 <label for="email-login">E-mail:</label><br>
                 <input type="text" id="email-login"><br>
@@ -29,32 +31,39 @@
             </form><br>
             <h4 id="login-error"></h4>
             <br>
-            <p>Or Log in through Papa Google:</p>
+            <p style="font-weight: bold;">Or Log in through Papa Google:</p>
             <div class="g-signin2" data-onsuccess="onSignIn" data-theme="light"></div>
+            <br>
+            <p style="color:#8ed0f8">Forgot password? Contact my email!</p>
         </div>
         <div id="dashboard">
-            <h2>Welcome home, To-Do-ers!</h2> <br>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#addToDo">Add To-Do!</button> <br> <br>
+            <h2 id="welcome">Welcome home, To-Do-ers!</h2> <br>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#addToDoModal">Add To-Do!</button> <br> <br>
             <!-- The Modal -->
-            <div class="modal" id="addToDo">
+            <div class="modal" id="addToDoModal">
                 <div class="modal-dialog">
                 <div class="modal-content">
                 
                     <!-- Modal Header -->
                     <div class="modal-header">
-                    <h4 class="modal-title">Modal Heading</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Create a new To-Do item</h4>
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Cancel</button>
                     </div>
                     
                     <!-- Modal body -->
-                    <div class="modal-body">
-                    Modal body..
-                    </div>
-                    
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    </div>
+                    <form id="add-todo">
+                        <div class="modal-body">
+                            <label for="title-add">Title:</label><br>
+                            <input type="text" id="title-add"><br>
+                            <label for="description-add">Description:</label><br>
+                            <textarea form="add-todo" id="description-add" cols="35"></textarea><br>
+                            <label for="due_date-add">Due Date:</label><br>
+                            <input type="text" id="due_date-add" placeholder="Please use YYYY-MM-DD!"><br><br>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" value="Create">
+                        </div>
+                    </form><br>
                     
                 </div>
                 </div>
