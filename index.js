@@ -55,7 +55,9 @@ function fetchTodos() {
 
                 month = monthConverter(month);
                 let fixedFormattedDate = `${date} ${month} ${year}`
-                if (!todos.status) {
+                console.log(todos[i].status);
+                
+                if (!todos[i].status) {
                     $('.todos').append(`
                     <div id="checkbox${todos[i].id}">
                         <i onclick="markTodo(${todos[i].id})" class="fas fa-circle fa-2x"></i>
