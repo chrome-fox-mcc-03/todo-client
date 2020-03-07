@@ -9,6 +9,7 @@ function showReg() {
     $("#containerDeleteById").hide()
     $("#errorPage").hide()
     $("#divCard").hide()
+    $("#exampleModal").hide()
 }
 function showLogin() {
     $("#container2").show()
@@ -21,6 +22,7 @@ function showLogin() {
     $("#containerDeleteById").hide()
     $("#errorPage").hide()
     $("#divCard").hide()
+    $("#exampleModal").hide()
 
 }
 function showAdd() {
@@ -34,6 +36,7 @@ function showAdd() {
     $("#containerDeleteById").hide()
     $("#errorPage").hide()
     $("#divCard").hide()
+    $("#exampleModal").hide()
 
 }
 function showUpdate() {
@@ -47,6 +50,7 @@ function showUpdate() {
     $("#containerDeleteById").hide()
     $("#errorPage").hide()
     $("#divCard").hide()
+    $("#exampleModal").hide()
 
 }
 function showDelById() {
@@ -60,6 +64,7 @@ function showDelById() {
     $("#containerGetById").hide()
     $("#errorPage").hide()
     $("#divCard").hide()
+    $("#exampleModal").hide()
 
     
 }
@@ -74,9 +79,11 @@ function showGetById() {
     $("#containerDeleteById").hide()
     $("#errorPage").hide()
     $("#divCard").hide()
+    $("#exampleModal").hide()
 
 }
 function showJumbotron() {
+    console.log(`disuruh ke jumbotron`)
     $("#jumbotron").show()
     $("#containerReg").hide()
     $("#containerLogin").hide()
@@ -87,6 +94,7 @@ function showJumbotron() {
     $("#container2").hide()
     $("#errorPage").hide()
     $("#divCard").hide()
+    $("#exampleModal").hide()
 
 }
 
@@ -101,6 +109,7 @@ function showTodos() {
     $("#container2").hide()
     $("#errorPage").hide()
     $("#divCard").show()
+    $("#exampleModal").hide()
 
 }
 
@@ -115,5 +124,6 @@ function showErrors() {
     $("#jumbotron").hide()
     $("#errorPage").show()
     $("#divCard").hide()
+    $("#exampleModal").hide()
 
 }
