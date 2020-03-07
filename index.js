@@ -192,7 +192,8 @@ function showFormUpdate(id) {
         .done(response => {
             const { id, title, description, due_date } = response
             const date = new Date(due_date).toISOString().split('T')[0]
-
+            
+            $('#id-update').val(id)
             $('#title-update').val(title)
             $('#description-update').val(description)
             $('#due_date-update').val(date)
@@ -205,6 +206,25 @@ function showFormUpdate(id) {
 function hideFormUpdate() {
     $('#update-todo').hide()
 }
+
+function deleteTodo(id) {
+    console.log(id, 'delete')
+    $.ajax({
+      method: 'DELETE',
+      url: `https://localhost:3000/todos/${id}`,
+      headers: {
+        token: localStorage.getItem('token')
+      }
+    })
+      .done(function (response) {
+        console.log(response)
+        fetchTodos()
+      })
+      .fail(function (err) {
+        console.log(err)
+      })
+  
+  }
 
 
 $(document).ready(function () {
@@ -282,6 +302,42 @@ $(document).ready(function () {
                 console.log(err)
             })
     })
+
+
+    $("#update-todo").on("submit", function(e) {
+        e.preventDefault()
+        console.log('triggered')
+
+        const id = $('#id-update').val()
+        const title = $('#title-update').val()
+        const description = $('#description-update').val()
+        const due_date = $('#due_date-update').val()
+        let data = {
+            title,
+            description,
+            due_date
+        }
+
+        $.ajax({
+            method: 'PUT',
+            url: `http://localhost:3000/todos/${id}`,
+            headers: {
+                token: localStorage.getItem('token')
+            },
+            data
+        })
+            .done(response => {
+                console.log(response)
+                fetchTodos()
+                hideFormUpdate()
+            })
+            .fail(err => {
+                console.log(err)
+            })
+    })
+
+
+    
 
     $("#form-login").on("submit", function (e) {
         e.preventDefault()
