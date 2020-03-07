@@ -4,40 +4,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="google-signin-client_id" content="490458742511-2m7pr85cq26u013cnskurj96cqq3v0bq.apps.googleusercontent.com">
+  <meta name="google-signin-client_id"
+    content="490458742511-2m7pr85cq26u013cnskurj96cqq3v0bq.apps.googleusercontent.com">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
   <title>Document</title>
 </head>
 
 <body>
+
   <div id="register-page">
-    <h1>Register Page</h1>
-    <form id="form-register">
-      <label for="email">Email:</label><br>
-      <input id="email-register" type="text" name="email"><br>
-      <label for="password">Password:</label><br>
-      <input id="password-register" type="password" name="password"><br>
-      <input type="submit" value="Submit">
-    </form>
-    <p> Already have account? <a id="login-btn" href="#">LogIn</a></p>
+    <div id="register">
+      <h1>REGISTER</h1>
+      <form id="form-register">
+        <div class="form-group">
+          <input type="email" class="form-control" id="email-register" aria-describedby="emailHelp"
+            placeholder="Input your email here" required>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" id="password-register" placeholder="Password" required>
+        </div>
+        <div id="button">
+          <input type="submit" class="btn btn-primary" value="Submit">
+        </div>
+        <p> Already have an account? <a id="login-btn" href="#">LogIn</a></p>
+      </form>
+    </div>
   </div>
+
   <div id="login-page">
-    <h1>Log-In Page</h1>
-    <form id="form-login">
-      <label for="email">Email:</label><br>
-      <input id="email-login" type="text" name="email"><br>
-      <label for="password">Password:</label><br>
-      <input id="password-login" type="password" name="password"><br>
-      <input type="submit" value="Submit">
-    </form>
-    <p> Need account? <a id="register-btn" href="#">Register</a></p>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <div id="login">
+      <h1>LOGIN</h1>
+      <form id="form-login">
+        <div class="form-group">
+          <input type="email" class="form-control" id="email-login" aria-describedby="emailHelp"
+            placeholder="Input your email here" required>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" id="password-login" placeholder="Password" required>
+        </div>
+        <div id="button">
+          <input type="submit" class="btn btn-primary" value="Submit">
+        </div>
+        <p> Or you can use:</p>
+        <div id="gsignin">
+          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        </div>
+        <p> Need account? <a id="register-btn" href="#">Register</a></p>
+      </form>
+    </div>
   </div>
+
   <div id="dashboard-page">
     <h1>Dashboard</h1>
     <div id="todos"></div>
     <input id="logout-btn" type="submit" value="Log-Out">
     <input id="create-btn" type="button" value="Create Todo">
   </div>
+
   <div id="create-page">
     <form id="create-form">
       <label for="title">Title:</label><br>
@@ -45,16 +70,33 @@
       <label for="description">Description:</label><br>
       <input id="todo-description" type="text" name="description" placeholder="description"><br>
       <label for="due_date">Due Date:</label><br>
-      <input id="todo-due_date" type="date" name="due_date" ><br>
+      <input id="todo-due_date" type="date" name="due_date"><br>
       <input type="submit" value="Submit">
     </form>
   </div>
-  <div id="update-page">
 
+  <div id="update-page">
+    <form id="update-form">
+      <label for="title">Title:</label><br>
+      <input id="update-title" type="text" name="title" placeholder="title"><br>
+      <label for="description">Description:</label><br>
+      <input id="update-description" type="text" name="description" placeholder="description"><br>
+      <label for="status">Status:</label><br>
+      <input id="update-status" type="text" name="status" placeholder="status"><br>
+      <label for="due_date">Due Date:</label><br>
+      <input id="update-due_date" type="date" name="due_date"><br>
+      <input type="submit" value="Save">
+    </form>
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
   <script src="index.js"></script>
 </body>
 

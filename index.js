@@ -1,29 +1,26 @@
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
   var id_token = googleUser.getAuthResponse().id_token;
-  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  console.log('Name: ' + profile.getName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
   $.ajax({
-    method:"GET",
+    method: "GET",
     url: "http://localhost:3000/glogin",
     headers: {
       token: id_token
     }
   })
-  .done((token) => {
-    localStorage.setItem('token', token)
-    console.log(token);
-    fetchTodoList()
-    $('#register-page').hide()
-    $('#login-page').hide()
-    $('#dashboard-page').show()
-    $('#create-page').hide()
-  })
-  .fail((err) => {
-    console.log(err);
-  })
+    .done((token) => {
+      localStorage.setItem('token', token)
+      console.log(token);
+      fetchTodoList()
+      $('#register-page').hide()
+      $('#login-page').hide()
+      $('#dashboard-page').show()
+      $('#create-page').hide()
+      $('#update-page').hide()
+    })
+    .fail((err) => {
+      console.log(err);
+    })
 }
 
 function signOut() {
@@ -44,7 +41,7 @@ function fetchTodoList() {
     .done((todo) => {
       $('#todos').empty()
       for (let i = 0; i < todo.length; i++) {
-        $('#todos').append(`<p>${todo[i].title}</p><button onclick="editTodo(${todo[i].id})">Edit</button>`)
+        $('#todos').append(`<p>${todo[i].title}</p><button onclick="editTodo(${todo[i].id})">Edit</button><button onclick="deleteTodo(${todo[i].id})">Delete</button>`)
       }
       console.log(todo);
     })
@@ -53,9 +50,59 @@ function fetchTodoList() {
     })
 }
 
-// function editTodo(id) {
+function editTodo(id) {
+  // console.log('touch me');
+  $('#register-page').hide()
+  $('#login-page').hide()
+  $('#dashboard-page').hide()
+  $('#create-page').hide()
+  $('#update-page').show()
+  $.ajax({
+    method: "GET",
+    url: `http://localhost:3000/todos/${id}`,
+    headers: {
+      token: localStorage.getItem('token')
+    }
+  })
+    .done((todoedit) => {
+      // console.log(todoedit.title);
+      localStorage.setItem('id', id)
+      let date = new Date(todoedit.due_date).toISOString().substring(0, 10)
+      $('#update-title').val(todoedit.title)
+      $('#update-description').val(todoedit.description)
+      $('#update-status').val(todoedit.status)
+      $('#update-due_date').val(date)
 
-// }
+    })
+    .fail((err) => {
+      console.log(err);
+
+    })
+}
+
+function deleteTodo(id) {
+  $.ajax({
+    method: "DELETE",
+    url: `http://localhost:3000/todos/${id}`,
+    headers: {
+      token: localStorage.getItem('token')
+    }
+  })
+    .done(() => {
+      console.log('ah ke hapus');
+      fetchTodoList()
+      $('#register-page').hide()
+      $('#login-page').hide()
+      $('#dashboard-page').show()
+      $('#create-page').hide()
+      $('#update-page').hide()
+    })
+    .fail((err) => {
+      console.log(err);
+
+    })
+
+}
 
 $(document).ready(function () {
   let token = localStorage.getItem('token')
@@ -64,6 +111,7 @@ $(document).ready(function () {
     $('#login-page').hide()
     $('#dashboard-page').show()
     $('#create-page').hide()
+    $('#update-page').hide()
     fetchTodoList()
   } else {
     $('#register-page').hide()
@@ -90,6 +138,7 @@ $(document).ready(function () {
         $('#login-page').hide()
         $('#dashboard-page').show()
         $('#create-page').hide()
+        $('#update-page').hide()
       })
       .fail((err) => {
         console.log(err);
@@ -114,6 +163,7 @@ $(document).ready(function () {
         $('#login-page').hide()
         $('#dashboard-page').show()
         $('#create-page').hide()
+        $('#update-page').hide()
       })
       .fail((err) => {
         console.log(err);
@@ -145,10 +195,44 @@ $(document).ready(function () {
         $('#login-page').hide()
         $('#dashboard-page').show()
         $('#create-page').hide()
+        fetchTodoList()
       })
       .fail((err) => {
         console.log(err);
 
+      })
+  })
+
+  $('#update-form').on('submit', function () {
+    event.preventDefault()
+    let title = $('#update-title').val()
+    let description = $('#update-description').val()
+    let status = $('#update-status').val()
+    let duedate = $('#update-due_date').val()
+    $.ajax({
+      method: "PUT",
+      url: `http://localhost:3000/todos/${localStorage.getItem("id")}`,
+      headers: {
+        token: localStorage.getItem("token")
+      },
+      data: {
+        title: title,
+        description: description,
+        status: status,
+        due_date: duedate
+      }
+    })
+      .done((updatedtodo) => {
+        console.log(updatedtodo);
+        fetchTodoList()
+        $('#register-page').hide()
+        $('#login-page').hide()
+        $('#dashboard-page').show()
+        $('#create-page').hide()
+        $('#update-page').hide()
+      })
+      .fail((err) => {
+        console.log(err);
       })
   })
 
@@ -157,7 +241,7 @@ $(document).ready(function () {
     $('#login-page').show()
     $('#dashboard-page').hide()
     $('#create-page').hide()
-
+    $('#update-page').hide()
   })
 
   $('#register-btn').on('click', function () {
@@ -165,7 +249,7 @@ $(document).ready(function () {
     $('#login-page').hide()
     $('#dashboard-page').hide()
     $('#create-page').hide()
-
+    $('#update-page').hide()
   })
 
   $('#logout-btn').on('click', function () {
@@ -175,6 +259,7 @@ $(document).ready(function () {
     $('#login-page').show()
     $('#dashboard-page').hide()
     $('#create-page').hide()
+    $('#update-page').hide()
   })
 
   $('#create-btn').on('click', function () {
@@ -182,7 +267,7 @@ $(document).ready(function () {
     $('#login-page').hide()
     $('#dashboard-page').show()
     $('#create-page').show()
-
+    $('#update-page').hide()
   })
 
 });
