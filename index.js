@@ -157,7 +157,21 @@ function onSignIn(googleUser) {
 
         })
         .fail(err => {
-            console.log(err)
+            const text = err.responseJSON.error
+
+            Toastify({
+                text: text,
+                duration: 3000,
+                destination: "https://github.com/apvarun/toastify-js",
+                newWindow: true,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: 'center', // `left`, `center` or `right`
+                backgroundColor: "#df7861",
+                className: 'toastyfy',
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                onClick: function () { } // Callback after click
+            }).showToast();
         })
 }
 
@@ -282,7 +296,7 @@ $(document).ready(function () {
     $("#button-register").on("click", function () {
         showRegister()
     })
-    
+
     $("#button-getstarted").on("click", function () {
         showRegister()
     })
@@ -317,9 +331,26 @@ $(document).ready(function () {
             buttonWhenLogin()
             hideFormAdd()
             hideFormUpdate()
-
         }).fail(function (err) {
             console.log(err, "error")
+            let errors = err.responseJSON.errors
+
+            errors.forEach(e => {
+                Toastify({
+                    text: e,
+                    duration: 3000,
+                    destination: "https://github.com/apvarun/toastify-js",
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: 'center', // `left`, `center` or `right`
+                    backgroundColor: "#df7861",
+                    className: 'toastyfy',
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    onClick: function () { } // Callback after click
+                }).showToast();
+            })
+
         })
     })
 
@@ -349,7 +380,23 @@ $(document).ready(function () {
                 hideFormAdd()
             })
             .fail(err => {
-                console.log(err)
+                let errors = err.responseJSON.errors
+
+                errors.forEach(e => {
+                    Toastify({
+                        text: e,
+                        duration: 3000,
+                        destination: "https://github.com/apvarun/toastify-js",
+                        newWindow: true,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: 'center', // `left`, `center` or `right`
+                        backgroundColor: "#df7861",
+                        className: 'toastyfy',
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        onClick: function () { } // Callback after click
+                    }).showToast();
+                })
             })
     })
 
@@ -380,7 +427,23 @@ $(document).ready(function () {
                 hideFormUpdate()
             })
             .fail(err => {
-                console.log(err)
+                let errors = err.responseJSON.errors
+
+                errors.forEach(e => {
+                    Toastify({
+                        text: e,
+                        duration: 3000,
+                        destination: "https://github.com/apvarun/toastify-js",
+                        newWindow: true,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: 'center', // `left`, `center` or `right`
+                        backgroundColor: "#df7861",
+                        className: 'toastyfy',
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        onClick: function () { } // Callback after click
+                    }).showToast();
+                })
             })
     })
 
@@ -406,6 +469,23 @@ $(document).ready(function () {
             hideFormAdd()
             hideFormUpdate()
         })
+            .fail(function (err) {
+                const text = err.responseJSON.error
+
+                Toastify({
+                    text: text,
+                    duration: 3000,
+                    destination: "https://github.com/apvarun/toastify-js",
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: 'center', // `left`, `center` or `right`
+                    backgroundColor: "#df7861",
+                    className: 'toastyfy',
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    onClick: function () { } // Callback after click
+                }).showToast();
+            })
     })
 
 

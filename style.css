@@ -7,3 +7,6 @@
 .card {
 	height: max-content;
 }
+.toastyfy {
+	min-width: 300px;
+}
