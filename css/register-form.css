@@ -1,0 +1,27 @@
+#register-section{
+    text-align: center;
+    width: fit-content;
+    margin-left: 35%;
+    margin-right: 35%;
+    margin-top: 15%;
+}
+
+#form-register{
+    background-color: gainsboro;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-left: 25%;
+    margin-right: 25%;
+    box-shadow:10px 10px 5px #aaaaaa;
+    border-radius: 10px;
+    
+}
+
+#btn-reg{
+  transition: 0.2s;
+}
+
+#btn-reg:hover{
+    background-color: #3e8e41;
+    color: white;
+}
