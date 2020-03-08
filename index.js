@@ -40,7 +40,7 @@ function isLogin() {
 function finishTodo(id) {
     $.ajax({
         type: 'PATCH',
-        url: `http://localhost:3000/todos/${id}`,
+        url: `https://pure-plains-19311.herokuapp.com/todos/${id}`,
         headers: {
             token: localStorage.getItem("token")
         },
@@ -59,7 +59,7 @@ function finishTodo(id) {
 function unfinishTodo(id) {
     $.ajax({
         type: 'PATCH',
-        url: `http://localhost:3000/todos/${id}`,
+        url: `https://pure-plains-19311.herokuapp.com/todos/${id}`,
         headers: {
             token: localStorage.getItem("token")
         },
@@ -78,7 +78,7 @@ function unfinishTodo(id) {
 function fetchTodos() {
     $.ajax({
         method: "GET",
-        url: "http://localhost:3000/todos",
+        url: "https://pure-plains-19311.herokuapp.com/todos",
         headers: {
             token: localStorage.getItem("token")
         }
@@ -143,14 +143,18 @@ function fetchTodos() {
 function onSignIn(googleUser) {
     var id_token = googleUser.getAuthResponse().id_token
     $.ajax({
-        url: 'http://localhost:3000/users/googleLogin',
+        url: 'https://pure-plains-19311.herokuapp.com/users/googleLogin',
         method: 'POST',
         data: { id_token }
     })
         .done(({ token }) => {
             localStorage.token = token
-            showDashboard(true)
+            showDashboard()
             fetchTodos()
+            buttonWhenLogin()
+            hideFormAdd()
+            hideFormUpdate()
+
         })
         .fail(err => {
             console.log(err)
@@ -184,7 +188,7 @@ function hideFormAdd() {
 function showFormUpdate(id) {
     $('#update-todo').show()
     $.ajax({
-        url: `http://localhost:3000/todos/${id}`,
+        url: `https://pure-plains-19311.herokuapp.com/todos/${id}`,
         headers: {
             token: localStorage.getItem("token")
         },
@@ -211,7 +215,7 @@ function hideFormUpdate() {
 function deleteTodo(id) {
     $.ajax({
         method: 'DELETE',
-        url: `http://localhost:3000/todos/${id}`,
+        url: `https://pure-plains-19311.herokuapp.com/todos/${id}`,
         headers: {
             token: localStorage.getItem('token')
         }
@@ -229,7 +233,7 @@ function deleteTodo(id) {
 function fetchMovies() {
     $.ajax({
         method: "GET",
-        url: "http://localhost:3000/movies",
+        url: "https://pure-plains-19311.herokuapp.com/movies",
         headers: {
             token: localStorage.getItem("token")
         }
@@ -297,7 +301,7 @@ $(document).ready(function () {
         const password = $("#password").val()
         $.ajax({
             method: "POST",
-            url: "http://localhost:3000/users/register",
+            url: "https://pure-plains-19311.herokuapp.com/users/register",
             data: {
                 email,
                 password
@@ -326,7 +330,7 @@ $(document).ready(function () {
 
         $.ajax({
             method: 'POST',
-            url: 'http://localhost:3000/todos',
+            url: 'https://pure-plains-19311.herokuapp.com/todos',
             headers: {
                 token: localStorage.getItem('token')
             },
@@ -357,7 +361,7 @@ $(document).ready(function () {
 
         $.ajax({
             method: 'PUT',
-            url: `http://localhost:3000/todos/${id}`,
+            url: `https://pure-plains-19311.herokuapp.com/todos/${id}`,
             headers: {
                 token: localStorage.getItem('token')
             },
@@ -382,7 +386,7 @@ $(document).ready(function () {
         const password = $("#password_login").val()
         $.ajax({
             method: "POST",
-            url: "http://localhost:3000/users/login",
+            url: "https://pure-plains-19311.herokuapp.com/users/login",
             data: {
                 email,
                 password
@@ -406,4 +410,9 @@ $(document).ready(function () {
         showLandingPage()
         buttonWhenLogout()
     })
+
+    $(".navbar-burger").click(function () {
+        $(".navbar-burger").toggleClass("is-active");
+        $(".navbar-menu").toggleClass("is-active");
+    });
 })
