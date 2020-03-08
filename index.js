@@ -227,6 +227,29 @@ $(document).ready(function() {
                 console.log(response, " <= It's in.")
             })
             .fail(function(err) {
+                alert(err.responseJSON)
+                console.log(err.responseJSON)
+                console.log(err, " <= It's an error.")
+            })
+        })
+        $('#register').submit(function(e) {
+            e.preventDefault()
+            $.ajax({
+                method: "POST",
+                url: "http://localhost:3000/users/register",
+                data: {
+                    email: $('#email-register').val(),
+                    password: $("#password-register").val()
+                }
+            }).done(function(response) {
+                localStorage.setItem("token", response.token)
+                // localStorage.setItem("id", response.token)
+                showDashboard()
+                console.log(response, " <= It's in.")
+            })
+            .fail(function(err) {
+                alert(err.responseJSON)
+                console.log(err.responseJSON)
                 console.log(err, " <= It's an error.")
             })
         })

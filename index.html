@@ -20,7 +20,7 @@
                 <label for="password-register">Password:</label><br>
                 <input type="password" id="password-register"><br><br>
                 <input class="logout" type="submit" value="Register">
-            </form><br><br>
+            </form><br><p id="register-error"></p><br>
             <p style="font-weight: bold;">Or Login:</p>
             <form id="login">
                 <label for="email-login">E-mail:</label><br>
@@ -29,7 +29,7 @@
                 <input type="password" id="password-login"><br><br>
                 <input class="logout" type="submit" value="Log In">
             </form><br>
-            <h4 id="login-error"></h4>
+            <p id="login-error"></p>
             <br>
             <p style="font-weight: bold;">Or Log in through Papa Google:</p>
             <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
