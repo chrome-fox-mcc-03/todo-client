@@ -45,10 +45,10 @@ body {
     padding: 0 2rem;
     cursor: pointer;
 }
-
-.todo:hover {
+/* 
+.theTodo:hover {
     background-color: rgb(76, 179, 165);
-}
+} */
 
 .theTodo {
     display: flex;

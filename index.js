@@ -59,11 +59,11 @@ function fetchTodos() {
                 
                 if (!todos[i].status) {
                     $('.todos').append(`
-                    <div id="checkbox${todos[i].id}">
-                        <i onclick="markTodo(${todos[i].id})" class="fas fa-circle fa-2x"></i>
-                    </div>
-                    <div onclick="editTodo(${todos[i].id})" class="todo">
-                        <div class="theTodo">
+                    <div class="todo">
+                        <div id="checkbox${todos[i].id}">
+                            <i onclick="markTodo(${todos[i].id})" class="fas fa-circle fa-2x"></i>
+                        </div>
+                        <div onclick="editTodo(${todos[i].id})" class="theTodo">
                             <div id="titleAndDesc">
                                 <h4>${todos[i].title}</h4>
                                 <p>${todos[i].description}</p>
@@ -76,11 +76,11 @@ function fetchTodos() {
                     </div>`)
                 } else {
                     $('.todos').append(`
-                    <div id="checkbox${todos[i].id}">
-                        <i onclick="markTodo(${todos[i].id})" class="fas fa-check-circle fa-2x"></i>
-                    </div>
-                    <div onclick="editTodo(${todos[i].id})" class="todo">
-                        <div class="theTodo">
+                    <div class="todo">
+                        <div id="checkbox${todos[i].id}">
+                            <i onclick="markTodo(${todos[i].id})" class="fas fa-check-circle fa-2x"></i>
+                        </div>
+                        <div onclick="editTodo(${todos[i].id})" class="theTodo">
                             <div id="titleAndDesc">
                                 <h4>${todos[i].title}</h4>
                                 <p>${todos[i].description}</p>
