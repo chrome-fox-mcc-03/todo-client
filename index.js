@@ -6,7 +6,7 @@ function fetchData() {
       token: localStorage.getItem("token")
     }
   })
-    .done(response => {
+    .done(res => {
       $("#dashboard-todos-all-table").empty().append(`
       <tr>
       <th>id</th>
@@ -17,17 +17,18 @@ function fetchData() {
       <th>Options</th>
       <tr>
       `);
-      for (let i = 0; i < response.length; i++) {
+      for (let i = 0; i < res.length; i++) {
         $("#dashboard-todos-all-table").append(`
         <tr>
-        <td>${response[i].id}</td>
-        <td>${response[i].title}</td>
-        <td>${response[i].description}</td>
-        <td>${response[i].status}</td>
-        <td>${response[i].due_date}</td>
+        <td>${res[i].id}</td>
+        <td>${res[i].title}</td>
+        <td>${res[i].description}</td>
+        <td>${res[i].status}</td>
+        <td>${res[i].due_date}</td>
         <td>
-        <input class="btn btn-warning" type="button" value="Edit" onclick="showEditPage(${response[i].id})">
-        <input class="btn btn-danger" type="button" value="Delete" onclick="deleteTodo(${response[i].id})">
+        <input class="btn btn-success" type="button" value="Detail" onclick="detailTodo(${res[i].id})">
+        <input class="btn btn-warning" type="button" value="Edit" onclick="showEditPage(${res[i].id})">
+        <input class="btn btn-danger" type="button" value="Delete" onclick="deleteTodo(${res[i].id})">
         </td>
         </tr>`);
       }
@@ -45,12 +46,15 @@ function showLanding() {
   $("#dashboard-todos-all").show();
 }
 function showDashboard() {
+  fetchData();
+  showDashboard();
   $("#landing-page").hide();
   $("#dashboard-page").show();
   $("#dashboard-create").hide();
   $("#dashboard-create").hide();
   $("#dashboard-todos-all").show();
   $("#dashboard-edit").hide();
+  $("#create-link").show();
 }
 function deleteTodo(index) {
   $.ajax({
@@ -60,8 +64,8 @@ function deleteTodo(index) {
       token: localStorage.getItem("token")
     }
   })
-    .done(response => {
-      console.log(response);
+    .done(res => {
+      console.log(res);
       console.log("Successfully deleted a todo");
       setTimeout(() => {
         fetchData();
@@ -82,12 +86,12 @@ function showEditPage(index) {
     },
     url: `http://localhost:3000/todos/${index}`
   })
-    .done(response => {
-      $("#edit-index").val(response.id);
-      $("#edit-title").val(response.title);
-      $("#edit-description").val(response.description);
-      $("#edit-status").val(String(response.status));
-      $("#edit-due-Date").val(response.due_date);
+    .done(res => {
+      $("#edit-index").val(res.id);
+      $("#edit-title").val(res.title);
+      $("#edit-description").val(res.description);
+      $("#edit-status").val(String(res.status));
+      $("#edit-due-Date").val(res.due_date);
     })
     .fail(err => console.log(err))
     .always(() => console.log("sending data..."));
@@ -101,10 +105,10 @@ function onSignIn(googleUser) {
       token: id_token
     }
   })
-    .done(response => {
+    .done(res => {
       console.log("Successfully login through google");
-      console.log(response);
-      localStorage.setItem("token", response.token);
+      console.log(res);
+      localStorage.setItem("token", res.token);
       showDashboard();
       fetchData();
     })
@@ -119,7 +123,6 @@ $(document).ready(() => {
 
   if (token) {
     showDashboard();
-    fetchData();
   } else {
     showLanding();
   }
@@ -143,8 +146,8 @@ $(document).ready(() => {
         password
       }
     })
-      .done(response => {
-        console.log(response);
+      .done(res => {
+        console.log(res);
       })
       .fail(err => {
         console.log(err);
@@ -162,8 +165,8 @@ $(document).ready(() => {
         password
       }
     })
-      .done(response => {
-        localStorage.setItem("token", response.token);
+      .done(res => {
+        localStorage.setItem("token", res.token);
         showDashboard();
         fetchData();
       })
@@ -196,9 +199,10 @@ $(document).ready(() => {
         due_date
       }
     })
-      .done(response => {
-        console.log(response);
+      .done(res => {
+        console.log(res);
         console.log("Successfully created something");
+        fetchData();
         showDashboard(); // delete this after development
       })
       .fail(err => console.log(err))
@@ -224,11 +228,9 @@ $(document).ready(() => {
         due_date
       }
     })
-      .done(response => {
-        console.log(response);
+      .done(res => {
+        console.log(res);
         console.log("Successfully edited a todo");
-        fetchData();
-        showDashboard();
       })
       .fail(err => {
         console.log(err);
