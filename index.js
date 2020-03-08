@@ -127,6 +127,8 @@ function signUp(event) {
     })
     .fail(function(err){
         console.log(err);
+        $("#errorSignUp").empty()
+        $("#errorSignUp").append(`<p class="text-danger"> ${err.responseJSON.error} </p>`)
     })
 }
 
@@ -153,8 +155,8 @@ function login(event) {
         
     })
     .fail(function(err) {
-        $("#errorPass").append(`<p> ${err.responseJSON.error} </p>`)
-        
+        $("#errorPass").empty()
+        $("#errorPass").append(`<p class="text-danger"> ${err.responseJSON.error} </p>`)
     })
 }
 
@@ -175,7 +177,7 @@ function showTodo() {
                         <td>${list.title}</td>
                         <td>${list.description}</td>
                         <td>${list.status}</td>
-                        <td>${list.due_date}</td>
+                        <td>${new Date(list.due_date).toDateString()}</td>
                         <td> <a href="${list.countdown}"> link countdown </a> </td>
                         <td> <button class="btn btn-success" onclick="findOne(${list.id})">Edit</button> 
                              <button class="btn btn-danger" onclick="deleteTodo(${list.id})">Delete</button>
@@ -216,6 +218,9 @@ function create(event) {
         })
         .fail(err => {
             console.log(err)
+            $("#errorCreate").empty()
+            $("#errorCreate").append(`<p class="text-danger"> All input must be filled </p>`)
+
         })
 }
 
@@ -282,6 +287,9 @@ function update(event) {
         })
         .fail(err => {
             console.log(err)
+            $("#errorUpdate").empty()
+            $("#errorUpdate").append(`<p class="text-danger"> All input must be filled </p>`)
+
         })
 }
 

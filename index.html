@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-signin-client_id" content="394232414807-cjd1s1vqvktfevmcugnbtdmnk1fvlsm4
-    .apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="394232414807-cjd1s1vqvktfevmcugnbtdmnk1fvlsm4.apps.googleusercontent.com">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="custom.css">
     <link href="https://fonts.googleapis.com/css?family=Assistant&display=swap" rel="stylesheet">
@@ -82,6 +81,7 @@
                         <input type="password"  class="form-control" name="password" id="password">
                     </div>
                     <div class="form-group">
+                        <div id="errorSignUp"></div>
                         <input type="submit" class="btn btn-dark btn-sm btn-block active" value="Submit">
                     </div>
                 </form>
@@ -113,6 +113,7 @@
                           <label >Due Date</label>
                           <input type="date" class="form-control" id="due_date-create">
                       </div>
+                      <div id="errorCreate"></div>
                       <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                     </div>
@@ -141,6 +142,7 @@
                         <label >Due Date</label>
                         <input type="date" class="form-control" id="due_date-update">
                     </div>
+                    <div id="errorUpdate"></div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </form>
                   </div>
@@ -166,9 +168,9 @@
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput2" class="h6">Your Password:</label>
-                        <div id="errorPass"></div>
                         <input type="password" name="password" class="form-control" id="passLogin">
                     </div>
+                    <div id="errorPass"></div>
                     <input type="submit" class="btn btn-dark btn-sm btn-block active" value="Submit">
                 </form>
               </div>
@@ -180,20 +182,27 @@
 
       <div class="container" id="tableTodo">
           <div class="row">
-            <table class="table table-dark mt-5">
-                <thead>
-                  <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Due Date</th>
-                    <th scope="col">Countdown</th>
-                    <th scope="col">Options</th>
-                  </tr>
-                </thead>
-                <tbody id="tbody-list">
-                </tbody>
-              </table>
+              <div class="col-md-1">
+              </div>
+              <div class="col-md-10">
+                  <table class="table table-dark mt-5">
+                      <thead>
+                        <tr>
+                          <th scope="col">Title</th>
+                          <th scope="col">Description</th>
+                          <th scope="col">Status</th>
+                          <th scope="col">Due Date</th>
+                          <th scope="col">Countdown</th>
+                          <th scope="col">Options</th>
+                        </tr>
+                      </thead>
+                      <tbody id="tbody-list">
+                      </tbody>
+                    </table>
+              </div>
+              <div class="col-md-1">
+              </div>
+            
           </div>
       </div>
 
