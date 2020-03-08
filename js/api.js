@@ -60,19 +60,25 @@ const fetchOne = (id) => {
     })
 }
 
-const updateTodos = (id, payload) => {
+const updateOneTodo = (id, payload) => {
     return $.ajax({
         type: 'PUT',
         url: `${URL}/todos/${id}`,
         headers: {
             token: localStorage.getItem('token')
         },
-        data: payload
+        data: {
+            id: payload.id,
+            title: payload.title,
+            description: payload.title,
+            status: payload.status,
+            due_date: payload.due_date
+        }
     })
 
 }
 
-const deleteTodos = (id) => {
+const deleteTodo = (id) => {
     return $.ajax({
         type: 'DELETE',
         url: `${URL}/todos/${id}`,

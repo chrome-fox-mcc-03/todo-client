@@ -15,6 +15,7 @@ const defaultView = () => {
     $('#emailAlert').hide();
     $('#passwordAlert').hide();
     $('#create').hide();
+    $('#modalDelete').hide();
 
 };
 
@@ -79,6 +80,13 @@ const clearInput = () => {
     $('#inputPassword').val('');
 }
 
+/* CLEAR INPUT Login */
+
+const clearLogin = () => {
+    $('#loginEmail').val('');
+    $('#loginPassword').val('');
+}
+
 /* CONTENT CARD TODO */
 
 const cardTodo = (todos) => {
@@ -99,14 +107,14 @@ const cardTodo = (todos) => {
     </p>
     <h6>Due Date</h6>
     <p class="card-text">
-    ${todo.due_date}
+    ${todo.due_date.split('T')[0]}
     </p>    
   </div>
   <div class="btn-group">
-      <button type="button" class="updateTodo btn btn-light">
+      <button onclick="toUpdateTodo(${todo.id})" type="button" class="updateTodo btn btn-light">
         Update
       </button>
-      <button type="button" class="deleteTodo btn btn-dark">
+      <button onclick="toDeleteTodo(${todo.id})" type="button" class="deleteTodo btn btn-dark" data-toggle="modal" data-target="#modalDelete">
         Delete
       </button>
       </div>
@@ -114,6 +122,60 @@ const cardTodo = (todos) => {
     </div>`
         $('#todoCards').append(string);
     })
+}
+
+/* UPDATE TODO */
+
+const toUpdateTodo = (id) => {
+    let string;
+    fetchOne(id).done(response => {
+        string = `<h3>UPDATE TODO</h3>
+        <div class="form-group">
+          <label for="updateId">ID</label>
+          <input class="form-control" type="text" id="updateId" name="id" value="${response.id}" readonly/>
+        </div>
+        <div class="form-group">
+          <label for="updateTitle">TITLE</label>
+          <input class="form-control" type="text" id="updateTitle" name="title" value="${response.title}"/>
+        </div>
+        <div class="form-group">
+          <label for="updateDescription">DESCRIPTION</label>
+          <input class="form-control" type="text" id="updateDescription" name="description" value="${response.description}" />
+        </div>
+        <div class="form-group">
+          <label for="updateStatus">STATUS</label>
+          <input class="form-control" type="text" id="updateStatus" name="status" value="${response.status}"/>
+        </div>
+        <div class="form-group">
+          <label for="updateDueDate">DUE DATE</label>
+          <input class="form-control" type="date" id="updateDueDate" name="due_date" value="${response.due_date.split('T')[0]}" />
+        </div>        
+        <button type="submit" class="btn btn-outline-dark">
+          Update
+        </button>
+        <button type="button" class="btn btn-outline-dark">
+          Cancel
+        </button>`;
+        $('#todoCards').hide();
+        $('#updateForm').show();
+        $('#updateForm').html(string);
+    }).fail(err => {
+        console.log(err)
+    })
+}
+
+/* DELETE TODO */
+
+const toDeleteTodo = (id) => {
+    let string = `<div class="modal-body">
+    Are you sure want to delete this todo?    
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-primary">Delete</button>
+  </div>`
+    localStorage.setItem('todoId', `${id}`);
+    $('#deleteForm').html(string);
 }
 
 
@@ -190,10 +252,12 @@ $(document).ready(() => {
         }
         createTodos(payload).done(
             response => {
+
                 fetchTodos().done(todos => {
+                    $('#createForm').empty();
+                    $('#createForm').hide();
                     $('#todoCards').show();
                     cardTodo(todos);
-                    $('#createForm').hide();
                 }).fail(err => {
                     console.log(err);
                 })
@@ -203,20 +267,67 @@ $(document).ready(() => {
         })
     })
 
+    // Update Process
+
+    $('#updateForm').submit(event => {
+        event.preventDefault();
+        let updateId = $('#updateId').val();
+        let updateStatus = $('#updateStatus').val();
+        let updateDate = $('#updateDueDate').val();
+        if (updateStatus === 'true') {
+            updateStatus = true;
+        } else {
+            updateStatus = false;
+        }
+        const payload = {
+            id: +updateId,
+            title: $('#updateTitle').val(),
+            description: $('#updateDescription').val(),
+            status: updateStatus,
+            due_date: new Date(updateDate)
+        }
+
+        updateOneTodo(payload.id, payload).done(todo => {
+            if (todo) {
+                $('#updateForm').hide();
+                fetchTodos().done(response => {
+                    $('#todoCards').show();
+                    cardTodo(response);
+                }).fail(err => {
+                    console.log(err);
+                })
+            }
+        }).fail(err => {
+            console.log(err)
+        })
+    });
+
+    // Delete
+    $('#deleteForm').submit(event => {
+        event.preventDefault();
+        const todoId = localStorage.getItem('todoId');
+        deleteTodo(+todoId).done(response => {
+            $('#deleteForm').empty();
+            $('#modalDelete').modal('hide');
+            localStorage.removeItem('todoId')
+
+            fetchTodos().done(response => {
+                $('#todoCards').show();
+                cardTodo(response);
+            }).fail(err => {
+                console.log(err);
+            })
+
+        }).fail(err => {
+            console.log(err)
+        })
+    });
+
+    // Logout
     $('#logout').on('click', () => {
-        localStorage.removeItem('token');
         localStorage.clear();
-        loginView();
-        clearInput();
+        clearLogin();
+        defaultView();
     });
-
-    $('#todoCards.updateTodo').on('click', () => {
-        // create form;
-        $('#todoCards').hide();
-        $('#UpdateForm').show();
-    });
-
-
-
 })
 
