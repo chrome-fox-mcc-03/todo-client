@@ -91,7 +91,7 @@ function fetchTodos() {
                     <th>Description</th>
                     <th>Status</th>
                     <th>Due Date</th>
-                    <th></th>
+                    <th>Options</th>
 
                 </tr>
             `)
@@ -166,7 +166,7 @@ function buttonWhenLogin() {
     $("#button-login").hide()
     $("#button-logout").show()
     $("#button-todo").show()
-
+    $("#button-getstarted").hide()
 }
 
 function buttonWhenLogout() {
@@ -174,7 +174,7 @@ function buttonWhenLogout() {
     $("#button-login").show()
     $("#button-logout").hide()
     $("#button-todo").hide()
-
+    $("#button-getstarted").show()
 }
 
 function showFormAdd() {
@@ -282,6 +282,10 @@ $(document).ready(function () {
     $("#button-register").on("click", function () {
         showRegister()
     })
+    
+    $("#button-getstarted").on("click", function () {
+        showRegister()
+    })
 
     $("#button-home").on("click", function () {
         showLandingPage()
@@ -311,6 +315,9 @@ $(document).ready(function () {
             showDashboard()
             fetchTodos()
             buttonWhenLogin()
+            hideFormAdd()
+            hideFormUpdate()
+
         }).fail(function (err) {
             console.log(err, "error")
         })
@@ -396,6 +403,8 @@ $(document).ready(function () {
             showDashboard()
             fetchTodos()
             buttonWhenLogin()
+            hideFormAdd()
+            hideFormUpdate()
         })
     })
 

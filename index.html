@@ -13,279 +13,288 @@
 </head>
 
 <body>
-    <div class="container">
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-                <!-- <a class="navbar-item" href="https://bulma.io">
-                    <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-                </a> -->
-
-                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-                    data-target="navbarBasicExample">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
-            </div>
-
-            <div id="navbarBasicExample" class="navbar-menu">
-                <div class="navbar-start">
-                    <a class="navbar-item" id="button-home">
-                        Home
-                    </a>
-                    <a class="navbar-item" id="button-todo">
-                        My Todo
-                    </a>
-
-                </div>
-
-                <div class="navbar-end">
-                    <div class="navbar-item">
-                        <div class="buttons">
-                            <a id="button-register" class="button is-primary">
-                                <strong>Sign up</strong>
+    <section class="hero is-info">
+        <div class="hero-head">
+            <nav class="navbar">
+                <div class="container">
+                    <div class="navbar-brand">
+                        <a class="navbar-item">
+                            <h1 class="title" id="button-home">Fancy Todo</h1>
+                        </a>
+                        <span class="navbar-burger burger" data-target="navbarMenuHeroB">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                    </div>
+                    <div id="navbarMenuHeroB" class="navbar-menu">
+                        <div class="navbar-end">
+                            <a class="navbar-item" id="button-todo">
+                                My Todo
                             </a>
-                            <a id="button-login" class="button is-light">
-                                Log in
+
+                            <span id="button-register" class="navbar-item">
+                                <a class="button is-info is-inverted">
+                                    <span class="icon">
+                                        <i class="fas fa-sign-in-alt"></i>
+                                    </span>
+                                    <span>Sign Up</span>
+                                </a>
+                            </span>
+                            <a id="button-login" class="navbar-item">
+                                Login
                             </a>
-                            <a id="button-logout" class="button is-light">
-                                Log out
+                            <a id="button-logout" class="navbar-item">
+                                Logout
                             </a>
                         </div>
                     </div>
                 </div>
+            </nav>
+        </div>
+    </section>
+
+    <section class="hero is-info is-fullheight" id="landing-page">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <p class="title">
+                    Welcome to Fancy Todo!
+                </p>
+                <button class="button is-light" id="button-getstarted">
+                    Get Started!
+                </button>
             </div>
-        </nav>
+        </div>
+    </section>
 
-
-
-        <section class="hero" id="landing-page">
-            <div class="hero-body">
-                <div class="container">
-                    <h1 class="title">
-                        Fancy Todo
-                    </h1>
-                    <h2 class="subtitle">
-                        Welcome to fancy todo.
-                    </h2>
-                </div>
-            </div>
-        </section>
-
-
-
-        <section class="section hero" id="section-register">
-            <div class="hero-body">
-                <div class="container">
-                    <div class="columns is-centered">
-                        <div class="column is-5-tablet is-4-desktop is-4-widescreen">
-                            <form method="POST" id="form-signup">
-                                <div class="field">
-                                    <label for="" class="label">Email</label>
-                                    <div class="control has-icons-left">
-                                        <input type="email" class="input" name="email" id="email" required>
-                                        <span class="icon is-small is-left">
-                                            <i class="fa fa-envelope"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="field">
-                                    <label for="" class="label">Password</label>
-                                    <div class="control has-icons-left">
-                                        <input name="password" id="password" type="password" class="input" required>
-                                        <span class="icon is-small is-left">
-                                            <i class="fa fa-lock"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="field">
-                                    <button class="button is-success" type="submit">
-                                        Sign Up
-                                    </button>
-                                </div>
-                            </form>
+    <section class="section hero" id="section-register">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-5-tablet is-4-desktop is-4-widescreen">
+                        <div class="has-text-centered">
+                            <h1 class="title">Create your account!</h1>
                         </div>
+                        <form method="POST" id="form-signup">
+                            <div class="field">
+                                <label for="" class="label">Email</label>
+                                <div class="control has-icons-left">
+                                    <input type="email" class="input" name="email" id="email" required>
+                                    <span class="icon is-small is-left">
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="" class="label">Password</label>
+                                <div class="control has-icons-left">
+                                    <input name="password" id="password" type="password" class="input" required>
+                                    <span class="icon is-small is-left">
+                                        <i class="fa fa-lock"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <button class="button is-info" type="submit">
+                                    Sign Up
+                                </button>
+                                <div>
+                                    <br>
+                                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="section hero" id="section-login">
-            <div class="hero-body">
-                <div class="container">
-                    <div class="columns is-centered">
-                        <div class="column is-5-tablet is-4-desktop is-4-widescreen">
-                            <form action="post" id="form-login">
-                                <div class="field">
-                                    <label for="" class="label">Email</label>
-                                    <div class="control has-icons-left">
-                                        <input type="email" class="input" name="email_login" id="email_login" required>
-                                        <span class="icon is-small is-left">
-                                            <i class="fa fa-envelope"></i>
-                                        </span>
-                                    </div>
+    <section class="section hero" id="section-login">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-5-tablet is-4-desktop is-4-widescreen">
+                        <div class="has-text-centered">
+                            <h1 class="title">Login to your account!</h1>
+                        </div>
+                        <form action="post" id="form-login">
+                            <div class="field">
+                                <label for="" class="label">Email</label>
+                                <div class="control has-icons-left">
+                                    <input type="email" class="input" name="email_login" id="email_login" required>
+                                    <span class="icon is-small is-left">
+                                        <i class="fa fa-envelope"></i>
+                                    </span>
                                 </div>
-                                <div class="field">
-                                    <label for="" class="label">Password</label>
-                                    <div class="control has-icons-left">
-                                        <input name="password_login" id="password_login" type="password" class="input"
-                                            required>
-                                        <span class="icon is-small is-left">
-                                            <i class="fa fa-lock"></i>
-                                        </span>
-                                    </div>
+                            </div>
+                            <div class="field">
+                                <label for="" class="label">Password</label>
+                                <div class="control has-icons-left">
+                                    <input name="password_login" id="password_login" type="password" class="input"
+                                        required>
+                                    <span class="icon is-small is-left">
+                                        <i class="fa fa-lock"></i>
+                                    </span>
                                 </div>
-                                <div class="field">
-                                    <button class="button is-success" type="submit">
-                                        Login
-                                    </button>
-                                </div>
-                            </form>
+                            </div>
+                            <div class="field">
+                                <button class="button is-info" type="submit">
+                                    Login
+                                </button>
+                            </div>
+                        </form>
+
+                        <div>
+                            <br>
                             <div class="g-signin2" data-onsuccess="onSignIn"></div>
                         </div>
+
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="dashboard-page">
-            <button class="button is-primary" onclick="showFormAdd()">
-                Add
-            </button>
-            <h1 class="subtitle">My Todos</h1>
-            <table class="table is-striped is-fullwidth" id="table-todo">
-            </table>
+    <section class="section container" id="dashboard-page">
 
-            <form method="post" id="add-todo">
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label">Title</label>
-                    </div>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <input class="input" id="title" name="title" type="text"
-                                    placeholder="e.g. Watching Movie Horror" />
-                            </div>
+        <h1 class="title">My Todos</h1>
+        <button class="button is-info" onclick="showFormAdd()">
+            Add Todo
+        </button>
+        <table class="table is-striped is-fullwidth" id="table-todo">
+        </table>
+
+        <form method="post" id="add-todo">
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Title</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" id="title" name="title" type="text"
+                                placeholder="e.g. Watching Movie Horror" />
                         </div>
                     </div>
                 </div>
-
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label">Description</label>
-                    </div>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <textarea id="description" name="description" class="textarea"
-                                    placeholder="Explain your task"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label">Due Date</label>
-                    </div>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <input type="date" name="due_date" id="due_date" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="field is-horizontal">
-                    <div class="field-label">
-                    </div>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <button class="button is-primary" type="submit">
-                                    Add Todo
-                                </button>
-                                <button class="button is-primary" onclick="hideFormAdd()">
-                                    Cancel
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-
-            <form method="dialog" id="update-todo">
-                <input type="hidden" id="id-update">
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label">Title</label>
-                    </div>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <input class="input" id="title-update" name="title" type="text"
-                                    placeholder="e.g. Watching Movie Horror" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label">Description</label>
-                    </div>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <textarea id="description-update" name="description" class="textarea"
-                                    placeholder="Explain your task"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="field is-horizontal">
-                    <div class="field-label is-normal">
-                        <label class="label">Due Date</label>
-                    </div>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <input type="date" name="due_date" id="due_date-update" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="field is-horizontal">
-                    <div class="field-label">
-                    </div>
-                    <div class="field-body">
-                        <div class="field">
-                            <div class="control">
-                                <button class="button is-primary" type="submit">
-                                    Update Todo
-                                </button>
-                                <button class="button is-primary" onclick="hideFormUpdate()">
-                                    Cancel
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-
-
-            <h1 class="subtitle">Maybe you want watch these movie : </h1>
-            <div class="container-grid" id="movie-list">
-
             </div>
 
-        </section>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Description</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <textarea id="description" name="description" class="textarea"
+                                placeholder="Explain your task"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Due Date</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input type="date" name="due_date" id="due_date" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label">
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-info" type="submit">
+                                Add Todo
+                            </button>
+                            <button class="button is-info" onclick="hideFormAdd()">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <form method="dialog" id="update-todo">
+            <input type="hidden" id="id-update">
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Title</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" id="title-update" name="title" type="text"
+                                placeholder="e.g. Watching Movie Horror" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Description</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <textarea id="description-update" name="description" class="textarea"
+                                placeholder="Explain your task"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Due Date</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input type="date" name="due_date" id="due_date-update" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field is-horizontal">
+                <div class="field-label">
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-info" type="submit">
+                                Update Todo
+                            </button>
+                            <button class="button is-info" onclick="hideFormUpdate()">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div ><br>
+        <h1 class="subtitle">Maybe you want watch these movies : </h1> <br>
     </div>
+        <div class="container-grid" id="movie-list">
+
+        </div>
+
+    </section>
+
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
