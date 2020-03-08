@@ -219,8 +219,7 @@ function create(event) {
         .fail(err => {
             console.log(err)
             $("#errorCreate").empty()
-            $("#errorCreate").append(`<p class="text-danger"> All input must be filled </p>`)
-
+            $("#errorCreate").append(`<p class="text-danger"> All input must be filled <br> Due date at least is tomorrow </p>`)
         })
 }
 
@@ -257,6 +256,7 @@ function findOne(id) {
             showUpdateForm()
             $("#title-update").val(response.data.title)
             $("#description-update").val(response.data.description)
+            $(`#status-update option:selected`).text(response.data.status)
             $("#due_date-update").val(response.data.due_date)
         })
         .fail(err => {
@@ -269,13 +269,15 @@ function update(event) {
     const title = $("#title-update").val()
     const description = $("#description-update").val()
     const due_date = $("#due_date-update").val()
+    const status = $("#status-update").val()
     $.ajax({
         method: "PUT",
         url: `${baseURL}/todos/${id_update}`,
         data: {
             title,
             description,
-            due_date
+            due_date,
+            status
         },
         headers: {
             token: localStorage.getItem("token")
@@ -288,8 +290,7 @@ function update(event) {
         .fail(err => {
             console.log(err)
             $("#errorUpdate").empty()
-            $("#errorUpdate").append(`<p class="text-danger"> All input must be filled </p>`)
-
+            $("#errorUpdate").append(`<p class="text-danger"> All input must be filled <br> Due date at least is tomorrow </p>`)
         })
 }
 
