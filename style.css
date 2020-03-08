@@ -1,8 +1,8 @@
-html,
 
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap');
 
 body {
-  height: 80%;
+  height: 100%;
 }
 
 body {
@@ -10,7 +10,7 @@ body {
   display: flex;
   -ms-flex-align: center;
   align-items: center;
-  padding-top: 40px;
+  padding-top: 80px;
   padding-bottom: 40px;
   background-color: black;
 }
@@ -67,6 +67,7 @@ body {
   /* text-shadow: hotpink; */
   font-weight: bold;
   text-align: center;
+  font-family: 'Permanent Marker', cursive;
 }
 
 section {
@@ -81,9 +82,29 @@ section div {
   padding: 20px;
   border-radius: 3px;
   box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+  /* border-right: 6px solid rgb(236, 8, 122); */
   z-index: 3;
   position: relative;
 }
+.edit-form{
+  border-left: 6px solid rgb(236, 8, 122);
+  border-top: 6px solid black;
+}
+
+
+.text{
+  /* width: 500px;
+  margin: 50px auto; */
+  background-color: rgb(255, 219, 243);
+  overflow: hidden;
+  padding: 20px;
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+  border-left: 6px solid rgb(236, 8, 122);
+  z-index: 3;
+  position: relative;
+}
+
 section div img {
   float: left;
   width: 60px;
@@ -109,6 +130,18 @@ section div .input-one-line {
   outline: none;
   border-bottom: 2px solid rgb(236, 8, 122);
 }
+
+section div .due-date {
+  width: 75px;
+  /* height: 75px; */
+  border: none;
+  padding: 5px 10px;
+  font-family: arial;
+  resize: none;
+  outline: none;
+  border-bottom: 2px solid rgb(236, 8, 122);
+}
+
 textarea::-webkit-scrollbar {
   width: 0px;
   background-color: transparent;
@@ -118,6 +151,18 @@ textarea::-webkit-scrollbar-thumb {
   border-radius: 2px
 }
 section div [type = submit] {
+  /* float: right; */
+  /* margin: 15px 10px auto auto; */
+  border: none;
+  background-color: rgb(236, 8, 122);
+  color: #fff;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+section div .pinkbutton {
   /* float: right; */
   /* margin: 15px 10px auto auto; */
   border: none;
@@ -159,6 +204,7 @@ section div [type = submit] {
   padding: 10px 15px;
   border-radius: 3px;
   font-size: 24px;
+  font-family: 'Permanent Marker', cursive;
 }
 
 .overlay {
