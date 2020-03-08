@@ -47,6 +47,16 @@ function fetchTodos() {
     })
         .done(todos => {
             $('.todos').empty();
+            console.log(todos);
+            if (todos.length == 0) {
+                console.log('kosong');
+                $('.todos').append(`
+                <div id="no-todo">
+                    <h2>You have no todo</h2>
+                    <button onclick="showAddForm()" id="create-from-scratch">Create One</button>
+                </div>
+                `)
+            }
             for (let i = 0; i < todos.length; i++) {
                 let formattedDate = new Date(todos[i].due_date).toISOString().substring(0, 10);
                 let year = formattedDate.substring(0, 4);
@@ -55,7 +65,6 @@ function fetchTodos() {
 
                 month = monthConverter(month);
                 let fixedFormattedDate = `${date} ${month} ${year}`
-                console.log(todos[i].status);
                 
                 if (!todos[i].status) {
                     $('.todos').append(`
@@ -93,7 +102,6 @@ function fetchTodos() {
                     </div>`)
                 }
             }
-            console.log(todos);
         })
         .fail(err => {
             console.log(err);
@@ -262,6 +270,14 @@ function showDashboard() {
     $('#signup-page').hide();
     $('#signin-page').hide();
     $('#create-todo-page').hide();
+    $('#update-todo-page').hide();
+}
+
+function showAddForm() {
+    $('#dashboard-page').hide();
+    $('#signup-page').hide();
+    $('#signin-page').hide();
+    $('#create-todo-page').show();
     $('#update-todo-page').hide();
 }
 

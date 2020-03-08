@@ -50,6 +50,14 @@ body {
     background-color: rgb(76, 179, 165);
 } */
 
+#no-todo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
 .theTodo {
     display: flex;
     justify-content: space-between;
@@ -88,6 +96,23 @@ body {
     border-radius: 5px;
     cursor: pointer;
     padding: 0 1.5rem;
+}
+
+#create-from-scratch {
+    height: 3rem;
+    border: none;
+    margin-top: 1rem;
+    font-size: medium;
+    background-color: rgb(76, 179, 165);
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0 1.25rem;
+}
+
+#create-from-scratch:hover {
+    background-color: rgb(15, 78, 64);
+    color: rgb(255, 255, 255);
 }
 
 #btn-redir-create-todo:hover {
