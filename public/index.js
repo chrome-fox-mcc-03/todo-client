@@ -260,6 +260,7 @@ const register = () => {
         .fail((err) => {
             console.log(err);
             isError = true;
+            console.log(err);
             showLoginRegister(err)
         })
 }
@@ -359,6 +360,7 @@ const showNav = () => {
 
 const showError = (err) => {
     console.log(err);
+    console.log("<<<<<<<<<<");
     if (isError) {
         let msg;
         if(err.status == 400) {
@@ -367,6 +369,7 @@ const showError = (err) => {
             msg = err.responseJSON.error;
         }
         console.log(msg);
+        console.log("<<<<<<<<<<<<<<<<<<");
         $("#error-alert").empty();
         $("#error-alert").append(msg);
         $("#error-alert").show();
