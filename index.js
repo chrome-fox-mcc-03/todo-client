@@ -4,7 +4,7 @@ function showDashboard() {
     addButton()
     $.ajax({
         method: 'get',
-        url: "http://localhost:3000/todos",
+        url: "https://infinite-taiga-37673.herokuapp.com/todos",
         headers: {
             token: localStorage.getItem("token")
         }
@@ -51,6 +51,7 @@ function showDashboard() {
             // console.log(response)
     })
     .fail(function(err) {
+        
         console.log(err, " <= It's an error.")
     })
 }
@@ -69,7 +70,7 @@ function submitEdit(id) {
     $(`#edit-todo-${id}`).submit(function() {
         $.ajax({
             method: "PUT",
-            url: `http://localhost:3000/todos/${id}`,
+            url: `https://infinite-taiga-37673.herokuapp.com/todos/${id}`,
             headers: {
                 token: localStorage.getItem('token')
             },
@@ -85,7 +86,13 @@ function submitEdit(id) {
             console.log(`Updated item "${title}"`)
             showDashboard()
         })
-        .fail(err => console.log(err))
+        .fail(err => {
+            $('#alert').append(err.responseJSON)
+            $('#alert').fadeTo(2000, 500).slideUp(500, function(){
+                $("#alert").slideUp(500);
+                $('#alert').empty()
+            })
+        })
     })
 }
 
@@ -96,7 +103,7 @@ function edit(id) {
     console.log({title: title, test: truth})
     $.ajax({
         method: "PUT",
-        url: `http://localhost:3000/todos/${id}`,
+        url: `https://infinite-taiga-37673.herokuapp.com/todos/${id}`,
         headers: {
             token: localStorage.getItem('token')
         },
@@ -120,7 +127,7 @@ function addButton() {
     $("#add-todo").submit(function() {
         $.ajax({
             method: "POST",
-            url: "http://localhost:3000/todos",
+            url: "https://infinite-taiga-37673.herokuapp.com/todos",
             headers: {
                 token: localStorage.getItem('token')
             },
@@ -158,18 +165,28 @@ function editToDo(id, array) {
 function deleteToDo(id, title) {
     $.ajax({
         method: "DELETE",
-        url: `http://localhost:3000/todos/${id}`,
+        url: `https://infinite-taiga-37673.herokuapp.com/todos/${id}`,
         headers: {
             token: localStorage.getItem('token')
         }
     }).done(deleted => {
         console.log(deleted)
         showDashboard()
-        return alert(`To-Do ~${title}~ has been deleted.`)
+        $('#alert').append(`To-Do "${title}" has been deleted.`)
+        $('#alert').fadeTo(2000, 500).slideUp(500, function(){
+            $("#alert").slideUp(500);
+            $('#alert').empty()
+        })
+        return
     })
     .fail(err => {
         console.log(err)
-        return alert(err)
+        $('#alert').append(err.responseJSON)
+        $('#alert').fadeTo(2000, 500).slideUp(500, function(){
+            $("#alert").slideUp(500);
+            $('#alert').empty()
+        })
+        return
     })
 }
 
@@ -189,7 +206,7 @@ function onSignIn(googleUser) {
 
     $.ajax({
         method: "POST",
-        url: "http://localhost:3000/users/googleSignIn",
+        url: "https://infinite-taiga-37673.herokuapp.com/users/googleSignIn",
         headers: {
             token: id_token
         }
@@ -207,6 +224,7 @@ function onSignIn(googleUser) {
 }
 
 $(document).ready(function() {
+    $('#alert').hide()
     let token = localStorage.getItem("token")
     if(token !== localStorage.token) {
         // alert('Hi!')
@@ -215,7 +233,7 @@ $(document).ready(function() {
             e.preventDefault()
             $.ajax({
                 method: "POST",
-                url: "http://localhost:3000/users/login",
+                url: "https://infinite-taiga-37673.herokuapp.com/users/login",
                 data: {
                     email: $('#email-login').val(),
                     password: $("#password-login").val()
@@ -227,7 +245,11 @@ $(document).ready(function() {
                 console.log(response, " <= It's in.")
             })
             .fail(function(err) {
-                alert(err.responseJSON)
+                $('#alert').append(err.responseJSON)
+                $('#alert').fadeTo(2000, 500).slideUp(500, function(){
+                    $("#alert").slideUp(500);
+                    $('#alert').empty()
+                })
                 console.log(err.responseJSON)
                 console.log(err, " <= It's an error.")
             })
@@ -236,7 +258,7 @@ $(document).ready(function() {
             e.preventDefault()
             $.ajax({
                 method: "POST",
-                url: "http://localhost:3000/users/register",
+                url: "https://infinite-taiga-37673.herokuapp.com/users/register",
                 data: {
                     email: $('#email-register').val(),
                     password: $("#password-register").val()
@@ -248,7 +270,12 @@ $(document).ready(function() {
                 console.log(response, " <= It's in.")
             })
             .fail(function(err) {
-                alert(err.responseJSON)
+                // alert(err.responseJSON)
+                $('#alert').append(err.responseJSON)
+                $('#alert').fadeTo(2000, 500).slideUp(500, function(){
+                    $("#alert").slideUp(500);
+                    $('#alert').empty()
+                })
                 console.log(err.responseJSON)
                 console.log(err, " <= It's an error.")
             })
