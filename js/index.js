@@ -261,8 +261,7 @@ $(document).ready(() => {
             due_date: $('#createDueDate').val()
         }
         createTodo(payload).done(
-            response => {
-                console.log(response)
+            response => {                
                 fetchTodos().done(todos => {
                     $('#createForm').empty();
                     $('#createForm').hide();
