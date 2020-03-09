@@ -3,7 +3,7 @@ body {
 }
 
 #loading {
-    background-image: url("./public/img/loading.svg");
+    background-image: url("./img/loading.svg");
     height: 100vh;
     background-repeat: no-repeat;
     background-size: cover;

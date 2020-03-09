@@ -1,6 +1,8 @@
 let idToEdit;
 let isLogin = false;
 let isError = false;
+// const URL = "http://localhost:3000/"
+const URL = "https://young-mountain-49683.herokuapp.com/"
 
 //#region function
 
@@ -12,7 +14,7 @@ const fetchTodos = () => {
     showLoading();
     $.ajax({
         method: "GET",
-        url: "http://localhost:3000/todos",
+        url: URL + "todos",
         headers: {
             token: getToken()
         }
@@ -20,6 +22,7 @@ const fetchTodos = () => {
         .done(function (response) {
             $("#todo-table-body").empty();
             $("#quotes").empty();
+            console.log(response);
             response.data.forEach(el => {
                 el.due_date = el.due_date.slice(0, el.due_date.indexOf('.'))
                 el.due_date = el.due_date.split("T").join(" ");
@@ -59,7 +62,7 @@ const createTodo = () => {
     const due_date = $("#todo-duedate").val();
     $.ajax({
         method: "POST",
-        url: "http://localhost:3000/todos/",
+        url: URL + "todos/",
         headers: {
             token: getToken()
         },
@@ -83,34 +86,70 @@ const createTodo = () => {
 }
 
 const deleteTodo = (id) => {
-    const sure = confirm("are you sure want to delete this data?");
-    if (sure) {
-        showLoading();
-        $.ajax({
-            method: "DELETE",
-            url: "http://localhost:3000/todos/" + id,
-            headers: {
-                token: getToken()
-            }
-        })
-            .done(function (response) {
-                fetchTodos();
-                showTodoList();
+    // const sure = confirm("are you sure want to delete this data?");
+    // if (sure) {
+    //     showLoading();
+    //     $.ajax({
+    //         method: "DELETE",
+    //         url: URL + "todos/" + id,
+    //         headers: {
+    //             token: getToken()
+    //         }
+    //     })
+    //         .done(function (response) {
+    //             fetchTodos();
+    //             showTodoList();
+    //         })
+    //         .fail((err) => {
+    //             console.log(err.responseText);
+    //             console.log(err);
+    //             isError = true;
+    //             showTodoList(err);
+    //             // showError(err.responseText);
+    //         })
+    // }
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.value) {
+            showLoading();
+            $.ajax({
+                method: "DELETE",
+                url: URL + "todos/" + id,
+                headers: {
+                    token: getToken()
+                }
             })
-            .fail((err) => {
-                console.log(err.responseText);
-                console.log(err);
-                isError = true;
-                showTodoList(err);
-                // showError(err.responseText);
-            })
-    }
+                .done(function (response) {
+                    fetchTodos();
+                    showTodoList();
+                })
+                .fail((err) => {
+                    console.log(err.responseText);
+                    console.log(err);
+                    isError = true;
+                    showTodoList(err);
+                    // showError(err.responseText);
+                })
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            )
+        }
+    })
 }
 
 const editTodo = () => {
     $.ajax({
         method: "PUT",
-        url: "http://localhost:3000/todos/" + idToEdit,
+        url: URL + "todos/" + idToEdit,
         headers: {
             token: getToken()
         },
@@ -152,12 +191,13 @@ const clearCreateTodo = () => {
 const getEdit = (id) => {
     $.ajax({
         method: "GET",
-        url: "http://localhost:3000/todos/" + id,
+        url: URL + "todos/" + id,
         headers: {
             token: getToken()
         }
     })
         .done(function (response) {
+            response = response.data;
             response.due_date = convertDate(response.due_date);
             $("#edit-todo-title").val(response.title);
             $("#edit-todo-description").val(response.description);
@@ -179,7 +219,7 @@ const login = () => {
     const password = $("#password-login").val();
     $.ajax({
         method: "POST",
-        url: "http://localhost:3000/login",
+        url: URL + "login",
         data: {
             email,
             password
@@ -204,7 +244,7 @@ const register = () => {
     const password = $("#password-register").val();
     $.ajax({
         method: "POST",
-        url: "http://localhost:3000/register",
+        url: URL + "register",
         data: {
             email,
             password
@@ -245,7 +285,7 @@ function onSignIn(googleUser) {
 
     $.ajax({
         method: "POST",
-        url: "http://localhost:3000/googleLogin",
+        url: URL + "googleLogin",
         headers: {
             gtoken: id_token
         }
@@ -274,7 +314,6 @@ const showLoginRegister = (err) => {
     showError(err);
     $("#login").show();
     $("#register").show();
-    console.log("masuk");
     $("#login-register").show();
     $("#update-todo").hide();
     $("#todo-list").hide();
@@ -319,14 +358,15 @@ const showNav = () => {
 }
 
 const showError = (err) => {
+    console.log(err);
     if (isError) {
         let msg;
         if(err.status == 400) {
-            msg = err.responseJSON;
+            msg = err.responseJSON.error;
         } else {
-            msg = err.statusText;
+            msg = err.responseJSON.error;
         }
-        console.log(err);
+        console.log(msg);
         $("#error-alert").empty();
         $("#error-alert").append(msg);
         $("#error-alert").show();
