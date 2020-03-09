@@ -23,6 +23,8 @@ $(document).ready(function () {
     // ---- form login ------------
     $("#form-login").on("submit", function (event) {
         event.preventDefault()
+        console.log('masuk');
+
         $("#login-page").hide()
         let email = $("#email-log").val()
         let password = $("#password-log").val()
