@@ -41,8 +41,6 @@ let datum
     })
 
     
-
-
     // $("#signin-form").on("click")
 
 function renderAddForm() {
@@ -52,7 +50,6 @@ function renderAddForm() {
     $("#pg-create-todo").show()
     $("#pg-update-todo").hide()
     $("#pg-delete-todo").hide()
-    $(".error-msg").empty()
 }
 
 function renderDashboard() {
@@ -62,7 +59,6 @@ function renderDashboard() {
     $("#pg-create-todo").hide()
     $("#pg-update-todo").hide()
     $("#pg-delete-todo").hide()
-    $(".error-msg").empty()
 }
 
 function renderLanding() {
@@ -72,7 +68,6 @@ function renderLanding() {
     $("#pg-create-todo").hide()
     $("#pg-update-todo").hide()
     $("#pg-delete-todo").hide()
-    $(".error-msg").empty()
 }
 
 function renderSignUp() {
@@ -82,7 +77,6 @@ function renderSignUp() {
     $("#pg-create-todo").hide()
     $("#pg-update-todo").hide()
     $("#pg-delete-todo").hide()
-    $(".error-msg").empty()
 }
 
 function renderSignIn() {
@@ -92,7 +86,15 @@ function renderSignIn() {
     $("#pg-create-todo").hide()
     $("#pg-update-todo").hide()
     $("#pg-delete-todo").hide()
-    $(".error-msg").empty()
+}
+
+function renderEditForm() {
+    $("#signin-page").hide()
+    $("#signup-page").hide()
+    $("#dashboard-page").hide()
+    $("#pg-create-todo").hide()
+    $("#pg-update-todo").show()
+    $("#pg-delete-todo").hide()
 }
 
 function login(event) {
@@ -121,6 +123,7 @@ function login(event) {
        
         showTodos(event)
         renderDashboard()
+        setTimeout($(".success-msg").hide(), 10000)
 
     })
     .fail(err => {
@@ -130,21 +133,10 @@ function login(event) {
         console.log(err.responseText);
         $(".error-msg").empty()
         $(".error-msg").append(`<h3>${err.responseText}</h3>`)
+        setTimeout($(".error-msg").hide(), 10000);
     })
-
-
-
 }
 
-function renderEditForm() {
-    $("#signin-page").hide()
-    $("#signup-page").hide()
-    $("#dashboard-page").hide()
-    $("#pg-create-todo").hide()
-    $("#pg-update-todo").show()
-    $("#pg-delete-todo").hide()
-    $(".error-msg").empty()
-}
 
 function showTodos(event) {
     event.preventDefault()
@@ -190,6 +182,7 @@ function showTodos(event) {
         console.log(err.responseText);
         $(".error-msg").empty()
         $(".error-msg").append(`<h3>${err.responseText}</h3>`)
+        setTimeout($(".error-msg").hide(), 10000);
     })
 
 
@@ -225,6 +218,7 @@ function register(event) {
             $(".success-msg").append(`<h3>${message}</h3>`)
 
             renderSignIn()
+            setTimeout($(".success-msg").hide(), 10000)
 
         })
         .fail(err => {
@@ -234,6 +228,7 @@ function register(event) {
             console.log(err.responseText);
             $(".error-msg").empty()
             $(".error-msg").append(`<h3>${err.responseText}</h3>`)
+            setTimeout($(".error-msg").hide(), 10000);
         })
 
 }
@@ -274,6 +269,7 @@ function createTodo(event) {
         $(".success-msg").append(`<h3>TODO #${todoId}: ${title} CREATED</h3>`)
         showTodos(event)
         renderDashboard()
+        setTimeout($(".success-msg").hide(), 10000)
     })
     .fail(err => {
         console.log(`main error is`);
@@ -282,6 +278,7 @@ function createTodo(event) {
         console.log(err.responseText);
         $(".error-msg").empty()
         $(".error-msg").append(`<h3> ${err.responseText} </h3>`)
+        setTimeout($(".error-msg").hide(), 10000);
     })
 
 }
@@ -314,6 +311,7 @@ function onSignIn(googleUser) {
         localStorage.setItem('token', response.token)
         showTodos(event)
         renderDashboard()
+        setTimeout($(".success-msg").hide(), 10000)
     })
     .fail(err => {
         console.log(`main error is`);
@@ -378,6 +376,7 @@ function editFormTodo(id, event) {
         console.log(err.responseText);
         $(".error-msg").empty()
         $(".error-msg").append(`<h3>${err.responseText}</h3>`)
+        setTimeout($(".error-msg").hide(), 10000);
     })
     
 }
@@ -419,6 +418,7 @@ function editTodo(todoId, event) {
         $(".success-msg").append(`<h3>TODO #${todoId}: ${title} UPDATED</h3>`)
         showTodos(event)
         renderDashboard()
+        setTimeout($(".success-msg").hide(), 10000)
     })
     .fail(err => {
         console.log(`main error is`);
@@ -428,6 +428,7 @@ function editTodo(todoId, event) {
         
         $(".error-msg").empty()
         $(".error-msg").append(`<h3>${err.responseText}</h3>`)
+        setTimeout($(".error-msg").hide(), 10000);
     })
 }
 
@@ -454,6 +455,7 @@ function deleteTodo(todoId, event) {
         $(".success-msg").append(`<h3>TODO #${todoId} DELETED</h3>`)
         showTodos(event)
         renderDashboard()
+        setTimeout($(".success-msg").hide(), 10000)
     })
     .fail(err => {
         console.log(`main error is`);
@@ -462,5 +464,6 @@ function deleteTodo(todoId, event) {
         console.log(err.responseText);
         $(".error-msg").empty()
         $(".error-msg").append(`<h3>${err.responseText}</h3>`)
+        setTimeout($(".error-msg").hide(), 10000);
     })
 }
