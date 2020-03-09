@@ -15,7 +15,7 @@ function showDashboard() {
     }).done(function(response) {
         $('#list-item').empty()
         response.forEach(el => {
-        
+        let date = new Date(el.due_date)
         $('#list-item').append(`
         <section>
         <br>
@@ -24,7 +24,7 @@ function showDashboard() {
             <h5><b>${el.title}</b></h5>
             ${el.description}<br>
             <b>Done:</b> ${el.status}<br>
-            <b>Due on: </b> ${el.due_date}<br><br>
+            <b>Due on: </b> ${date}<br><br>
             <button type="button" class="edit-or-delete" onClick="showToDo(${el.id})">Edit</button> | 
             <button type="button" class="edit-or-delete" onClick="deleteToDo(${el.id}, '${el.title}')">Delete</button>
             </p>
