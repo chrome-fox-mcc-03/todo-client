@@ -14,7 +14,7 @@ function hideAll() {
 function fetchData() {
     $.ajax({
         method: 'GET',
-        url: 'https://hidden-fjord-69308.herokuapp.com//todos',
+        url: 'https://hidden-fjord-69308.herokuapp.com/todos',
         headers: {
             access_token : localStorage.getItem('access_token')
         }
@@ -57,7 +57,7 @@ function fetchData() {
 function fetchQuotes() {
     $.ajax({
         method: 'GET',
-        url: 'https://hidden-fjord-69308.herokuapp.com//quotes'
+        url: 'https://hidden-fjord-69308.herokuapp.com/quotes'
     })
         .done(quote => {
             console.log(quote)
@@ -81,7 +81,7 @@ function fetchQuotes() {
 function fetchImages() {
     $.ajax({
         method: 'GET',
-        url: 'https://hidden-fjord-69308.herokuapp.com//images'
+        url: 'https://hidden-fjord-69308.herokuapp.com/images'
     })
         .done(image => {
             // $("#landing-page").append(`
@@ -106,7 +106,7 @@ function fetchImages() {
 function edit(id) {
     $.ajax({
         method: "GET",
-        url: `https://hidden-fjord-69308.herokuapp.com//todos/${id}`,
+        url: `https://hidden-fjord-69308.herokuapp.com/todos/${id}`,
         headers: {
             access_token : localStorage.getItem("access_token")
         }
@@ -137,7 +137,7 @@ function edit(id) {
 function remove(id) {
     $.ajax({
         method: "DELETE",
-        url: `https://hidden-fjord-69308.herokuapp.com//todos/${id}`,
+        url: `https://hidden-fjord-69308.herokuapp.com/todos/${id}`,
         headers: {
             access_token: localStorage.getItem("access_token")
         }
@@ -182,7 +182,7 @@ function onSignIn(googleUser) {
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
     $.ajax({
         method: "POST",
-        url: "https://hidden-fjord-69308.herokuapp.com//googleSignIn",
+        url: "https://hidden-fjord-69308.herokuapp.com/googleSignIn",
         headers: {
             token_google : token_google
         }
@@ -236,7 +236,7 @@ $(document).ready( () => {
         }
         $.ajax({
             method: 'POST',
-            url: 'https://hidden-fjord-69308.herokuapp.com//register',
+            url: 'https://hidden-fjord-69308.herokuapp.com/register',
             data: newUser
         })
             .done(user => {
@@ -263,7 +263,7 @@ $(document).ready( () => {
         }
         $.ajax({
             method: 'POST',
-            url: 'https://hidden-fjord-69308.herokuapp.com//login',
+            url: 'https://hidden-fjord-69308.herokuapp.com/login',
             data: userLogin
         })
             .done(({access_token}) => {
@@ -296,7 +296,7 @@ $(document).ready( () => {
         console.log(newTodo.title)
         $.ajax({
             method: "POST",
-            url: "https://hidden-fjord-69308.herokuapp.com//todos",
+            url: "https://hidden-fjord-69308.herokuapp.com/todos",
             data: newTodo,
             headers: {
                 access_token: localStorage.getItem("access_token")
@@ -307,7 +307,7 @@ $(document).ready( () => {
                 console.log(todo)
                 fetchData()
                 return $.ajax({
-                    url: 'https://hidden-fjord-69308.herokuapp.com//googleCalender',
+                    url: 'https://hidden-fjord-69308.herokuapp.com/googleCalender',
                     method: 'POST',
                     data: {
                       title: data.title,
@@ -340,7 +340,7 @@ $(document).ready( () => {
 
         $.ajax({
             method: "PUT",
-            url: `https://hidden-fjord-69308.herokuapp.com//todos/${id}`,
+            url: `https://hidden-fjord-69308.herokuapp.com/todos/${id}`,
             data: updateTodo,
             headers: {
                 access_token : localStorage.getItem("access_token")
