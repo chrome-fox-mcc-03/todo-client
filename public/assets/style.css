@@ -1,0 +1,67 @@
+h1, h2, h3, p{
+    color: white !important;
+    font-family: 'Roboto', sans-serif !important;
+    letter-spacing: 1px !important;
+}
+
+#title-todo{
+    font-family: 'Indie Flower', cursive !important;
+}
+
+p{
+    font-size: medium;
+}
+.form-control{ 
+    padding: 20px 25px !important;
+    width: fit-content !important;
+}
+
+#login-page, #register-page{
+    border: 5px lightgray solid;
+    border-radius: 5px;
+    padding: 25px 25px;
+    width: 50vw;
+    margin: 5px auto;
+    margin-top: 50px;
+
+}
+
+body{
+    background-image: url(./1.jpg);
+    background-size: cover;
+}
+
+#table-dashboard{
+    background-color: white;
+    border: 5px lightgray solid;
+}
+
+#quotesOfTheDay{
+    position: absolute;
+    margin-left: 1vw;
+    bottom: 0;
+    width: 70vw;
+    
+}
+
+#quotes-title{
+    font-size: 10px;
+    
+}
+
+#quotes{
+    font-size: 50px;
+    color: rgba(255, 255, 255) !important;
+    font-family: 'Caveat', cursive !important;
+    
+}
+
+#author{
+    font-size: 10px;
+    color: rgba(255, 255, 255) !important;
+}
+
+
+#delete-message{
+    color: black !important;
+}

@@ -1,7 +1,9 @@
-
 $(document).ready(function() {
     let token = localStorage.getItem('token')
-    
+    $("#addTodo-class").modal('hide')
+    $("#updateTodo-class").modal('hide') 
+    $("#errorMessage-login").empty()   
+
     if(token) {
         $("#dashboard-page").show()
         $("#register-page").hide()
@@ -14,10 +16,6 @@ $(document).ready(function() {
         $("#login-page").show()
     }
 
-    $('.datetimepicker1').datetimepicker({
-        language: 'pt-BR'
-    });
-
 })
 
 function login(event) {
@@ -28,7 +26,7 @@ function login(event) {
 
     $.ajax({
         method: "POST",
-        url: "https://fancy-todo-ace.herokuapp.com/login",
+        url: "http://localhost:3000/login",
         data: {
             email,
             password
@@ -39,6 +37,7 @@ function login(event) {
             $("#login-page").hide()
             $("#dashboard-page").show()
             getTodos(response)
+            quotes()
         })
         .fail(function(err, msg) {
             err.responseText = JSON.parse(err.responseText)
@@ -55,7 +54,7 @@ function register(event) {
 
     $.ajax({
         method: "POST",
-        url: "https://fancy-todo-ace.herokuapp.com/register",
+        url: "http://localhost:3000/register",
         data: {
             email,
             password
@@ -102,9 +101,10 @@ function wantToLogin() {
 }
 
 function getTodos(token) {
+    let status;
     $.ajax({
         method: "GET",
-        url: "https://fancy-todo-ace.herokuapp.com/todos",
+        url: "http://localhost:3000/todos",
         headers: {
             token
         }
@@ -112,12 +112,18 @@ function getTodos(token) {
         .done(function(response) {
             $("#todoLists").empty()
             response.todos.forEach((element, i) => {
+                if(element.status) {
+                    status = "Completed"
+                }
+                else {
+                    status = "On Progress"
+                }
                 $("#todoLists").append(`
                 <tr>
                     <td>${i+1}</td>
                     <td>${element.title}</td>
                     <td>${element.description}</td>
-                    <td>${element.status}</td>
+                    <td>${status}</td>
                     <td>${moment(element.due_date).format('LL')}</td>
                     <td>
                     <button onclick="updateTodoLanding(event, ${element.id})" type="button" data-toggle="modal" data-target="#updateTodo-class" class="btn btn-primary">Update</button>                    
@@ -144,23 +150,51 @@ function onSignIn(googleUser) {
 
     $.ajax({
         method: "POST",
-        url: "https://fancy-todo-ace.herokuapp.com/googleLogIn",
+        url: "http://localhost:3000/googleLogIn",
         headers: {
             token: id_token
         }
     })
         .done(function(response) {
-            getTodos(response)
+            localStorage.setItem('token', response)
             $("#dashboard-page").show()
             $("#register-page").hide()
             $("#login-page").hide()
             localStorage.setItem('token', response)
+            quotes()
         })
         .fail(function(err, msg) {
+            $("#errorMessage-login").empty()
             err.responseText = JSON.parse(err.responseText)
             $("#errorMessage-login").append(err.responseText.message)
         })
 
+  }
+
+function quotes() {
+
+    $("#quotesOfTheDay").empty()
+    $.ajax({
+        method: "GE_T", // only 50 calls / month, if exceeded, will show given quotes, change to "GET" with caution! 
+        url: "http://localhost:3000/todos/quotes"
+    })
+        .done(response => {
+            let quote = response[0].quote
+            let author = response[0].author
+            $("#quotesOfTheDay").append(`
+            <p id="quotes-title" >Your Quotes of The Day!</p>
+            <p id="quotes"> ${quote} </p>
+            <p id="author"> - ${author} </p>
+            `)
+        })
+        .fail(err => {
+            $("#quotesOfTheDay").append(`
+            <p id="quotes-title" >Your Quotes of The Day!</p>
+            <p id="quotes"> Astra inclinant, sed non obligant. </p> 
+            <p id="author"> NOT Andreas Anggara </p>
+            `)
+            // Astra inclinant, sed non obligant means "The stars incline us, they do not bind us" in latin
+        })
 }
 
 function createTodo(event) {
@@ -172,7 +206,7 @@ function createTodo(event) {
     let token = localStorage.getItem('token') 
     $.ajax({
         method: "POST",
-        url: "https://fancy-todo-ace.herokuapp.com/todos",
+        url: "http://localhost:3000/todos",
         headers: {
             token  
         },
@@ -187,6 +221,7 @@ function createTodo(event) {
             $("#dashboard-page").show()
             $("#register-page").hide()
             $("#login-page").hide()
+            $("#addTodo-class").modal('toggle')
 
         })
         .fail(err => {
@@ -200,7 +235,7 @@ function deleteTodo(event, id) {
     let token = localStorage.getItem('token')
     $.ajax({
         method: "DELETE",
-        url: `https://fancy-todo-ace.herokuapp.com/todos/${id}`,
+        url: `http://localhost:3000/todos/${id}`,
         headers: {
             token
         }
@@ -226,7 +261,7 @@ function updateTodo(event, id) {
 
     $.ajax({
         method: "PUT",
-        url: `https://fancy-todo-ace.herokuapp.com/todos/${id}`,
+        url: `http://localhost:3000/todos/${id}`,
         headers: {
             token
         },
@@ -242,7 +277,7 @@ function updateTodo(event, id) {
             $("#dashboard-page").show()
             $("#register-page").hide()
             $("#login-page").hide()
-            $("#updateTodo-class").modal('hide')
+            $("#updateTodo-class").modal('toggle')
         })
 
         .fail(err => {
@@ -252,21 +287,21 @@ function updateTodo(event, id) {
 
 function updateTodoLanding(event, id) {
     event.preventDefault()
-    $("#updateTodo-page").show()
     $("#updateTodo").attr("onsubmit", `updateTodo(event, ${id})`)
 
     let token = localStorage.getItem('token')
     $.ajax({
         method: "GET",
-        url: `https://fancy-todo-ace.herokuapp.com/todos/${id}`,
+        url: `http://localhost:3000/todos/${id}`,
         headers: {
             token
         }
     })
         .done(response => {
+            let date = response.todo.due_date.substring(0,10)
             $("#update-todo-title").val(response.todo.title)
             $("#update-todo-description").val(response.todo.description)
-            $("#update-todo-due_date").val(response.todo.due_date)
+            $("#update-todo-due_date").val(date)
             if(response.todo.status) {
                 $("#status-true").attr("selected", "")
             }
@@ -274,19 +309,8 @@ function updateTodoLanding(event, id) {
                 $("#status-false").attr("selected", "")
             }
         })
+
         .fail(err => {
             console.log(err);
         })
 }
-
-function addTodoLanding(event) {
-    event.preventDefault()
-    // $("#addTodo-page").show()
-    $("#addTodo-class").modal('show')
-}
-
-
-/* 
-Add confirmation on delete
-Check Update todonya
-*/  
