@@ -1,10 +1,13 @@
+let localhost = `http://localhost:3000`
+let heroku = `https://infinite-taiga-37673.herokuapp.com`
+
 function showDashboard() {
     $("#landing-page").hide()
     $("#dashboard").show()
     addButton()
     $.ajax({
         method: 'get',
-        url: "https://infinite-taiga-37673.herokuapp.com/todos",
+        url: `${heroku}/todos`,
         headers: {
             token: localStorage.getItem("token")
         }
@@ -64,38 +67,6 @@ function hideToDo(id) {
     $(`#edit-todo-${id}`).hide()
 }
 
-function submitEdit(id) {
-    let title = $(`#title-edit-${id}`).val()
-    let truth = ($(`#status-edit-${id}`).val() == "true")
-    $(`#edit-todo-${id}`).submit(function() {
-        $.ajax({
-            method: "PUT",
-            url: `https://infinite-taiga-37673.herokuapp.com/todos/${id}`,
-            headers: {
-                token: localStorage.getItem('token')
-            },
-            data: {
-                title: $(`#title-edit-${id}`).val(),
-                description: $(`#description-edit-${id}`).val(),
-                status: truth,
-                due_date: $(`#due_date-edit-${id}`).val()
-            }
-
-        }).done(response => {
-            console.log(response)
-            console.log(`Updated item "${title}"`)
-            showDashboard()
-        })
-        .fail(err => {
-            $('#alert').append(err.responseJSON)
-            $('#alert').fadeTo(2000, 500).slideUp(500, function(){
-                $("#alert").slideUp(500);
-                $('#alert').empty()
-            })
-        })
-    })
-}
-
 function edit(id) {
     console.log(id)
     let title = $(`#title-edit-${id}`).val()
@@ -103,7 +74,7 @@ function edit(id) {
     console.log({title: title, test: truth})
     $.ajax({
         method: "PUT",
-        url: `https://infinite-taiga-37673.herokuapp.com/todos/${id}`,
+        url: `${heroku}/todos/${id}`,
         headers: {
             token: localStorage.getItem('token')
         },
@@ -117,7 +88,11 @@ function edit(id) {
         console.log(response)
         console.log(`Updated item "${title}"`)
         showDashboard()
-        alert(`Updated item "${title}"`)
+        $('#alert').append(`Updated item "${title}"`)
+        $('#alert').fadeTo(2000, 500).slideUp(500, function(){
+            $("#alert").slideUp(500);
+            $('#alert').empty()
+        })
     })
     .fail(err => console.log(err))
     hideToDo(id)
@@ -128,7 +103,7 @@ function addButton() {
         e.preventDefault()
         $.ajax({
             method: "POST",
-            url: "https://infinite-taiga-37673.herokuapp.com/todos",
+            url: `${heroku}/todos`,
             headers: {
                 token: localStorage.getItem('token')
             },
@@ -152,21 +127,12 @@ function showLandingPage() {
     $("#landing-page").show()
     $("#dashboard").hide()
 }
-// function editToDo() {
-//     $("#edit").click()
-// }
 
-// function showEditPage() {
-
-// }
-function editToDo(id, array) {
-    console.log(id)
-}
 
 function deleteToDo(id, title) {
     $.ajax({
         method: "DELETE",
-        url: `https://infinite-taiga-37673.herokuapp.com/todos/${id}`,
+        url: `${heroku}/todos/${id}`,
         headers: {
             token: localStorage.getItem('token')
         }
@@ -207,7 +173,7 @@ function onSignIn(googleUser) {
 
     $.ajax({
         method: "POST",
-        url: "https://infinite-taiga-37673.herokuapp.com/users/googleSignIn",
+        url: `${heroku}/users/googleSignIn`,
         headers: {
             token: id_token
         }
@@ -234,7 +200,7 @@ $(document).ready(function() {
             e.preventDefault()
             $.ajax({
                 method: "POST",
-                url: "https://infinite-taiga-37673.herokuapp.com/users/login",
+                url: `${heroku}/users/login`,
                 data: {
                     email: $('#email-login').val(),
                     password: $("#password-login").val()
@@ -259,7 +225,7 @@ $(document).ready(function() {
             e.preventDefault()
             $.ajax({
                 method: "POST",
-                url: "https://infinite-taiga-37673.herokuapp.com/users/register",
+                url: `${heroku}/users/register`,
                 data: {
                     email: $('#email-register').val(),
                     password: $("#password-register").val()
@@ -281,7 +247,6 @@ $(document).ready(function() {
                 console.log(err, " <= It's an error.")
             })
         })
-        onSignIn(googleUser)
     } else {
         showDashboard()
         $("#btn-logout").click(function() {
