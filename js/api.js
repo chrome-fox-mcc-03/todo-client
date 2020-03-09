@@ -35,7 +35,7 @@ const fetchTodos = () => {
     })
 }
 
-const createTodos = (payload) => {
+const createTodo = (payload) => {
     return $.ajax({
         type: 'POST',
         headers: {

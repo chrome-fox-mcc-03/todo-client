@@ -87,6 +87,16 @@ const clearLogin = () => {
     $('#loginPassword').val('');
 }
 
+const cancel = () => {
+    clearInput();
+    clearLogin();
+}
+
+const cancelUpdate = () => {
+    $('#todoCards').show();
+    $('#updateForm').hide();
+}
+
 /* CONTENT CARD TODO */
 
 const cardTodo = (todos) => {
@@ -153,7 +163,7 @@ const toUpdateTodo = (id) => {
         <button type="submit" class="btn btn-outline-dark">
           Update
         </button>
-        <button type="button" class="btn btn-outline-dark">
+        <button onclick="cancelUpdate()" type="button" class="btn btn-outline-dark">
           Cancel
         </button>`;
         $('#todoCards').hide();
@@ -250,9 +260,9 @@ $(document).ready(() => {
             description: $('#createDescription').val(),
             due_date: $('#createDueDate').val()
         }
-        createTodos(payload).done(
+        createTodo(payload).done(
             response => {
-
+                console.log(response)
                 fetchTodos().done(todos => {
                     $('#createForm').empty();
                     $('#createForm').hide();
