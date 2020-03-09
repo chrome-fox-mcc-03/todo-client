@@ -260,8 +260,8 @@ const register = () => {
         .fail((err) => {
             console.log(err);
             isError = true;
-            console.log(err);
-            showLoginRegister(err)
+            console.log("<<<<<<<<<<<<<<<<<<<");
+            showLoginRegister(err);
         })
 }
 
