@@ -42,7 +42,7 @@ function showDashboard() {
                             <option value=false>false</option>
                             </select><br>
                             <label for="due_date-edit-${el.id}">Due Date:</label><br>
-                            <input class="input-one-line" type="text" id="due_date-edit-${el.id}" value="${el.due_date}" placeholder="Please use YYYY-MM-DD!"><br><br>
+                            <input class="input-one-line" type="date" id="due_date-edit-${el.id}" value="${el.due_date}" placeholder="Please use YYYY-MM-DD!"><br><br>
                             <button type="button" class="pinkbutton" onClick="edit(${el.id})">Post</button>
                             <button type="button" class="edit-or-delete" onClick="hideToDo(${el.id})">Cancel</button>
                         </div>
