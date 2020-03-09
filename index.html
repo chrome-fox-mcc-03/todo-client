@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id"
+        content="166146263768-7futv2bcrcn5q6dat3nic9cpea4i8t4c.apps.googleusercontent.com">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body style="background: grey;">
+    <header id="navbar">
+        <div class="container bg-info p-5 ">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#"><img src="logoFancy.png" width="40px" height="40px" alt="Logo"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link active">Home <span
+                                class="sr-only">(current)</span></a>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-outline-danger" onclick="signOut()">Sign Out</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container" style="text-align: center;">
+            <section id="landingPage">
+                <div class="container">
+                    <div class="card card-login mx-auto text-center bg-dark">
+                        <div class="card-header mx-auto bg-dark" style="margin-bottom: -50px;">
+                            <span> <img src="logoFancy.png" class="w-75" alt="Logo"> </span>
+                        </div>
+                        <div class="card-body">
+                            <form onsubmit='signIn(event)'>
+                                <div class="input-group form-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    </div>
+                                    <input type="text" id="emailLogin" class="form-control" placeholder="Email">
+                                </div>
+
+                                <div class="input-group form-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                    </div>
+                                    <input type="password" id="passwordLogin" class="form-control"
+                                        placeholder="Password">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="submit" name="btn" value="SignIn"
+                                        class="btn btn-outline-danger-special float-right login_btn">
+                                </div>
+                                <br><br><br>
+                                <h6>Dont have account? <a style="cursor: pointer;color: blue;"
+                                        onclick="registerPage()">SignUp</a></h6>
+                                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="container" style="text-align: center;">
+                <section id="registerPage">
+                    <div class="container">
+                        <div class="card card-login mx-auto text-center bg-dark">
+                            <div class="card-header mx-auto bg-dark" style="margin-bottom: -50px;">
+                                <span> <img src="logoFancy.png" class="w-75" alt="Logo"> </span>
+                            </div>
+                            <div class="card-body">
+                                <form onsubmit='signUp(event)'>
+                                    <div class="input-group form-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        </div>
+                                        <input type="text" id="email" class="form-control" placeholder="Email">
+                                    </div>
+
+                                    <div class="input-group form-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                        </div>
+                                        <input type="password" id="password" class="form-control"
+                                            placeholder="Password">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="submit" name="btn" value="SignUp"
+                                            class="btn btn-outline-danger-special float-right login_btn">
+                                    </div>
+                                    <br><br><br>
+                                    <h6>Have Account? <a style="cursor: pointer;color: blue;"
+                                            onclick="landingPage()">SignIn</a></h6>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="dashboard">
+                    <div class="container my-5">
+                        <div class="card-body text-center">
+                            <h3 class="card-title">Your List Todo</h3>
+                        </div>
+                        <div class="card">
+                            <button id="add__new__list" type="button" class="btn btn-success position-absolute"
+                                data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fas fa-plus"></i> Add a
+                                new List</button>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Due Date</th>
+                                        <th scope="col">Edit List </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="listTodo">
+                            </table>
+                        </div>
+                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+                            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="card-body text-center">
+                                        <h4 class="card-title">ADD Your TODO Here</h4>
+                                        <p class="card-text">With description of your TODO</p>
+                                    </div>
+                                    <div class=" card col-8 offset-2 my-2 p-3">
+                                        <form onsubmit="createTodo(event)">
+                                            <div class="form-group">
+                                                <label for="titleAdd">Title</label>
+                                                <input type="text" class="form-control" name="titleAdd" id="titleAdd"
+                                                    placeholder="Enter your Title">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="descriptionAdd">Description</label>
+                                                <input type="text" class="form-control" name="descriptionAdd" id="descriptionAdd"
+                                                    placeholder="Enter your description">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="due_dateAdd">Due Date</label>
+                                                <input type="date" class="form-control" name="due_dateAdd"
+                                                    id="due_dateAdd" placeholder="Pick up a date">
+                                            </div>
+                                            <div class="form-group text-center">
+                                                <button type="submit" class="btn btn-block btn-primary">Create</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </section>
+                <section id="updateTodo">
+                    <h3>Update TODO</h3>
+                    <form id="form-update">
+                        <label for="titleUpdate">Title</label><br>
+                        <input type="text" id="titleUpdate" placeholder="title" minlength="3"><br>
+                        <label for="descriptionUpdate">Description</label><br>
+                        <input type="text" id="descriptionUpdate" placeholder="description" minlength="3"><br>
+                        <label for="due_dateUpdate">Due Date</label><br>
+                        <input type="date" id="due_dateUpdate" placeholder="due_date" minlength="3"><br><br>
+                        <input type="submit" value="Update" class="btn btn-info"> <button onclick="cancel()"
+                            class="btn btn-danger">Cancel</button>
+                    </form>
+                </section>
+
+                <section>
+                    <div id="detailTodo">
+
+                    </div>
+                </section>
+
+    </main>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="index.js"></script>
+    </div>
+</body>
+
+</html>
