@@ -240,8 +240,8 @@ const login = () => {
 }
 
 const register = () => {
-    const email = $("#email-register").val();
-    const password = $("#password-register").val();
+    const email = $("#email-register").val() || "";
+    const password = $("#password-register").val() || "";
     $.ajax({
         method: "POST",
         url: URL + "register",
