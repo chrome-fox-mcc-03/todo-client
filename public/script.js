@@ -3,6 +3,7 @@ $("document").ready(() => {
     $("#log-out").hide()
     $(".dashboard-class").hide()
     if(localStorage.getItem('token')) {
+        restartDashboard()
         $("#log-out").show()
         $(".landing-page").hide()
         $(".dashboard-class").show()
@@ -64,7 +65,7 @@ $("document").ready(() => {
             })
         })
         .done(response => {
-            localStorage.setItem('token', response)
+            localStorage.setItem('token', response.userToken)
             localStorage.setItem('name', response.name)
             $('#error-signup').text(``)
             $("#sign-up-page").hide()
@@ -133,7 +134,6 @@ $("document").ready(() => {
     $("#todos-form").on('submit', (e) => {
         e.preventDefault()
         const inputDate = `${$("#due_date").val()}T${$("#due_time").val()}:00`
-        console.log(inputDate)
         const data = {
             title: $("#title").val(),
             description: $("#description").val(),
@@ -148,10 +148,10 @@ $("document").ready(() => {
             }
         })
         .done((result) => {
-            gCalendar(data);
+            if(gapi.auth2.getAuthInstance().isSignedIn.get()) gCalendar(data)
             backToDashboard(".add-todos")
             $('#error-add').text(``)
-            restartDashboard()
+            $("#ds-2").empty()
         })
         .fail(error => {
             const errors = error.responseJSON.msg.split(',')
@@ -196,6 +196,7 @@ function showTodo(token){
 function backToDashboard(toHide){
     $(toHide).hide()
     $(".dashboard-class").css("filter", "") 
+    restartDashboard()
     generateQuotes()
     .then(quotes => {
         const random = Math.floor(Math.random() * 5)
@@ -232,6 +233,9 @@ function restartDashboard(){
 }
 
 function placeTodo(result) {
+    $("#ds-1").empty()
+    $("#ds-2").empty()
+    $("#ds-3").empty()
     $("#ds-1").append('<h3 class="div-title">Your todos</h3>')
     $("#ds-3").append('<h3 class="div-title">Done todos</h3>')
     $("#ds-2").append('<h3 class="div-title">Detail</h3>')
@@ -344,7 +348,6 @@ function showUpdateTodo(id){
             })
             .done(result => {
                 backToDashboard(".edit-todos")
-                restartDashboard()
             })
             .fail(error => {
                 const errors = error.responseJSON.msg.split(',')
@@ -382,8 +385,8 @@ function onSignIn(googleUser) {
 
   
 function parseDueDate(datei){
-    datei = new Date(datei)
-    let date = datei.getUTCDate() + 1;
+    datei = new Date(datei) + 1
+    let date = datei.getUTCDate();
     let month = datei.getUTCMonth() + 1;
     let year = datei.getUTCFullYear();
     let hour = datei.getHours()
@@ -424,7 +427,7 @@ function handleClientLoad() {
     
 function initClient() {
     gapi.client.init({
-        apiKey: "AIzaSyBtHyy2bbvhXSoWIeC9F6bQpIY53yJ0XqA",
+        apiKey: "AIzaSyDUNeL833ES7R5RL2M9i6xPLQSYSKA1VNU",
         clientId: "128769362473-sb68dubhj91viobotpq4htj7bmqnpb38.apps.googleusercontent.com",
         discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
         scope: "https://www.googleapis.com/auth/calendar"
@@ -446,11 +449,11 @@ function gCalendar(todo){
         'location': 'Jakarta',
         'description': `${todo.description}`,
         'start': {
-        'dateTime': new Date(new Date(`${todo.due_date}`).getTime() - 24*60*60*1000),
+        'dateTime': new Date(`${todo.due_date}`),
         'timeZone': 'Africa/Abidjan'
         },
         'end': {
-        'dateTime': new Date(new Date(`${todo.due_date}`).getTime() - 24*60*60*1000),
+        'dateTime': new Date(`${todo.due_date}`),
         'timeZone': 'Africa/Abidjan'
         },
         'recurrence': [
