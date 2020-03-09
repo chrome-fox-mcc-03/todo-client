@@ -49,13 +49,13 @@ $("document").ready(() => {
             password: $("#password").val(),
         }
         $.ajax({
-            url: 'http://localhost:3000/users/register',
+            url: 'https://stormy-falls-14919.herokuapp.com/users/register',
             method: 'POST',
             data: data
         })
         .then(signedUpData => {
             return $.ajax({
-                url: 'http://localhost:3000/users/login',
+                url: 'https://stormy-falls-14919.herokuapp.com/users/login',
                 method: 'POST',
                 data: {
                     emailOrUsername: data.email,
@@ -92,7 +92,7 @@ $("document").ready(() => {
             passwordLogIn: $("#passwordLogIn").val(),
         }
         $.ajax({
-            url: 'http://localhost:3000/users/login',
+            url: 'https://stormy-falls-14919.herokuapp.com/users/login',
             method: 'POST',
             data: {
                 emailOrUsername: data.emailOrUsername,
@@ -140,7 +140,7 @@ $("document").ready(() => {
             due_date: new Date(inputDate),
         }
         $.ajax({
-            url: 'http://localhost:3000/todos',
+            url: 'https://stormy-falls-14919.herokuapp.com/todos',
             method: 'POST',
             data,
             headers: {
@@ -185,7 +185,7 @@ $("document").ready(() => {
 
 function showTodo(token){
     return $.ajax({
-        url: 'http://localhost:3000/todos',
+        url: 'https://stormy-falls-14919.herokuapp.com/todos',
         method: 'GET',
         headers: {
             user_token: token
@@ -268,7 +268,7 @@ function placeTodo(result) {
 
 function deleteTodo(id){
     $.ajax({
-        url: `http://localhost:3000/todos/${id}`,
+        url: `https://stormy-falls-14919.herokuapp.com/todos/${id}`,
         method: 'DELETE',
         headers: {
             user_token: localStorage.getItem('token')
@@ -276,12 +276,13 @@ function deleteTodo(id){
     })
     .done (result => {
         $(`#todos-${id}`).remove()
+        restartDashboard()
     })
 }
 
 function doneTodo(id){
     $.ajax({
-        url: `http://localhost:3000/todos/${id}`,
+        url: `https://stormy-falls-14919.herokuapp.com/todos/${id}`,
         method: 'PUT',
         headers: {
             user_token: localStorage.getItem('token')
@@ -297,7 +298,7 @@ function doneTodo(id){
 
 function showUpdateTodo(id){
     $.ajax({
-        url: `http://localhost:3000/todos/${id}`,
+        url: `https://stormy-falls-14919.herokuapp.com/todos/${id}`,
         method: 'GET',
         headers: {
             user_token: localStorage.getItem('token')
@@ -334,7 +335,7 @@ function showUpdateTodo(id){
                 due_date: $(`#edit-due_date-${id}`).val(),
             }
             $.ajax({
-                url: `http://localhost:3000/todos/${id}`,
+                url: `https://stormy-falls-14919.herokuapp.com/todos/${id}`,
                 method: 'PUT',
                 data,
                 headers: {
@@ -358,7 +359,7 @@ function showUpdateTodo(id){
 function onSignIn(googleUser) {
     const id_token = googleUser.getAuthResponse().id_token;
     $.ajax({
-        url: 'http://localhost:3000/users/googleLogin',
+        url: 'https://stormy-falls-14919.herokuapp.com/users/googleLogin',
         method: 'POST',
         headers: {
             token: id_token
@@ -424,7 +425,7 @@ function handleClientLoad() {
 function initClient() {
     gapi.client.init({
         apiKey: "AIzaSyBtHyy2bbvhXSoWIeC9F6bQpIY53yJ0XqA",
-        clientId: "599194754739-9ni3gbquv1bshig5tkarkra973add22c.apps.googleusercontent.com",
+        clientId: "128769362473-sb68dubhj91viobotpq4htj7bmqnpb38.apps.googleusercontent.com",
         discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
         scope: "https://www.googleapis.com/auth/calendar"
     }).then(function () {
@@ -436,7 +437,7 @@ function initClient() {
 }
 
 function updateSigninStatus(isSignedIn) {
-
+    return true
 }
 
 function gCalendar(todo){
@@ -453,7 +454,7 @@ function gCalendar(todo){
         'timeZone': 'Africa/Abidjan'
         },
         'recurrence': [
-        'RRULE:FREQ=DAILY;COUNT=2'
+        'RRULE:FREQ=DAILY;COUNT=1'
         ],
         'reminders': {
         'useDefault': false,
