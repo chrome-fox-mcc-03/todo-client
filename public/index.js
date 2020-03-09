@@ -136,6 +136,8 @@ function login(event) {
     event.preventDefault()
     const email = $("#emailLogin").val() 
     const password = $("#passLogin").val()
+    console.log(email, "ini email");
+    console.log(password, "ini pass");
     
     $.ajax({
         method: "POST",
