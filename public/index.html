@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="73604649300-vn4r50lbruglu21oks1oqgom69e9njah.apps.googleusercontent.com">
+    <link href='https://fonts.googleapis.com/css?family=Nunito:400,600,700&display=swap' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/d979fc4f1d.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Fancy Todo</title>
+</head>
+<body>
+    <div>
+        <div id="signup-page">
+            <div class="quote-and-welcome">
+                <div class="welcome">
+                    <p>Manage Your Todos Easily</p>
+                </div>
+                <div class="quote">
+                </div>
+            </div>
+            <div class="space-for-form">
+                <form id="signup-form">
+                    <p id="signup-title">Sign Up</p>
+                    <label for="email">Email address</label>
+                    <input id="signup-email" name="email" type="email" class="field">
+                    <label for="email">Password</label>
+                    <input id="signup-password" name="password" type="password" class="field">
+                    <div id="signup-btn">
+                        <input class="submit-input" type="submit" value="Sign Up">
+                    </div>
+                    <p class="redir">Already registered? Try <a id="btn-redir-signin" href="#">signing in </a>instead</p>
+                </form>
+            </div>
+        </div>
+        <div id="signin-page">
+            <div class="quote-and-welcome">
+                <div class="welcome">
+                    <p>Manage Your Todos Easily</p>
+                </div>
+                <div class="quote">
+                </div>
+            </div>
+            <div class="space-for-form">
+                <form id="signin-form">
+                    <p id="signin-title">Sign In</p>
+                    <label for="email">Email address</label>
+                    <input id="signin-email" type="email" name="email" class="field">
+                    <label for="email">Password</label>
+                    <input id="signin-password" type="password" name="password" class="field">
+                    <div id="signin-btn">
+                        <input class="submit-input" type="submit" value="Sign In">
+                    </div>
+                    <div id="google-signin-btn">
+                        <p>Or sign in with</p>
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    </div>
+                    <p class="redir">Don't have an account? <a id="btn-redir-signup" href="#">Join us now</a></p>
+                </form>
+            </div>
+        </div>
+        <div id="dashboard-page">
+            <div id="header">
+                <h1>Your Todos</h1>
+            </div>
+            <div id="main">
+                    <div class="todos">
+                        <!-- the todos will appear here -->
+                    </div>
+            </div>
+            <div id="footer">
+                <button id="btn-redir-create-todo">Create New Todo</button>
+                <button id="btn-signout">Sign Out</button>
+            </div>
+        </div>
+        <div id="create-todo-page">
+            <form id="create-todo-form">
+                <h3 style="margin-bottom: 2rem;">Create New Todo</h3>
+                <label for="title">What to do</label>
+                <input id="title" class="field" type="text" name="title" placeholder="Call grandma">
+                <label for="description">Describe your todo</label>
+                <input id="description" class="field" type="text" name="description" placeholder="Remind her to sleep early">
+                <label for="due_date">Due date</label>
+                <input id="due_date" class="field" type="date" name="due_date">
+                <input type="submit" class="submit-input" value="Create">
+            </form>
+            <button class="back-btn" onclick="showDashboard()">Back</button>
+        </div>
+        <div id="update-todo-page">
+            <form id="update-todo-form">
+                <h3>Update Todo</h3>
+                <input id="update-title" class="field" type="text">
+                <input id="update-description" class="field" type="text">
+                <input id="update-due_date" class="field" type="date">
+                <input type="submit" class="submit-input" value="Save Changes">
+            </form>
+            <button class="back-btn" onclick="showDashboard()">Back</button>
+        </div>
+    </div>
+    
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
