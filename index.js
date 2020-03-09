@@ -311,6 +311,7 @@ $(document).ready(function () {
             }
         })
             .done(token => {
+                localStorage.setItem('token', token)
                 fetchTodos();
                 $('#dashboard-page').show();
                 $('#signup-page').hide();

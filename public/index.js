@@ -4,7 +4,7 @@ function onSignIn(googleUser) {
 
     $.ajax({
         method: 'POST',
-        url: 'http://localhost:3000/googleSignIn',
+        url: 'https://safe-caverns-31945.herokuapp.com/googleSignIn',
         headers: {
             token: id_token
         }
@@ -40,7 +40,7 @@ function signOut() {
 function fetchTodos() {
     $.ajax({
         method: 'GET',
-        url: 'http://localhost:3000/todos',
+        url: 'https://safe-caverns-31945.herokuapp.com/todos',
         headers: {
             token: localStorage.getItem('token')
         }
@@ -158,7 +158,7 @@ function editTodo(id) {
     $('#update-todo-page').show();
     $.ajax({
         method: 'GET',
-        url: `http://localhost:3000/todos/${id}`,
+        url: `https://safe-caverns-31945.herokuapp.com/todos/${id}`,
         headers: {
             token: localStorage.getItem('token')
         }
@@ -178,7 +178,7 @@ function editTodo(id) {
 function markTodo(id) {
     $.ajax({
         method: 'GET',
-        url: `http://localhost:3000/todos/${id}`,
+        url: `https://safe-caverns-31945.herokuapp.com/todos/${id}`,
         headers: {
             token: localStorage.getItem('token')
         }
@@ -187,7 +187,7 @@ function markTodo(id) {
         if(!todoFound.status) {
             $.ajax({
                 method: 'PATCH',
-                url: `http://localhost:3000/todos/markdone/${id}`,
+                url: `https://safe-caverns-31945.herokuapp.com/todos/markdone/${id}`,
                 headers: {
                     token: localStorage.getItem('token')
                 }
@@ -204,7 +204,7 @@ function markTodo(id) {
         } else {
             $.ajax({
                 method: 'PATCH',
-                url: `http://localhost:3000/todos/markundone/${id}`,
+                url: `https://safe-caverns-31945.herokuapp.com/todos/markundone/${id}`,
                 headers: {
                     token: localStorage.getItem('token')
                 }
@@ -228,7 +228,7 @@ function markTodo(id) {
 function deleteTodo(id) {
     $.ajax({
         method: 'DELETE',
-        url: `http://localhost:3000/todos/${id}`,
+        url: `https://safe-caverns-31945.herokuapp.com/todos/${id}`,
         headers: {
             token: localStorage.getItem('token')
         }
@@ -304,13 +304,14 @@ $(document).ready(function () {
         const password = $('#signup-password').val();
         $.ajax({
             method: 'POST',
-            url: 'http://localhost:3000/signup',
+            url: 'https://safe-caverns-31945.herokuapp.com/signup',
             data: {
                 email,
                 password
             }
         })
             .done(token => {
+                localStorage.setItem('token', token)
                 fetchTodos();
                 $('#dashboard-page').show();
                 $('#signup-page').hide();
@@ -323,7 +324,7 @@ $(document).ready(function () {
                 if (err.responseJSON.error) {
                     swal ( "Oops" ,  `${err.responseJSON.error}` ,  "error" )
                 } else {
-                    swal ( "Oops" ,  `${err.responseJSON}` ,  "error" )
+                    swal ( "Oops" ,  `${err.responseJSON[0]}` ,  "error" )
                 }
                 console.log('sign up failed', err);
             })
@@ -331,10 +332,12 @@ $(document).ready(function () {
 
     $('#signin-form').on('submit', function (e) {
         e.preventDefault();
+        console.log('SIGN IN!');
+        
         const email = $('#signin-email').val();
         const password = $('#signin-password').val();
         $.ajax({
-            url: 'http://localhost:3000/signin',
+            url: 'https://safe-caverns-31945.herokuapp.com/signin',
             method: 'POST',
             data: {
                 email,
@@ -400,7 +403,7 @@ $(document).ready(function () {
         // console.log(localStorage.getItem('token'));
         $.ajax({
             method: 'POST',
-            url: 'http://localhost:3000/todos',
+            url: 'https://safe-caverns-31945.herokuapp.com/todos',
             data: {
                 title,
                 description,
@@ -443,7 +446,7 @@ $(document).ready(function () {
 
         $.ajax({
             method: 'PUT',
-            url: `http://localhost:3000/todos/${localStorage.getItem('todoId')}`,
+            url: `https://safe-caverns-31945.herokuapp.com/todos/${localStorage.getItem('todoId')}`,
             data: {
                 title,
                 description,
