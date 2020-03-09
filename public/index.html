@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-signin-client_id" content="825314680289-d9kvhcbujn53ksgof9648uen072rokmi.apps.googleusercontent.com">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/9f92e40896.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+  <link rel="manifest" href="images/site.webmanifest">
+  <link rel="stylesheet" href="styles/main.css">
+  <title>GTodo</title>
+</head>
+<body>
+  <!-- navbar -->
+  <nav id="navbar" class="orange">
+    <div class="nav-wrapper">
+      <a id="nav-logo" href="#" class="brand-logo"><img src="images/favicon-32x32.png" alt="GT">odo</a>
+      <ul class="right">
+        <li id="welcome-user"></li>
+        <li>
+          <button 
+            onclick="logout()" 
+            class="btn waves-effect waves light brown lighten-3"
+          >Logout</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- landing page -->
+    <div id="landing-page" class="section">
+      <div class="row">
+        <div id="title" class="col s12 center">
+          <img src="images/android-chrome-512x512.png" alt="GT">
+          <br>
+          <button id="start" class="btn-large waves-effect waves light brown lighten-3">Start make your GTodo!</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- login -->
+    <div id="login" class="section">
+      <div class="row">
+        <div class="col s6 offset-s3">
+          <div class="card z-depth-3 center">
+            <img id="logo" class="responsive-img" src="images/android-chrome-192x192.png" alt="logo">
+
+            <div class="card-content center">
+              <span class="card-title">LOGIN</span>
+
+              <div class="row">
+                <div class="col s12 center">
+                  <form id="login-form">
+
+                    <div class="input-field col s12">
+                      <input id="email-login" type="email" class="validate">
+                      <label for="email-login">Email</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                      <input id="password-login" type="password" class="validate">
+                      <label for="password-login">password</label>
+                    </div>
+
+                    <button 
+                      id="submit-login" 
+                      class="btn-large waves-effect waves light brown lighten-3 login" 
+                      type="submit" 
+                      name="action"
+                    >
+                      Login
+                    </button>
+                  </form>
+                  <div class="col s12">
+                    <div id="g-login" class="g-signin2" data-width="230" data-height="50" data-onsuccess="onSignIn"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6 offset-s3">
+          <div class="card-panel z-depth-3 center">
+            <div class="row">
+              <div class="col s12">
+                <p>Don't have an account?</p>
+                <button id="show-register" class="btn-large waves-effect waves light brown lighten-3 login">REGISTER HERE</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+             
+    </div>
+
+    <!-- register -->
+    <div id="register" class="section">
+      <div class="row">
+        <div class="col s6 offset-s3">
+          <div class="card z-depth-3 center">
+            <div class="card-content center">
+              <span class="card-title">Register</span>
+
+              <div class="row">
+                <div class="col s12 center">
+                  <form id="register-form">
+
+                    <div class="input-field col s12">
+                      <i class="material-icons prefix">account_circle</i>
+                      <input id="username-register" type="text" class="validate">
+                      <label for="username-register">Username</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                      <i class="material-icons prefix">email</i>
+                      <input id="email-register" type="email" class="validate">
+                      <label for="email-register">Email</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                      <i class="material-icons prefix">security</i>
+                      <input id="password-register" type="password" class="validate">
+                      <label for="password-register">Password</label>
+                    </div>
+
+                    <button 
+                      id="submit-register" 
+                      class="btn-large waves-effect waves light brown lighten-3 register" 
+                      type="submit" 
+                      name="action"
+                    >
+                      Register
+                      <i class="material-icons right">send</i>
+                    </button>
+                  </form>
+                  <button id="back-login" class="btn-small btn-flat waves-effect waves">back</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- weather -->
+    <div id="weather-api">
+      <div class="row">
+        <div class="col s6 offset-s3">
+          <div id="weather-card" class="card horizontal">
+            <div class="card-image">
+              <img 
+                src="https://www.metaweather.com/static/img/weather/png/s.png"
+                height="100" 
+                width="42"
+              >
+            </div>
+            <div class="card-stacked">
+              <div class="card-content">
+                <p>Tomorrow weather is rainy</p>
+              </div>
+              <div class="card-action">
+                <a href="https://www.metaweather.com" target="_blank">Provided by meta weather</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- todos -->
+    <div id="todos" class="section">
+      <div class="row">
+        <div class="col s10 offset-s1">
+          <!-- todos navbar -->
+          <nav class="nav-extended center orange">
+            <div class="nav-content">
+              <span class="nav-title">Your Todos</span>
+              <button 
+                class="btn-floating btn-large halfway-fab waves-effect waves light brown lighten-3 modal-trigger tooltipped" 
+                data-target="newTodo"
+                data-position="top" 
+                data-tooltip="Create new todo"
+              >
+                <i class="material-icons">add</i>
+              </button>
+              </a>
+            </div>
+          </nav>
+
+          <div id="todo" class="row">
+            <!-- todo card -->
+            <div class="col s12">
+              <div class="card hoverable">
+                <div class="card-content">
+                  <span class="card-title"><h3>Todo Title</h3></span>
+                  <h5>Due date</h5>
+                  <h6>Status</h6>
+                  <p>Description</p>
+                </div>
+                <div class="card-action center">
+                  <a href="#" class="btn-large brown lighten-3 left"><i class="large material-icons left">check_box</i>Mark</a>
+                  <a href="#" class="btn-large brown lighten-3"><i class="large material-icons left">edit</i>Update</a>
+                  <a href="#" class=" btn-large right brown lighten-3"><i class="large material-icons left">delete</i>Delete</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- new todo modal -->
+    <div id="newTodo" class="modal">
+      <i class="material-icons grey-text right" onclick="closeModal()">close</i>
+      <div class="modal-content center">
+        <div class="row center">
+          <h4 id="modal-title">New Todo Form</h4>
+          <form id="newTodo-form">
+
+            <div class="input-field col s10 offset-s1">
+              <input id="title-todo" type="text" class="validate">
+              <label for="title-todo">Title</label>
+            </div>
+
+            <div class="input-field col s10 offset-s1">
+              <input id="description" type="text" class="validate">
+              <label for="description">Description</label>
+            </div>
+
+            <div class="input-field col s10 offset-s1">
+              <input id="due-date" type="date" class="validate">
+              <label for="due-date">Due date</label>
+            </div>
+
+            <div class="col s12">
+              <button 
+                class="btn waves-effect waves light brown lighten-3"
+                type="submit"
+                >Create new todo
+              </button>
+            </div>
+          </form>
+        </div>
+    </div>
+    </div>
+
+    <!-- update todo modal -->
+    <div id="updateTodo" class="modal">
+      <i class="material-icons grey-text right" onclick="closeModal()">close</i>
+      <div class="modal-content center">
+        <div class="row center">
+          <h4 id="modal-update">Edit Todo Form</h4>
+          <form id="updateTodo-form">
+
+            <input id="updateId" type="text" hidden>
+            
+            <div class="input-field col s10 offset-s1">
+              <input id="title-update" type="text" class="validate">
+            </div>
+
+            <div class="input-field col s10 offset-s1">
+              <input id="description-update" type="text" class="validate">
+            </div>
+
+            <div class="input-field col s10 offset-s1">
+              <input id="due-date-update" type="date" class="validate">
+              <label for="due-date-update">Due Date</label>
+            </div>
+
+            <div class="col s12">
+              <button 
+                class="btn waves-effect waves light brown lighten-3"
+                type="submit"
+                >Edit todo
+              </button>
+            </div>
+          </form>
+        </div>
+    </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="script/ajax.js"></script>
+  <script src="script/main.js"></script>
+</body>
+</html>

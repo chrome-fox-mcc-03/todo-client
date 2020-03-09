@@ -31,8 +31,8 @@ function showLandingPage() {
   $('#login').hide()
   $('#register').hide()
   $('#todos').hide()
-  $('#weather-api').hide()
   $('#landing-page').show()
+  $('#weather-api').hide()
 }
 
 //show login
@@ -47,6 +47,7 @@ function showLogin() {
     $('#login').show()
     $('#register').hide()
     $('#todos').hide()
+    $('#weather-api').hide()
   })
 }
 
@@ -62,6 +63,7 @@ function backToLogin() {
     $('#login').show()
     $('#register').hide()
     $('#todos').hide()
+    $('#weather-api').hide()
   })
 }
 
@@ -78,6 +80,7 @@ function showRegister() {
     $('#login').hide()
     $('#register').show()
     $('#todos').hide()
+    $('#weather-api').hide()
   })
 }
 
