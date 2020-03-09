@@ -94,7 +94,15 @@ function edit(id) {
             $('#alert').empty()
         })
     })
-    .fail(err => console.log(err))
+    .fail(err => {
+        err.responseJSON.forEach(el => {
+            $('#alert').append(`${el}<br>`)
+            $('#alert').fadeTo(2000, 500).slideUp(500, function(){
+                $("#alert").slideUp(500);
+                $('#alert').empty()
+            })
+        })
+    })
     hideToDo(id)
 }
 
@@ -119,7 +127,15 @@ function addButton() {
             // $('#addToDoModal').modal('toggle')
             showDashboard()
         })
-        .fail(err => console.log(err))
+        .fail(err => {
+            err.responseJSON.forEach(el => {
+                $('#alert').append(`${el}<br>`)
+                $('#alert').fadeTo(2000, 500).slideUp(500, function(){
+                    $("#alert").slideUp(500);
+                    $('#alert').empty()
+                })
+            })
+        })
     })
 
 }
