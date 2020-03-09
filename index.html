@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-signin-client_id"
     content="810525387475-mk727b0tpnn1lcul1jk1stk7esfbg6rc.apps.googleusercontent.com">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <title>Document</title>
 </head>
 <body>
+
+  <button id="logout">LOGOUT</button>
 
   <section class="login">
 
@@ -36,7 +39,7 @@
         <div class="control">
           <button class="button is-success" id="submit-login" type="submit">Submit</button>
         </div>
-        <div class="g-login2" data-onsuccess="onlogin"></div>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
       </div>
     </form>
 
@@ -93,19 +96,57 @@
       </thead>
       <tbody id="tbody-list"></tbody>
     </table>
-
+    <button id="create-todo">CREATE</button>
   </section>
+
+  
 
   <section class="create">
+    <form id="create-post-todo">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" aria-describedby="help" placeholder="Enter Title">
+      </div>
+      <div class="form-group">
+        <label for="Desc">Description</label>
+        <input type="text" class="form-control" id="description" placeholder="Enter description">
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="status" value="true">
+        <label class="form-check-label" for="status">
+          TRUE
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="status" value="false">
+        <label class="form-check-label" for="status">
+          FALSE
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="due-date" class="form-group"> ENTER DATE </label>
+        <input type="date" class="form-group" id="due_date" aria-placeholder="Enter date">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <button></button>
 
   </section>
+  <div>
+    <div id="formUpdate">
 
-  <section class="update">
-
-  </section>
+    </div>
+    
+  </div>
 
   <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <script src="main.js"></script>
   
 </body>
