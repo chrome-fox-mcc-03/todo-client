@@ -1,3 +1,5 @@
+const BASE_URL = 'https://fancy-todo-abdul-basith.herokuapp.com'
+// const BASE_URL = 'http://localhost:3000'
 $(document).ready(() => {
    let token = localStorage.getItem('token')
    if(token) {
@@ -28,7 +30,7 @@ function showUpdate(id) {
    $('#form-update').attr('onsubmit', `updateTodo(event, ${id})`)
    $.ajax({
       method: 'GET',
-      url: `https://fancy-todo-abdul-basith.herokuapp.com/${id}`,
+      url: BASE_URL+'/'+id,
       headers: {
          token: localStorage.getItem('token')
       }
@@ -77,7 +79,7 @@ function signUp(event) {
 
    $.ajax({
       method: 'POST',
-      url: 'https://fancy-todo-abdul-basith.herokuapp.com/signup',
+      url: BASE_URL + '/signup',
       data: {
          email,
          password
@@ -107,7 +109,7 @@ function signIn(event) {
 
    $.ajax({
       method: 'POST',
-      url: 'https://fancy-todo-abdul-basith.herokuapp.com/signin',
+      url: BASE_URL + '/signin',
       data: {
          email,
          password
@@ -125,6 +127,7 @@ function signIn(event) {
 
       })
       .fail(err => {
+         console.log(err);
          let msg = err.responseJSON
          let status = err.status
          swal(`Error ${status}`, `${msg}`, "error");
@@ -151,7 +154,7 @@ function getTodos() {
    const token = localStorage.getItem('token')
    $.ajax({
       method: 'GET',
-      url: 'https://fancy-todo-abdul-basith.herokuapp.com/todos',
+      url: BASE_URL + '/todos',
       headers: {
          token
       }
@@ -189,7 +192,7 @@ function createTodo(event) {
    let token = localStorage.getItem('token')
    $.ajax({
       method: "POST",
-      url: "https://fancy-todo-abdul-basith.herokuapp.com/todos",
+      url: BASE_URL + "/todos",
       headers: {
          token,
       },
@@ -227,7 +230,7 @@ function updateTodo(event, id) {
    let due_date = $("#due_dateUpdate").val()
    $.ajax({
       method: 'PUT',
-      url: `https://fancy-todo-abdul-basith.herokuapp.com/todos/${id}`,
+      url: BASE_URL + `/todos/${id}`,
       headers: {
          token: localStorage.getItem('token')
       },
@@ -257,7 +260,7 @@ function onSignIn(googleUser) {
    var id_token = googleUser.getAuthResponse().id_token;
    $.ajax({
       method: 'POST',
-      url: 'https://fancy-todo-abdul-basith.herokuapp.com/googlesignin',
+      url: BASE_URL + '/googlesignin',
       data: {
          id_token
       }
@@ -283,7 +286,7 @@ function deleteTodo(id) {
    if(confirm('Are you sure want to delete?')) {
       $.ajax({
          method: "DELETE",
-         url: `https://fancy-todo-abdul-basith.herokuapp.com/todos/${id}`,
+         url: BASE_URL + `/todos/${id}`,
          headers: {
             token: localStorage.getItem('token')
          }
