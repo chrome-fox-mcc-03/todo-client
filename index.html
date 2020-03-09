@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>To-Do (But Fancy!)</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
+        <meta name="google-signin-scope" content="profile email">
+        <meta name="google-signin-client_id" content="919301433582-d8qn1m1jjfcoinjr353ok8sjnq7d9k8h.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+    </head>
+    <body>
+        <div id="alert" class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+            
+        </div>
+        <!-- <h1 style="text-align: center;">To-Do App</h1> -->
+        <div id="landing-page">
+            <h3 class="title-login" style="font-weight: bolder; text-align: center;">To-Do App</h3><br>
+            <p style="font-weight: bold;">Register Now:</p>
+            <form id="register">
+                <label for="email-register">E-mail:</label><br>
+                <input type="text" id="email-register"><br>
+                <label for="password-register">Password:</label><br>
+                <input type="password" id="password-register"><br><br>
+                <input class="logout" type="submit" value="Register">
+            </form><br><p id="register-error"></p><br>
+            <p style="font-weight: bold;">Or Login:</p>
+            <form id="login">
+                <label for="email-login">E-mail:</label><br>
+                <input type="text" id="email-login"><br>
+                <label for="password-login">Password:</label><br>
+                <input type="password" id="password-login"><br><br>
+                <input class="logout" type="submit" value="Log In">
+            </form><br>
+            <p id="login-error"></p>
+            <br>
+            <p style="font-weight: bold;">Or Log in through Papa Google:</p>
+            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+            <br>
+            <p style="color: black; font-weight: bold;">Forgot password? Contact my email!</p>
+        </div><br>
+        
+        <div id="dashboard">
+            <h2 id="welcome">Welcome home, To-Do-ers!</h2> <br>
+            <button class="logout" id="btn-logout">Logout</button>
+
+            <section>
+                <div class="else">
+                    <form id="add-todo">
+                        <label for="title-add" style="font-weight: bold;">New To-Do?</label><br>
+                        <input type="text" class="input-one-line" id="title-add" placeholder="Title here"><br>
+                        <label for="description-add">Description:</label><br>
+                        <textarea form="add-todo" id="description-add" cols="35" placeholder="Describe this activity!"></textarea><br>
+                        <label for="due_date-add">Due Date:</label><br>
+                        <input class="input-one-line" type="text" id="due_date-add" placeholder="Please use YYYY-MM-DD!"><br><br>
+                    <input type="submit" value="Post"/>
+                    </form>
+                </div>
+            </section>
+            <div class="overlay"></div>
+            <div id="list-item"></div>
+            
+            
+            <br>
+        </div>     
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+        <script src="index.js"></script>
+    </body>
+</html> 
