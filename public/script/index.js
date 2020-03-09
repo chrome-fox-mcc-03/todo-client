@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $("#login-page").hide()
+    $("#login-page").show()
     $("#Dashboard").hide()
     $("#register-page").hide()
 
@@ -21,7 +21,7 @@ $(document).ready(function () {
     }
 
     // ---- form login ------------
-    $("#form-login").on("submit", function (event) {
+    $("#submit-login").on("click", function (event) {
         event.preventDefault()
         console.log('masuk');
 
@@ -29,13 +29,13 @@ $(document).ready(function () {
         let email = $("#email-log").val()
         let password = $("#password-log").val()
         $.ajax({
-            url: 'https://stormy-castle-37257.herokuapp.com/users/signin',
-            method: 'POST',
-            data: {
-                email,
-                password
-            }
-        })
+                url: 'https://stormy-castle-37257.herokuapp.com/users/signin',
+                method: 'POST',
+                data: {
+                    email,
+                    password
+                }
+            })
             .done(result => {
                 localStorage.setItem("token", result)
                 $("#list-todo").empty()
@@ -57,18 +57,18 @@ $(document).ready(function () {
     })
 
     // ---- form register ------------
-    $("#form-register").on("submit", function (event) {
+    $("#submit-register").on("click", function (event) {
         event.preventDefault()
         let email = $("#email-reg").val()
         let password = $("#password-reg").val()
         $.ajax({
-            url: "https://stormy-castle-37257.herokuapp.com/users/signup",
-            method: "POST",
-            data: {
-                email,
-                password
-            }
-        })
+                url: "https://stormy-castle-37257.herokuapp.com/users/signup",
+                method: "POST",
+                data: {
+                    email,
+                    password
+                }
+            })
             .done(result => {
                 Swal.fire(
                     'Good job!',
@@ -92,9 +92,9 @@ $(document).ready(function () {
     $("#logout").on("click", function (event) {
         localStorage.removeItem("token")
         var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () { });
+        auth2.signOut().then(function () {});
         $("#Dashboard").hide()
-        $("#landing-page").show()
+        $("#login-page").show()
         $(".g-signin2").show()
     })
 
@@ -128,18 +128,18 @@ $(document).ready(function () {
             let description = formValues.description
             let due_date = formValues.due_date
             $.ajax({
-                url: "https://stormy-castle-37257.herokuapp.com/todos",
-                method: "POST",
-                headers: {
-                    token: localStorage.getItem('token')
-                },
-                data: {
-                    title,
-                    description,
-                    due_date,
-                    status: false
-                }
-            })
+                    url: "https://stormy-castle-37257.herokuapp.com/todos",
+                    method: "POST",
+                    headers: {
+                        token: localStorage.getItem('token')
+                    },
+                    data: {
+                        title,
+                        description,
+                        due_date,
+                        status: false
+                    }
+                })
                 .done(res => {
                     $("#list-todo").empty()
                     afterLogin()
@@ -170,15 +170,14 @@ function afterLogin() {
     $(".g-signin2").hide()
     $("#list-todo-completed").empty()
     $("#list-todo-pending").empty()
-    $("#landing-page").hide()
     $("#Dashboard").show()
     $.ajax({
-        url: "https://stormy-castle-37257.herokuapp.com/todos",
-        method: "GET",
-        headers: {
-            token: localStorage.getItem('token')
-        }
-    })
+            url: "https://stormy-castle-37257.herokuapp.com/todos",
+            method: "GET",
+            headers: {
+                token: localStorage.getItem('token')
+            }
+        })
         .done(result => {
             for (let i = 0; i < result.length; i++) {
                 let dateFormat = new Date(result[i].due_date).toISOString().substring(0, 10)
@@ -244,12 +243,12 @@ function afterLogin() {
                     }).then((res) => {
                         if (res.value) {
                             $.ajax({
-                                url: `https://stormy-castle-37257.herokuapp.com/todos/${result[i].id}`,
-                                method: "DELETE",
-                                headers: {
-                                    token: localStorage.getItem('token')
-                                }
-                            })
+                                    url: `https://stormy-castle-37257.herokuapp.com/todos/${result[i].id}`,
+                                    method: "DELETE",
+                                    headers: {
+                                        token: localStorage.getItem('token')
+                                    }
+                                })
                                 .done(result => {
                                     Swal.fire(
                                         'Deleted!',
@@ -322,13 +321,13 @@ function afterLogin() {
 
 function update(id, data) {
     $.ajax({
-        url: `https://stormy-castle-37257.herokuapp.com/todos/${id}`,
-        method: "PUT",
-        headers: {
-            token: localStorage.getItem('token')
-        },
-        data
-    })
+            url: `https://stormy-castle-37257.herokuapp.com/todos/${id}`,
+            method: "PUT",
+            headers: {
+                token: localStorage.getItem('token')
+            },
+            data
+        })
         .done(res => {
             $("#list-todo").empty()
             afterLogin()
@@ -355,12 +354,12 @@ function onSignIn(googleUser) {
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
     const id_token = googleUser.getAuthResponse().id_token;
     $.ajax({
-        url: "https://stormy-castle-37257.herokuapp.com/users/goosignin",
-        method: "POST",
-        headers: {
-            token: id_token
-        }
-    })
+            url: "https://stormy-castle-37257.herokuapp.com/users/goosignin",
+            method: "POST",
+            headers: {
+                token: id_token
+            }
+        })
         .done(result => {
             localStorage.setItem("token", result)
             afterLogin()
