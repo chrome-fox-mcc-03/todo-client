@@ -28,7 +28,7 @@ function showUpdate(id) {
    $('#form-update').attr('onsubmit', `updateTodo(event, ${id})`)
    $.ajax({
       method: 'GET',
-      url: `http://localhost:3000/todos/${id}`,
+      url: `https://fancy-todo-abdul-basith.herokuapp.com/${id}`,
       headers: {
          token: localStorage.getItem('token')
       }
@@ -40,7 +40,7 @@ function showUpdate(id) {
          $("#due_dateUpdate").val(dueDate);
       })
       .fail(err => {
-         let msg = err.responseJSON.message
+         let msg = err.responseJSON
          let status = err.status
          swal(`Error ${status}`, `${msg}`, "error");
       })
@@ -77,7 +77,7 @@ function signUp(event) {
 
    $.ajax({
       method: 'POST',
-      url: 'http://localhost:3000/signup',
+      url: 'https://fancy-todo-abdul-basith.herokuapp.com/signup',
       data: {
          email,
          password
@@ -94,7 +94,7 @@ function signUp(event) {
          dashboard()
       })
       .fail(err => {
-         let msg = err.responseJSON.message
+         let msg = err.responseJSON
          let status = err.status
          swal(`Error ${status}`, `${msg}`, "error");
       })
@@ -107,7 +107,7 @@ function signIn(event) {
 
    $.ajax({
       method: 'POST',
-      url: 'http://localhost:3000/signin',
+      url: 'https://fancy-todo-abdul-basith.herokuapp.com/signin',
       data: {
          email,
          password
@@ -125,7 +125,7 @@ function signIn(event) {
 
       })
       .fail(err => {
-         let msg = err.responseJSON.message
+         let msg = err.responseJSON
          let status = err.status
          swal(`Error ${status}`, `${msg}`, "error");
       })
@@ -151,7 +151,7 @@ function getTodos() {
    const token = localStorage.getItem('token')
    $.ajax({
       method: 'GET',
-      url: 'http://localhost:3000/todos',
+      url: 'https://fancy-todo-abdul-basith.herokuapp.com/todos',
       headers: {
          token
       }
@@ -175,7 +175,7 @@ function getTodos() {
       })
    })
    .fail(err => {
-      let msg = err.responseJSON.message
+      let msg = err.responseJSON
       let status = err.status
       swal(`Error ${status}`, `${msg}`, "error");
    })
@@ -189,7 +189,7 @@ function createTodo(event) {
    let token = localStorage.getItem('token')
    $.ajax({
       method: "POST",
-      url: "http://localhost:3000/todos",
+      url: "https://fancy-todo-abdul-basith.herokuapp.com/todos",
       headers: {
          token,
       },
@@ -210,7 +210,7 @@ function createTodo(event) {
       })
       .fail((err) => {
          console.log(err);
-         let msg = err.responseJSON.message
+         let msg = err.responseJSON
          let status = err.status
          swal(`Error ${status}`, `${msg}`, "error");
       })
@@ -227,7 +227,7 @@ function updateTodo(event, id) {
    let due_date = $("#due_dateUpdate").val()
    $.ajax({
       method: 'PUT',
-      url: `http://localhost:3000/todos/${id}`,
+      url: `https://fancy-todo-abdul-basith.herokuapp.com/todos/${id}`,
       headers: {
          token: localStorage.getItem('token')
       },
@@ -247,7 +247,7 @@ function updateTodo(event, id) {
       dashboard()
    })
    .fail(err => {
-      let msg = err.responseJSON.message
+      let msg = err.responseJSON
       let status = err.status
       swal(`Error ${status}`, `${msg}`, "error");
    })
@@ -257,7 +257,7 @@ function onSignIn(googleUser) {
    var id_token = googleUser.getAuthResponse().id_token;
    $.ajax({
       method: 'POST',
-      url: 'http://localhost:3000/googlesignin',
+      url: 'https://fancy-todo-abdul-basith.herokuapp.com/googlesignin',
       data: {
          id_token
       }
@@ -273,7 +273,7 @@ function onSignIn(googleUser) {
          dashboard()
       })
       .fail(err => {
-         let msg = err.responseJSON.message
+         let msg = err.responseJSON
          let status = err.status
          swal(`Error ${status}`, `${msg}`, "error");
       })
@@ -283,7 +283,7 @@ function deleteTodo(id) {
    if(confirm('Are you sure want to delete?')) {
       $.ajax({
          method: "DELETE",
-         url: `http://localhost:3000/todos/${id}`,
+         url: `https://fancy-todo-abdul-basith.herokuapp.com/todos/${id}`,
          headers: {
             token: localStorage.getItem('token')
          }
@@ -298,7 +298,7 @@ function deleteTodo(id) {
          dashboard()
       })
       .fail(err => {
-         let msg = err.responseJSON.message
+         let msg = err.responseJSON
          let status = err.status
          swal(`Error ${status}`, `${msg}`, "error");
       })
