@@ -133,7 +133,7 @@ function login(event) {
         console.log(err.responseText);
         $(".error-msg").empty()
         $(".error-msg").append(`<h3>${err.responseText}</h3>`)
-        setTimeout($(".error-msg").hide(), 10000);
+        // setTimeout($(".error-msg").hide(), 10000);
     })
 }
 
@@ -182,7 +182,7 @@ function showTodos(event) {
         console.log(err.responseText);
         $(".error-msg").empty()
         $(".error-msg").append(`<h3>${err.responseText}</h3>`)
-        setTimeout($(".error-msg").hide(), 10000);
+        // setTimeout($(".error-msg").hide(), 10000);
     })
 
 
@@ -218,7 +218,7 @@ function register(event) {
             $(".success-msg").append(`<h3>${message}</h3>`)
 
             renderSignIn()
-            setTimeout($(".success-msg").hide(), 10000)
+            // setTimeout($(".success-msg").hide(), 10000)
 
         })
         .fail(err => {
@@ -228,7 +228,7 @@ function register(event) {
             console.log(err.responseText);
             $(".error-msg").empty()
             $(".error-msg").append(`<h3>${err.responseText}</h3>`)
-            setTimeout($(".error-msg").hide(), 10000);
+            // setTimeout($(".error-msg").hide(), 10000);
         })
 
 }
@@ -269,7 +269,7 @@ function createTodo(event) {
         $(".success-msg").append(`<h3>TODO #${todoId}: ${title} CREATED</h3>`)
         showTodos(event)
         renderDashboard()
-        setTimeout($(".success-msg").hide(), 10000)
+        // setTimeout($(".success-msg").hide(), 10000)
     })
     .fail(err => {
         console.log(`main error is`);
@@ -278,7 +278,7 @@ function createTodo(event) {
         console.log(err.responseText);
         $(".error-msg").empty()
         $(".error-msg").append(`<h3> ${err.responseText} </h3>`)
-        setTimeout($(".error-msg").hide(), 10000);
+        // setTimeout($(".error-msg").hide(), 10000);
     })
 
 }
@@ -311,7 +311,7 @@ function onSignIn(googleUser) {
         localStorage.setItem('token', response.token)
         showTodos(event)
         renderDashboard()
-        setTimeout($(".success-msg").hide(), 10000)
+        // setTimeout($(".success-msg").hide(), 10000)
     })
     .fail(err => {
         console.log(`main error is`);
@@ -319,7 +319,7 @@ function onSignIn(googleUser) {
         console.log(`the response text is`);
         console.log(err.responseText);
         $(".error-msg").empty()
-        $(".error-msg").append(`<h3>${err.responseText}</h3>`)
+        // $(".error-msg").append(`<h3>${err.responseText}</h3>`)
     })
 }
 
@@ -376,7 +376,7 @@ function editFormTodo(id, event) {
         console.log(err.responseText);
         $(".error-msg").empty()
         $(".error-msg").append(`<h3>${err.responseText}</h3>`)
-        setTimeout($(".error-msg").hide(), 10000);
+        // setTimeout($(".error-msg").hide(), 10000);
     })
     
 }
@@ -418,7 +418,7 @@ function editTodo(todoId, event) {
         $(".success-msg").append(`<h3>TODO #${todoId}: ${title} UPDATED</h3>`)
         showTodos(event)
         renderDashboard()
-        setTimeout($(".success-msg").hide(), 10000)
+        // setTimeout($(".success-msg").hide(), 10000)
     })
     .fail(err => {
         console.log(`main error is`);
@@ -428,7 +428,7 @@ function editTodo(todoId, event) {
         
         $(".error-msg").empty()
         $(".error-msg").append(`<h3>${err.responseText}</h3>`)
-        setTimeout($(".error-msg").hide(), 10000);
+        // setTimeout($(".error-msg").hide(), 10000);
     })
 }
 
@@ -455,7 +455,7 @@ function deleteTodo(todoId, event) {
         $(".success-msg").append(`<h3>TODO #${todoId} DELETED</h3>`)
         showTodos(event)
         renderDashboard()
-        setTimeout($(".success-msg").hide(), 10000)
+        // setTimeout($(".success-msg").hide(), 10000)
     })
     .fail(err => {
         console.log(`main error is`);
@@ -464,6 +464,6 @@ function deleteTodo(todoId, event) {
         console.log(err.responseText);
         $(".error-msg").empty()
         $(".error-msg").append(`<h3>${err.responseText}</h3>`)
-        setTimeout($(".error-msg").hide(), 10000);
+        // setTimeout($(".error-msg").hide(), 10000);
     })
 }
