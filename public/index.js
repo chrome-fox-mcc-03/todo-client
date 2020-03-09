@@ -71,7 +71,7 @@ $("#form-register").on('submit',function (e) {
     e.preventDefault();
     $.ajax({
         method: "POST",
-        url: "http://localhost:3000/register",
+        url: "https://morning-thicket-49183.herokuapp.com/register",
         data: {
             email,
             password
@@ -100,7 +100,7 @@ $("#form-login").on('submit',function (e) {
     e.preventDefault();
     $.ajax({
         method: "POST",
-        url: "http://localhost:3000/login",
+        url: "https://morning-thicket-49183.herokuapp.com/login",
         data: {
             email,
             password
@@ -143,7 +143,7 @@ $("#formAdd").on('submit',function (e) {
         headers: {
             token
         },
-        url: "http://localhost:3000/todos",
+        url: "https://morning-thicket-49183.herokuapp.com/todos",
         data: {
             title,
             description,
@@ -181,7 +181,7 @@ $("#formUpdate").on('submit', function (e) {
         headers: {
             token
         },
-        url: `http://localhost:3000/todos/${id}`,
+        url: `https://morning-thicket-49183.herokuapp.com/todos/${id}`,
         data: {
             title,
             description,
@@ -239,7 +239,7 @@ function getTodos() {
         headers: {
             token
         },
-        url: "http://localhost:3000/todos"
+        url: "https://morning-thicket-49183.herokuapp.com/todos"
     })
         .done(response => {
             console.log('kosong')
@@ -305,7 +305,7 @@ $("#btn-todos").on('click',function () {
         headers: {
             token
         },
-        url: "http://localhost:3000/todos"
+        url: "https://morning-thicket-49183.herokuapp.com/todos"
     })
         .done(response => {
             console.log('kosong')
@@ -372,7 +372,7 @@ function updateTodo (idUpdate) {
         headers: {
             token
         },
-        url: `http://localhost:3000/todos/${id}`
+        url: `https://morning-thicket-49183.herokuapp.com/todos/${id}`
     })
         .always(loading => {
             showLoading()
@@ -421,7 +421,7 @@ function deleteTodo(idToDelete) {
         headers: {
             token
         },
-        url: `http://localhost:3000/todos/${idToDelete}`
+        url: `https://morning-thicket-49183.herokuapp.com/todos/${idToDelete}`
     })
         .always(loading => {
             showLoading()
@@ -449,7 +449,7 @@ function onSignIn(googleUser) {
     console.log('Id Token: ' + id_token);
     $.ajax({
         method: "POST",
-        url: "http://localhost:3000/loginGoogle",
+        url: "https://morning-thicket-49183.herokuapp.com/loginGoogle",
         headers: {
             id_token
         }
