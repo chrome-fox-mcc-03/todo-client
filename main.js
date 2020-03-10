@@ -61,9 +61,10 @@ function takeUpdate(id) {
 
 function update(id) {
   console.log(id)
-  const title = $('#title-update').val()
-  const description = $('#description-update').val()
-  const due_date = new Date($('#due_date-update').val())
+  const title = $('#title_update').val()
+  const description = $('#description_update').val()
+  const due_date = $('#due_date_update').val()
+  console.log(due_date)
   let token= localStorage.getItem('token')
   $.ajax({
     method: "PUT",
@@ -77,6 +78,7 @@ function update(id) {
   })
     .done(response => {
       console.log(response)
+      $("#formUpdate").hide()
       list()
     })
     .fail(err => console.log(err))
