@@ -188,6 +188,28 @@ const toDeleteTodo = (id) => {
     $('#deleteForm').html(string);
 }
 
+/* Google */
+
+function onSignIn(googleUser) {
+    let id_token = googleUser.getAuthResponse().id_token;
+    console.log(id_token)
+
+    googleSign(id_token).done(response => {
+        // localStorage.setItem('token', response.access_token)
+
+        $('#logout').show()
+    }).fail(err => {
+        console.log(err)
+    })
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log('User signed out.');
+    });
+}
+
 
 $(document).ready(() => {
     if (!localStorage.token) {
@@ -261,7 +283,7 @@ $(document).ready(() => {
             due_date: $('#createDueDate').val()
         }
         createTodo(payload).done(
-            response => {                
+            response => {
                 fetchTodos().done(todos => {
                     $('#createForm').empty();
                     $('#createForm').hide();
@@ -334,6 +356,7 @@ $(document).ready(() => {
 
     // Logout
     $('#logout').on('click', () => {
+        signOut()
         localStorage.clear();
         clearLogin();
         defaultView();

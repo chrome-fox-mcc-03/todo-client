@@ -87,3 +87,15 @@ const deleteTodo = (id) => {
         }
     })
 }
+
+const googleSign = (id_token) => {
+    return $.ajax({
+        url: `${URL}/googleSign`,
+        type: 'GET',
+        headers: {
+            id_token
+        }
+    })
+}
+
+
