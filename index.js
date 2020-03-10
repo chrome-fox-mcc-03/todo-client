@@ -10,7 +10,8 @@ let userId
 let todoId
 let datum
 
-// $( document ).ready(function() {})
+$( document ).ready(function() {
+
     token = localStorage.getItem('token')
     if(token) {
         renderDashboard() //LOGIN
@@ -18,27 +19,30 @@ let datum
         renderLanding()
     }
 
+})
 
-    $("#btn-register").on('click', function() {
-        renderSignUp()
-    })
+$("#btn-register").on('click', function() {
+    renderSignUp()
+})
 
-    $("#btn-login").on('click', function() {
-        renderSignIn()
-    })
+$("#btn-login").on('click', function() {
+    renderSignIn()
+})
 
-    $(".btn-logout").on('click', function() {
-        localStorage.clear()
-        renderSignIn()
-    })
+$(".btn-logout").on('click', function() {
+    localStorage.clear()
+    renderSignIn()
+})
 
-    $(".btn-back2Home").on("click", function() {
-        renderDashboard()
-    })
+$(".btn-back2Home").on("click", function() {
+    renderDashboard()
+})
 
-    $("#btn-create-todo").on("click", function() {
-        renderAddForm()
-    })
+$("#btn-create-todo").on("click", function() {
+    renderAddForm()
+})
+
+
 
     
     // $("#signin-form").on("click")
@@ -53,6 +57,7 @@ function renderAddForm() {
 }
 
 function renderDashboard() {
+    showTodos()
     $("#signin-page").hide()
     $("#signup-page").hide()
     $("#dashboard-page").show()
@@ -121,25 +126,41 @@ function login(event) {
         console.log(response);
         localStorage.setItem('token', response.token)
        
-        showTodos(event)
+        $(".success-msg").append(`<h3>Hello again,${email}</h3>`)
         renderDashboard()
-        setTimeout($(".success-msg").hide(), 10000)
-
+        setTimeout(function () {
+            $(".success-msg").empty()
+        }, 5000)
     })
     .fail(err => {
+        let arr
+        let msg
         console.log(`main error is`);
         console.log(err);
         console.log(`the response text is`);
         console.log(err.responseText);
+        console.log("RESPONSE BODY");
+        arr = JSON.parse(err.responseText).message
+        console.log(arr);
+
         $(".error-msg").empty()
-        $(".error-msg").append(`<h3>${err.responseText}</h3>`)
-        // setTimeout($(".error-msg").hide(), 10000);
+        if(typeof arr === "string") {
+            $(".error-msg").append(`<h3>${arr}</h3>`)
+        } else {
+            arr.forEach(el => {
+                $(".error-msg").append(`<h3>${el}</h3>`)
+            })
+        }
+        
+        setTimeout(function () {
+            $(".error-msg").empty()
+        }, 5000)
     })
 }
 
 
-function showTodos(event) {
-    event.preventDefault()
+function showTodos() {
+    // event.preventDefault()
     $(".error-msg").empty()
 
     $("#tbl-todo-data").empty()
@@ -176,15 +197,29 @@ function showTodos(event) {
             })
     })
     .fail(err => {
+        let arr
+        let msg
         console.log(`main error is`);
         console.log(err);
         console.log(`the response text is`);
         console.log(err.responseText);
-        $(".error-msg").empty()
-        $(".error-msg").append(`<h3>${err.responseText}</h3>`)
-        // setTimeout($(".error-msg").hide(), 10000);
-    })
+        console.log("RESPONSE BODY");
+        arr = JSON.parse(err.responseText).message
+        console.log(arr);
 
+        $(".error-msg").empty()
+        if(typeof arr === "string") {
+            $(".error-msg").append(`<h3>${arr}</h3>`)
+        } else {
+            arr.forEach(el => {
+                $(".error-msg").append(`<h3>${el}</h3>`)
+            })
+        }
+        
+        setTimeout(function () {
+            $(".error-msg").empty()
+        }, 5000)
+    })
 
 }
 
@@ -212,23 +247,40 @@ function register(event) {
             console.log(response);
             // localStorage.setItem('token', response.token)
             const newUser = response.datum.email
-            const tempMessage = response.datum.message
+            const tempMessage = response.message
             message = `${tempMessage}. Welcome, ${newUser}.`
 
             $(".success-msg").append(`<h3>${message}</h3>`)
 
             renderSignIn()
-            // setTimeout($(".success-msg").hide(), 10000)
+            setTimeout(function () {
+                $(".success-msg").empty()
+            }, 5000)
 
         })
         .fail(err => {
+            let arr
+            let msg
             console.log(`main error is`);
             console.log(err);
             console.log(`the response text is`);
             console.log(err.responseText);
+            console.log("RESPONSE BODY");
+            arr = JSON.parse(err.responseText).message
+            console.log(arr);
+
             $(".error-msg").empty()
-            $(".error-msg").append(`<h3>${err.responseText}</h3>`)
-            // setTimeout($(".error-msg").hide(), 10000);
+            if(typeof arr === "string") {
+                $(".error-msg").append(`<h3>${arr}</h3>`)
+            } else {
+                arr.forEach(el => {
+                    $(".error-msg").append(`<h3>${el}</h3>`)
+                })
+            }
+            
+            setTimeout(function () {
+                $(".error-msg").empty()
+            }, 5000)
         })
 
 }
@@ -267,18 +319,34 @@ function createTodo(event) {
         console.log(response);
         $(".success-msg").empty()
         $(".success-msg").append(`<h3>TODO #${todoId}: ${title} CREATED</h3>`)
-        showTodos(event)
         renderDashboard()
-        // setTimeout($(".success-msg").hide(), 10000)
+        setTimeout(function () {
+            $(".success-msg").empty()
+        }, 5000)
     })
     .fail(err => {
+        let arr
+        let msg
         console.log(`main error is`);
         console.log(err);
         console.log(`the response text is`);
         console.log(err.responseText);
+        console.log("RESPONSE BODY");
+        arr = JSON.parse(err.responseText).message
+        console.log(arr);
+
         $(".error-msg").empty()
-        $(".error-msg").append(`<h3> ${err.responseText} </h3>`)
-        // setTimeout($(".error-msg").hide(), 10000);
+        if(typeof arr === "string") {
+            $(".error-msg").append(`<h3>${arr}</h3>`)
+        } else {
+            arr.forEach(el => {
+                $(".error-msg").append(`<h3>${el}</h3>`)
+            })
+        }
+        
+        setTimeout(function () {
+            $(".error-msg").empty()
+        }, 5000)
     })
 
 }
@@ -309,17 +377,34 @@ function onSignIn(googleUser) {
         console.log(response);
 
         localStorage.setItem('token', response.token)
-        showTodos(event)
         renderDashboard()
-        // setTimeout($(".success-msg").hide(), 10000)
+        setTimeout(function () {
+            $(".success-msg").empty()
+        }, 5000)
     })
     .fail(err => {
+        let arr
+        let msg
         console.log(`main error is`);
         console.log(err);
         console.log(`the response text is`);
         console.log(err.responseText);
+        console.log("RESPONSE BODY");
+        arr = JSON.parse(err.responseText).message
+        console.log(arr);
+
         $(".error-msg").empty()
-        // $(".error-msg").append(`<h3>${err.responseText}</h3>`)
+        if(typeof arr === "string") {
+            $(".error-msg").append(`<h3>${arr}</h3>`)
+        } else {
+            arr.forEach(el => {
+                $(".error-msg").append(`<h3>${el}</h3>`)
+            })
+        }
+        
+        setTimeout(function () {
+            $(".error-msg").empty()
+        }, 5000)
     })
 }
 
@@ -346,7 +431,7 @@ function editFormTodo(id, event) {
         renderEditForm()
         datum = response.todo
         
-        $("#edit-todo-id").val(datum.id)
+        // $("#edit-todo-id").val(datum.id)
         $("#edit-todo-title").val(datum.title)
         $("#edit-todo-description").val(datum.description)
         $("#edit-select-todo-status").val(datum.status)
@@ -370,13 +455,28 @@ function editFormTodo(id, event) {
 
     })
     .fail(err => {
+        let arr
+        let msg
         console.log(`main error is`);
         console.log(err);
         console.log(`the response text is`);
         console.log(err.responseText);
+        console.log("RESPONSE BODY");
+        arr = JSON.parse(err.responseText).message
+        console.log(arr);
+
         $(".error-msg").empty()
-        $(".error-msg").append(`<h3>${err.responseText}</h3>`)
-        // setTimeout($(".error-msg").hide(), 10000);
+        if(typeof arr === "string") {
+            $(".error-msg").append(`<h3>${arr}</h3>`)
+        } else {
+            arr.forEach(el => {
+                $(".error-msg").append(`<h3>${el}</h3>`)
+            })
+        }
+        
+        setTimeout(function () {
+            $(".error-msg").empty()
+        }, 5000)
     })
     
 }
@@ -416,19 +516,34 @@ function editTodo(todoId, event) {
         console.log(response);
         $(".success-msg").empty()
         $(".success-msg").append(`<h3>TODO #${todoId}: ${title} UPDATED</h3>`)
-        showTodos(event)
         renderDashboard()
-        // setTimeout($(".success-msg").hide(), 10000)
+        setTimeout(function () {
+            $(".success-msg").empty()
+        }, 5000)
     })
     .fail(err => {
+        let arr
+        let msg
         console.log(`main error is`);
         console.log(err);
         console.log(`the response text is`);
         console.log(err.responseText);
-        
+        console.log("RESPONSE BODY");
+        arr = JSON.parse(err.responseText).message
+        console.log(arr);
+
         $(".error-msg").empty()
-        $(".error-msg").append(`<h3>${err.responseText}</h3>`)
-        // setTimeout($(".error-msg").hide(), 10000);
+        if(typeof arr === "string") {
+            $(".error-msg").append(`<h3>${arr}</h3>`)
+        } else {
+            arr.forEach(el => {
+                $(".error-msg").append(`<h3>${el}</h3>`)
+            })
+        }
+        
+        setTimeout(function () {
+            $(".error-msg").empty()
+        }, 5000)
     })
 }
 
@@ -453,17 +568,33 @@ function deleteTodo(todoId, event) {
         console.log(response);
         $(".success-msg").empty()
         $(".success-msg").append(`<h3>TODO #${todoId} DELETED</h3>`)
-        showTodos(event)
         renderDashboard()
-        // setTimeout($(".success-msg").hide(), 10000)
+        setTimeout(function () {
+            $(".success-msg").empty()
+        }, 5000)
     })
     .fail(err => {
+        let arr
+        let msg
         console.log(`main error is`);
         console.log(err);
         console.log(`the response text is`);
         console.log(err.responseText);
+        console.log("RESPONSE BODY");
+        arr = JSON.parse(err.responseText).message
+        console.log(arr);
+
         $(".error-msg").empty()
-        $(".error-msg").append(`<h3>${err.responseText}</h3>`)
-        // setTimeout($(".error-msg").hide(), 10000);
+        if(typeof arr === "string") {
+            $(".error-msg").append(`<h3>${arr}</h3>`)
+        } else {
+            arr.forEach(el => {
+                $(".error-msg").append(`<h3>${el}</h3>`)
+            })
+        }
+        
+        setTimeout(function () {
+            $(".error-msg").empty()
+        }, 5000)
     })
 }
