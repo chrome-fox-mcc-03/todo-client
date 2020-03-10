@@ -1,6 +1,6 @@
 /* DEFAULT CONNECTION */
 
-const URL = 'http://localhost:3000'
+const URL = 'https://todo-server-juleshwa.herokuapp.com/'
 
 const register = (payload) => {
     return $.ajax({
