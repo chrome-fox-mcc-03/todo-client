@@ -1,6 +1,6 @@
 /* DEFAULT CONNECTION */
 
-const URL = 'https://todo-server-juleshwa.herokuapp.com/'
+const URL = 'https://todo-server-juleshwa.herokuapp.com'
 
 const register = (payload) => {
     return $.ajax({
