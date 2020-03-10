@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <meta name="google-signin-client_id" content="680958371821-lhfj5scfpr2kvhavoij978omf0840av1.apps.googleusercontent.com">
+    <link rel="stylesheet" href="style.css">
+    <title>Fancy ToDo</title>
+</head>
+<body>
+    <button onclick="homeBtn()" style="text-align: left;" class="btn btn-warning" id="btn-home">Home</button><br><br>
+    <section id="section-message">
+    </section><br>
+    <section id="page-home">
+        <h1>Welcome to Fancy Todo</h1>
+        <button onclick="signUpBtn()" class="btn btn-primary" id="btn-signup">Sign Up</button>
+        <button onclick="loginBtn()" class="btn btn-primary" id="btn-login">Login</button>
+        <br><br><h5>or</h5><br>
+        <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-width="300" data-height="50" data-longtitle="true">button</div>
+    </section>
+    <section id="page-signup">
+        <form onsubmit="signUp(event)">
+            <label for="email-signup">Email:</label><br>
+            <input type="text" id="email-signup" name="email-signup" placeholder="Email"><br>
+            <label for="password-signup">Password:</label><br>
+            <input type="password" id="password-signup" name="password-signup" placeholder="Password"><br><br>
+            <input class="btn btn-success" type="submit" value="Sign Up">
+        </form>
+    </section>
+    <section id="page-login">
+        <form onsubmit="signIn(event)">
+            <label for="email-login">Email:</label><br>
+            <input type="text" id="email-login" name="email-login" placeholder="Email"><br>
+            <label for="password-login">Password:</label><br>
+            <input type="password" id="password-login" name="password-login" placeholder="Password"><br><br>
+            <input class="btn btn-success" type="submit" value="Login">
+        </form>
+    </section>
+    <section id="page-dashboard">
+        <h1>Dashboard</h1>
+        <div id=newtodo></div><br>
+        <button onclick="createTodoBtn(event)" class="btn btn-success" id="btn-createtodo">Create To Do</button>
+        <button onclick="showHistoryBtn()" class="btn btn-success" id="btn-show_history">Show History</button>
+        <button onclick="showPendingBtn()" class="btn btn-success" id="btn-current">Show Pending</button><br><br><br><br>
+
+
+        <button onclick="logout()" class="btn btn-dark" id="btn-logout">Logout</button><br><br>
+    </section>
+    <section id="page-createtodo">
+        <h1>Create New Todo</h1>
+        <form onsubmit="createTodo(event)">
+            <label for="title-create">Title:</label><br>
+            <input type="text" id="title-create" name="title-create" placeholder="Title"><br><br>
+            <label for="description-create">Description:</label><br>
+            <textarea id="description-create" name="description-create"rows="4" cols="50">
+            </textarea><br><br>
+            <label for="due_date-create">Due Date:</label><br>
+            <input type="date" id="due_date-create" name="due_date-create" placeholder="Password"><br><br>
+            <input class="btn btn-success" type="submit" value="Create">
+        </form>
+    </section>
+    <section id="page-updatetodo">
+        <h1>Update To Do page</h1>
+        <form onsubmit="submitUpdateTodo(event)">
+            <label for="title-update">Title:</label><br>
+            <input type="text" id="title-update" name="title-update" placeholder="Title"><br><br>
+            <label for="description-update">Description:</label><br>
+            <textarea id="description-update" name="description-update"rows="4" cols="50">
+            </textarea><br><br>
+            <label for="due_date-update">Due Date:</label><br>
+            <input type="date" id="due_date-update" name="due_date-update" placeholder="Password"><br><br>
+            <input class="btn btn-success" type="submit" value="Update">
+        </form>
+    </section>
+    <br>
+    <section id="section-list">
+            <section class="card-container">
+        
+        
+            </section>
+    </section>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
