@@ -1,0 +1,59 @@
+html {
+  background-color: #fdfdfd;
+}
+
+#navbar ul {
+  margin-right: 3rem;
+}
+
+#nav-logo {
+  margin-left: 3rem;
+}
+
+#landing-page .row {
+  min-height: 90vh;
+  background-image: url('../images/undraw_Checklist_7dx2.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+#title {
+  margin: 32rem 0 0 3rem;
+}
+
+#title img {
+  width: 10%;
+  height: auto;
+}
+
+#logo {
+  border: 5px solid #E49F59;
+  border-radius: 50%;
+  padding: 5px;
+  width: 8rem;
+  margin: 1rem auto 0 auto;
+}
+
+.login {
+  min-width: 15rem;
+  margin: 1em;
+}
+
+#g-login {
+  margin-left: 11rem;
+}
+
+.modal {
+  width: 40%;
+  margin-top: 10rem;
+}
+
+#newTodo i {
+  cursor: pointer;
+  margin: 1rem 1rem;
+}
+
+#updateTodo i {
+  cursor: pointer;
+  margin: 1rem 1rem;
+}
