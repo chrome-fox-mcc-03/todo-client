@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./tools/stylesheet.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Source+Code+Pro&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta name="google-signin-client_id" content="394103466396-uhh0um8uvkt1n74vbb92ti47194jlf03.apps.googleusercontent.com">
+  <title>ngrusak Todo</title>
+</head>
+<body>
+  <!-- <nav>
+    <div class="nav-wrapper">
+      <a href="" class="brand-logo">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a class="waves-effect waves-light btn-small SignIn">Sign In</a></li>
+        <li><a class="waves-effect waves-light btn-small SignUp">Sign Up</a></li>
+        <li><a class="waves-effect waves-light btn-small SignOut">Sign Out</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+  <div class="g-logout">
+    <a href="#" onclick="signOut();">Sign out</a>
+  </div>
+  <div class="container">
+  </div> -->
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo">TodoNews</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="" class="login hoverable" >Login</a></li>
+        <li><a href="" class="register hoverable">Register</a></li>
+        <li><a class='dropdown-trigger btn autoTrigger="true" drop' href='#' data-target='dropdown1'>option</a></li>
+      </ul>
+    </div>
+    <div class="progress">
+      <div class="indeterminate"></div>
+    </div>  
+  </nav>
+
+  <ul class="sidenav" id="mobile-demo">
+    <li><a href="" class="login hoverable" >Login</a></li>
+    <li><a href="" class="register hoverable">Register</a></li>
+    <li><a href="" class="logout hoverable">Logout</a></li>
+    <li><a href="" class="add hoverable">Add</a></li>
+  </ul>
+  <ul id='dropdown1' class='dropdown-content'>
+    <li><a href="" class="logout hoverable">Logout</a></li>
+    <li><a href="" class="add hoverable">Add</a></li>
+  </ul>
+  <div class="container">
+    <div class="form-login row">
+      <div class="col s12 l4 offset-l4">
+        <div class="card">
+          <div class="card-content" id="login">
+            <h4 class="card-title center-align">Login</h4>
+            <form class="login-form">
+              <div class="row">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">email</i>
+                  <input type="email" id="email" class="validate" />
+                  <label for="email">Email</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">vpn_key</i>
+                  <input type="password" id="password" class="validate" />
+                  <label for="email">Password</label>
+                </div>
+              </div>
+              <div class="row center-align">
+                <button class="btn waves-effect waves-light" type="submit" id="submitLogin">Submit
+                  <i class="material-icons right">send</i>
+                </button>
+                <div class="g-signin2" style="margin-left: 65px; margin-top: 20px;" data-onsuccess="onSignIn"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-register row">
+      <div class="col s12 l4 offset-l4">
+        <div class="card">
+          <div class="card-content">
+            <h4 class="card-title center-align">Register</h4>
+            <form>
+              <div class="row">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">account_box</i>
+                  <input type="text" id="username" class="validate" />
+                  <label for="username">Username</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">email</i>
+                  <input type="email" id="emailRegister" class="validate" />
+                  <label for="email">Email</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">vpn_key</i>
+                  <input type="password" id="passwordRegister" class="validate" />
+                  <label for="email">Password</label>
+                </div>
+              </div>
+              <div class="row center-align">
+                <button class="btn waves-effect waves-light" type="submit" id="submitRegister">Submit
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-todo row">
+      <div class="col s12 l4 offset-l4">
+        <div class="card">
+          <div class="card-content">
+            <h4 class="card-title center-align">Todo-Add</h4>
+            <form>
+              <div class="row">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">border_color
+                  </i>
+                  <input type="text" id="title" class="validate" />
+                  <label for="username">title</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">event</i>
+                  <input type="text" id="description" class="validate" />
+                  <label for="email">description</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">date_range</i>
+                  <input type="date" id="date" class="validate" />
+                  <label for="email">due_date</label>
+                </div>
+              </div>
+              <div class="row center-align">
+                <button class="btn waves-effect waves-light" type="submit" id="submitRegister">Submit
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-edit row">
+    </div>
+    <div class="row" id="list-id">
+    </div>
+    <div class="row" id="news">
+      <h1 class="center" id="news-title">NEWS</h1>
+    </div>
+  </div>
+ 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="./tools/jquery.js"></script>
+</body>
+</html>
