@@ -1,0 +1,118 @@
+/* Header & Navigation */
+body {
+  width: 100%;
+}
+
+header {
+  display: flex !important;
+  background-color: #e3f2fd;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  top: 0;
+  position: fixed;
+  width: 80%;
+  z-index: 20;
+}
+
+header h2 {
+  padding: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: bold;
+  color: rgb(40, 41, 39);
+}
+
+ul {
+  display: flex;
+  align-items: center;
+}
+
+header nav li {
+  list-style: none;
+  margin: 0 0.5rem;
+}
+
+header nav a {
+  font-weight: 600;
+}
+
+/* Cards */
+
+#todoCards {
+  width: 100%;
+  margin: auto !important;
+  padding: 2rem;
+  text-align: center;
+  display: inline-block;
+}
+
+.card-box {
+  display: inline-block !important;
+  margin: 1rem 1rem !important;
+}
+
+.todolist {
+  width: 18rem !important;
+  height: 25rem !important;
+  text-align: left;
+}
+
+.deleteTodo {
+  color: gold !important;
+}
+
+.btn-group {
+  width: 100%;
+}
+
+main {
+  top: 5rem;
+  padding-bottom: 3rem;
+  position: relative;
+}
+
+.todos {
+  padding: 1rem;
+  text-align: center;
+}
+
+#create {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+/* Form Register */
+
+#registerForm,
+#loginForm {
+  width: 40%;
+  margin: auto;
+  padding: 2rem;
+}
+
+#createForm,
+#updateForm {
+  width: 60%;
+  margin: auto;
+  padding: 2rem;
+}
+
+/* Footer */
+
+footer {
+  width: 80%;
+  background-color: #e3f2fd;
+  color: gold;
+  text-align: center;
+  bottom: 0;
+  position: fixed;
+}
+footer p {
+  padding: 1rem 0;
+  margin: 0;
+}
