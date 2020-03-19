@@ -1,0 +1,60 @@
+#container2{
+    margin:0px;
+    width: 100vw;
+    height:90vh;
+    background-color: #f5f1da;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.4' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+
+}
+.title{
+    text-align: center;
+    color: #53435b;
+    padding-bottom: 50px;
+}
+.form{
+    text-align: center;
+}
+.inputNotSubmit{
+    height: 5vh;
+    width: 50vw;
+    margin: 20px;
+    background-color: #f5f1da;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.4' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    border: none;
+    border-bottom: 1px solid #413c69;
+    padding:5px;
+    font-size: 20px;
+}
+
+select, .inputNotSubmitModal{
+    height: 5vh;
+    width: auto;
+    margin: 20px;
+    background-color: #f5f1da;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.4' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    border: none;
+    border-bottom: 1px solid #413c69;
+    padding:5px;
+    font-size: 20px;
+}
+label{
+    display: inline-block;
+    width: 140px;
+    font-size: 20px;
+    text-align: left;
+}
+.submit{
+    display: inline-block;
+    border: 1px solid transparent;
+    border-radius: 15px;
+    height: 35px;
+    width: 30vw;
+    background-color: #fdac61;
+}
+.containerSection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:100%;
+    flex-direction: column;
+}
