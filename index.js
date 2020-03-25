@@ -29,7 +29,7 @@ function signOut() {
 function onSignIn(googleUser) {
   let id_token = googleUser.getAuthResponse().id_token;
   $.ajax({
-    url: "http://localhost:3000/gsignin",
+    url: "https://fancier-todos.herokuapp.com/gsignin",
     method: "POST",
     headers: {
       id_token: id_token
@@ -53,7 +53,7 @@ function onSignIn(googleUser) {
 
 function fetchData() {
   $.ajax({
-    url: "http://localhost:3000/todos",
+    url: "https://fancier-todos.herokuapp.com/todos",
     method: "GET",
     headers: {
       token: localStorage.getItem("token")
@@ -158,7 +158,7 @@ function fetchData() {
 
 function showDetail(index) {
   $.ajax({
-    url: `http://localhost:3000/todos/${index}`,
+    url: `https://fancier-todos.herokuapp.com/todos/${index}`,
     headers: {
       token: localStorage.getItem("token")
     },
@@ -233,7 +233,7 @@ function showEdit(index) {
     headers: {
       token: localStorage.getItem("token")
     },
-    url: `http://localhost:3000/todos/${index}`
+    url: `https://fancier-todos.herokuapp.com/todos/${index}`
   })
     .done(found => {
       let { title, description, due_date, status } = found.data;
@@ -257,7 +257,7 @@ function showEdit(index) {
 
 function deleteTodo(index) {
   $.ajax({
-    url: `http://localhost:3000/todos/${index}`,
+    url: `https://fancier-todos.herokuapp.com/todos/${index}`,
     headers: {
       token: localStorage.getItem("token")
     },
@@ -306,7 +306,7 @@ $(document).ready(() => {
     let password = $("#register-password").val();
     $.ajax({
       method: "POST",
-      url: "http://localhost:3000/register",
+      url: "https://fancier-todos.herokuapp.com/register",
       data: {
         email,
         password
@@ -315,7 +315,7 @@ $(document).ready(() => {
       .done(() => {
         return $.ajax({
           method: "POST",
-          url: "http://localhost:3000/login",
+          url: "https://fancier-todos.herokuapp.com/login",
           data: {
             email,
             password
@@ -347,7 +347,7 @@ $(document).ready(() => {
     let password = $("#login-password").val();
     $.ajax({
       method: "POST",
-      url: "http://localhost:3000/login",
+      url: "https://fancier-todos.herokuapp.com/login",
       data: {
         email,
         password
@@ -387,7 +387,7 @@ $(document).ready(() => {
     let status = $("#create-status").val();
     $.ajax({
       method: "POST",
-      url: "http://localhost:3000/todos",
+      url: "https://fancier-todos.herokuapp.com/todos",
       headers: {
         token: localStorage.getItem("token")
       },
@@ -434,7 +434,7 @@ $(document).ready(() => {
     let status = $("#edit-status").val();
     $.ajax({
       method: "PUT",
-      url: `http://localhost:3000/todos/${editIndex}`,
+      url: `https://fancier-todos.herokuapp.com/todos/${editIndex}`,
       headers: {
         token: localStorage.getItem("token")
       },

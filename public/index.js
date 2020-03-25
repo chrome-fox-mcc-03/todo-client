@@ -3,68 +3,67 @@ function showLanding() {
   $("#dashboard-page").hide();
   $("#landing-login").hide();
   $("#landing-register").show();
-  $(".alert").hide();
 }
 
 function showDashboard() {
+  fetchData();
   $("#landing-page").hide();
   $("#dashboard-page").show();
-  $(".alert").hide();
   $("#todo-detail").show();
   $("#todo-create").hide();
   $("#todo-edit").hide();
-  fetchData();
 }
 
 function signOut() {
   localStorage.clear();
   var auth2 = gapi.auth2.getAuthInstance();
   auth2.signOut().then(function() {
-    console.log("User signed out.");
+    Toast.fire({
+      icon: "success",
+      title: "Successfully logged out"
+    });
   });
   showLanding();
 }
 
 function onSignIn(googleUser) {
-  var id_token = googleUser.getAuthResponse().id_token;
+  let id_token = googleUser.getAuthResponse().id_token;
   $.ajax({
-    url: "https://aqueous-bayou-46238.herokuapp.com/gsignin",
+    url: "https://fancier-todos.herokuapp.com/gsignin",
     method: "POST",
-    data: {
-      token: id_token
+    headers: {
+      id_token: id_token
     }
   })
     .done(data => {
-      $("#register-alert").hide();
-      $("#login-alert").hide();
       localStorage.setItem("token", data.token);
       showDashboard();
+      Toast.fire({
+        icon: "success",
+        title: "Successfully logged in through google"
+      });
     })
-    .fail(err => {
-      $("#register-alert")
-        .show()
-        .empty().append(`
-      <strong>Error</strong>
-      <hr><p>Failed to connect to google</p>
-      `);
-      $("#login-alert")
-        .show()
-        .empty().append(`
-      <strong>Error</strong>
-      <hr><p>Failed to connect to google</p>
-      `);
+    .fail(() => {
+      Toast.fire({
+        icon: "error",
+        title: "Error connecting to Google"
+      });
     });
 }
 
 function fetchData() {
   $.ajax({
-    url: "https://aqueous-bayou-46238.herokuapp.com/todos",
+    url: "https://fancier-todos.herokuapp.com/todos",
     method: "GET",
     headers: {
       token: localStorage.getItem("token")
     }
   })
     .done(allData => {
+      // Toast.fire({
+      //   icon: "success",
+      //   title: "Successfully fetched all data"
+      // });
       $("#todos-library").empty().append(`
       <li class="list-group-item">
                           <div class="row">
@@ -126,7 +125,7 @@ function fetchData() {
               class="btn btn-warning btn-block"
               onclick="showDetail(${el.id})"
             >
-              DETAIL
+            <i class="fas fa-info"></i>
             </button>
           </div>
         </div>
@@ -149,20 +148,17 @@ function fetchData() {
     </li>
       `);
     })
-    .fail(() => showErrorDashboard());
-}
-
-function showErrorDashboard() {
-  $("#dashboard-alert")
-    .show()
-    .empty().append(`
-<strong>Error</strong>
-<hr><p>Failed to fetch data</p>`);
+    .fail(responseJSON => {
+      Toast.fire({
+        icon: "error",
+        title: responseJSON
+      });
+    });
 }
 
 function showDetail(index) {
   $.ajax({
-    url: `https://aqueous-bayou-46238.herokuapp.com/todos/${index}`,
+    url: `https://fancier-todos.herokuapp.com/todos/${index}`,
     headers: {
       token: localStorage.getItem("token")
     },
@@ -170,7 +166,6 @@ function showDetail(index) {
   })
     .done(dataId => {
       showDashboard();
-      $("#dashboard-alert").hide();
       $("#todo-detail").empty().append(`
       <div class="card-header">
         <div class="row">
@@ -179,9 +174,13 @@ function showDetail(index) {
               DETAIL
             </h5>
           </div>
-          <div class="col-4 my-auto d-flex flex-row-reverse justify-content-around">
-            <button type="button" class="btn btn-danger" onclick="deleteTodo(${dataId.data.id})">DELETE</button>       
-            <button type="button" class="btn btn-warning" onclick="showEdit(${dataId.data.id})">EDIT</button>
+          <div class="col-4 my-auto d-flex flex-row-reverse justify-content-right">
+            <button type="button" class="btn btn-danger" onclick="deleteTodo(${dataId.data.id})">
+              <i class="fas fa-trash-alt"></i>
+            </button>       
+            <button type="button" class="btn btn-warning" onclick="showEdit(${dataId.data.id})">
+              <i class="fas fa-edit"></i>
+            </button>
           </div>
         </div>
       </div>
@@ -206,23 +205,22 @@ function showDetail(index) {
       </div>
       </div>
       `);
+      // Toast.fire({
+      //   icon: "success",
+      //   title: "Successfully fetched a Todos' detail"
+      // });
     })
-    .fail(err => {
-      $("#dashboard-alert")
-        .show()
-        .empty().append(`
-  <strong>Error ${err.responseJSON.status}</strong>
-  <hr><p>${err.responseJSON.msg}</p>`);
+    .fail(responseJSON => {
+      Toast.fire({
+        icon: "error",
+        title: responseJSON.msg
+      });
     });
 }
 
 function showCreateTodo() {
   $("#todo-create").show();
   $("#todo-detail").hide();
-}
-
-function killAlert() {
-  $(".alert").hide();
 }
 
 let editIndex = null;
@@ -235,7 +233,7 @@ function showEdit(index) {
     headers: {
       token: localStorage.getItem("token")
     },
-    url: `https://aqueous-bayou-46238.herokuapp.com/todos/${index}`
+    url: `https://fancier-todos.herokuapp.com/todos/${index}`
   })
     .done(found => {
       let { title, description, due_date, status } = found.data;
@@ -244,29 +242,54 @@ function showEdit(index) {
       $("#edit-due-date").val(due_date);
       $("#edit-status").val(String(status));
       editIndex = index;
+      // Toast.fire({
+      //   icon: "success",
+      //   title: "Successfully fetched a Todo's detail"
+      // });
     })
-    .fail(err => {
-      showErrorDashboard();
+    .fail(responseJSON => {
+      Toast.fire({
+        icon: "error",
+        title: responseJSON.msg
+      });
     });
 }
 
 function deleteTodo(index) {
   $.ajax({
-    url: `https://aqueous-bayou-46238.herokuapp.com/todos/${index}`,
+    url: `https://fancier-todos.herokuapp.com/todos/${index}`,
     headers: {
       token: localStorage.getItem("token")
     },
     method: "DELETE"
   })
-    .done(deleted => {
-      killAlert();
+    .done(() => {
       showDashboard();
       $("#todo-detail").hide();
+      Toast.fire({
+        icon: "success",
+        title: "Successfully deleted a Todo"
+      });
     })
-    .fail(err => {
-      showErrorDashboard;
+    .fail(({ responseJSON }) => {
+      Toast.fire({
+        icon: "error",
+        title: responseJSON.msg
+      });
     });
 }
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: "bottom-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  onOpen: toast => {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  }
+});
 
 $(document).ready(() => {
   let token = localStorage.getItem("token");
@@ -283,28 +306,38 @@ $(document).ready(() => {
     let password = $("#register-password").val();
     $.ajax({
       method: "POST",
-      url: "https://aqueous-bayou-46238.herokuapp.com/register",
+      url: "https://fancier-todos.herokuapp.com/register",
       data: {
         email,
         password
       }
     })
       .done(() => {
-        $("#register-alert").hide();
-        $("#progress-modal").hide();
-        $("#landing-register").hide();
-        $("#landing-login").show();
+        return $.ajax({
+          method: "POST",
+          url: "https://fancier-todos.herokuapp.com/login",
+          data: {
+            email,
+            password
+          }
+        }).done(response => {
+          $("#todo-detail").hide();
+          localStorage.setItem("token", response.token);
+          showDashboard();
+          Toast.fire({
+            icon: "success",
+            title: "Successfully logged in"
+          });
+          $("#register-email").val("");
+          $("#register-password").val("");
+        });
       })
-      .fail(err => {
-        $("#register-alert")
-          .show()
-          .empty().append(`
-        <strong>Error ${err.status}</strong>
-        `);
-        err.responseJSON.msg.forEach(el => {
-          $("#register-alert").append(`
-          <hr>
-          <p class="mb-0">${el}</p>`);
+      .fail(({ responseJSON }) => {
+        responseJSON.msg.forEach(el => {
+          Toast.fire({
+            icon: "error",
+            title: el
+          });
         });
       });
   });
@@ -314,24 +347,28 @@ $(document).ready(() => {
     let password = $("#login-password").val();
     $.ajax({
       method: "POST",
-      url: "https://aqueous-bayou-46238.herokuapp.com/login",
+      url: "https://fancier-todos.herokuapp.com/login",
       data: {
         email,
         password
       }
     })
       .done(response => {
-        $("#login-alert").hide();
+        $("#todo-detail").hide();
         localStorage.setItem("token", response.token);
         showDashboard();
+        Toast.fire({
+          icon: "success",
+          title: "Successfully logged in"
+        });
+        $("#login-email").val("");
+        $("#login-password").val("");
       })
-      .fail(err => {
-        $("#login-alert")
-          .show()
-          .empty().append(`
-      <strong>Error ${err.status}</strong>
-      <hr><p>${err.responseJSON.msg}</p>
-      `);
+      .fail(({ responseJSON }) => {
+        Toast.fire({
+          icon: "error",
+          title: responseJSON.msg
+        });
       });
   });
   $("#switch-login").on("click", () => {
@@ -350,7 +387,7 @@ $(document).ready(() => {
     let status = $("#create-status").val();
     $.ajax({
       method: "POST",
-      url: "https://aqueous-bayou-46238.herokuapp.com/todos",
+      url: "https://fancier-todos.herokuapp.com/todos",
       headers: {
         token: localStorage.getItem("token")
       },
@@ -362,14 +399,31 @@ $(document).ready(() => {
       }
     })
       .done(newData => {
-        killAlert();
         fetchData();
-        setTimeout(() => {
-          showDetail(newData.data.id);
-        }, 50);
+        showDetail(newData.data.id);
+        $("#create-title").val("");
+        $("#create-description").val("");
+        $("#create-due-date").val("");
+        $("#create-status").val(null);
+        Toast.fire({
+          icon: "success",
+          title: "Successfully created a new Todo, check your email~"
+        });
       })
-      .fail(() => {
-        showErrorDashboard();
+      .fail(({ responseJSON }) => {
+        if (typeof responseJSON.msg === "object") {
+          responseJSON.msg.forEach(el => {
+            Toast.fire({
+              icon: "error",
+              title: el
+            });
+          });
+        } else {
+          Toast.fire({
+            icon: "error",
+            title: responseJSON.msg
+          });
+        }
       });
   });
   $("#edit-submit").on("click", e => {
@@ -380,7 +434,7 @@ $(document).ready(() => {
     let status = $("#edit-status").val();
     $.ajax({
       method: "PUT",
-      url: `https://aqueous-bayou-46238.herokuapp.com/todos/${editIndex}`,
+      url: `https://fancier-todos.herokuapp.com/todos/${editIndex}`,
       headers: {
         token: localStorage.getItem("token")
       },
@@ -391,12 +445,27 @@ $(document).ready(() => {
         status
       }
     })
-      .done(resEdited => {
-        killAlert();
+      .done(() => {
         showDetail(editIndex);
+        Toast.fire({
+          icon: "success",
+          title: "Successfully updated a Todo"
+        });
       })
-      .fail(err => {
-        showErrorDashboard;
+      .fail(({ responseJSON }) => {
+        if (typeof responseJSON.msg === "object") {
+          responseJSON.msg.forEach(el => {
+            Toast.fire({
+              icon: "error",
+              title: el
+            });
+          });
+        } else {
+          Toast.fire({
+            icon: "error",
+            title: responseJSON.msg
+          });
+        }
       });
   });
 

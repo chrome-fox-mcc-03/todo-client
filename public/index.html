@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="google-signin-client_id"
-      content="556364779457-nao9au6v9i1s2kr6j2knmvqd4q13h5c7.apps.googleusercontent.com"
+      content="905584410131-vafvavjvusjfinkt8fj03kq6ua12eoqm.apps.googleusercontent.com"
     />
+    <link rel="shortcut icon" href="./assets/icon.png" type="image/x-icon" />
     <title>Fancier Todo</title>
     <!-- bootstrap-css -->
     <link
@@ -17,6 +18,15 @@
     />
     <!-- normal css -->
     <link rel="stylesheet" href="./style.css" type="text/css" />
+    <!-- lottie-player script -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <!-- sweetalert2 cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!-- fontawesome kit -->
+    <script
+      src="https://kit.fontawesome.com/0bd4c8478e.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <div
@@ -33,13 +43,15 @@
             class="modal-body"
             style="display: flex; justify-content: center"
           >
-            <div id="ajaxSpinnerContainer">
-              <img
-                src="/images/ajax-loader.gif"
-                id="ajaxSpinnerImage"
-                title="working..."
-              />
-            </div>
+            <lottie-player
+              src="https://assets9.lottiefiles.com/datafiles/nT4vnUFY9yay7QI/data.json"
+              background="transparent"
+              speed="1"
+              style="width: 300px; height: 300px;"
+              loop
+              autoplay
+            >
+            </lottie-player>
           </div>
         </div>
       </div>
@@ -54,7 +66,17 @@
                 <div class="container">
                   <div class="row">
                     <div class="col-md-9 col-lg-8 mx-auto">
-                      <h3 class="login-heading mb-4">Welcome to fadhilahm's Fancier Todos!</h3>
+                      <h3 class="login-heading mb-4" style="text-align: center;">
+                        Welcome to fadhilahm's Fanci(er) Todos!
+                      </h3>
+                      <div>
+                        <img src="./assets/landing-image.png" alt="landing-image" class="img-fluid">
+                      </div>
+                      <ul class="mt-1">
+                        <li>Connect your Todos with Giphy's API to generate fun GIF image to accompany your Todos!</li>
+                        <li>Newly created Todos will also sent you email to remind you of what you should Do!</li>
+                      </ul>
+                      <hr>
                       <form id="landing-register">
                         <div class="form-label-group">
                           <input
@@ -62,8 +84,8 @@
                             id="register-email"
                             class="form-control"
                             placeholder="Email address"
-                            required
-                            autofocusjque
+                            autofocus
+                          />
                           <label for="register-email">Email address</label>
                         </div>
 
@@ -73,7 +95,6 @@
                             id="register-password"
                             class="form-control"
                             placeholder="Password"
-                            required
                           />
                           <label for="register-password">Password</label>
                         </div>
@@ -97,11 +118,6 @@
                           ></div>
                         </div>
                         <br />
-                        <div
-                          class="alert alert-danger"
-                          role="alert"
-                          id="register-alert"
-                        ></div>
                       </form>
                       <form id="landing-login">
                         <div class="form-label-group">
@@ -110,7 +126,6 @@
                             id="login-email"
                             class="form-control"
                             placeholder="Email address"
-                            required
                             autofocus
                           />
                           <label for="login-email">Email address</label>
@@ -122,7 +137,6 @@
                             id="login-password"
                             class="form-control"
                             placeholder="Password"
-                            required
                           />
                           <label for="login-password">Password</label>
                         </div>
@@ -149,11 +163,6 @@
                           ></div>
                         </div>
                         <br />
-                        <div
-                          class="alert alert-danger"
-                          role="alert"
-                          id="login-alert"
-                        ></div>
                       </form>
                     </div>
                   </div>
@@ -175,11 +184,12 @@
                     onclick="signOut()"
                   >
                     LOG OUT
+                    <i class="fas fa-sign-out-alt"></i>
                   </button>
                 </div>
                 <div class="col  my-auto">
                   <h1 class="font-weight-light">
-                    Welcome to my Fancier Todos
+                    Welcome to my Fanci(er) Todos
                   </h1>
                 </div>
               </div>
@@ -188,17 +198,10 @@
                   <hr />
                 </div>
               </div>
-              <div
-                class="alert alert-danger"
-                role="alert"
-                id="dashboard-alert"
-              ></div>
-              <div style="height: auto" id="dashboard-both">
+
+              <div style="height: auto" id="dashboard-both" class="p-2">
                 <div class="row">
-                  <div
-                    class="col"
-                    id="todos-deck"
-                  >
+                  <div class="col-6" id="todos-deck">
                     <div class="card" style="width: 100%;">
                       <ul
                         class="list-group list-group-flush"
@@ -213,7 +216,7 @@
                                 disabled
                               >
                                 ID
-                              </button>jque
+                              </button>
                             </div>
                             <div class="col my-auto">
                               <button
@@ -234,20 +237,26 @@
                             </div>
                           </div>
                         </li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
+                        <li class="list-group-item">
+                          <div class="row">
+                            <div class="col my-auto">
+                              <button
+                                type="button"
+                                class="btn btn-success btn-block"
+                                onclick="showCreateTodo()"
+                              >
+                                CREATE A NEW TODO
+                              </button>
+                            </div>
+                          </div>
+                        </li>
                       </ul>
                     </div>
                   </div>
-                  <div
-                    class="col"
-                    id="dashboard-right"
-                  >
+                  <div class="col-6" id="dashboard-right">
                     <div class="row">
-                      <div class="col">
-                        <div class="card" id="todo-detail">
-
-                        </div>
+                      <div class="col-12">
+                        <div class="card" id="todo-detail"></div>
                         <div class="card" id="todo-create">
                           <h5 class="card-header">ADD</h5>
                           <div class="card-body">
@@ -260,12 +269,17 @@
                                   id="create-title"
                                   class="form-control"
                                   placeholder="title"
-                                  required
                                 />
                                 <label for="create-title">Title</label>
                               </div>
                               <div class="form-label-group">
-                                <inputjque
+                                <textarea
+                                  class="form-control"
+                                  rows="3"
+                                  placeholder="Description"
+                                  id="create-description"
+                                ></textarea>
+                              </div>
                               <div class="form-label-group">
                                 <input
                                   type="date"
@@ -276,12 +290,12 @@
                                 <label for="create-due-date">Due Date</label>
                               </div>
                               <div class="form-group">
-                                <label for="exampleFormControlSelect1"
-                                  >Status</label
-                                >
                                 <select class="form-control" id="create-status">
+                                  <option value="null" selected disabled
+                                    >Status</option
+                                  >
                                   <option value="true">true</option>
-                                  <option value="false" selected>false</option>
+                                  <option value="false">false</option>
                                 </select>
                               </div>
                               <hr />
@@ -311,19 +325,15 @@
                                   id="edit-title"
                                   class="form-control"
                                   placeholder="title"
-                                  required
                                 />
                                 <label for="edit-title">Title</label>
                               </div>
                               <div class="form-label-group">
-                                <input
-                                  type="text"
+                                <textarea
+                                  class="form-control"
+                                  rows="3"
                                   id="edit-description"
-                                  class="form-control"jque
-                                />
-                                <label for="edit-description"
-                                  >Description</label
-                                >
+                                ></textarea>
                               </div>
                               <div class="form-label-group">
                                 <input
@@ -335,9 +345,6 @@
                                 <label for="edit-due-date">Due Date</label>
                               </div>
                               <div class="form-group">
-                                <label for="exampleFormControlSelect1"
-                                  >Status</label
-                                >
                                 <select class="form-control" id="edit-status">
                                   <option value="true">true</option>
                                   <option value="false" selected>false</option>
