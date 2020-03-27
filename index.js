@@ -219,6 +219,7 @@ function onSignIn(googleUser) {
         .done(result => {
             localStorage.setItem("token", result.token)
             dashboard()
+            showTodo()
         })
         .fail(err => {
         })
