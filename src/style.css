@@ -1,0 +1,503 @@
+/* CSS for Navbar-Home */
+	#navbar-home, #navbar-dashboard {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		background-color: #87CEFA;
+		height: 10vh;;
+		position: fixed;
+		z-index: 20;
+		width: 100%;
+		opacity: 0.7;
+		top: 0;
+	}
+
+	#navbar-dashboard {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		background-color: darkblue;
+		height: 10vh;;
+		/* position: fixed;
+		z-index: 20; */
+		width: 100%;
+		opacity: 0.7;
+		top: 0;
+	}
+	
+
+	#navbar-home .title, #navbar-dashboard .title {
+		margin-left: 50px;
+		margin-top: 20px;
+		font-size: 30px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+    text-align: right;
+    margin-bottom: 0px;
+    margin-right: 20px;
+    letter-spacing: -2px;
+	}
+
+	#navbar-home .title p, #navbar-dashboard .title p {
+		color : #800000;
+	}
+
+	#navbar-home .title span, #navbar-dashboard .title span {
+		color: #778899;
+	}
+
+	#navbar-home .navigation ul, #navbar-dashboard .navigation ul {
+		display : flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		margin-right: 50px;
+		margin-top: 20px;
+	}
+
+	#navbar-home .navigation ul li, #navbar-dashboard .navigation ul li {
+		margin-right : 20px;
+		list-style: none;
+		cursor: pointer;
+		font-size: 20px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+    text-align: right;
+    margin-bottom: 0px;
+    margin-right: 20px;
+		letter-spacing: 1px;
+		color: #B22222;
+	}
+
+/* END CSS Navbar-Home */
+
+/* CSS for carousel */
+#hero img {
+	background: rgba(0,0,0,0.7);
+	height: 100vh;
+}
+
+/* End CSS carousel */
+
+/* CSS LOGIN */
+
+.card{
+	height: 100%;
+	margin-top: auto;
+	margin-bottom: auto;
+	width: 400px;
+	padding-top: 50px;
+	background-color: rgba(0,0,0,0.5) !important;
+	float: left;
+	}
+	
+	.social_icon span{
+	font-size: 60px;
+	margin-left: 10px;
+	color: #FFC312;
+	}
+	
+	.social_icon span:hover{
+	color: white;
+	cursor: pointer;
+	}
+	
+	.card-header h3{
+	color: white;
+	font-size: 40px;
+	}
+	
+	.social_icon{
+	position: absolute;
+	right: 20px;
+	top: -45px;
+	}
+	
+	.input-group-prepend span{
+	width: 50px;
+	background-color: #FFC312;
+	color: black;
+	border:0 !important;
+	}
+	
+	input:focus{
+	outline: 0 0 0 0  !important;
+	box-shadow: 0 0 0 0 !important;
+	
+	}
+	
+	.remember{
+	color: white;
+	}
+	
+	.remember input
+	{
+	width: 20px;
+	height: 20px;
+	margin-left: 15px;
+	margin-right: 5px;
+	}
+	
+	.login_btn{
+	color: black;
+	background-color: #FFC312;
+	width: 100px;
+	}
+	
+	.login_btn:hover{
+	color: black;
+	background-color: white;
+	}
+	
+	.links{
+	color: white;
+	}
+	
+	.links a{
+	margin-left: 4px;
+	}
+
+/* END CSS LOGIN */
+
+
+/* Login-component */
+#login-section, #register-section, #public-holiday {
+	position: relative;
+	min-height: 100vh;
+}
+
+#login, #register {
+	position: absolute; 
+	left: 50%; top: 50%; 
+	transform: translateY(-50%) translateX(-50%)
+}
+
+.gambar {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: #00000069;
+}
+
+#dashboard-page {
+	margin-top: 10vh;
+	width: 100%;
+	height: 90vh;
+	background-image: "https://wallpaperaccess.com/full/30100.jpg";
+}
+
+/* Content */
+
+#content {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	width: 100%;
+	height: 90vh;
+	margin-top: 10vh;
+	background-color: none;
+	/* opacity: 0.7; */
+}
+
+
+/* Side Bar */
+
+#side-bar {
+	display: flex;
+	flex-direction: column;
+	background-color: antiquewhite;
+	width: 20%;
+	justify-content: stretch;
+	align-items: center;
+}
+
+#side-bar .avatar {
+	font-size: 100px;
+}
+
+#side-bar .action-user ul li {
+	list-style: none;
+}
+
+/* todo Component */
+
+#todo-component {
+	width: 80%;
+	padding: 50px 0;
+}
+
+.todos {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	background-color: skyblue;
+}
+
+.list-todos {
+	margin: 30px 0;
+	display: flex;
+	flex-direction: column-reverse;
+}
+
+.list-todos li {
+	margin-bottom: 15px;
+	display: flex;
+	flex-direction: row;
+	
+}
+
+.list-todos li .title {
+	width: 10%;
+}
+
+.list-todos li .description {
+	width: 15%;
+}
+
+/* .list-todos li .person {
+	width: 8%;
+}
+
+.list-todos li .due-date {
+	width: 5%;
+}
+
+.list-todos li .status {
+	width: 5%;
+} */
+
+.todo-user {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin: 0 30px;
+	background-color: aqua;
+}
+
+.todo-user .title, .todo-user .description, .todo-user .person, .todo-user .due-date, .todo-user .status, .todo-user .view-details {
+	display: flex;
+	flex-direction: column;
+	margin: 0 10px;
+	/* background-color: aqua; */
+}
+
+.todo-user .status {
+	margin: auto 10px;
+	margin-right: 0px;
+}
+.todo-user .view-details {
+	margin: auto 10px;
+	margin-left: 0xpx;
+	cursor: pointer;
+}
+
+.todo-user .title .top-named, .todo-user .description .top-named, .todo-user .person .top-named, .todo-user .due-date .top-named {
+	font-size: 15px;
+	color: #D3D3D3;
+	margin-bottom: 5px;
+}
+
+.todo-user .title .todo-content, .todo-user .description .todo-content, .todo-user .person .todo-content, .todo-user .due-date .todo-content {
+	font-size: 15px;
+	color: #000000;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.todo-user .view-details a {
+	font-size: 15px;
+	color: #000000;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.todo-user .status button {
+	font-size: 15px;
+	color: #000000;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
+
+#edit-status {
+    margin: 20px;
+}
+
+#public-holiday {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+section {
+    width: 100%;
+    height: 1200px;
+    /* background: url(https://mocra.org/wp-content/uploads/2018/05/Beach-Chair-Umbrella-Ocean.jpg); */
+    background-size: cover;
+}
+
+section .leftBox {
+    width: 45%;
+    height: 100%;
+    float: left;
+    margin-left: 10px;
+    box-sizing: border-box;
+}
+
+section .leftBox .content {
+    color: #fff;
+    background: rgba(0,0,0,.5);
+    padding: 40px;
+    transition: .5s;
+}
+
+section .leftBox .content:hover {
+    background : #e91e63;
+}
+
+section .leftBox .content h1 {
+     margin: 0;
+     padding: 0;
+     font-size: 50px;
+     text-transform: uppercase;
+}
+
+section .leftBox .content p {
+    margin: 10px 0 0;
+    padding: 0;
+}
+
+section .events {
+    position: relative;
+    width : 50%;
+    margin-right : 20px;
+    /* height : 100%; */
+    background: rgba(0,0,0,.5);
+    float: right;
+    box-sizing: border-box;
+}
+
+section .events .year h1 {
+    font-family: 'Roboto Condensed', sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: 50px;
+    text-transform: uppercase;
+    color: #fff;
+    text-align: right;
+}
+
+section .events ul {
+    /* position: fixed; */
+    top: 50%;
+    margin: 0;
+    padding: 10px;
+    box-sizing: border-box; 
+}
+
+section .events ul li {
+    list-style: none;
+    background: #fff;
+    box-sizing: border-box;
+    height: 100px;
+    margin: 15px;  
+}
+
+section .events ul li .time {
+    position: relative;
+    padding: 20px;
+    background: #262626;
+    box-sizing: border-box;
+    width: 30%;
+    height: 100%;
+    float: left;
+    text-align: center;
+    transition: .5s; 
+} 
+
+section .events ul li:hover .time {
+    background: #e91e63;
+}
+
+
+section .events ul li .time h2 {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 60px; 
+    line-height: 30px;
+}
+
+section .events ul li .time h2 span {
+    font-size: 30px;
+}
+
+section .events ul li .details {
+    padding: 20px;
+    background: #fff;
+    box-sizing: border-box;
+    width: 70%;
+    height: 100%;
+    float: right;
+}
+
+section .events ul li .details .date {
+    box-sizing: border-box;
+    color: white;
+    background: #e91e63;
+    width : 20%;
+    height : 50px;
+    float: left;
+    border: 2px solid #262626;
+}
+
+section .events ul li .details .date h2 {
+    text-align: center;
+}
+
+section .events ul li .details h3 {
+    position: relative;
+    margin: 10px 0 0;
+    padding: 10px;
+    font-size: 22px;
+    float: right;
+    width: 75%;
+} 
+
+section .events ul li .details p {
+    position: relative;
+    margin: 10px 0 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+section .events ul li .details a {
+    display: inline-block;
+    text-decoration: none;
+    /* text-transform: uppercase; */
+    padding: 10px 15px;
+    border: 2px solid #262626;
+    margin: 15px 0;
+    font-size: 18px;
+    transition: .5s;
+    /* float: right;   */
+}
+
+section .events ul li .details a:hover {
+    background: #e91e63;
+    color: #fff;
+    /* border-color: #e91e63; */
+
+}
+
+#public-holiday #year h1 {
+    color : white;
+    font-size : 50px;
+    margin: 10px 20px;
+}
+
+

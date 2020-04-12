@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="google-signin-client_id" content="818296196072-bt1ickq4r36nl1r9jis0cds3m68ajra9.apps.googleusercontent.com">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/src/style.css">
+  <title>Todo Apps</title>
+</head>
+<body>
+    <!-- <div id="eror" class="alert alert-primary" role="alert">
+                
+    </div> -->
+    
+  <section id="landing-page">
+
+    <!-- Navbar landing page -->
+    
+    <div id="navbar-home">
+      <div class="title">
+        <p>SweaT<span class="word">odo</span></p>
+      </div>
+      <div class="navigation">
+        <ul>
+          <li><a class="register" href="#">Register</a></li>
+          <li><a class="login" href="#">Login</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Home -->
+    <div id="home-section" style="position: relative;">
+      <div id="hero">
+        <div class="gambar">
+        </div>
+        <img src="https://wallpaperaccess.com/full/30100.jpg" class="d-block w-100" alt="...">
+      </div>
+    </div>
+
+    <!-- Login -->
+    <div id="login-section" style="position: relative;">
+      <div id="hero">
+        <div class="gambar">
+        </div>
+        <img src="https://wallpaperaccess.com/full/30100.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div id="login" style="position: absolute; left: 50%; top: 50%; transform: translateY(-50%) translateX(-50%)">
+        <div class="container">
+          <div class="d-flex justify-content-center h-100">
+            <div class="card">
+              <div class="card-header">
+                <h3 style="text-align: center;">Login</h3>
+                <div id="register-g-sign" class="g-signin2" data-onsuccess="onSignIn"></div>
+              </div>
+              <div class="card-body">
+                <form>
+                  <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
+                    </div>
+                    <input id="login-email" type="email" class="form-control" placeholder="email">
+                  </div>
+                  <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-key"></i></span>
+                    </div>
+                    <input id="login-password" type="password" class="form-control" placeholder="password">
+                  </div>
+                  <div class="row align-items-center remember">
+                    <input type="checkbox">Remember Me
+                  </div>
+                  <div class="form-group">
+                    <input type="submit" value="Login" class="btn float-right login_btn">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Register -->
+    <div id="register-section" style="position: relative;">
+        <div id="hero">
+          <div class="gambar">
+          </div>
+          <img src="https://wallpaperaccess.com/full/30100.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div id="register">
+          <div class="container">
+            <div class="d-flex justify-content-center h-100">
+              <div class="card">
+                <div class="card-header">
+                  <h3 style="text-align: center;">Register</h3>
+                  <div id="register-g-sign" class="g-signin2" data-onsuccess="onSignIn"></div>
+                </div>
+                <div class="card-body">
+                  <form>
+                    <div class="input-group form-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                      </div>
+                      <input id="register-name" type="text" class="form-control" placeholder="name">
+                    </div>
+                    <div class="input-group form-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
+                      </div>
+                      <input id="register-email" type="email" class="form-control" placeholder="email">
+                    </div>
+                    <div class="input-group form-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                      </div>
+                      <input id="register-password" type="password" class="form-control" placeholder="password">
+                    </div>
+                    <div class="row align-items-center remember">
+                      <input type="checkbox">Remember Me
+                    </div>
+                    <div class="form-group">
+                      <input type="submit" value="Register" class="btn float-right login_btn">
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="public-holiday">
+        <section>
+            <div class="leftBox">
+            <div class="content">
+                <h1>PLANNING YOUR TODO LIST BEFORE HOLIDAY</h1>
+                <p>Banyak orang beranggapan bahwa membuat to-do-list hanya membuang-buang waktu. Membuat list harian kesannya memang hal yang mudah dan sepele, namun jangan salah ada banyak manfaat lho dari sekadar menulis daftar pekerjaan kita untuk satu hari ke depan. Simak manfaat to-do-list berikut :
+                        <br><br>
+                        1. Lebih terorganisir
+                        Tidak sedikit yang merasakan kesulitan menyelesaikan tumpukan tugas dalam satu hari. Selain bingung harus mulai dari mana, tugas yang terlanjur menggung membuat perasaan jadi malas. Seharusnya hal ini tidak perlu terjadi kalau kita sudah membuat to-do-list harian secara cermat. Tidak hanya sekadar dibuat tapi juga harus bertanggung jawab untuk melakukannya.
+                        <br><br>
+                        2. Lebih produktif
+                        Dalam membuat list kegiatan harian biasanya kita akan membuat skala prioritas dari yang terpenting hingga kurang penting. Dengan begini kita akan terhindar dari kegiatan yang hanya membuang-buang waktu. Rasa puas akan didapat setelah kita berhasil mentelesaikan semua tepat pada waktunya.
+                        <br><br>
+                        3. Meningkatkan memori
+                        Sesekali lupa sih wajar, tapi kalau sering lupa bagaimana ya? Lupa akan hal penting selain merugikan diri sendiri juga bisa merugikan pihak lain. Lupa akan adanya meeting ataupun pertemuan penting dengan client bisa merusak hubungan kerja. Ya, takut lupa akan hal penting bisa kita cegah dengan membuat memo di handphone dengan menyetel jadwal pengingat satu hari sebelumnya atau di pagi hari sebelum beraktivitas. Sehingga hal penting yang sudah terjadwal sejak jauh hari bisa kita masukkan dalam to-do-list harian kita.
+                        <br><br>
+                        4. Alat motivasi
+                        Pekerjaan demi pekerjaan yang sudah terselesaikan dengan baik akan kita coret dalam list kegiatan harian kita. Sehingga tersisa beberapa pekerjaan lagi yang menunggu diselesaikan. Melihat banyaknya list yang sudah kita coret akan memotivasi kita untuk menyelesaikan tugas selanjutnya dengan sebaik-baiknya. Bahkan kemampuan kita dalam menyelesaikan semuanya tepat waktu akan memotivasi kita untuk dalam menyelesaikan to-do-list hari berikutnya.
+                        <br><br>
+                        5. Melatih kedisiplinan
+                        Semua list kegiatan harian yang kita buat sudah melalui rangkaian pemikiran secara matang. Menunda-nunda serta melalaikan sedikit saja pekerjaan akan berimbas terhadap pekerjaan lainnya. Dengan mengikuti pakem yang ada kita akan berlatih kedisiplinan untuk menyelesaikan segala sesuatu tepat pada waktuny.</p>
+            </div>
+            </div>
+            <div class="events">
+            <div id="year">
+                <h1></h1>
+            </div>
+            <ul id="dating">
+            </ul>
+            </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="dashboard-page">
+      <!-- Navbar Dashboard -->
+      <div id="navbar-dashboard">
+        <div class="title">
+          <p>SweaT<span class="word">odo</span></p>
+        </div>
+        <div class="navigation">
+          <ul>
+            <li><a id="logout"><i class="fas fa-sign-out-alt"></i></a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Side bar -->
+      <div id="content">
+        <div id="side-bar">
+          <div id="profile" class="profile">
+            <h1 class="avatar"><i class="fas fa-user-circle"></i></h1>
+            
+          </div>
+          <div class="action-user">
+            <button id="form-add-todo" class="btn btn-info">Add Todo</button>
+            <ul>
+              <li><a>All Todos</a></li>
+            </ul>
+          </div>
+        </div>
+        <div id="todo-component">
+          <div class="todos">
+            <ul class="list-todos">
+              <!-- <li> </li> -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+ 
+    <div id="add-todo" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Todo</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div>
+                <label for="title">Title</label>
+                <input type="text" id="todo-title" class="form-control" placeholder="Required example title" required>
+              </div>
+              <div class="mb-3">
+                <label for="validationTextarea">Description</label>
+                <textarea class="form-control" id="todo-description" placeholder="Required example description" required></textarea>
+                <div class="invalid-feedback">
+                  Please enter a message in the textarea.
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Example select</label>
+                <select id="todo-status" class="form-control" id="exampleFormControlSelect1">
+                  <!-- <option> </option> -->
+                </select>
+              </div>
+              <div>
+                <label for="due_date">Example select</label>
+                <input type="date" id="todo-duedate" class="form-control">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="edit-todo" class="modal" tabindex="-1" role="dialog"></div>
+      <!-- <div>  </div>-->
+    </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
