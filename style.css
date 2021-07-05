@@ -1,0 +1,74 @@
+#register-page{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('./images/background.png');
+  }
+  
+#register{
+  border: 1px solid gray;
+  padding: 50px;
+  border-radius: 20px;
+  background-color: whitesmoke;
+  text-align: center;
+}
+
+#register p{
+  margin-top: 10px;
+}
+
+#login-page{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+height: 100vh;
+background-image: url('./images/background.png');
+}
+
+#quotes{
+  color: white;
+  margin-top: 3rem;
+}
+
+#login{
+  border: 1px solid gray;
+  padding: 50px;
+  border-radius: 20px;
+  background-color: whitesmoke;
+  text-align: center;
+  box-shadow: 0 0 20px black;
+}
+
+#login p{
+  margin-top: 20px;
+}
+
+#button{
+text-align: center;
+}
+
+#gsignin{
+  display: flex;
+  justify-content: center;
+}
+
+#dashboard-page{
+  display: flex;
+  flex-direction: column;
+  
+  height: 100vh;
+  padding: 0 20rem;
+}
+
+#header-dash{
+  display: flex;
+  margin-top: 10rem;
+  justify-content: space-between;
+}
+
+#todos{
+  display: flex;
+
+}

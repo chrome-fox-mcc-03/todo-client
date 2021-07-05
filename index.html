@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-signin-client_id"
+    content="490458742511-2m7pr85cq26u013cnskurj96cqq3v0bq.apps.googleusercontent.com">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div id="register-page">
+    <div id="register">
+      <h1>REGISTER</h1>
+      <form id="form-register">
+        <div class="form-group">
+          <input type="email" class="form-control" id="email-register" aria-describedby="emailHelp"
+            placeholder="Input your email here" required>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" id="password-register" placeholder="Password" required>
+        </div>
+        <div id="button">
+          <input type="submit" class="btn btn-primary" value="Submit">
+        </div>
+        <p> Already have an account? <a id="login-btn" href="#">LogIn</a></p>
+      </form>
+    </div>
+  </div>
+
+  <div id="login-page">
+    <div id="login">
+      <h1>LOGIN</h1>
+      <form id="form-login">
+        <div class="form-group">
+          <input type="email" class="form-control" id="email-login" aria-describedby="emailHelp"
+            placeholder="Input your email here" required>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" id="password-login" placeholder="Password" required>
+        </div>
+        <div id="button">
+          <input type="submit" class="btn btn-primary" value="Submit">
+        </div>
+        <p> Or you can use:</p>
+        <div id="gsignin">
+          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        </div>
+        <p> Need account? <a id="register-btn" href="#">Register</a></p>
+      </form>
+    </div>
+    <div id="quotes"></div>
+  </div>
+
+  <div id="dashboard-page">
+    <div id="header-dash">
+      <h1>Dashboard</h1>
+      <input id="create-btn" type="button" value="Create Todo">
+    </div>
+    <div id="todos"></div>
+    <div>
+      <input id="logout-btn" type="submit" value="Log-Out">
+    </div>
+  </div>
+
+  <div id="create-page"> 
+    <form id="create-form">
+      <div class="form-group">
+        <label for="todo-title">Title:</label>
+        <input type="text" class="form-control" id="todo-title">
+      </div>
+      <div class="form-group">
+        <label for="todo-description">Description:</label>
+        <textarea class="form-control" id="todo-description" rows="3"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="todo-due_date">Due Date:</label>
+        <input type="date" class="form-control" id="todo-due_date">
+      </div>
+      <input type="submit" class="btn btn-primary" value="Submit">
+    </form>
+  </div>
+  
+
+  <div id="update-page">
+    <form id="update-form">
+      <div class="form-group">
+        <label for="update-title">Title:</label>
+        <input type="text" class="form-control" id="update-title">
+      </div>
+      <div class="form-group">
+        <label for="update-description">Description:</label>
+        <textarea class="form-control" id="update-description" rows="3"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="update-due_date">Title:</label>
+        <input type="date" class="form-control" id="update-due_date">
+      </div>
+      <input type="submit" class="btn btn-primary" value="Submit">
+    </form>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>
